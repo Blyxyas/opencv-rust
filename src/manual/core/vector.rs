@@ -74,6 +74,12 @@ impl<T: VectorElement> Vector<T> where Self: VectorExtern<T> {
 		unsafe { self.extern_capacity() }
 	}
 
+    /// Resizes a Vector to a new capacity.
+    #[inline]
+    pub fn resize(&self, new_size: size_t) {
+        unsafe { self.extern_resize(new_size) }
+    }
+
 	/// Free extra capacity
 	#[inline]
 	pub fn shrink_to_fit(&mut self) {

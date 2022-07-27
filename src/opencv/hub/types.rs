@@ -163,7 +163,7 @@ mod barcode_types {
 	vector_extern! { crate::barcode::BarcodeType, *const c_void, *mut c_void,
 		cv_VectorOfBarcodeType_new, cv_VectorOfBarcodeType_delete,
 		cv_VectorOfBarcodeType_len, cv_VectorOfBarcodeType_is_empty,
-		cv_VectorOfBarcodeType_capacity, cv_VectorOfBarcodeType_shrink_to_fit,
+		cv_VectorOfBarcodeType_capacity, cv_VectorOfBarcodeType_resize, cv_VectorOfBarcodeType_shrink_to_fit,
 		cv_VectorOfBarcodeType_reserve, cv_VectorOfBarcodeType_remove,
 		cv_VectorOfBarcodeType_swap, cv_VectorOfBarcodeType_clear,
 		cv_VectorOfBarcodeType_get, cv_VectorOfBarcodeType_set,
@@ -863,7 +863,7 @@ mod core_types {
 	vector_extern! { core::DMatch, *const c_void, *mut c_void,
 		cv_VectorOfDMatch_new, cv_VectorOfDMatch_delete,
 		cv_VectorOfDMatch_len, cv_VectorOfDMatch_is_empty,
-		cv_VectorOfDMatch_capacity, cv_VectorOfDMatch_shrink_to_fit,
+		cv_VectorOfDMatch_capacity, cv_VectorOfDMatch_resize, cv_VectorOfDMatch_shrink_to_fit,
 		cv_VectorOfDMatch_reserve, cv_VectorOfDMatch_remove,
 		cv_VectorOfDMatch_swap, cv_VectorOfDMatch_clear,
 		cv_VectorOfDMatch_get, cv_VectorOfDMatch_set,
@@ -886,7 +886,7 @@ mod core_types {
 	vector_extern! { core::GpuMat, *const c_void, *mut c_void,
 		cv_VectorOfGpuMat_new, cv_VectorOfGpuMat_delete,
 		cv_VectorOfGpuMat_len, cv_VectorOfGpuMat_is_empty,
-		cv_VectorOfGpuMat_capacity, cv_VectorOfGpuMat_shrink_to_fit,
+		cv_VectorOfGpuMat_capacity, cv_VectorOfGpuMat_resize, cv_VectorOfGpuMat_shrink_to_fit,
 		cv_VectorOfGpuMat_reserve, cv_VectorOfGpuMat_remove,
 		cv_VectorOfGpuMat_swap, cv_VectorOfGpuMat_clear,
 		cv_VectorOfGpuMat_get, cv_VectorOfGpuMat_set,
@@ -906,7 +906,7 @@ mod core_types {
 	vector_extern! { core::KeyPoint, *const c_void, *mut c_void,
 		cv_VectorOfKeyPoint_new, cv_VectorOfKeyPoint_delete,
 		cv_VectorOfKeyPoint_len, cv_VectorOfKeyPoint_is_empty,
-		cv_VectorOfKeyPoint_capacity, cv_VectorOfKeyPoint_shrink_to_fit,
+		cv_VectorOfKeyPoint_capacity, cv_VectorOfKeyPoint_resize, cv_VectorOfKeyPoint_shrink_to_fit,
 		cv_VectorOfKeyPoint_reserve, cv_VectorOfKeyPoint_remove,
 		cv_VectorOfKeyPoint_swap, cv_VectorOfKeyPoint_clear,
 		cv_VectorOfKeyPoint_get, cv_VectorOfKeyPoint_set,
@@ -929,7 +929,7 @@ mod core_types {
 	vector_extern! { core::Mat, *const c_void, *mut c_void,
 		cv_VectorOfMat_new, cv_VectorOfMat_delete,
 		cv_VectorOfMat_len, cv_VectorOfMat_is_empty,
-		cv_VectorOfMat_capacity, cv_VectorOfMat_shrink_to_fit,
+		cv_VectorOfMat_capacity, cv_VectorOfMat_resize, cv_VectorOfMat_shrink_to_fit,
 		cv_VectorOfMat_reserve, cv_VectorOfMat_remove,
 		cv_VectorOfMat_swap, cv_VectorOfMat_clear,
 		cv_VectorOfMat_get, cv_VectorOfMat_set,
@@ -949,7 +949,7 @@ mod core_types {
 	vector_extern! { core::PlatformInfo, *const c_void, *mut c_void,
 		cv_VectorOfPlatformInfo_new, cv_VectorOfPlatformInfo_delete,
 		cv_VectorOfPlatformInfo_len, cv_VectorOfPlatformInfo_is_empty,
-		cv_VectorOfPlatformInfo_capacity, cv_VectorOfPlatformInfo_shrink_to_fit,
+		cv_VectorOfPlatformInfo_capacity, cv_VectorOfPlatformInfo_resize, cv_VectorOfPlatformInfo_shrink_to_fit,
 		cv_VectorOfPlatformInfo_reserve, cv_VectorOfPlatformInfo_remove,
 		cv_VectorOfPlatformInfo_swap, cv_VectorOfPlatformInfo_clear,
 		cv_VectorOfPlatformInfo_get, cv_VectorOfPlatformInfo_set,
@@ -969,7 +969,7 @@ mod core_types {
 	vector_extern! { core::Point, *const c_void, *mut c_void,
 		cv_VectorOfPoint_new, cv_VectorOfPoint_delete,
 		cv_VectorOfPoint_len, cv_VectorOfPoint_is_empty,
-		cv_VectorOfPoint_capacity, cv_VectorOfPoint_shrink_to_fit,
+		cv_VectorOfPoint_capacity, cv_VectorOfPoint_resize, cv_VectorOfPoint_shrink_to_fit,
 		cv_VectorOfPoint_reserve, cv_VectorOfPoint_remove,
 		cv_VectorOfPoint_swap, cv_VectorOfPoint_clear,
 		cv_VectorOfPoint_get, cv_VectorOfPoint_set,
@@ -1030,7 +1030,7 @@ mod core_types {
 	vector_extern! { core::Point2d, *const c_void, *mut c_void,
 		cv_VectorOfPoint2d_new, cv_VectorOfPoint2d_delete,
 		cv_VectorOfPoint2d_len, cv_VectorOfPoint2d_is_empty,
-		cv_VectorOfPoint2d_capacity, cv_VectorOfPoint2d_shrink_to_fit,
+		cv_VectorOfPoint2d_capacity, cv_VectorOfPoint2d_resize, cv_VectorOfPoint2d_shrink_to_fit,
 		cv_VectorOfPoint2d_reserve, cv_VectorOfPoint2d_remove,
 		cv_VectorOfPoint2d_swap, cv_VectorOfPoint2d_clear,
 		cv_VectorOfPoint2d_get, cv_VectorOfPoint2d_set,
@@ -1091,7 +1091,7 @@ mod core_types {
 	vector_extern! { core::Point2f, *const c_void, *mut c_void,
 		cv_VectorOfPoint2f_new, cv_VectorOfPoint2f_delete,
 		cv_VectorOfPoint2f_len, cv_VectorOfPoint2f_is_empty,
-		cv_VectorOfPoint2f_capacity, cv_VectorOfPoint2f_shrink_to_fit,
+		cv_VectorOfPoint2f_capacity, cv_VectorOfPoint2f_resize, cv_VectorOfPoint2f_shrink_to_fit,
 		cv_VectorOfPoint2f_reserve, cv_VectorOfPoint2f_remove,
 		cv_VectorOfPoint2f_swap, cv_VectorOfPoint2f_clear,
 		cv_VectorOfPoint2f_get, cv_VectorOfPoint2f_set,
@@ -1152,7 +1152,7 @@ mod core_types {
 	vector_extern! { core::Point3d, *const c_void, *mut c_void,
 		cv_VectorOfPoint3d_new, cv_VectorOfPoint3d_delete,
 		cv_VectorOfPoint3d_len, cv_VectorOfPoint3d_is_empty,
-		cv_VectorOfPoint3d_capacity, cv_VectorOfPoint3d_shrink_to_fit,
+		cv_VectorOfPoint3d_capacity, cv_VectorOfPoint3d_resize, cv_VectorOfPoint3d_shrink_to_fit,
 		cv_VectorOfPoint3d_reserve, cv_VectorOfPoint3d_remove,
 		cv_VectorOfPoint3d_swap, cv_VectorOfPoint3d_clear,
 		cv_VectorOfPoint3d_get, cv_VectorOfPoint3d_set,
@@ -1213,7 +1213,7 @@ mod core_types {
 	vector_extern! { core::Point3f, *const c_void, *mut c_void,
 		cv_VectorOfPoint3f_new, cv_VectorOfPoint3f_delete,
 		cv_VectorOfPoint3f_len, cv_VectorOfPoint3f_is_empty,
-		cv_VectorOfPoint3f_capacity, cv_VectorOfPoint3f_shrink_to_fit,
+		cv_VectorOfPoint3f_capacity, cv_VectorOfPoint3f_resize, cv_VectorOfPoint3f_shrink_to_fit,
 		cv_VectorOfPoint3f_reserve, cv_VectorOfPoint3f_remove,
 		cv_VectorOfPoint3f_swap, cv_VectorOfPoint3f_clear,
 		cv_VectorOfPoint3f_get, cv_VectorOfPoint3f_set,
@@ -1274,7 +1274,7 @@ mod core_types {
 	vector_extern! { core::Point3i, *const c_void, *mut c_void,
 		cv_VectorOfPoint3i_new, cv_VectorOfPoint3i_delete,
 		cv_VectorOfPoint3i_len, cv_VectorOfPoint3i_is_empty,
-		cv_VectorOfPoint3i_capacity, cv_VectorOfPoint3i_shrink_to_fit,
+		cv_VectorOfPoint3i_capacity, cv_VectorOfPoint3i_resize, cv_VectorOfPoint3i_shrink_to_fit,
 		cv_VectorOfPoint3i_reserve, cv_VectorOfPoint3i_remove,
 		cv_VectorOfPoint3i_swap, cv_VectorOfPoint3i_clear,
 		cv_VectorOfPoint3i_get, cv_VectorOfPoint3i_set,
@@ -1335,7 +1335,7 @@ mod core_types {
 	vector_extern! { core::Range, *const c_void, *mut c_void,
 		cv_VectorOfRange_new, cv_VectorOfRange_delete,
 		cv_VectorOfRange_len, cv_VectorOfRange_is_empty,
-		cv_VectorOfRange_capacity, cv_VectorOfRange_shrink_to_fit,
+		cv_VectorOfRange_capacity, cv_VectorOfRange_resize, cv_VectorOfRange_shrink_to_fit,
 		cv_VectorOfRange_reserve, cv_VectorOfRange_remove,
 		cv_VectorOfRange_swap, cv_VectorOfRange_clear,
 		cv_VectorOfRange_get, cv_VectorOfRange_set,
@@ -1355,7 +1355,7 @@ mod core_types {
 	vector_extern! { core::Rect, *const c_void, *mut c_void,
 		cv_VectorOfRect_new, cv_VectorOfRect_delete,
 		cv_VectorOfRect_len, cv_VectorOfRect_is_empty,
-		cv_VectorOfRect_capacity, cv_VectorOfRect_shrink_to_fit,
+		cv_VectorOfRect_capacity, cv_VectorOfRect_resize, cv_VectorOfRect_shrink_to_fit,
 		cv_VectorOfRect_reserve, cv_VectorOfRect_remove,
 		cv_VectorOfRect_swap, cv_VectorOfRect_clear,
 		cv_VectorOfRect_get, cv_VectorOfRect_set,
@@ -1416,7 +1416,7 @@ mod core_types {
 	vector_extern! { core::Rect2d, *const c_void, *mut c_void,
 		cv_VectorOfRect2d_new, cv_VectorOfRect2d_delete,
 		cv_VectorOfRect2d_len, cv_VectorOfRect2d_is_empty,
-		cv_VectorOfRect2d_capacity, cv_VectorOfRect2d_shrink_to_fit,
+		cv_VectorOfRect2d_capacity, cv_VectorOfRect2d_resize, cv_VectorOfRect2d_shrink_to_fit,
 		cv_VectorOfRect2d_reserve, cv_VectorOfRect2d_remove,
 		cv_VectorOfRect2d_swap, cv_VectorOfRect2d_clear,
 		cv_VectorOfRect2d_get, cv_VectorOfRect2d_set,
@@ -1477,7 +1477,7 @@ mod core_types {
 	vector_extern! { core::RotatedRect, *const c_void, *mut c_void,
 		cv_VectorOfRotatedRect_new, cv_VectorOfRotatedRect_delete,
 		cv_VectorOfRotatedRect_len, cv_VectorOfRotatedRect_is_empty,
-		cv_VectorOfRotatedRect_capacity, cv_VectorOfRotatedRect_shrink_to_fit,
+		cv_VectorOfRotatedRect_capacity, cv_VectorOfRotatedRect_resize, cv_VectorOfRotatedRect_shrink_to_fit,
 		cv_VectorOfRotatedRect_reserve, cv_VectorOfRotatedRect_remove,
 		cv_VectorOfRotatedRect_swap, cv_VectorOfRotatedRect_clear,
 		cv_VectorOfRotatedRect_get, cv_VectorOfRotatedRect_set,
@@ -1497,7 +1497,7 @@ mod core_types {
 	vector_extern! { core::Scalar, *const c_void, *mut c_void,
 		cv_VectorOfScalar_new, cv_VectorOfScalar_delete,
 		cv_VectorOfScalar_len, cv_VectorOfScalar_is_empty,
-		cv_VectorOfScalar_capacity, cv_VectorOfScalar_shrink_to_fit,
+		cv_VectorOfScalar_capacity, cv_VectorOfScalar_resize, cv_VectorOfScalar_shrink_to_fit,
 		cv_VectorOfScalar_reserve, cv_VectorOfScalar_remove,
 		cv_VectorOfScalar_swap, cv_VectorOfScalar_clear,
 		cv_VectorOfScalar_get, cv_VectorOfScalar_set,
@@ -1558,7 +1558,7 @@ mod core_types {
 	vector_extern! { core::Size, *const c_void, *mut c_void,
 		cv_VectorOfSize_new, cv_VectorOfSize_delete,
 		cv_VectorOfSize_len, cv_VectorOfSize_is_empty,
-		cv_VectorOfSize_capacity, cv_VectorOfSize_shrink_to_fit,
+		cv_VectorOfSize_capacity, cv_VectorOfSize_resize, cv_VectorOfSize_shrink_to_fit,
 		cv_VectorOfSize_reserve, cv_VectorOfSize_remove,
 		cv_VectorOfSize_swap, cv_VectorOfSize_clear,
 		cv_VectorOfSize_get, cv_VectorOfSize_set,
@@ -1619,7 +1619,7 @@ mod core_types {
 	vector_extern! { String, *const c_void, *mut c_void,
 		cv_VectorOfString_new, cv_VectorOfString_delete,
 		cv_VectorOfString_len, cv_VectorOfString_is_empty,
-		cv_VectorOfString_capacity, cv_VectorOfString_shrink_to_fit,
+		cv_VectorOfString_capacity, cv_VectorOfString_resize, cv_VectorOfString_shrink_to_fit,
 		cv_VectorOfString_reserve, cv_VectorOfString_remove,
 		cv_VectorOfString_swap, cv_VectorOfString_clear,
 		cv_VectorOfString_get, cv_VectorOfString_set,
@@ -1639,7 +1639,7 @@ mod core_types {
 	vector_extern! { core::UMat, *const c_void, *mut c_void,
 		cv_VectorOfUMat_new, cv_VectorOfUMat_delete,
 		cv_VectorOfUMat_len, cv_VectorOfUMat_is_empty,
-		cv_VectorOfUMat_capacity, cv_VectorOfUMat_shrink_to_fit,
+		cv_VectorOfUMat_capacity, cv_VectorOfUMat_resize, cv_VectorOfUMat_shrink_to_fit,
 		cv_VectorOfUMat_reserve, cv_VectorOfUMat_remove,
 		cv_VectorOfUMat_swap, cv_VectorOfUMat_clear,
 		cv_VectorOfUMat_get, cv_VectorOfUMat_set,
@@ -1659,7 +1659,7 @@ mod core_types {
 	vector_extern! { core::Vec2d, *const c_void, *mut c_void,
 		cv_VectorOfVec2d_new, cv_VectorOfVec2d_delete,
 		cv_VectorOfVec2d_len, cv_VectorOfVec2d_is_empty,
-		cv_VectorOfVec2d_capacity, cv_VectorOfVec2d_shrink_to_fit,
+		cv_VectorOfVec2d_capacity, cv_VectorOfVec2d_resize, cv_VectorOfVec2d_shrink_to_fit,
 		cv_VectorOfVec2d_reserve, cv_VectorOfVec2d_remove,
 		cv_VectorOfVec2d_swap, cv_VectorOfVec2d_clear,
 		cv_VectorOfVec2d_get, cv_VectorOfVec2d_set,
@@ -1720,7 +1720,7 @@ mod core_types {
 	vector_extern! { core::Vec2f, *const c_void, *mut c_void,
 		cv_VectorOfVec2f_new, cv_VectorOfVec2f_delete,
 		cv_VectorOfVec2f_len, cv_VectorOfVec2f_is_empty,
-		cv_VectorOfVec2f_capacity, cv_VectorOfVec2f_shrink_to_fit,
+		cv_VectorOfVec2f_capacity, cv_VectorOfVec2f_resize, cv_VectorOfVec2f_shrink_to_fit,
 		cv_VectorOfVec2f_reserve, cv_VectorOfVec2f_remove,
 		cv_VectorOfVec2f_swap, cv_VectorOfVec2f_clear,
 		cv_VectorOfVec2f_get, cv_VectorOfVec2f_set,
@@ -1781,7 +1781,7 @@ mod core_types {
 	vector_extern! { core::Vec2i, *const c_void, *mut c_void,
 		cv_VectorOfVec2i_new, cv_VectorOfVec2i_delete,
 		cv_VectorOfVec2i_len, cv_VectorOfVec2i_is_empty,
-		cv_VectorOfVec2i_capacity, cv_VectorOfVec2i_shrink_to_fit,
+		cv_VectorOfVec2i_capacity, cv_VectorOfVec2i_resize, cv_VectorOfVec2i_shrink_to_fit,
 		cv_VectorOfVec2i_reserve, cv_VectorOfVec2i_remove,
 		cv_VectorOfVec2i_swap, cv_VectorOfVec2i_clear,
 		cv_VectorOfVec2i_get, cv_VectorOfVec2i_set,
@@ -1842,7 +1842,7 @@ mod core_types {
 	vector_extern! { core::Vec3d, *const c_void, *mut c_void,
 		cv_VectorOfVec3d_new, cv_VectorOfVec3d_delete,
 		cv_VectorOfVec3d_len, cv_VectorOfVec3d_is_empty,
-		cv_VectorOfVec3d_capacity, cv_VectorOfVec3d_shrink_to_fit,
+		cv_VectorOfVec3d_capacity, cv_VectorOfVec3d_resize, cv_VectorOfVec3d_shrink_to_fit,
 		cv_VectorOfVec3d_reserve, cv_VectorOfVec3d_remove,
 		cv_VectorOfVec3d_swap, cv_VectorOfVec3d_clear,
 		cv_VectorOfVec3d_get, cv_VectorOfVec3d_set,
@@ -1903,7 +1903,7 @@ mod core_types {
 	vector_extern! { core::Vec3f, *const c_void, *mut c_void,
 		cv_VectorOfVec3f_new, cv_VectorOfVec3f_delete,
 		cv_VectorOfVec3f_len, cv_VectorOfVec3f_is_empty,
-		cv_VectorOfVec3f_capacity, cv_VectorOfVec3f_shrink_to_fit,
+		cv_VectorOfVec3f_capacity, cv_VectorOfVec3f_resize, cv_VectorOfVec3f_shrink_to_fit,
 		cv_VectorOfVec3f_reserve, cv_VectorOfVec3f_remove,
 		cv_VectorOfVec3f_swap, cv_VectorOfVec3f_clear,
 		cv_VectorOfVec3f_get, cv_VectorOfVec3f_set,
@@ -1964,7 +1964,7 @@ mod core_types {
 	vector_extern! { core::Vec3i, *const c_void, *mut c_void,
 		cv_VectorOfVec3i_new, cv_VectorOfVec3i_delete,
 		cv_VectorOfVec3i_len, cv_VectorOfVec3i_is_empty,
-		cv_VectorOfVec3i_capacity, cv_VectorOfVec3i_shrink_to_fit,
+		cv_VectorOfVec3i_capacity, cv_VectorOfVec3i_resize, cv_VectorOfVec3i_shrink_to_fit,
 		cv_VectorOfVec3i_reserve, cv_VectorOfVec3i_remove,
 		cv_VectorOfVec3i_swap, cv_VectorOfVec3i_clear,
 		cv_VectorOfVec3i_get, cv_VectorOfVec3i_set,
@@ -2025,7 +2025,7 @@ mod core_types {
 	vector_extern! { core::Vec4f, *const c_void, *mut c_void,
 		cv_VectorOfVec4f_new, cv_VectorOfVec4f_delete,
 		cv_VectorOfVec4f_len, cv_VectorOfVec4f_is_empty,
-		cv_VectorOfVec4f_capacity, cv_VectorOfVec4f_shrink_to_fit,
+		cv_VectorOfVec4f_capacity, cv_VectorOfVec4f_resize, cv_VectorOfVec4f_shrink_to_fit,
 		cv_VectorOfVec4f_reserve, cv_VectorOfVec4f_remove,
 		cv_VectorOfVec4f_swap, cv_VectorOfVec4f_clear,
 		cv_VectorOfVec4f_get, cv_VectorOfVec4f_set,
@@ -2086,7 +2086,7 @@ mod core_types {
 	vector_extern! { core::Vec4i, *const c_void, *mut c_void,
 		cv_VectorOfVec4i_new, cv_VectorOfVec4i_delete,
 		cv_VectorOfVec4i_len, cv_VectorOfVec4i_is_empty,
-		cv_VectorOfVec4i_capacity, cv_VectorOfVec4i_shrink_to_fit,
+		cv_VectorOfVec4i_capacity, cv_VectorOfVec4i_resize, cv_VectorOfVec4i_shrink_to_fit,
 		cv_VectorOfVec4i_reserve, cv_VectorOfVec4i_remove,
 		cv_VectorOfVec4i_swap, cv_VectorOfVec4i_clear,
 		cv_VectorOfVec4i_get, cv_VectorOfVec4i_set,
@@ -2147,7 +2147,7 @@ mod core_types {
 	vector_extern! { core::Vec6f, *const c_void, *mut c_void,
 		cv_VectorOfVec6f_new, cv_VectorOfVec6f_delete,
 		cv_VectorOfVec6f_len, cv_VectorOfVec6f_is_empty,
-		cv_VectorOfVec6f_capacity, cv_VectorOfVec6f_shrink_to_fit,
+		cv_VectorOfVec6f_capacity, cv_VectorOfVec6f_resize, cv_VectorOfVec6f_shrink_to_fit,
 		cv_VectorOfVec6f_reserve, cv_VectorOfVec6f_remove,
 		cv_VectorOfVec6f_swap, cv_VectorOfVec6f_clear,
 		cv_VectorOfVec6f_get, cv_VectorOfVec6f_set,
@@ -2208,7 +2208,7 @@ mod core_types {
 	vector_extern! { core::Vector<core::DMatch>, *const c_void, *mut c_void,
 		cv_VectorOfVectorOfDMatch_new, cv_VectorOfVectorOfDMatch_delete,
 		cv_VectorOfVectorOfDMatch_len, cv_VectorOfVectorOfDMatch_is_empty,
-		cv_VectorOfVectorOfDMatch_capacity, cv_VectorOfVectorOfDMatch_shrink_to_fit,
+		cv_VectorOfVectorOfDMatch_capacity, cv_VectorOfVectorOfDMatch_resize, cv_VectorOfVectorOfDMatch_shrink_to_fit,
 		cv_VectorOfVectorOfDMatch_reserve, cv_VectorOfVectorOfDMatch_remove,
 		cv_VectorOfVectorOfDMatch_swap, cv_VectorOfVectorOfDMatch_clear,
 		cv_VectorOfVectorOfDMatch_get, cv_VectorOfVectorOfDMatch_set,
@@ -2228,7 +2228,7 @@ mod core_types {
 	vector_extern! { core::Vector<core::KeyPoint>, *const c_void, *mut c_void,
 		cv_VectorOfVectorOfKeyPoint_new, cv_VectorOfVectorOfKeyPoint_delete,
 		cv_VectorOfVectorOfKeyPoint_len, cv_VectorOfVectorOfKeyPoint_is_empty,
-		cv_VectorOfVectorOfKeyPoint_capacity, cv_VectorOfVectorOfKeyPoint_shrink_to_fit,
+		cv_VectorOfVectorOfKeyPoint_capacity, cv_VectorOfVectorOfKeyPoint_resize, cv_VectorOfVectorOfKeyPoint_shrink_to_fit,
 		cv_VectorOfVectorOfKeyPoint_reserve, cv_VectorOfVectorOfKeyPoint_remove,
 		cv_VectorOfVectorOfKeyPoint_swap, cv_VectorOfVectorOfKeyPoint_clear,
 		cv_VectorOfVectorOfKeyPoint_get, cv_VectorOfVectorOfKeyPoint_set,
@@ -2248,7 +2248,7 @@ mod core_types {
 	vector_extern! { core::Vector<core::Mat>, *const c_void, *mut c_void,
 		cv_VectorOfVectorOfMat_new, cv_VectorOfVectorOfMat_delete,
 		cv_VectorOfVectorOfMat_len, cv_VectorOfVectorOfMat_is_empty,
-		cv_VectorOfVectorOfMat_capacity, cv_VectorOfVectorOfMat_shrink_to_fit,
+		cv_VectorOfVectorOfMat_capacity, cv_VectorOfVectorOfMat_resize, cv_VectorOfVectorOfMat_shrink_to_fit,
 		cv_VectorOfVectorOfMat_reserve, cv_VectorOfVectorOfMat_remove,
 		cv_VectorOfVectorOfMat_swap, cv_VectorOfVectorOfMat_clear,
 		cv_VectorOfVectorOfMat_get, cv_VectorOfVectorOfMat_set,
@@ -2268,7 +2268,7 @@ mod core_types {
 	vector_extern! { core::Vector<core::Point>, *const c_void, *mut c_void,
 		cv_VectorOfVectorOfPoint_new, cv_VectorOfVectorOfPoint_delete,
 		cv_VectorOfVectorOfPoint_len, cv_VectorOfVectorOfPoint_is_empty,
-		cv_VectorOfVectorOfPoint_capacity, cv_VectorOfVectorOfPoint_shrink_to_fit,
+		cv_VectorOfVectorOfPoint_capacity, cv_VectorOfVectorOfPoint_resize, cv_VectorOfVectorOfPoint_shrink_to_fit,
 		cv_VectorOfVectorOfPoint_reserve, cv_VectorOfVectorOfPoint_remove,
 		cv_VectorOfVectorOfPoint_swap, cv_VectorOfVectorOfPoint_clear,
 		cv_VectorOfVectorOfPoint_get, cv_VectorOfVectorOfPoint_set,
@@ -2326,7 +2326,7 @@ mod core_types {
 	vector_extern! { core::Vector<core::Point2f>, *const c_void, *mut c_void,
 		cv_VectorOfVectorOfPoint2f_new, cv_VectorOfVectorOfPoint2f_delete,
 		cv_VectorOfVectorOfPoint2f_len, cv_VectorOfVectorOfPoint2f_is_empty,
-		cv_VectorOfVectorOfPoint2f_capacity, cv_VectorOfVectorOfPoint2f_shrink_to_fit,
+		cv_VectorOfVectorOfPoint2f_capacity, cv_VectorOfVectorOfPoint2f_resize, cv_VectorOfVectorOfPoint2f_shrink_to_fit,
 		cv_VectorOfVectorOfPoint2f_reserve, cv_VectorOfVectorOfPoint2f_remove,
 		cv_VectorOfVectorOfPoint2f_swap, cv_VectorOfVectorOfPoint2f_clear,
 		cv_VectorOfVectorOfPoint2f_get, cv_VectorOfVectorOfPoint2f_set,
@@ -2384,7 +2384,7 @@ mod core_types {
 	vector_extern! { core::Vector<core::Point3d>, *const c_void, *mut c_void,
 		cv_VectorOfVectorOfPoint3d_new, cv_VectorOfVectorOfPoint3d_delete,
 		cv_VectorOfVectorOfPoint3d_len, cv_VectorOfVectorOfPoint3d_is_empty,
-		cv_VectorOfVectorOfPoint3d_capacity, cv_VectorOfVectorOfPoint3d_shrink_to_fit,
+		cv_VectorOfVectorOfPoint3d_capacity, cv_VectorOfVectorOfPoint3d_resize, cv_VectorOfVectorOfPoint3d_shrink_to_fit,
 		cv_VectorOfVectorOfPoint3d_reserve, cv_VectorOfVectorOfPoint3d_remove,
 		cv_VectorOfVectorOfPoint3d_swap, cv_VectorOfVectorOfPoint3d_clear,
 		cv_VectorOfVectorOfPoint3d_get, cv_VectorOfVectorOfPoint3d_set,
@@ -2442,7 +2442,7 @@ mod core_types {
 	vector_extern! { core::Vector<core::Point3f>, *const c_void, *mut c_void,
 		cv_VectorOfVectorOfPoint3f_new, cv_VectorOfVectorOfPoint3f_delete,
 		cv_VectorOfVectorOfPoint3f_len, cv_VectorOfVectorOfPoint3f_is_empty,
-		cv_VectorOfVectorOfPoint3f_capacity, cv_VectorOfVectorOfPoint3f_shrink_to_fit,
+		cv_VectorOfVectorOfPoint3f_capacity, cv_VectorOfVectorOfPoint3f_resize, cv_VectorOfVectorOfPoint3f_shrink_to_fit,
 		cv_VectorOfVectorOfPoint3f_reserve, cv_VectorOfVectorOfPoint3f_remove,
 		cv_VectorOfVectorOfPoint3f_swap, cv_VectorOfVectorOfPoint3f_clear,
 		cv_VectorOfVectorOfPoint3f_get, cv_VectorOfVectorOfPoint3f_set,
@@ -2500,7 +2500,7 @@ mod core_types {
 	vector_extern! { core::Vector<core::Point3i>, *const c_void, *mut c_void,
 		cv_VectorOfVectorOfPoint3i_new, cv_VectorOfVectorOfPoint3i_delete,
 		cv_VectorOfVectorOfPoint3i_len, cv_VectorOfVectorOfPoint3i_is_empty,
-		cv_VectorOfVectorOfPoint3i_capacity, cv_VectorOfVectorOfPoint3i_shrink_to_fit,
+		cv_VectorOfVectorOfPoint3i_capacity, cv_VectorOfVectorOfPoint3i_resize, cv_VectorOfVectorOfPoint3i_shrink_to_fit,
 		cv_VectorOfVectorOfPoint3i_reserve, cv_VectorOfVectorOfPoint3i_remove,
 		cv_VectorOfVectorOfPoint3i_swap, cv_VectorOfVectorOfPoint3i_clear,
 		cv_VectorOfVectorOfPoint3i_get, cv_VectorOfVectorOfPoint3i_set,
@@ -2558,7 +2558,7 @@ mod core_types {
 	vector_extern! { core::Vector<core::Range>, *const c_void, *mut c_void,
 		cv_VectorOfVectorOfRange_new, cv_VectorOfVectorOfRange_delete,
 		cv_VectorOfVectorOfRange_len, cv_VectorOfVectorOfRange_is_empty,
-		cv_VectorOfVectorOfRange_capacity, cv_VectorOfVectorOfRange_shrink_to_fit,
+		cv_VectorOfVectorOfRange_capacity, cv_VectorOfVectorOfRange_resize, cv_VectorOfVectorOfRange_shrink_to_fit,
 		cv_VectorOfVectorOfRange_reserve, cv_VectorOfVectorOfRange_remove,
 		cv_VectorOfVectorOfRange_swap, cv_VectorOfVectorOfRange_clear,
 		cv_VectorOfVectorOfRange_get, cv_VectorOfVectorOfRange_set,
@@ -2578,7 +2578,7 @@ mod core_types {
 	vector_extern! { core::Vector<core::Vec2i>, *const c_void, *mut c_void,
 		cv_VectorOfVectorOfVec2i_new, cv_VectorOfVectorOfVec2i_delete,
 		cv_VectorOfVectorOfVec2i_len, cv_VectorOfVectorOfVec2i_is_empty,
-		cv_VectorOfVectorOfVec2i_capacity, cv_VectorOfVectorOfVec2i_shrink_to_fit,
+		cv_VectorOfVectorOfVec2i_capacity, cv_VectorOfVectorOfVec2i_resize, cv_VectorOfVectorOfVec2i_shrink_to_fit,
 		cv_VectorOfVectorOfVec2i_reserve, cv_VectorOfVectorOfVec2i_remove,
 		cv_VectorOfVectorOfVec2i_swap, cv_VectorOfVectorOfVec2i_clear,
 		cv_VectorOfVectorOfVec2i_get, cv_VectorOfVectorOfVec2i_set,
@@ -2636,7 +2636,7 @@ mod core_types {
 	vector_extern! { core::Vector<core::Vec3f>, *const c_void, *mut c_void,
 		cv_VectorOfVectorOfVec3f_new, cv_VectorOfVectorOfVec3f_delete,
 		cv_VectorOfVectorOfVec3f_len, cv_VectorOfVectorOfVec3f_is_empty,
-		cv_VectorOfVectorOfVec3f_capacity, cv_VectorOfVectorOfVec3f_shrink_to_fit,
+		cv_VectorOfVectorOfVec3f_capacity, cv_VectorOfVectorOfVec3f_resize, cv_VectorOfVectorOfVec3f_shrink_to_fit,
 		cv_VectorOfVectorOfVec3f_reserve, cv_VectorOfVectorOfVec3f_remove,
 		cv_VectorOfVectorOfVec3f_swap, cv_VectorOfVectorOfVec3f_clear,
 		cv_VectorOfVectorOfVec3f_get, cv_VectorOfVectorOfVec3f_set,
@@ -2694,7 +2694,7 @@ mod core_types {
 	vector_extern! { core::Vector<f32>, *const c_void, *mut c_void,
 		cv_VectorOfVectorOff32_new, cv_VectorOfVectorOff32_delete,
 		cv_VectorOfVectorOff32_len, cv_VectorOfVectorOff32_is_empty,
-		cv_VectorOfVectorOff32_capacity, cv_VectorOfVectorOff32_shrink_to_fit,
+		cv_VectorOfVectorOff32_capacity, cv_VectorOfVectorOff32_resize, cv_VectorOfVectorOff32_shrink_to_fit,
 		cv_VectorOfVectorOff32_reserve, cv_VectorOfVectorOff32_remove,
 		cv_VectorOfVectorOff32_swap, cv_VectorOfVectorOff32_clear,
 		cv_VectorOfVectorOff32_get, cv_VectorOfVectorOff32_set,
@@ -2752,7 +2752,7 @@ mod core_types {
 	vector_extern! { core::Vector<f64>, *const c_void, *mut c_void,
 		cv_VectorOfVectorOff64_new, cv_VectorOfVectorOff64_delete,
 		cv_VectorOfVectorOff64_len, cv_VectorOfVectorOff64_is_empty,
-		cv_VectorOfVectorOff64_capacity, cv_VectorOfVectorOff64_shrink_to_fit,
+		cv_VectorOfVectorOff64_capacity, cv_VectorOfVectorOff64_resize, cv_VectorOfVectorOff64_shrink_to_fit,
 		cv_VectorOfVectorOff64_reserve, cv_VectorOfVectorOff64_remove,
 		cv_VectorOfVectorOff64_swap, cv_VectorOfVectorOff64_clear,
 		cv_VectorOfVectorOff64_get, cv_VectorOfVectorOff64_set,
@@ -2810,7 +2810,7 @@ mod core_types {
 	vector_extern! { core::Vector<i32>, *const c_void, *mut c_void,
 		cv_VectorOfVectorOfi32_new, cv_VectorOfVectorOfi32_delete,
 		cv_VectorOfVectorOfi32_len, cv_VectorOfVectorOfi32_is_empty,
-		cv_VectorOfVectorOfi32_capacity, cv_VectorOfVectorOfi32_shrink_to_fit,
+		cv_VectorOfVectorOfi32_capacity, cv_VectorOfVectorOfi32_resize, cv_VectorOfVectorOfi32_shrink_to_fit,
 		cv_VectorOfVectorOfi32_reserve, cv_VectorOfVectorOfi32_remove,
 		cv_VectorOfVectorOfi32_swap, cv_VectorOfVectorOfi32_clear,
 		cv_VectorOfVectorOfi32_get, cv_VectorOfVectorOfi32_set,
@@ -2868,7 +2868,7 @@ mod core_types {
 	vector_extern! { core::Vector<i8>, *const c_void, *mut c_void,
 		cv_VectorOfVectorOfi8_new, cv_VectorOfVectorOfi8_delete,
 		cv_VectorOfVectorOfi8_len, cv_VectorOfVectorOfi8_is_empty,
-		cv_VectorOfVectorOfi8_capacity, cv_VectorOfVectorOfi8_shrink_to_fit,
+		cv_VectorOfVectorOfi8_capacity, cv_VectorOfVectorOfi8_resize, cv_VectorOfVectorOfi8_shrink_to_fit,
 		cv_VectorOfVectorOfi8_reserve, cv_VectorOfVectorOfi8_remove,
 		cv_VectorOfVectorOfi8_swap, cv_VectorOfVectorOfi8_clear,
 		cv_VectorOfVectorOfi8_get, cv_VectorOfVectorOfi8_set,
@@ -2926,7 +2926,7 @@ mod core_types {
 	vector_extern! { core::Vector<u8>, *const c_void, *mut c_void,
 		cv_VectorOfVectorOfu8_new, cv_VectorOfVectorOfu8_delete,
 		cv_VectorOfVectorOfu8_len, cv_VectorOfVectorOfu8_is_empty,
-		cv_VectorOfVectorOfu8_capacity, cv_VectorOfVectorOfu8_shrink_to_fit,
+		cv_VectorOfVectorOfu8_capacity, cv_VectorOfVectorOfu8_resize, cv_VectorOfVectorOfu8_shrink_to_fit,
 		cv_VectorOfVectorOfu8_reserve, cv_VectorOfVectorOfu8_remove,
 		cv_VectorOfVectorOfu8_swap, cv_VectorOfVectorOfu8_clear,
 		cv_VectorOfVectorOfu8_get, cv_VectorOfVectorOfu8_set,
@@ -2984,7 +2984,7 @@ mod core_types {
 	vector_extern! { bool, *const c_void, *mut c_void,
 		cv_VectorOfbool_new, cv_VectorOfbool_delete,
 		cv_VectorOfbool_len, cv_VectorOfbool_is_empty,
-		cv_VectorOfbool_capacity, cv_VectorOfbool_shrink_to_fit,
+		cv_VectorOfbool_capacity, cv_VectorOfbool_resize, cv_VectorOfbool_shrink_to_fit,
 		cv_VectorOfbool_reserve, cv_VectorOfbool_remove,
 		cv_VectorOfbool_swap, cv_VectorOfbool_clear,
 		cv_VectorOfbool_get, cv_VectorOfbool_set,
@@ -3004,7 +3004,7 @@ mod core_types {
 	vector_extern! { f32, *const c_void, *mut c_void,
 		cv_VectorOff32_new, cv_VectorOff32_delete,
 		cv_VectorOff32_len, cv_VectorOff32_is_empty,
-		cv_VectorOff32_capacity, cv_VectorOff32_shrink_to_fit,
+		cv_VectorOff32_capacity, cv_VectorOff32_resize, cv_VectorOff32_shrink_to_fit,
 		cv_VectorOff32_reserve, cv_VectorOff32_remove,
 		cv_VectorOff32_swap, cv_VectorOff32_clear,
 		cv_VectorOff32_get, cv_VectorOff32_set,
@@ -3065,7 +3065,7 @@ mod core_types {
 	vector_extern! { f64, *const c_void, *mut c_void,
 		cv_VectorOff64_new, cv_VectorOff64_delete,
 		cv_VectorOff64_len, cv_VectorOff64_is_empty,
-		cv_VectorOff64_capacity, cv_VectorOff64_shrink_to_fit,
+		cv_VectorOff64_capacity, cv_VectorOff64_resize, cv_VectorOff64_shrink_to_fit,
 		cv_VectorOff64_reserve, cv_VectorOff64_remove,
 		cv_VectorOff64_swap, cv_VectorOff64_clear,
 		cv_VectorOff64_get, cv_VectorOff64_set,
@@ -3126,7 +3126,7 @@ mod core_types {
 	vector_extern! { i32, *const c_void, *mut c_void,
 		cv_VectorOfi32_new, cv_VectorOfi32_delete,
 		cv_VectorOfi32_len, cv_VectorOfi32_is_empty,
-		cv_VectorOfi32_capacity, cv_VectorOfi32_shrink_to_fit,
+		cv_VectorOfi32_capacity, cv_VectorOfi32_resize, cv_VectorOfi32_shrink_to_fit,
 		cv_VectorOfi32_reserve, cv_VectorOfi32_remove,
 		cv_VectorOfi32_swap, cv_VectorOfi32_clear,
 		cv_VectorOfi32_get, cv_VectorOfi32_set,
@@ -3187,7 +3187,7 @@ mod core_types {
 	vector_extern! { i8, *const c_void, *mut c_void,
 		cv_VectorOfi8_new, cv_VectorOfi8_delete,
 		cv_VectorOfi8_len, cv_VectorOfi8_is_empty,
-		cv_VectorOfi8_capacity, cv_VectorOfi8_shrink_to_fit,
+		cv_VectorOfi8_capacity, cv_VectorOfi8_resize, cv_VectorOfi8_shrink_to_fit,
 		cv_VectorOfi8_reserve, cv_VectorOfi8_remove,
 		cv_VectorOfi8_swap, cv_VectorOfi8_clear,
 		cv_VectorOfi8_get, cv_VectorOfi8_set,
@@ -3248,7 +3248,7 @@ mod core_types {
 	vector_extern! { size_t, *const c_void, *mut c_void,
 		cv_VectorOfsize_t_new, cv_VectorOfsize_t_delete,
 		cv_VectorOfsize_t_len, cv_VectorOfsize_t_is_empty,
-		cv_VectorOfsize_t_capacity, cv_VectorOfsize_t_shrink_to_fit,
+		cv_VectorOfsize_t_capacity, cv_VectorOfsize_t_resize, cv_VectorOfsize_t_shrink_to_fit,
 		cv_VectorOfsize_t_reserve, cv_VectorOfsize_t_remove,
 		cv_VectorOfsize_t_swap, cv_VectorOfsize_t_clear,
 		cv_VectorOfsize_t_get, cv_VectorOfsize_t_set,
@@ -3271,7 +3271,7 @@ mod core_types {
 	vector_extern! { u8, *const c_void, *mut c_void,
 		cv_VectorOfu8_new, cv_VectorOfu8_delete,
 		cv_VectorOfu8_len, cv_VectorOfu8_is_empty,
-		cv_VectorOfu8_capacity, cv_VectorOfu8_shrink_to_fit,
+		cv_VectorOfu8_capacity, cv_VectorOfu8_resize, cv_VectorOfu8_shrink_to_fit,
 		cv_VectorOfu8_reserve, cv_VectorOfu8_remove,
 		cv_VectorOfu8_swap, cv_VectorOfu8_clear,
 		cv_VectorOfu8_get, cv_VectorOfu8_set,
@@ -3325,1167 +3325,6 @@ mod core_types {
 }
 #[cfg(ocvrs_has_module_core)]
 pub use core_types::*;
-
-#[cfg(ocvrs_has_module_cudaarithm)]
-mod cudaarithm_types {
-	use crate::{mod_prelude::*, core, types, sys};
-
-	pub type PtrOfConvolution = core::Ptr<dyn crate::cudaarithm::Convolution>;
-	
-	ptr_extern! { dyn crate::cudaarithm::Convolution,
-		cv_PtrOfConvolution_delete, cv_PtrOfConvolution_get_inner_ptr, cv_PtrOfConvolution_get_inner_ptr_mut
-	}
-	
-	impl PtrOfConvolution {
-		#[inline] pub fn as_raw_PtrOfConvolution(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfConvolution(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudaarithm::ConvolutionConst for PtrOfConvolution {
-		#[inline] fn as_raw_Convolution(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudaarithm::Convolution for PtrOfConvolution {
-		#[inline] fn as_raw_mut_Convolution(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfConvolution {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfConvolution {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	pub type PtrOfDFT = core::Ptr<dyn crate::cudaarithm::DFT>;
-	
-	ptr_extern! { dyn crate::cudaarithm::DFT,
-		cv_PtrOfDFT_delete, cv_PtrOfDFT_get_inner_ptr, cv_PtrOfDFT_get_inner_ptr_mut
-	}
-	
-	impl PtrOfDFT {
-		#[inline] pub fn as_raw_PtrOfDFT(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfDFT(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudaarithm::DFTConst for PtrOfDFT {
-		#[inline] fn as_raw_DFT(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudaarithm::DFT for PtrOfDFT {
-		#[inline] fn as_raw_mut_DFT(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfDFT {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfDFT {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	pub type PtrOfLookUpTable = core::Ptr<dyn crate::cudaarithm::LookUpTable>;
-	
-	ptr_extern! { dyn crate::cudaarithm::LookUpTable,
-		cv_PtrOfLookUpTable_delete, cv_PtrOfLookUpTable_get_inner_ptr, cv_PtrOfLookUpTable_get_inner_ptr_mut
-	}
-	
-	impl PtrOfLookUpTable {
-		#[inline] pub fn as_raw_PtrOfLookUpTable(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfLookUpTable(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudaarithm::LookUpTableConst for PtrOfLookUpTable {
-		#[inline] fn as_raw_LookUpTable(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudaarithm::LookUpTable for PtrOfLookUpTable {
-		#[inline] fn as_raw_mut_LookUpTable(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfLookUpTable {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfLookUpTable {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-}
-#[cfg(ocvrs_has_module_cudaarithm)]
-pub use cudaarithm_types::*;
-
-#[cfg(ocvrs_has_module_cudabgsegm)]
-mod cudabgsegm_types {
-	use crate::{mod_prelude::*, core, types, sys};
-
-	pub type PtrOfCUDA_BackgroundSubtractorMOG = core::Ptr<dyn crate::cudabgsegm::CUDA_BackgroundSubtractorMOG>;
-	
-	ptr_extern! { dyn crate::cudabgsegm::CUDA_BackgroundSubtractorMOG,
-		cv_PtrOfCUDA_BackgroundSubtractorMOG_delete, cv_PtrOfCUDA_BackgroundSubtractorMOG_get_inner_ptr, cv_PtrOfCUDA_BackgroundSubtractorMOG_get_inner_ptr_mut
-	}
-	
-	impl PtrOfCUDA_BackgroundSubtractorMOG {
-		#[inline] pub fn as_raw_PtrOfCUDA_BackgroundSubtractorMOG(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfCUDA_BackgroundSubtractorMOG(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudabgsegm::CUDA_BackgroundSubtractorMOGConst for PtrOfCUDA_BackgroundSubtractorMOG {
-		#[inline] fn as_raw_CUDA_BackgroundSubtractorMOG(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudabgsegm::CUDA_BackgroundSubtractorMOG for PtrOfCUDA_BackgroundSubtractorMOG {
-		#[inline] fn as_raw_mut_CUDA_BackgroundSubtractorMOG(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfCUDA_BackgroundSubtractorMOG {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfCUDA_BackgroundSubtractorMOG {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl crate::video::BackgroundSubtractorConst for PtrOfCUDA_BackgroundSubtractorMOG {
-		#[inline] fn as_raw_BackgroundSubtractor(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::video::BackgroundSubtractor for PtrOfCUDA_BackgroundSubtractorMOG {
-		#[inline] fn as_raw_mut_BackgroundSubtractor(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	pub type PtrOfCUDA_BackgroundSubtractorMOG2 = core::Ptr<dyn crate::cudabgsegm::CUDA_BackgroundSubtractorMOG2>;
-	
-	ptr_extern! { dyn crate::cudabgsegm::CUDA_BackgroundSubtractorMOG2,
-		cv_PtrOfCUDA_BackgroundSubtractorMOG2_delete, cv_PtrOfCUDA_BackgroundSubtractorMOG2_get_inner_ptr, cv_PtrOfCUDA_BackgroundSubtractorMOG2_get_inner_ptr_mut
-	}
-	
-	impl PtrOfCUDA_BackgroundSubtractorMOG2 {
-		#[inline] pub fn as_raw_PtrOfCUDA_BackgroundSubtractorMOG2(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfCUDA_BackgroundSubtractorMOG2(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudabgsegm::CUDA_BackgroundSubtractorMOG2Const for PtrOfCUDA_BackgroundSubtractorMOG2 {
-		#[inline] fn as_raw_CUDA_BackgroundSubtractorMOG2(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudabgsegm::CUDA_BackgroundSubtractorMOG2 for PtrOfCUDA_BackgroundSubtractorMOG2 {
-		#[inline] fn as_raw_mut_CUDA_BackgroundSubtractorMOG2(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfCUDA_BackgroundSubtractorMOG2 {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfCUDA_BackgroundSubtractorMOG2 {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl crate::video::BackgroundSubtractorConst for PtrOfCUDA_BackgroundSubtractorMOG2 {
-		#[inline] fn as_raw_BackgroundSubtractor(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::video::BackgroundSubtractor for PtrOfCUDA_BackgroundSubtractorMOG2 {
-		#[inline] fn as_raw_mut_BackgroundSubtractor(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl crate::video::BackgroundSubtractorMOG2Const for PtrOfCUDA_BackgroundSubtractorMOG2 {
-		#[inline] fn as_raw_BackgroundSubtractorMOG2(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::video::BackgroundSubtractorMOG2 for PtrOfCUDA_BackgroundSubtractorMOG2 {
-		#[inline] fn as_raw_mut_BackgroundSubtractorMOG2(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-}
-#[cfg(ocvrs_has_module_cudabgsegm)]
-pub use cudabgsegm_types::*;
-
-#[cfg(ocvrs_has_module_cudacodec)]
-mod cudacodec_types {
-	use crate::{mod_prelude::*, core, types, sys};
-
-	pub type PtrOfEncoderCallBack = core::Ptr<dyn crate::cudacodec::EncoderCallBack>;
-	
-	ptr_extern! { dyn crate::cudacodec::EncoderCallBack,
-		cv_PtrOfEncoderCallBack_delete, cv_PtrOfEncoderCallBack_get_inner_ptr, cv_PtrOfEncoderCallBack_get_inner_ptr_mut
-	}
-	
-	impl PtrOfEncoderCallBack {
-		#[inline] pub fn as_raw_PtrOfEncoderCallBack(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfEncoderCallBack(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudacodec::EncoderCallBackConst for PtrOfEncoderCallBack {
-		#[inline] fn as_raw_EncoderCallBack(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudacodec::EncoderCallBack for PtrOfEncoderCallBack {
-		#[inline] fn as_raw_mut_EncoderCallBack(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	pub type PtrOfRawVideoSource = core::Ptr<dyn crate::cudacodec::RawVideoSource>;
-	
-	ptr_extern! { dyn crate::cudacodec::RawVideoSource,
-		cv_PtrOfRawVideoSource_delete, cv_PtrOfRawVideoSource_get_inner_ptr, cv_PtrOfRawVideoSource_get_inner_ptr_mut
-	}
-	
-	impl PtrOfRawVideoSource {
-		#[inline] pub fn as_raw_PtrOfRawVideoSource(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfRawVideoSource(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudacodec::RawVideoSourceConst for PtrOfRawVideoSource {
-		#[inline] fn as_raw_RawVideoSource(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudacodec::RawVideoSource for PtrOfRawVideoSource {
-		#[inline] fn as_raw_mut_RawVideoSource(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	pub type PtrOfVideoReader = core::Ptr<dyn crate::cudacodec::VideoReader>;
-	
-	ptr_extern! { dyn crate::cudacodec::VideoReader,
-		cv_PtrOfVideoReader_delete, cv_PtrOfVideoReader_get_inner_ptr, cv_PtrOfVideoReader_get_inner_ptr_mut
-	}
-	
-	impl PtrOfVideoReader {
-		#[inline] pub fn as_raw_PtrOfVideoReader(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfVideoReader(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudacodec::VideoReaderConst for PtrOfVideoReader {
-		#[inline] fn as_raw_VideoReader(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudacodec::VideoReader for PtrOfVideoReader {
-		#[inline] fn as_raw_mut_VideoReader(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	pub type PtrOfVideoWriter = core::Ptr<dyn crate::cudacodec::VideoWriter>;
-	
-	ptr_extern! { dyn crate::cudacodec::VideoWriter,
-		cv_PtrOfVideoWriter_delete, cv_PtrOfVideoWriter_get_inner_ptr, cv_PtrOfVideoWriter_get_inner_ptr_mut
-	}
-	
-	impl PtrOfVideoWriter {
-		#[inline] pub fn as_raw_PtrOfVideoWriter(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfVideoWriter(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudacodec::VideoWriterConst for PtrOfVideoWriter {
-		#[inline] fn as_raw_VideoWriter(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudacodec::VideoWriter for PtrOfVideoWriter {
-		#[inline] fn as_raw_mut_VideoWriter(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-}
-#[cfg(ocvrs_has_module_cudacodec)]
-pub use cudacodec_types::*;
-
-#[cfg(ocvrs_has_module_cudafeatures2d)]
-mod cudafeatures2d_types {
-	use crate::{mod_prelude::*, core, types, sys};
-
-	pub type PtrOfCUDA_DescriptorMatcher = core::Ptr<dyn crate::cudafeatures2d::CUDA_DescriptorMatcher>;
-	
-	ptr_extern! { dyn crate::cudafeatures2d::CUDA_DescriptorMatcher,
-		cv_PtrOfCUDA_DescriptorMatcher_delete, cv_PtrOfCUDA_DescriptorMatcher_get_inner_ptr, cv_PtrOfCUDA_DescriptorMatcher_get_inner_ptr_mut
-	}
-	
-	impl PtrOfCUDA_DescriptorMatcher {
-		#[inline] pub fn as_raw_PtrOfCUDA_DescriptorMatcher(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfCUDA_DescriptorMatcher(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudafeatures2d::CUDA_DescriptorMatcherConst for PtrOfCUDA_DescriptorMatcher {
-		#[inline] fn as_raw_CUDA_DescriptorMatcher(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudafeatures2d::CUDA_DescriptorMatcher for PtrOfCUDA_DescriptorMatcher {
-		#[inline] fn as_raw_mut_CUDA_DescriptorMatcher(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfCUDA_DescriptorMatcher {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfCUDA_DescriptorMatcher {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	pub type PtrOfCUDA_FastFeatureDetector = core::Ptr<dyn crate::cudafeatures2d::CUDA_FastFeatureDetector>;
-	
-	ptr_extern! { dyn crate::cudafeatures2d::CUDA_FastFeatureDetector,
-		cv_PtrOfCUDA_FastFeatureDetector_delete, cv_PtrOfCUDA_FastFeatureDetector_get_inner_ptr, cv_PtrOfCUDA_FastFeatureDetector_get_inner_ptr_mut
-	}
-	
-	impl PtrOfCUDA_FastFeatureDetector {
-		#[inline] pub fn as_raw_PtrOfCUDA_FastFeatureDetector(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfCUDA_FastFeatureDetector(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudafeatures2d::CUDA_FastFeatureDetectorConst for PtrOfCUDA_FastFeatureDetector {
-		#[inline] fn as_raw_CUDA_FastFeatureDetector(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudafeatures2d::CUDA_FastFeatureDetector for PtrOfCUDA_FastFeatureDetector {
-		#[inline] fn as_raw_mut_CUDA_FastFeatureDetector(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfCUDA_FastFeatureDetector {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfCUDA_FastFeatureDetector {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl crate::features2d::Feature2DTraitConst for PtrOfCUDA_FastFeatureDetector {
-		#[inline] fn as_raw_Feature2D(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::features2d::Feature2DTrait for PtrOfCUDA_FastFeatureDetector {
-		#[inline] fn as_raw_mut_Feature2D(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl crate::cudafeatures2d::CUDA_Feature2DAsyncConst for PtrOfCUDA_FastFeatureDetector {
-		#[inline] fn as_raw_CUDA_Feature2DAsync(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudafeatures2d::CUDA_Feature2DAsync for PtrOfCUDA_FastFeatureDetector {
-		#[inline] fn as_raw_mut_CUDA_Feature2DAsync(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	pub type PtrOfCUDA_ORB = core::Ptr<dyn crate::cudafeatures2d::CUDA_ORB>;
-	
-	ptr_extern! { dyn crate::cudafeatures2d::CUDA_ORB,
-		cv_PtrOfCUDA_ORB_delete, cv_PtrOfCUDA_ORB_get_inner_ptr, cv_PtrOfCUDA_ORB_get_inner_ptr_mut
-	}
-	
-	impl PtrOfCUDA_ORB {
-		#[inline] pub fn as_raw_PtrOfCUDA_ORB(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfCUDA_ORB(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudafeatures2d::CUDA_ORBConst for PtrOfCUDA_ORB {
-		#[inline] fn as_raw_CUDA_ORB(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudafeatures2d::CUDA_ORB for PtrOfCUDA_ORB {
-		#[inline] fn as_raw_mut_CUDA_ORB(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfCUDA_ORB {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfCUDA_ORB {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl crate::features2d::Feature2DTraitConst for PtrOfCUDA_ORB {
-		#[inline] fn as_raw_Feature2D(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::features2d::Feature2DTrait for PtrOfCUDA_ORB {
-		#[inline] fn as_raw_mut_Feature2D(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl crate::cudafeatures2d::CUDA_Feature2DAsyncConst for PtrOfCUDA_ORB {
-		#[inline] fn as_raw_CUDA_Feature2DAsync(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudafeatures2d::CUDA_Feature2DAsync for PtrOfCUDA_ORB {
-		#[inline] fn as_raw_mut_CUDA_Feature2DAsync(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-}
-#[cfg(ocvrs_has_module_cudafeatures2d)]
-pub use cudafeatures2d_types::*;
-
-#[cfg(ocvrs_has_module_cudafilters)]
-mod cudafilters_types {
-	use crate::{mod_prelude::*, core, types, sys};
-
-	pub type PtrOfFilter = core::Ptr<dyn crate::cudafilters::Filter>;
-	
-	ptr_extern! { dyn crate::cudafilters::Filter,
-		cv_PtrOfFilter_delete, cv_PtrOfFilter_get_inner_ptr, cv_PtrOfFilter_get_inner_ptr_mut
-	}
-	
-	impl PtrOfFilter {
-		#[inline] pub fn as_raw_PtrOfFilter(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfFilter(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudafilters::FilterConst for PtrOfFilter {
-		#[inline] fn as_raw_Filter(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudafilters::Filter for PtrOfFilter {
-		#[inline] fn as_raw_mut_Filter(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfFilter {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfFilter {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-}
-#[cfg(ocvrs_has_module_cudafilters)]
-pub use cudafilters_types::*;
-
-#[cfg(ocvrs_has_module_cudaimgproc)]
-mod cudaimgproc_types {
-	use crate::{mod_prelude::*, core, types, sys};
-
-	pub type PtrOfCUDA_CLAHE = core::Ptr<dyn crate::cudaimgproc::CUDA_CLAHE>;
-	
-	ptr_extern! { dyn crate::cudaimgproc::CUDA_CLAHE,
-		cv_PtrOfCUDA_CLAHE_delete, cv_PtrOfCUDA_CLAHE_get_inner_ptr, cv_PtrOfCUDA_CLAHE_get_inner_ptr_mut
-	}
-	
-	impl PtrOfCUDA_CLAHE {
-		#[inline] pub fn as_raw_PtrOfCUDA_CLAHE(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfCUDA_CLAHE(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudaimgproc::CUDA_CLAHEConst for PtrOfCUDA_CLAHE {
-		#[inline] fn as_raw_CUDA_CLAHE(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudaimgproc::CUDA_CLAHE for PtrOfCUDA_CLAHE {
-		#[inline] fn as_raw_mut_CUDA_CLAHE(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfCUDA_CLAHE {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfCUDA_CLAHE {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl crate::imgproc::CLAHEConst for PtrOfCUDA_CLAHE {
-		#[inline] fn as_raw_CLAHE(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::imgproc::CLAHE for PtrOfCUDA_CLAHE {
-		#[inline] fn as_raw_mut_CLAHE(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	pub type PtrOfCUDA_CannyEdgeDetector = core::Ptr<dyn crate::cudaimgproc::CUDA_CannyEdgeDetector>;
-	
-	ptr_extern! { dyn crate::cudaimgproc::CUDA_CannyEdgeDetector,
-		cv_PtrOfCUDA_CannyEdgeDetector_delete, cv_PtrOfCUDA_CannyEdgeDetector_get_inner_ptr, cv_PtrOfCUDA_CannyEdgeDetector_get_inner_ptr_mut
-	}
-	
-	impl PtrOfCUDA_CannyEdgeDetector {
-		#[inline] pub fn as_raw_PtrOfCUDA_CannyEdgeDetector(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfCUDA_CannyEdgeDetector(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudaimgproc::CUDA_CannyEdgeDetectorConst for PtrOfCUDA_CannyEdgeDetector {
-		#[inline] fn as_raw_CUDA_CannyEdgeDetector(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudaimgproc::CUDA_CannyEdgeDetector for PtrOfCUDA_CannyEdgeDetector {
-		#[inline] fn as_raw_mut_CUDA_CannyEdgeDetector(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfCUDA_CannyEdgeDetector {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfCUDA_CannyEdgeDetector {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	pub type PtrOfCUDA_CornernessCriteria = core::Ptr<dyn crate::cudaimgproc::CUDA_CornernessCriteria>;
-	
-	ptr_extern! { dyn crate::cudaimgproc::CUDA_CornernessCriteria,
-		cv_PtrOfCUDA_CornernessCriteria_delete, cv_PtrOfCUDA_CornernessCriteria_get_inner_ptr, cv_PtrOfCUDA_CornernessCriteria_get_inner_ptr_mut
-	}
-	
-	impl PtrOfCUDA_CornernessCriteria {
-		#[inline] pub fn as_raw_PtrOfCUDA_CornernessCriteria(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfCUDA_CornernessCriteria(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudaimgproc::CUDA_CornernessCriteriaConst for PtrOfCUDA_CornernessCriteria {
-		#[inline] fn as_raw_CUDA_CornernessCriteria(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudaimgproc::CUDA_CornernessCriteria for PtrOfCUDA_CornernessCriteria {
-		#[inline] fn as_raw_mut_CUDA_CornernessCriteria(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfCUDA_CornernessCriteria {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfCUDA_CornernessCriteria {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	pub type PtrOfCUDA_CornersDetector = core::Ptr<dyn crate::cudaimgproc::CUDA_CornersDetector>;
-	
-	ptr_extern! { dyn crate::cudaimgproc::CUDA_CornersDetector,
-		cv_PtrOfCUDA_CornersDetector_delete, cv_PtrOfCUDA_CornersDetector_get_inner_ptr, cv_PtrOfCUDA_CornersDetector_get_inner_ptr_mut
-	}
-	
-	impl PtrOfCUDA_CornersDetector {
-		#[inline] pub fn as_raw_PtrOfCUDA_CornersDetector(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfCUDA_CornersDetector(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudaimgproc::CUDA_CornersDetectorConst for PtrOfCUDA_CornersDetector {
-		#[inline] fn as_raw_CUDA_CornersDetector(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudaimgproc::CUDA_CornersDetector for PtrOfCUDA_CornersDetector {
-		#[inline] fn as_raw_mut_CUDA_CornersDetector(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfCUDA_CornersDetector {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfCUDA_CornersDetector {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	pub type PtrOfCUDA_HoughCirclesDetector = core::Ptr<dyn crate::cudaimgproc::CUDA_HoughCirclesDetector>;
-	
-	ptr_extern! { dyn crate::cudaimgproc::CUDA_HoughCirclesDetector,
-		cv_PtrOfCUDA_HoughCirclesDetector_delete, cv_PtrOfCUDA_HoughCirclesDetector_get_inner_ptr, cv_PtrOfCUDA_HoughCirclesDetector_get_inner_ptr_mut
-	}
-	
-	impl PtrOfCUDA_HoughCirclesDetector {
-		#[inline] pub fn as_raw_PtrOfCUDA_HoughCirclesDetector(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfCUDA_HoughCirclesDetector(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudaimgproc::CUDA_HoughCirclesDetectorConst for PtrOfCUDA_HoughCirclesDetector {
-		#[inline] fn as_raw_CUDA_HoughCirclesDetector(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudaimgproc::CUDA_HoughCirclesDetector for PtrOfCUDA_HoughCirclesDetector {
-		#[inline] fn as_raw_mut_CUDA_HoughCirclesDetector(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfCUDA_HoughCirclesDetector {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfCUDA_HoughCirclesDetector {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	pub type PtrOfCUDA_HoughLinesDetector = core::Ptr<dyn crate::cudaimgproc::CUDA_HoughLinesDetector>;
-	
-	ptr_extern! { dyn crate::cudaimgproc::CUDA_HoughLinesDetector,
-		cv_PtrOfCUDA_HoughLinesDetector_delete, cv_PtrOfCUDA_HoughLinesDetector_get_inner_ptr, cv_PtrOfCUDA_HoughLinesDetector_get_inner_ptr_mut
-	}
-	
-	impl PtrOfCUDA_HoughLinesDetector {
-		#[inline] pub fn as_raw_PtrOfCUDA_HoughLinesDetector(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfCUDA_HoughLinesDetector(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudaimgproc::CUDA_HoughLinesDetectorConst for PtrOfCUDA_HoughLinesDetector {
-		#[inline] fn as_raw_CUDA_HoughLinesDetector(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudaimgproc::CUDA_HoughLinesDetector for PtrOfCUDA_HoughLinesDetector {
-		#[inline] fn as_raw_mut_CUDA_HoughLinesDetector(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfCUDA_HoughLinesDetector {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfCUDA_HoughLinesDetector {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	pub type PtrOfCUDA_HoughSegmentDetector = core::Ptr<dyn crate::cudaimgproc::CUDA_HoughSegmentDetector>;
-	
-	ptr_extern! { dyn crate::cudaimgproc::CUDA_HoughSegmentDetector,
-		cv_PtrOfCUDA_HoughSegmentDetector_delete, cv_PtrOfCUDA_HoughSegmentDetector_get_inner_ptr, cv_PtrOfCUDA_HoughSegmentDetector_get_inner_ptr_mut
-	}
-	
-	impl PtrOfCUDA_HoughSegmentDetector {
-		#[inline] pub fn as_raw_PtrOfCUDA_HoughSegmentDetector(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfCUDA_HoughSegmentDetector(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudaimgproc::CUDA_HoughSegmentDetectorConst for PtrOfCUDA_HoughSegmentDetector {
-		#[inline] fn as_raw_CUDA_HoughSegmentDetector(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudaimgproc::CUDA_HoughSegmentDetector for PtrOfCUDA_HoughSegmentDetector {
-		#[inline] fn as_raw_mut_CUDA_HoughSegmentDetector(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfCUDA_HoughSegmentDetector {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfCUDA_HoughSegmentDetector {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	pub type PtrOfCUDA_TemplateMatching = core::Ptr<dyn crate::cudaimgproc::CUDA_TemplateMatching>;
-	
-	ptr_extern! { dyn crate::cudaimgproc::CUDA_TemplateMatching,
-		cv_PtrOfCUDA_TemplateMatching_delete, cv_PtrOfCUDA_TemplateMatching_get_inner_ptr, cv_PtrOfCUDA_TemplateMatching_get_inner_ptr_mut
-	}
-	
-	impl PtrOfCUDA_TemplateMatching {
-		#[inline] pub fn as_raw_PtrOfCUDA_TemplateMatching(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfCUDA_TemplateMatching(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudaimgproc::CUDA_TemplateMatchingConst for PtrOfCUDA_TemplateMatching {
-		#[inline] fn as_raw_CUDA_TemplateMatching(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudaimgproc::CUDA_TemplateMatching for PtrOfCUDA_TemplateMatching {
-		#[inline] fn as_raw_mut_CUDA_TemplateMatching(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfCUDA_TemplateMatching {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfCUDA_TemplateMatching {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-}
-#[cfg(ocvrs_has_module_cudaimgproc)]
-pub use cudaimgproc_types::*;
-
-#[cfg(ocvrs_has_module_cudaobjdetect)]
-mod cudaobjdetect_types {
-	use crate::{mod_prelude::*, core, types, sys};
-
-	pub type PtrOfCascadeClassifier = core::Ptr<dyn crate::cudaobjdetect::CascadeClassifier>;
-	
-	ptr_extern! { dyn crate::cudaobjdetect::CascadeClassifier,
-		cv_PtrOfCascadeClassifier_delete, cv_PtrOfCascadeClassifier_get_inner_ptr, cv_PtrOfCascadeClassifier_get_inner_ptr_mut
-	}
-	
-	impl PtrOfCascadeClassifier {
-		#[inline] pub fn as_raw_PtrOfCascadeClassifier(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfCascadeClassifier(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudaobjdetect::CascadeClassifierConst for PtrOfCascadeClassifier {
-		#[inline] fn as_raw_CascadeClassifier(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudaobjdetect::CascadeClassifier for PtrOfCascadeClassifier {
-		#[inline] fn as_raw_mut_CascadeClassifier(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfCascadeClassifier {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfCascadeClassifier {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	pub type PtrOfHOG = core::Ptr<dyn crate::cudaobjdetect::HOG>;
-	
-	ptr_extern! { dyn crate::cudaobjdetect::HOG,
-		cv_PtrOfHOG_delete, cv_PtrOfHOG_get_inner_ptr, cv_PtrOfHOG_get_inner_ptr_mut
-	}
-	
-	impl PtrOfHOG {
-		#[inline] pub fn as_raw_PtrOfHOG(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfHOG(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudaobjdetect::HOGConst for PtrOfHOG {
-		#[inline] fn as_raw_HOG(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudaobjdetect::HOG for PtrOfHOG {
-		#[inline] fn as_raw_mut_HOG(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfHOG {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfHOG {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-}
-#[cfg(ocvrs_has_module_cudaobjdetect)]
-pub use cudaobjdetect_types::*;
-
-#[cfg(ocvrs_has_module_cudaoptflow)]
-mod cudaoptflow_types {
-	use crate::{mod_prelude::*, core, types, sys};
-
-	pub type PtrOfCUDA_BroxOpticalFlow = core::Ptr<dyn crate::cudaoptflow::CUDA_BroxOpticalFlow>;
-	
-	ptr_extern! { dyn crate::cudaoptflow::CUDA_BroxOpticalFlow,
-		cv_PtrOfCUDA_BroxOpticalFlow_delete, cv_PtrOfCUDA_BroxOpticalFlow_get_inner_ptr, cv_PtrOfCUDA_BroxOpticalFlow_get_inner_ptr_mut
-	}
-	
-	impl PtrOfCUDA_BroxOpticalFlow {
-		#[inline] pub fn as_raw_PtrOfCUDA_BroxOpticalFlow(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfCUDA_BroxOpticalFlow(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudaoptflow::CUDA_BroxOpticalFlowConst for PtrOfCUDA_BroxOpticalFlow {
-		#[inline] fn as_raw_CUDA_BroxOpticalFlow(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudaoptflow::CUDA_BroxOpticalFlow for PtrOfCUDA_BroxOpticalFlow {
-		#[inline] fn as_raw_mut_CUDA_BroxOpticalFlow(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfCUDA_BroxOpticalFlow {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfCUDA_BroxOpticalFlow {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl crate::cudaoptflow::CUDA_DenseOpticalFlowConst for PtrOfCUDA_BroxOpticalFlow {
-		#[inline] fn as_raw_CUDA_DenseOpticalFlow(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudaoptflow::CUDA_DenseOpticalFlow for PtrOfCUDA_BroxOpticalFlow {
-		#[inline] fn as_raw_mut_CUDA_DenseOpticalFlow(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	pub type PtrOfCUDA_DensePyrLKOpticalFlow = core::Ptr<dyn crate::cudaoptflow::CUDA_DensePyrLKOpticalFlow>;
-	
-	ptr_extern! { dyn crate::cudaoptflow::CUDA_DensePyrLKOpticalFlow,
-		cv_PtrOfCUDA_DensePyrLKOpticalFlow_delete, cv_PtrOfCUDA_DensePyrLKOpticalFlow_get_inner_ptr, cv_PtrOfCUDA_DensePyrLKOpticalFlow_get_inner_ptr_mut
-	}
-	
-	impl PtrOfCUDA_DensePyrLKOpticalFlow {
-		#[inline] pub fn as_raw_PtrOfCUDA_DensePyrLKOpticalFlow(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfCUDA_DensePyrLKOpticalFlow(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudaoptflow::CUDA_DensePyrLKOpticalFlowConst for PtrOfCUDA_DensePyrLKOpticalFlow {
-		#[inline] fn as_raw_CUDA_DensePyrLKOpticalFlow(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudaoptflow::CUDA_DensePyrLKOpticalFlow for PtrOfCUDA_DensePyrLKOpticalFlow {
-		#[inline] fn as_raw_mut_CUDA_DensePyrLKOpticalFlow(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfCUDA_DensePyrLKOpticalFlow {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfCUDA_DensePyrLKOpticalFlow {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl crate::cudaoptflow::CUDA_DenseOpticalFlowConst for PtrOfCUDA_DensePyrLKOpticalFlow {
-		#[inline] fn as_raw_CUDA_DenseOpticalFlow(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudaoptflow::CUDA_DenseOpticalFlow for PtrOfCUDA_DensePyrLKOpticalFlow {
-		#[inline] fn as_raw_mut_CUDA_DenseOpticalFlow(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	pub type PtrOfCUDA_FarnebackOpticalFlow = core::Ptr<dyn crate::cudaoptflow::CUDA_FarnebackOpticalFlow>;
-	
-	ptr_extern! { dyn crate::cudaoptflow::CUDA_FarnebackOpticalFlow,
-		cv_PtrOfCUDA_FarnebackOpticalFlow_delete, cv_PtrOfCUDA_FarnebackOpticalFlow_get_inner_ptr, cv_PtrOfCUDA_FarnebackOpticalFlow_get_inner_ptr_mut
-	}
-	
-	impl PtrOfCUDA_FarnebackOpticalFlow {
-		#[inline] pub fn as_raw_PtrOfCUDA_FarnebackOpticalFlow(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfCUDA_FarnebackOpticalFlow(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudaoptflow::CUDA_FarnebackOpticalFlowConst for PtrOfCUDA_FarnebackOpticalFlow {
-		#[inline] fn as_raw_CUDA_FarnebackOpticalFlow(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudaoptflow::CUDA_FarnebackOpticalFlow for PtrOfCUDA_FarnebackOpticalFlow {
-		#[inline] fn as_raw_mut_CUDA_FarnebackOpticalFlow(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfCUDA_FarnebackOpticalFlow {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfCUDA_FarnebackOpticalFlow {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl crate::cudaoptflow::CUDA_DenseOpticalFlowConst for PtrOfCUDA_FarnebackOpticalFlow {
-		#[inline] fn as_raw_CUDA_DenseOpticalFlow(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudaoptflow::CUDA_DenseOpticalFlow for PtrOfCUDA_FarnebackOpticalFlow {
-		#[inline] fn as_raw_mut_CUDA_DenseOpticalFlow(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	pub type PtrOfCUDA_NvidiaOpticalFlow_1_0 = core::Ptr<dyn crate::cudaoptflow::CUDA_NvidiaOpticalFlow_1_0>;
-	
-	ptr_extern! { dyn crate::cudaoptflow::CUDA_NvidiaOpticalFlow_1_0,
-		cv_PtrOfCUDA_NvidiaOpticalFlow_1_0_delete, cv_PtrOfCUDA_NvidiaOpticalFlow_1_0_get_inner_ptr, cv_PtrOfCUDA_NvidiaOpticalFlow_1_0_get_inner_ptr_mut
-	}
-	
-	impl PtrOfCUDA_NvidiaOpticalFlow_1_0 {
-		#[inline] pub fn as_raw_PtrOfCUDA_NvidiaOpticalFlow_1_0(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfCUDA_NvidiaOpticalFlow_1_0(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudaoptflow::CUDA_NvidiaOpticalFlow_1_0Const for PtrOfCUDA_NvidiaOpticalFlow_1_0 {
-		#[inline] fn as_raw_CUDA_NvidiaOpticalFlow_1_0(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudaoptflow::CUDA_NvidiaOpticalFlow_1_0 for PtrOfCUDA_NvidiaOpticalFlow_1_0 {
-		#[inline] fn as_raw_mut_CUDA_NvidiaOpticalFlow_1_0(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfCUDA_NvidiaOpticalFlow_1_0 {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfCUDA_NvidiaOpticalFlow_1_0 {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl crate::cudaoptflow::CUDA_NvidiaHWOpticalFlowConst for PtrOfCUDA_NvidiaOpticalFlow_1_0 {
-		#[inline] fn as_raw_CUDA_NvidiaHWOpticalFlow(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudaoptflow::CUDA_NvidiaHWOpticalFlow for PtrOfCUDA_NvidiaOpticalFlow_1_0 {
-		#[inline] fn as_raw_mut_CUDA_NvidiaHWOpticalFlow(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	pub type PtrOfCUDA_NvidiaOpticalFlow_2_0 = core::Ptr<dyn crate::cudaoptflow::CUDA_NvidiaOpticalFlow_2_0>;
-	
-	ptr_extern! { dyn crate::cudaoptflow::CUDA_NvidiaOpticalFlow_2_0,
-		cv_PtrOfCUDA_NvidiaOpticalFlow_2_0_delete, cv_PtrOfCUDA_NvidiaOpticalFlow_2_0_get_inner_ptr, cv_PtrOfCUDA_NvidiaOpticalFlow_2_0_get_inner_ptr_mut
-	}
-	
-	impl PtrOfCUDA_NvidiaOpticalFlow_2_0 {
-		#[inline] pub fn as_raw_PtrOfCUDA_NvidiaOpticalFlow_2_0(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfCUDA_NvidiaOpticalFlow_2_0(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudaoptflow::CUDA_NvidiaOpticalFlow_2_0Const for PtrOfCUDA_NvidiaOpticalFlow_2_0 {
-		#[inline] fn as_raw_CUDA_NvidiaOpticalFlow_2_0(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudaoptflow::CUDA_NvidiaOpticalFlow_2_0 for PtrOfCUDA_NvidiaOpticalFlow_2_0 {
-		#[inline] fn as_raw_mut_CUDA_NvidiaOpticalFlow_2_0(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfCUDA_NvidiaOpticalFlow_2_0 {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfCUDA_NvidiaOpticalFlow_2_0 {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl crate::cudaoptflow::CUDA_NvidiaHWOpticalFlowConst for PtrOfCUDA_NvidiaOpticalFlow_2_0 {
-		#[inline] fn as_raw_CUDA_NvidiaHWOpticalFlow(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudaoptflow::CUDA_NvidiaHWOpticalFlow for PtrOfCUDA_NvidiaOpticalFlow_2_0 {
-		#[inline] fn as_raw_mut_CUDA_NvidiaHWOpticalFlow(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	pub type PtrOfCUDA_OpticalFlowDual_TVL1 = core::Ptr<dyn crate::cudaoptflow::CUDA_OpticalFlowDual_TVL1>;
-	
-	ptr_extern! { dyn crate::cudaoptflow::CUDA_OpticalFlowDual_TVL1,
-		cv_PtrOfCUDA_OpticalFlowDual_TVL1_delete, cv_PtrOfCUDA_OpticalFlowDual_TVL1_get_inner_ptr, cv_PtrOfCUDA_OpticalFlowDual_TVL1_get_inner_ptr_mut
-	}
-	
-	impl PtrOfCUDA_OpticalFlowDual_TVL1 {
-		#[inline] pub fn as_raw_PtrOfCUDA_OpticalFlowDual_TVL1(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfCUDA_OpticalFlowDual_TVL1(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudaoptflow::CUDA_OpticalFlowDual_TVL1Const for PtrOfCUDA_OpticalFlowDual_TVL1 {
-		#[inline] fn as_raw_CUDA_OpticalFlowDual_TVL1(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudaoptflow::CUDA_OpticalFlowDual_TVL1 for PtrOfCUDA_OpticalFlowDual_TVL1 {
-		#[inline] fn as_raw_mut_CUDA_OpticalFlowDual_TVL1(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfCUDA_OpticalFlowDual_TVL1 {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfCUDA_OpticalFlowDual_TVL1 {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl crate::cudaoptflow::CUDA_DenseOpticalFlowConst for PtrOfCUDA_OpticalFlowDual_TVL1 {
-		#[inline] fn as_raw_CUDA_DenseOpticalFlow(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudaoptflow::CUDA_DenseOpticalFlow for PtrOfCUDA_OpticalFlowDual_TVL1 {
-		#[inline] fn as_raw_mut_CUDA_DenseOpticalFlow(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	pub type PtrOfCUDA_SparsePyrLKOpticalFlow = core::Ptr<dyn crate::cudaoptflow::CUDA_SparsePyrLKOpticalFlow>;
-	
-	ptr_extern! { dyn crate::cudaoptflow::CUDA_SparsePyrLKOpticalFlow,
-		cv_PtrOfCUDA_SparsePyrLKOpticalFlow_delete, cv_PtrOfCUDA_SparsePyrLKOpticalFlow_get_inner_ptr, cv_PtrOfCUDA_SparsePyrLKOpticalFlow_get_inner_ptr_mut
-	}
-	
-	impl PtrOfCUDA_SparsePyrLKOpticalFlow {
-		#[inline] pub fn as_raw_PtrOfCUDA_SparsePyrLKOpticalFlow(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfCUDA_SparsePyrLKOpticalFlow(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudaoptflow::CUDA_SparsePyrLKOpticalFlowConst for PtrOfCUDA_SparsePyrLKOpticalFlow {
-		#[inline] fn as_raw_CUDA_SparsePyrLKOpticalFlow(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudaoptflow::CUDA_SparsePyrLKOpticalFlow for PtrOfCUDA_SparsePyrLKOpticalFlow {
-		#[inline] fn as_raw_mut_CUDA_SparsePyrLKOpticalFlow(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfCUDA_SparsePyrLKOpticalFlow {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfCUDA_SparsePyrLKOpticalFlow {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl crate::cudaoptflow::CUDA_SparseOpticalFlowConst for PtrOfCUDA_SparsePyrLKOpticalFlow {
-		#[inline] fn as_raw_CUDA_SparseOpticalFlow(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudaoptflow::CUDA_SparseOpticalFlow for PtrOfCUDA_SparsePyrLKOpticalFlow {
-		#[inline] fn as_raw_mut_CUDA_SparseOpticalFlow(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-}
-#[cfg(ocvrs_has_module_cudaoptflow)]
-pub use cudaoptflow_types::*;
-
-#[cfg(ocvrs_has_module_cudastereo)]
-mod cudastereo_types {
-	use crate::{mod_prelude::*, core, types, sys};
-
-	pub type PtrOfCUDA_DisparityBilateralFilter = core::Ptr<dyn crate::cudastereo::CUDA_DisparityBilateralFilter>;
-	
-	ptr_extern! { dyn crate::cudastereo::CUDA_DisparityBilateralFilter,
-		cv_PtrOfCUDA_DisparityBilateralFilter_delete, cv_PtrOfCUDA_DisparityBilateralFilter_get_inner_ptr, cv_PtrOfCUDA_DisparityBilateralFilter_get_inner_ptr_mut
-	}
-	
-	impl PtrOfCUDA_DisparityBilateralFilter {
-		#[inline] pub fn as_raw_PtrOfCUDA_DisparityBilateralFilter(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfCUDA_DisparityBilateralFilter(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudastereo::CUDA_DisparityBilateralFilterConst for PtrOfCUDA_DisparityBilateralFilter {
-		#[inline] fn as_raw_CUDA_DisparityBilateralFilter(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudastereo::CUDA_DisparityBilateralFilter for PtrOfCUDA_DisparityBilateralFilter {
-		#[inline] fn as_raw_mut_CUDA_DisparityBilateralFilter(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfCUDA_DisparityBilateralFilter {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfCUDA_DisparityBilateralFilter {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	pub type PtrOfCUDA_StereoBM = core::Ptr<dyn crate::cudastereo::CUDA_StereoBM>;
-	
-	ptr_extern! { dyn crate::cudastereo::CUDA_StereoBM,
-		cv_PtrOfCUDA_StereoBM_delete, cv_PtrOfCUDA_StereoBM_get_inner_ptr, cv_PtrOfCUDA_StereoBM_get_inner_ptr_mut
-	}
-	
-	impl PtrOfCUDA_StereoBM {
-		#[inline] pub fn as_raw_PtrOfCUDA_StereoBM(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfCUDA_StereoBM(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudastereo::CUDA_StereoBMConst for PtrOfCUDA_StereoBM {
-		#[inline] fn as_raw_CUDA_StereoBM(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudastereo::CUDA_StereoBM for PtrOfCUDA_StereoBM {
-		#[inline] fn as_raw_mut_CUDA_StereoBM(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfCUDA_StereoBM {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfCUDA_StereoBM {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl crate::calib3d::StereoBMConst for PtrOfCUDA_StereoBM {
-		#[inline] fn as_raw_StereoBM(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::calib3d::StereoBM for PtrOfCUDA_StereoBM {
-		#[inline] fn as_raw_mut_StereoBM(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl crate::calib3d::StereoMatcherConst for PtrOfCUDA_StereoBM {
-		#[inline] fn as_raw_StereoMatcher(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::calib3d::StereoMatcher for PtrOfCUDA_StereoBM {
-		#[inline] fn as_raw_mut_StereoMatcher(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	pub type PtrOfCUDA_StereoBeliefPropagation = core::Ptr<dyn crate::cudastereo::CUDA_StereoBeliefPropagation>;
-	
-	ptr_extern! { dyn crate::cudastereo::CUDA_StereoBeliefPropagation,
-		cv_PtrOfCUDA_StereoBeliefPropagation_delete, cv_PtrOfCUDA_StereoBeliefPropagation_get_inner_ptr, cv_PtrOfCUDA_StereoBeliefPropagation_get_inner_ptr_mut
-	}
-	
-	impl PtrOfCUDA_StereoBeliefPropagation {
-		#[inline] pub fn as_raw_PtrOfCUDA_StereoBeliefPropagation(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfCUDA_StereoBeliefPropagation(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudastereo::CUDA_StereoBeliefPropagationConst for PtrOfCUDA_StereoBeliefPropagation {
-		#[inline] fn as_raw_CUDA_StereoBeliefPropagation(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudastereo::CUDA_StereoBeliefPropagation for PtrOfCUDA_StereoBeliefPropagation {
-		#[inline] fn as_raw_mut_CUDA_StereoBeliefPropagation(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfCUDA_StereoBeliefPropagation {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfCUDA_StereoBeliefPropagation {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl crate::calib3d::StereoMatcherConst for PtrOfCUDA_StereoBeliefPropagation {
-		#[inline] fn as_raw_StereoMatcher(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::calib3d::StereoMatcher for PtrOfCUDA_StereoBeliefPropagation {
-		#[inline] fn as_raw_mut_StereoMatcher(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	pub type PtrOfCUDA_StereoConstantSpaceBP = core::Ptr<dyn crate::cudastereo::CUDA_StereoConstantSpaceBP>;
-	
-	ptr_extern! { dyn crate::cudastereo::CUDA_StereoConstantSpaceBP,
-		cv_PtrOfCUDA_StereoConstantSpaceBP_delete, cv_PtrOfCUDA_StereoConstantSpaceBP_get_inner_ptr, cv_PtrOfCUDA_StereoConstantSpaceBP_get_inner_ptr_mut
-	}
-	
-	impl PtrOfCUDA_StereoConstantSpaceBP {
-		#[inline] pub fn as_raw_PtrOfCUDA_StereoConstantSpaceBP(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfCUDA_StereoConstantSpaceBP(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudastereo::CUDA_StereoConstantSpaceBPConst for PtrOfCUDA_StereoConstantSpaceBP {
-		#[inline] fn as_raw_CUDA_StereoConstantSpaceBP(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudastereo::CUDA_StereoConstantSpaceBP for PtrOfCUDA_StereoConstantSpaceBP {
-		#[inline] fn as_raw_mut_CUDA_StereoConstantSpaceBP(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfCUDA_StereoConstantSpaceBP {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfCUDA_StereoConstantSpaceBP {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl crate::calib3d::StereoMatcherConst for PtrOfCUDA_StereoConstantSpaceBP {
-		#[inline] fn as_raw_StereoMatcher(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::calib3d::StereoMatcher for PtrOfCUDA_StereoConstantSpaceBP {
-		#[inline] fn as_raw_mut_StereoMatcher(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl crate::cudastereo::CUDA_StereoBeliefPropagationConst for PtrOfCUDA_StereoConstantSpaceBP {
-		#[inline] fn as_raw_CUDA_StereoBeliefPropagation(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudastereo::CUDA_StereoBeliefPropagation for PtrOfCUDA_StereoConstantSpaceBP {
-		#[inline] fn as_raw_mut_CUDA_StereoBeliefPropagation(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	pub type PtrOfCUDA_StereoSGM = core::Ptr<dyn crate::cudastereo::CUDA_StereoSGM>;
-	
-	ptr_extern! { dyn crate::cudastereo::CUDA_StereoSGM,
-		cv_PtrOfCUDA_StereoSGM_delete, cv_PtrOfCUDA_StereoSGM_get_inner_ptr, cv_PtrOfCUDA_StereoSGM_get_inner_ptr_mut
-	}
-	
-	impl PtrOfCUDA_StereoSGM {
-		#[inline] pub fn as_raw_PtrOfCUDA_StereoSGM(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfCUDA_StereoSGM(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::cudastereo::CUDA_StereoSGMConst for PtrOfCUDA_StereoSGM {
-		#[inline] fn as_raw_CUDA_StereoSGM(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::cudastereo::CUDA_StereoSGM for PtrOfCUDA_StereoSGM {
-		#[inline] fn as_raw_mut_CUDA_StereoSGM(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl core::AlgorithmTraitConst for PtrOfCUDA_StereoSGM {
-		#[inline] fn as_raw_Algorithm(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl core::AlgorithmTrait for PtrOfCUDA_StereoSGM {
-		#[inline] fn as_raw_mut_Algorithm(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl crate::calib3d::StereoMatcherConst for PtrOfCUDA_StereoSGM {
-		#[inline] fn as_raw_StereoMatcher(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::calib3d::StereoMatcher for PtrOfCUDA_StereoSGM {
-		#[inline] fn as_raw_mut_StereoMatcher(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl crate::calib3d::StereoSGBMConst for PtrOfCUDA_StereoSGM {
-		#[inline] fn as_raw_StereoSGBM(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::calib3d::StereoSGBM for PtrOfCUDA_StereoSGM {
-		#[inline] fn as_raw_mut_StereoSGBM(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-}
-#[cfg(ocvrs_has_module_cudastereo)]
-pub use cudastereo_types::*;
 
 #[cfg(ocvrs_has_module_dnn)]
 mod dnn_types {
@@ -8102,7 +6941,7 @@ mod dnn_types {
 	vector_extern! { core::Ptr<crate::dnn::BackendNode>, *const c_void, *mut c_void,
 		cv_VectorOfPtrOfBackendNode_new, cv_VectorOfPtrOfBackendNode_delete,
 		cv_VectorOfPtrOfBackendNode_len, cv_VectorOfPtrOfBackendNode_is_empty,
-		cv_VectorOfPtrOfBackendNode_capacity, cv_VectorOfPtrOfBackendNode_shrink_to_fit,
+		cv_VectorOfPtrOfBackendNode_capacity, cv_VectorOfPtrOfBackendNode_resize, cv_VectorOfPtrOfBackendNode_shrink_to_fit,
 		cv_VectorOfPtrOfBackendNode_reserve, cv_VectorOfPtrOfBackendNode_remove,
 		cv_VectorOfPtrOfBackendNode_swap, cv_VectorOfPtrOfBackendNode_clear,
 		cv_VectorOfPtrOfBackendNode_get, cv_VectorOfPtrOfBackendNode_set,
@@ -8122,7 +6961,7 @@ mod dnn_types {
 	vector_extern! { core::Ptr<dyn crate::dnn::BackendWrapper>, *const c_void, *mut c_void,
 		cv_VectorOfPtrOfBackendWrapper_new, cv_VectorOfPtrOfBackendWrapper_delete,
 		cv_VectorOfPtrOfBackendWrapper_len, cv_VectorOfPtrOfBackendWrapper_is_empty,
-		cv_VectorOfPtrOfBackendWrapper_capacity, cv_VectorOfPtrOfBackendWrapper_shrink_to_fit,
+		cv_VectorOfPtrOfBackendWrapper_capacity, cv_VectorOfPtrOfBackendWrapper_resize, cv_VectorOfPtrOfBackendWrapper_shrink_to_fit,
 		cv_VectorOfPtrOfBackendWrapper_reserve, cv_VectorOfPtrOfBackendWrapper_remove,
 		cv_VectorOfPtrOfBackendWrapper_swap, cv_VectorOfPtrOfBackendWrapper_clear,
 		cv_VectorOfPtrOfBackendWrapper_get, cv_VectorOfPtrOfBackendWrapper_set,
@@ -8142,7 +6981,7 @@ mod dnn_types {
 	vector_extern! { core::Ptr<crate::dnn::Layer>, *const c_void, *mut c_void,
 		cv_VectorOfPtrOfLayer_new, cv_VectorOfPtrOfLayer_delete,
 		cv_VectorOfPtrOfLayer_len, cv_VectorOfPtrOfLayer_is_empty,
-		cv_VectorOfPtrOfLayer_capacity, cv_VectorOfPtrOfLayer_shrink_to_fit,
+		cv_VectorOfPtrOfLayer_capacity, cv_VectorOfPtrOfLayer_resize, cv_VectorOfPtrOfLayer_shrink_to_fit,
 		cv_VectorOfPtrOfLayer_reserve, cv_VectorOfPtrOfLayer_remove,
 		cv_VectorOfPtrOfLayer_swap, cv_VectorOfPtrOfLayer_clear,
 		cv_VectorOfPtrOfLayer_get, cv_VectorOfPtrOfLayer_set,
@@ -8162,7 +7001,7 @@ mod dnn_types {
 	vector_extern! { crate::dnn::Target, *const c_void, *mut c_void,
 		cv_VectorOfTarget_new, cv_VectorOfTarget_delete,
 		cv_VectorOfTarget_len, cv_VectorOfTarget_is_empty,
-		cv_VectorOfTarget_capacity, cv_VectorOfTarget_shrink_to_fit,
+		cv_VectorOfTarget_capacity, cv_VectorOfTarget_resize, cv_VectorOfTarget_shrink_to_fit,
 		cv_VectorOfTarget_reserve, cv_VectorOfTarget_remove,
 		cv_VectorOfTarget_swap, cv_VectorOfTarget_clear,
 		cv_VectorOfTarget_get, cv_VectorOfTarget_set,
@@ -8185,7 +7024,7 @@ mod dnn_types {
 	vector_extern! { core::Vector<crate::dnn::MatShape>, *const c_void, *mut c_void,
 		cv_VectorOfVectorOfMatShape_new, cv_VectorOfVectorOfMatShape_delete,
 		cv_VectorOfVectorOfMatShape_len, cv_VectorOfVectorOfMatShape_is_empty,
-		cv_VectorOfVectorOfMatShape_capacity, cv_VectorOfVectorOfMatShape_shrink_to_fit,
+		cv_VectorOfVectorOfMatShape_capacity, cv_VectorOfVectorOfMatShape_resize, cv_VectorOfVectorOfMatShape_shrink_to_fit,
 		cv_VectorOfVectorOfMatShape_reserve, cv_VectorOfVectorOfMatShape_remove,
 		cv_VectorOfVectorOfMatShape_swap, cv_VectorOfVectorOfMatShape_clear,
 		cv_VectorOfVectorOfMatShape_get, cv_VectorOfVectorOfMatShape_set,
@@ -8261,7 +7100,7 @@ mod dpm_types {
 	vector_extern! { crate::dpm::DPMDetector_ObjectDetection, *const c_void, *mut c_void,
 		cv_VectorOfDPMDetector_ObjectDetection_new, cv_VectorOfDPMDetector_ObjectDetection_delete,
 		cv_VectorOfDPMDetector_ObjectDetection_len, cv_VectorOfDPMDetector_ObjectDetection_is_empty,
-		cv_VectorOfDPMDetector_ObjectDetection_capacity, cv_VectorOfDPMDetector_ObjectDetection_shrink_to_fit,
+		cv_VectorOfDPMDetector_ObjectDetection_capacity, cv_VectorOfDPMDetector_ObjectDetection_resize, cv_VectorOfDPMDetector_ObjectDetection_shrink_to_fit,
 		cv_VectorOfDPMDetector_ObjectDetection_reserve, cv_VectorOfDPMDetector_ObjectDetection_remove,
 		cv_VectorOfDPMDetector_ObjectDetection_swap, cv_VectorOfDPMDetector_ObjectDetection_clear,
 		cv_VectorOfDPMDetector_ObjectDetection_get, cv_VectorOfDPMDetector_ObjectDetection_set,
@@ -8664,7 +7503,7 @@ mod face_types {
 	vector_extern! { crate::face::FacemarkAAM_Config, *const c_void, *mut c_void,
 		cv_VectorOfFacemarkAAM_Config_new, cv_VectorOfFacemarkAAM_Config_delete,
 		cv_VectorOfFacemarkAAM_Config_len, cv_VectorOfFacemarkAAM_Config_is_empty,
-		cv_VectorOfFacemarkAAM_Config_capacity, cv_VectorOfFacemarkAAM_Config_shrink_to_fit,
+		cv_VectorOfFacemarkAAM_Config_capacity, cv_VectorOfFacemarkAAM_Config_resize, cv_VectorOfFacemarkAAM_Config_shrink_to_fit,
 		cv_VectorOfFacemarkAAM_Config_reserve, cv_VectorOfFacemarkAAM_Config_remove,
 		cv_VectorOfFacemarkAAM_Config_swap, cv_VectorOfFacemarkAAM_Config_clear,
 		cv_VectorOfFacemarkAAM_Config_get, cv_VectorOfFacemarkAAM_Config_set,
@@ -8684,7 +7523,7 @@ mod face_types {
 	vector_extern! { crate::face::FacemarkAAM_Model_Texture, *const c_void, *mut c_void,
 		cv_VectorOfFacemarkAAM_Model_Texture_new, cv_VectorOfFacemarkAAM_Model_Texture_delete,
 		cv_VectorOfFacemarkAAM_Model_Texture_len, cv_VectorOfFacemarkAAM_Model_Texture_is_empty,
-		cv_VectorOfFacemarkAAM_Model_Texture_capacity, cv_VectorOfFacemarkAAM_Model_Texture_shrink_to_fit,
+		cv_VectorOfFacemarkAAM_Model_Texture_capacity, cv_VectorOfFacemarkAAM_Model_Texture_resize, cv_VectorOfFacemarkAAM_Model_Texture_shrink_to_fit,
 		cv_VectorOfFacemarkAAM_Model_Texture_reserve, cv_VectorOfFacemarkAAM_Model_Texture_remove,
 		cv_VectorOfFacemarkAAM_Model_Texture_swap, cv_VectorOfFacemarkAAM_Model_Texture_clear,
 		cv_VectorOfFacemarkAAM_Model_Texture_get, cv_VectorOfFacemarkAAM_Model_Texture_set,
@@ -9335,7 +8174,7 @@ mod flann_types {
 	vector_extern! { crate::flann::FlannIndexType, *const c_void, *mut c_void,
 		cv_VectorOfFlannIndexType_new, cv_VectorOfFlannIndexType_delete,
 		cv_VectorOfFlannIndexType_len, cv_VectorOfFlannIndexType_is_empty,
-		cv_VectorOfFlannIndexType_capacity, cv_VectorOfFlannIndexType_shrink_to_fit,
+		cv_VectorOfFlannIndexType_capacity, cv_VectorOfFlannIndexType_resize, cv_VectorOfFlannIndexType_shrink_to_fit,
 		cv_VectorOfFlannIndexType_reserve, cv_VectorOfFlannIndexType_remove,
 		cv_VectorOfFlannIndexType_swap, cv_VectorOfFlannIndexType_clear,
 		cv_VectorOfFlannIndexType_get, cv_VectorOfFlannIndexType_set,
@@ -9912,7 +8751,7 @@ mod line_descriptor_types {
 	vector_extern! { crate::line_descriptor::KeyLine, *const c_void, *mut c_void,
 		cv_VectorOfKeyLine_new, cv_VectorOfKeyLine_delete,
 		cv_VectorOfKeyLine_len, cv_VectorOfKeyLine_is_empty,
-		cv_VectorOfKeyLine_capacity, cv_VectorOfKeyLine_shrink_to_fit,
+		cv_VectorOfKeyLine_capacity, cv_VectorOfKeyLine_resize, cv_VectorOfKeyLine_shrink_to_fit,
 		cv_VectorOfKeyLine_reserve, cv_VectorOfKeyLine_remove,
 		cv_VectorOfKeyLine_swap, cv_VectorOfKeyLine_clear,
 		cv_VectorOfKeyLine_get, cv_VectorOfKeyLine_set,
@@ -9935,7 +8774,7 @@ mod line_descriptor_types {
 	vector_extern! { core::Vector<crate::line_descriptor::KeyLine>, *const c_void, *mut c_void,
 		cv_VectorOfVectorOfKeyLine_new, cv_VectorOfVectorOfKeyLine_delete,
 		cv_VectorOfVectorOfKeyLine_len, cv_VectorOfVectorOfKeyLine_is_empty,
-		cv_VectorOfVectorOfKeyLine_capacity, cv_VectorOfVectorOfKeyLine_shrink_to_fit,
+		cv_VectorOfVectorOfKeyLine_capacity, cv_VectorOfVectorOfKeyLine_resize, cv_VectorOfVectorOfKeyLine_shrink_to_fit,
 		cv_VectorOfVectorOfKeyLine_reserve, cv_VectorOfVectorOfKeyLine_remove,
 		cv_VectorOfVectorOfKeyLine_swap, cv_VectorOfVectorOfKeyLine_clear,
 		cv_VectorOfVectorOfKeyLine_get, cv_VectorOfVectorOfKeyLine_set,
@@ -10049,7 +8888,7 @@ mod mcc_types {
 	vector_extern! { core::Ptr<dyn crate::mcc::MCC_CChecker>, *const c_void, *mut c_void,
 		cv_VectorOfPtrOfMCC_CChecker_new, cv_VectorOfPtrOfMCC_CChecker_delete,
 		cv_VectorOfPtrOfMCC_CChecker_len, cv_VectorOfPtrOfMCC_CChecker_is_empty,
-		cv_VectorOfPtrOfMCC_CChecker_capacity, cv_VectorOfPtrOfMCC_CChecker_shrink_to_fit,
+		cv_VectorOfPtrOfMCC_CChecker_capacity, cv_VectorOfPtrOfMCC_CChecker_resize, cv_VectorOfPtrOfMCC_CChecker_shrink_to_fit,
 		cv_VectorOfPtrOfMCC_CChecker_reserve, cv_VectorOfPtrOfMCC_CChecker_remove,
 		cv_VectorOfPtrOfMCC_CChecker_swap, cv_VectorOfPtrOfMCC_CChecker_clear,
 		cv_VectorOfPtrOfMCC_CChecker_get, cv_VectorOfPtrOfMCC_CChecker_set,
@@ -10510,7 +9349,7 @@ mod ml_types {
 	vector_extern! { crate::ml::DTrees_Node, *const c_void, *mut c_void,
 		cv_VectorOfDTrees_Node_new, cv_VectorOfDTrees_Node_delete,
 		cv_VectorOfDTrees_Node_len, cv_VectorOfDTrees_Node_is_empty,
-		cv_VectorOfDTrees_Node_capacity, cv_VectorOfDTrees_Node_shrink_to_fit,
+		cv_VectorOfDTrees_Node_capacity, cv_VectorOfDTrees_Node_resize, cv_VectorOfDTrees_Node_shrink_to_fit,
 		cv_VectorOfDTrees_Node_reserve, cv_VectorOfDTrees_Node_remove,
 		cv_VectorOfDTrees_Node_swap, cv_VectorOfDTrees_Node_clear,
 		cv_VectorOfDTrees_Node_get, cv_VectorOfDTrees_Node_set,
@@ -10530,7 +9369,7 @@ mod ml_types {
 	vector_extern! { crate::ml::DTrees_Split, *const c_void, *mut c_void,
 		cv_VectorOfDTrees_Split_new, cv_VectorOfDTrees_Split_delete,
 		cv_VectorOfDTrees_Split_len, cv_VectorOfDTrees_Split_is_empty,
-		cv_VectorOfDTrees_Split_capacity, cv_VectorOfDTrees_Split_shrink_to_fit,
+		cv_VectorOfDTrees_Split_capacity, cv_VectorOfDTrees_Split_resize, cv_VectorOfDTrees_Split_shrink_to_fit,
 		cv_VectorOfDTrees_Split_reserve, cv_VectorOfDTrees_Split_remove,
 		cv_VectorOfDTrees_Split_swap, cv_VectorOfDTrees_Split_clear,
 		cv_VectorOfDTrees_Split_get, cv_VectorOfDTrees_Split_set,
@@ -10680,7 +9519,7 @@ mod objdetect_types {
 	vector_extern! { crate::objdetect::DetectionBasedTracker_ExtObject, *const c_void, *mut c_void,
 		cv_VectorOfDetectionBasedTracker_ExtObject_new, cv_VectorOfDetectionBasedTracker_ExtObject_delete,
 		cv_VectorOfDetectionBasedTracker_ExtObject_len, cv_VectorOfDetectionBasedTracker_ExtObject_is_empty,
-		cv_VectorOfDetectionBasedTracker_ExtObject_capacity, cv_VectorOfDetectionBasedTracker_ExtObject_shrink_to_fit,
+		cv_VectorOfDetectionBasedTracker_ExtObject_capacity, cv_VectorOfDetectionBasedTracker_ExtObject_resize, cv_VectorOfDetectionBasedTracker_ExtObject_shrink_to_fit,
 		cv_VectorOfDetectionBasedTracker_ExtObject_reserve, cv_VectorOfDetectionBasedTracker_ExtObject_remove,
 		cv_VectorOfDetectionBasedTracker_ExtObject_swap, cv_VectorOfDetectionBasedTracker_ExtObject_clear,
 		cv_VectorOfDetectionBasedTracker_ExtObject_get, cv_VectorOfDetectionBasedTracker_ExtObject_set,
@@ -10700,7 +9539,7 @@ mod objdetect_types {
 	vector_extern! { crate::objdetect::DetectionROI, *const c_void, *mut c_void,
 		cv_VectorOfDetectionROI_new, cv_VectorOfDetectionROI_delete,
 		cv_VectorOfDetectionROI_len, cv_VectorOfDetectionROI_is_empty,
-		cv_VectorOfDetectionROI_capacity, cv_VectorOfDetectionROI_shrink_to_fit,
+		cv_VectorOfDetectionROI_capacity, cv_VectorOfDetectionROI_resize, cv_VectorOfDetectionROI_shrink_to_fit,
 		cv_VectorOfDetectionROI_reserve, cv_VectorOfDetectionROI_remove,
 		cv_VectorOfDetectionROI_swap, cv_VectorOfDetectionROI_clear,
 		cv_VectorOfDetectionROI_get, cv_VectorOfDetectionROI_set,
@@ -10925,7 +9764,7 @@ mod optflow_types {
 	vector_extern! { crate::optflow::GPCPatchDescriptor, *const c_void, *mut c_void,
 		cv_VectorOfGPCPatchDescriptor_new, cv_VectorOfGPCPatchDescriptor_delete,
 		cv_VectorOfGPCPatchDescriptor_len, cv_VectorOfGPCPatchDescriptor_is_empty,
-		cv_VectorOfGPCPatchDescriptor_capacity, cv_VectorOfGPCPatchDescriptor_shrink_to_fit,
+		cv_VectorOfGPCPatchDescriptor_capacity, cv_VectorOfGPCPatchDescriptor_resize, cv_VectorOfGPCPatchDescriptor_shrink_to_fit,
 		cv_VectorOfGPCPatchDescriptor_reserve, cv_VectorOfGPCPatchDescriptor_remove,
 		cv_VectorOfGPCPatchDescriptor_swap, cv_VectorOfGPCPatchDescriptor_clear,
 		cv_VectorOfGPCPatchDescriptor_get, cv_VectorOfGPCPatchDescriptor_set,
@@ -10938,33 +9777,6 @@ mod optflow_types {
 }
 #[cfg(ocvrs_has_module_optflow)]
 pub use optflow_types::*;
-
-#[cfg(ocvrs_has_module_ovis)]
-mod ovis_types {
-	use crate::{mod_prelude::*, core, types, sys};
-
-	pub type PtrOfWindowScene = core::Ptr<dyn crate::ovis::WindowScene>;
-	
-	ptr_extern! { dyn crate::ovis::WindowScene,
-		cv_PtrOfWindowScene_delete, cv_PtrOfWindowScene_get_inner_ptr, cv_PtrOfWindowScene_get_inner_ptr_mut
-	}
-	
-	impl PtrOfWindowScene {
-		#[inline] pub fn as_raw_PtrOfWindowScene(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfWindowScene(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::ovis::WindowSceneConst for PtrOfWindowScene {
-		#[inline] fn as_raw_WindowScene(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::ovis::WindowScene for PtrOfWindowScene {
-		#[inline] fn as_raw_mut_WindowScene(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-}
-#[cfg(ocvrs_has_module_ovis)]
-pub use ovis_types::*;
 
 #[cfg(ocvrs_has_module_phase_unwrapping)]
 mod phase_unwrapping_types {
@@ -12306,7 +11118,7 @@ mod rgbd_types {
 	vector_extern! { crate::rgbd::Linemod_Feature, *const c_void, *mut c_void,
 		cv_VectorOfLinemod_Feature_new, cv_VectorOfLinemod_Feature_delete,
 		cv_VectorOfLinemod_Feature_len, cv_VectorOfLinemod_Feature_is_empty,
-		cv_VectorOfLinemod_Feature_capacity, cv_VectorOfLinemod_Feature_shrink_to_fit,
+		cv_VectorOfLinemod_Feature_capacity, cv_VectorOfLinemod_Feature_resize, cv_VectorOfLinemod_Feature_shrink_to_fit,
 		cv_VectorOfLinemod_Feature_reserve, cv_VectorOfLinemod_Feature_remove,
 		cv_VectorOfLinemod_Feature_swap, cv_VectorOfLinemod_Feature_clear,
 		cv_VectorOfLinemod_Feature_get, cv_VectorOfLinemod_Feature_set,
@@ -12329,7 +11141,7 @@ mod rgbd_types {
 	vector_extern! { crate::rgbd::Linemod_Match, *const c_void, *mut c_void,
 		cv_VectorOfLinemod_Match_new, cv_VectorOfLinemod_Match_delete,
 		cv_VectorOfLinemod_Match_len, cv_VectorOfLinemod_Match_is_empty,
-		cv_VectorOfLinemod_Match_capacity, cv_VectorOfLinemod_Match_shrink_to_fit,
+		cv_VectorOfLinemod_Match_capacity, cv_VectorOfLinemod_Match_resize, cv_VectorOfLinemod_Match_shrink_to_fit,
 		cv_VectorOfLinemod_Match_reserve, cv_VectorOfLinemod_Match_remove,
 		cv_VectorOfLinemod_Match_swap, cv_VectorOfLinemod_Match_clear,
 		cv_VectorOfLinemod_Match_get, cv_VectorOfLinemod_Match_set,
@@ -12349,7 +11161,7 @@ mod rgbd_types {
 	vector_extern! { crate::rgbd::Linemod_Template, *const c_void, *mut c_void,
 		cv_VectorOfLinemod_Template_new, cv_VectorOfLinemod_Template_delete,
 		cv_VectorOfLinemod_Template_len, cv_VectorOfLinemod_Template_is_empty,
-		cv_VectorOfLinemod_Template_capacity, cv_VectorOfLinemod_Template_shrink_to_fit,
+		cv_VectorOfLinemod_Template_capacity, cv_VectorOfLinemod_Template_resize, cv_VectorOfLinemod_Template_shrink_to_fit,
 		cv_VectorOfLinemod_Template_reserve, cv_VectorOfLinemod_Template_remove,
 		cv_VectorOfLinemod_Template_swap, cv_VectorOfLinemod_Template_clear,
 		cv_VectorOfLinemod_Template_get, cv_VectorOfLinemod_Template_set,
@@ -12369,7 +11181,7 @@ mod rgbd_types {
 	vector_extern! { core::Ptr<dyn crate::rgbd::Linemod_Modality>, *const c_void, *mut c_void,
 		cv_VectorOfPtrOfLinemod_Modality_new, cv_VectorOfPtrOfLinemod_Modality_delete,
 		cv_VectorOfPtrOfLinemod_Modality_len, cv_VectorOfPtrOfLinemod_Modality_is_empty,
-		cv_VectorOfPtrOfLinemod_Modality_capacity, cv_VectorOfPtrOfLinemod_Modality_shrink_to_fit,
+		cv_VectorOfPtrOfLinemod_Modality_capacity, cv_VectorOfPtrOfLinemod_Modality_resize, cv_VectorOfPtrOfLinemod_Modality_shrink_to_fit,
 		cv_VectorOfPtrOfLinemod_Modality_reserve, cv_VectorOfPtrOfLinemod_Modality_remove,
 		cv_VectorOfPtrOfLinemod_Modality_swap, cv_VectorOfPtrOfLinemod_Modality_clear,
 		cv_VectorOfPtrOfLinemod_Modality_get, cv_VectorOfPtrOfLinemod_Modality_set,
@@ -12570,41 +11382,6 @@ mod saliency_types {
 }
 #[cfg(ocvrs_has_module_saliency)]
 pub use saliency_types::*;
-
-#[cfg(ocvrs_has_module_sfm)]
-mod sfm_types {
-	use crate::{mod_prelude::*, core, types, sys};
-
-	pub type PtrOfSFMLibmvEuclideanReconstruction = core::Ptr<dyn crate::sfm::SFMLibmvEuclideanReconstruction>;
-	
-	ptr_extern! { dyn crate::sfm::SFMLibmvEuclideanReconstruction,
-		cv_PtrOfSFMLibmvEuclideanReconstruction_delete, cv_PtrOfSFMLibmvEuclideanReconstruction_get_inner_ptr, cv_PtrOfSFMLibmvEuclideanReconstruction_get_inner_ptr_mut
-	}
-	
-	impl PtrOfSFMLibmvEuclideanReconstruction {
-		#[inline] pub fn as_raw_PtrOfSFMLibmvEuclideanReconstruction(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfSFMLibmvEuclideanReconstruction(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::sfm::SFMLibmvEuclideanReconstructionConst for PtrOfSFMLibmvEuclideanReconstruction {
-		#[inline] fn as_raw_SFMLibmvEuclideanReconstruction(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::sfm::SFMLibmvEuclideanReconstruction for PtrOfSFMLibmvEuclideanReconstruction {
-		#[inline] fn as_raw_mut_SFMLibmvEuclideanReconstruction(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl crate::sfm::BaseSFMConst for PtrOfSFMLibmvEuclideanReconstruction {
-		#[inline] fn as_raw_BaseSFM(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::sfm::BaseSFM for PtrOfSFMLibmvEuclideanReconstruction {
-		#[inline] fn as_raw_mut_BaseSFM(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-}
-#[cfg(ocvrs_has_module_sfm)]
-pub use sfm_types::*;
 
 #[cfg(ocvrs_has_module_shape)]
 mod shape_types {
@@ -13005,7 +11782,7 @@ mod stereo_types {
 	vector_extern! { crate::stereo::MatchQuasiDense, *const c_void, *mut c_void,
 		cv_VectorOfMatchQuasiDense_new, cv_VectorOfMatchQuasiDense_delete,
 		cv_VectorOfMatchQuasiDense_len, cv_VectorOfMatchQuasiDense_is_empty,
-		cv_VectorOfMatchQuasiDense_capacity, cv_VectorOfMatchQuasiDense_shrink_to_fit,
+		cv_VectorOfMatchQuasiDense_capacity, cv_VectorOfMatchQuasiDense_resize, cv_VectorOfMatchQuasiDense_shrink_to_fit,
 		cv_VectorOfMatchQuasiDense_reserve, cv_VectorOfMatchQuasiDense_remove,
 		cv_VectorOfMatchQuasiDense_swap, cv_VectorOfMatchQuasiDense_clear,
 		cv_VectorOfMatchQuasiDense_get, cv_VectorOfMatchQuasiDense_set,
@@ -13156,39 +11933,6 @@ mod stitching_types {
 	
 	ptr_cast_base! { PtrOfCylindricalWarper, core::Ptr<dyn crate::stitching::WarperCreator>,
 		cv_PtrOfCylindricalWarper_to_PtrOfWarperCreator,
-	}
-	
-	pub type PtrOfCylindricalWarperGpu = core::Ptr<crate::stitching::CylindricalWarperGpu>;
-	
-	ptr_extern! { crate::stitching::CylindricalWarperGpu,
-		cv_PtrOfCylindricalWarperGpu_delete, cv_PtrOfCylindricalWarperGpu_get_inner_ptr, cv_PtrOfCylindricalWarperGpu_get_inner_ptr_mut
-	}
-	
-	ptr_extern_ctor! { crate::stitching::CylindricalWarperGpu, cv_PtrOfCylindricalWarperGpu_new }
-	
-	impl PtrOfCylindricalWarperGpu {
-		#[inline] pub fn as_raw_PtrOfCylindricalWarperGpu(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfCylindricalWarperGpu(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::stitching::CylindricalWarperGpuTraitConst for PtrOfCylindricalWarperGpu {
-		#[inline] fn as_raw_CylindricalWarperGpu(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::stitching::CylindricalWarperGpuTrait for PtrOfCylindricalWarperGpu {
-		#[inline] fn as_raw_mut_CylindricalWarperGpu(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl crate::stitching::WarperCreatorConst for PtrOfCylindricalWarperGpu {
-		#[inline] fn as_raw_WarperCreator(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::stitching::WarperCreator for PtrOfCylindricalWarperGpu {
-		#[inline] fn as_raw_mut_WarperCreator(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	ptr_cast_base! { PtrOfCylindricalWarperGpu, core::Ptr<dyn crate::stitching::WarperCreator>,
-		cv_PtrOfCylindricalWarperGpu_to_PtrOfWarperCreator,
 	}
 	
 	pub type PtrOfDetail_AffineBasedEstimator = core::Ptr<crate::stitching::Detail_AffineBasedEstimator>;
@@ -14161,39 +12905,6 @@ mod stitching_types {
 		cv_PtrOfPlaneWarper_to_PtrOfWarperCreator,
 	}
 	
-	pub type PtrOfPlaneWarperGpu = core::Ptr<crate::stitching::PlaneWarperGpu>;
-	
-	ptr_extern! { crate::stitching::PlaneWarperGpu,
-		cv_PtrOfPlaneWarperGpu_delete, cv_PtrOfPlaneWarperGpu_get_inner_ptr, cv_PtrOfPlaneWarperGpu_get_inner_ptr_mut
-	}
-	
-	ptr_extern_ctor! { crate::stitching::PlaneWarperGpu, cv_PtrOfPlaneWarperGpu_new }
-	
-	impl PtrOfPlaneWarperGpu {
-		#[inline] pub fn as_raw_PtrOfPlaneWarperGpu(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfPlaneWarperGpu(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::stitching::PlaneWarperGpuTraitConst for PtrOfPlaneWarperGpu {
-		#[inline] fn as_raw_PlaneWarperGpu(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::stitching::PlaneWarperGpuTrait for PtrOfPlaneWarperGpu {
-		#[inline] fn as_raw_mut_PlaneWarperGpu(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl crate::stitching::WarperCreatorConst for PtrOfPlaneWarperGpu {
-		#[inline] fn as_raw_WarperCreator(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::stitching::WarperCreator for PtrOfPlaneWarperGpu {
-		#[inline] fn as_raw_mut_WarperCreator(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	ptr_cast_base! { PtrOfPlaneWarperGpu, core::Ptr<dyn crate::stitching::WarperCreator>,
-		cv_PtrOfPlaneWarperGpu_to_PtrOfWarperCreator,
-	}
-	
 	pub type PtrOfSphericalWarper = core::Ptr<crate::stitching::SphericalWarper>;
 	
 	ptr_extern! { crate::stitching::SphericalWarper,
@@ -14225,39 +12936,6 @@ mod stitching_types {
 	
 	ptr_cast_base! { PtrOfSphericalWarper, core::Ptr<dyn crate::stitching::WarperCreator>,
 		cv_PtrOfSphericalWarper_to_PtrOfWarperCreator,
-	}
-	
-	pub type PtrOfSphericalWarperGpu = core::Ptr<crate::stitching::SphericalWarperGpu>;
-	
-	ptr_extern! { crate::stitching::SphericalWarperGpu,
-		cv_PtrOfSphericalWarperGpu_delete, cv_PtrOfSphericalWarperGpu_get_inner_ptr, cv_PtrOfSphericalWarperGpu_get_inner_ptr_mut
-	}
-	
-	ptr_extern_ctor! { crate::stitching::SphericalWarperGpu, cv_PtrOfSphericalWarperGpu_new }
-	
-	impl PtrOfSphericalWarperGpu {
-		#[inline] pub fn as_raw_PtrOfSphericalWarperGpu(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfSphericalWarperGpu(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::stitching::SphericalWarperGpuTraitConst for PtrOfSphericalWarperGpu {
-		#[inline] fn as_raw_SphericalWarperGpu(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::stitching::SphericalWarperGpuTrait for PtrOfSphericalWarperGpu {
-		#[inline] fn as_raw_mut_SphericalWarperGpu(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl crate::stitching::WarperCreatorConst for PtrOfSphericalWarperGpu {
-		#[inline] fn as_raw_WarperCreator(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::stitching::WarperCreator for PtrOfSphericalWarperGpu {
-		#[inline] fn as_raw_mut_WarperCreator(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	ptr_cast_base! { PtrOfSphericalWarperGpu, core::Ptr<dyn crate::stitching::WarperCreator>,
-		cv_PtrOfSphericalWarperGpu_to_PtrOfWarperCreator,
 	}
 	
 	pub type PtrOfStereographicWarper = core::Ptr<crate::stitching::StereographicWarper>;
@@ -14376,7 +13054,7 @@ mod stitching_types {
 	vector_extern! { crate::stitching::Detail_CameraParams, *const c_void, *mut c_void,
 		cv_VectorOfDetail_CameraParams_new, cv_VectorOfDetail_CameraParams_delete,
 		cv_VectorOfDetail_CameraParams_len, cv_VectorOfDetail_CameraParams_is_empty,
-		cv_VectorOfDetail_CameraParams_capacity, cv_VectorOfDetail_CameraParams_shrink_to_fit,
+		cv_VectorOfDetail_CameraParams_capacity, cv_VectorOfDetail_CameraParams_resize, cv_VectorOfDetail_CameraParams_shrink_to_fit,
 		cv_VectorOfDetail_CameraParams_reserve, cv_VectorOfDetail_CameraParams_remove,
 		cv_VectorOfDetail_CameraParams_swap, cv_VectorOfDetail_CameraParams_clear,
 		cv_VectorOfDetail_CameraParams_get, cv_VectorOfDetail_CameraParams_set,
@@ -14396,7 +13074,7 @@ mod stitching_types {
 	vector_extern! { crate::stitching::Detail_ImageFeatures, *const c_void, *mut c_void,
 		cv_VectorOfDetail_ImageFeatures_new, cv_VectorOfDetail_ImageFeatures_delete,
 		cv_VectorOfDetail_ImageFeatures_len, cv_VectorOfDetail_ImageFeatures_is_empty,
-		cv_VectorOfDetail_ImageFeatures_capacity, cv_VectorOfDetail_ImageFeatures_shrink_to_fit,
+		cv_VectorOfDetail_ImageFeatures_capacity, cv_VectorOfDetail_ImageFeatures_resize, cv_VectorOfDetail_ImageFeatures_shrink_to_fit,
 		cv_VectorOfDetail_ImageFeatures_reserve, cv_VectorOfDetail_ImageFeatures_remove,
 		cv_VectorOfDetail_ImageFeatures_swap, cv_VectorOfDetail_ImageFeatures_clear,
 		cv_VectorOfDetail_ImageFeatures_get, cv_VectorOfDetail_ImageFeatures_set,
@@ -14416,7 +13094,7 @@ mod stitching_types {
 	vector_extern! { crate::stitching::Detail_MatchesInfo, *const c_void, *mut c_void,
 		cv_VectorOfDetail_MatchesInfo_new, cv_VectorOfDetail_MatchesInfo_delete,
 		cv_VectorOfDetail_MatchesInfo_len, cv_VectorOfDetail_MatchesInfo_is_empty,
-		cv_VectorOfDetail_MatchesInfo_capacity, cv_VectorOfDetail_MatchesInfo_shrink_to_fit,
+		cv_VectorOfDetail_MatchesInfo_capacity, cv_VectorOfDetail_MatchesInfo_resize, cv_VectorOfDetail_MatchesInfo_shrink_to_fit,
 		cv_VectorOfDetail_MatchesInfo_reserve, cv_VectorOfDetail_MatchesInfo_remove,
 		cv_VectorOfDetail_MatchesInfo_swap, cv_VectorOfDetail_MatchesInfo_clear,
 		cv_VectorOfDetail_MatchesInfo_get, cv_VectorOfDetail_MatchesInfo_set,
@@ -14814,7 +13492,7 @@ mod surface_matching_types {
 	vector_extern! { crate::surface_matching::Pose3DPtr, *const c_void, *mut c_void,
 		cv_VectorOfPose3DPtr_new, cv_VectorOfPose3DPtr_delete,
 		cv_VectorOfPose3DPtr_len, cv_VectorOfPose3DPtr_is_empty,
-		cv_VectorOfPose3DPtr_capacity, cv_VectorOfPose3DPtr_shrink_to_fit,
+		cv_VectorOfPose3DPtr_capacity, cv_VectorOfPose3DPtr_resize, cv_VectorOfPose3DPtr_shrink_to_fit,
 		cv_VectorOfPose3DPtr_reserve, cv_VectorOfPose3DPtr_remove,
 		cv_VectorOfPose3DPtr_swap, cv_VectorOfPose3DPtr_clear,
 		cv_VectorOfPose3DPtr_get, cv_VectorOfPose3DPtr_set,
@@ -15069,7 +13747,7 @@ mod text_types {
 	vector_extern! { crate::text::ERStat, *const c_void, *mut c_void,
 		cv_VectorOfERStat_new, cv_VectorOfERStat_delete,
 		cv_VectorOfERStat_len, cv_VectorOfERStat_is_empty,
-		cv_VectorOfERStat_capacity, cv_VectorOfERStat_shrink_to_fit,
+		cv_VectorOfERStat_capacity, cv_VectorOfERStat_resize, cv_VectorOfERStat_shrink_to_fit,
 		cv_VectorOfERStat_reserve, cv_VectorOfERStat_remove,
 		cv_VectorOfERStat_swap, cv_VectorOfERStat_clear,
 		cv_VectorOfERStat_get, cv_VectorOfERStat_set,
@@ -15089,7 +13767,7 @@ mod text_types {
 	vector_extern! { core::Vector<crate::text::ERStat>, *const c_void, *mut c_void,
 		cv_VectorOfVectorOfERStat_new, cv_VectorOfVectorOfERStat_delete,
 		cv_VectorOfVectorOfERStat_len, cv_VectorOfVectorOfERStat_is_empty,
-		cv_VectorOfVectorOfERStat_capacity, cv_VectorOfVectorOfERStat_shrink_to_fit,
+		cv_VectorOfVectorOfERStat_capacity, cv_VectorOfVectorOfERStat_resize, cv_VectorOfVectorOfERStat_shrink_to_fit,
 		cv_VectorOfVectorOfERStat_reserve, cv_VectorOfVectorOfERStat_remove,
 		cv_VectorOfVectorOfERStat_swap, cv_VectorOfVectorOfERStat_clear,
 		cv_VectorOfVectorOfERStat_get, cv_VectorOfVectorOfERStat_set,
@@ -15532,7 +14210,7 @@ mod videoio_types {
 	vector_extern! { crate::videoio::VideoCapture, *const c_void, *mut c_void,
 		cv_VectorOfVideoCapture_new, cv_VectorOfVideoCapture_delete,
 		cv_VectorOfVideoCapture_len, cv_VectorOfVideoCapture_is_empty,
-		cv_VectorOfVideoCapture_capacity, cv_VectorOfVideoCapture_shrink_to_fit,
+		cv_VectorOfVideoCapture_capacity, cv_VectorOfVideoCapture_resize, cv_VectorOfVideoCapture_shrink_to_fit,
 		cv_VectorOfVideoCapture_reserve, cv_VectorOfVideoCapture_remove,
 		cv_VectorOfVideoCapture_swap, cv_VectorOfVideoCapture_clear,
 		cv_VectorOfVideoCapture_get, cv_VectorOfVideoCapture_set,
@@ -15552,7 +14230,7 @@ mod videoio_types {
 	vector_extern! { crate::videoio::VideoCaptureAPIs, *const c_void, *mut c_void,
 		cv_VectorOfVideoCaptureAPIs_new, cv_VectorOfVideoCaptureAPIs_delete,
 		cv_VectorOfVideoCaptureAPIs_len, cv_VectorOfVideoCaptureAPIs_is_empty,
-		cv_VectorOfVideoCaptureAPIs_capacity, cv_VectorOfVideoCaptureAPIs_shrink_to_fit,
+		cv_VectorOfVideoCaptureAPIs_capacity, cv_VectorOfVideoCaptureAPIs_resize, cv_VectorOfVideoCaptureAPIs_shrink_to_fit,
 		cv_VectorOfVideoCaptureAPIs_reserve, cv_VectorOfVideoCaptureAPIs_remove,
 		cv_VectorOfVideoCaptureAPIs_swap, cv_VectorOfVideoCaptureAPIs_clear,
 		cv_VectorOfVideoCaptureAPIs_get, cv_VectorOfVideoCaptureAPIs_set,
@@ -15689,47 +14367,6 @@ mod videostab_types {
 	
 	impl crate::videostab::DeblurerBase for PtrOfDeblurerBase {
 		#[inline] fn as_raw_mut_DeblurerBase(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	pub type PtrOfDensePyrLkOptFlowEstimatorGpu = core::Ptr<crate::videostab::DensePyrLkOptFlowEstimatorGpu>;
-	
-	ptr_extern! { crate::videostab::DensePyrLkOptFlowEstimatorGpu,
-		cv_PtrOfDensePyrLkOptFlowEstimatorGpu_delete, cv_PtrOfDensePyrLkOptFlowEstimatorGpu_get_inner_ptr, cv_PtrOfDensePyrLkOptFlowEstimatorGpu_get_inner_ptr_mut
-	}
-	
-	ptr_extern_ctor! { crate::videostab::DensePyrLkOptFlowEstimatorGpu, cv_PtrOfDensePyrLkOptFlowEstimatorGpu_new }
-	
-	impl PtrOfDensePyrLkOptFlowEstimatorGpu {
-		#[inline] pub fn as_raw_PtrOfDensePyrLkOptFlowEstimatorGpu(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfDensePyrLkOptFlowEstimatorGpu(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::videostab::DensePyrLkOptFlowEstimatorGpuTraitConst for PtrOfDensePyrLkOptFlowEstimatorGpu {
-		#[inline] fn as_raw_DensePyrLkOptFlowEstimatorGpu(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::videostab::DensePyrLkOptFlowEstimatorGpuTrait for PtrOfDensePyrLkOptFlowEstimatorGpu {
-		#[inline] fn as_raw_mut_DensePyrLkOptFlowEstimatorGpu(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl crate::videostab::IDenseOptFlowEstimatorConst for PtrOfDensePyrLkOptFlowEstimatorGpu {
-		#[inline] fn as_raw_IDenseOptFlowEstimator(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::videostab::IDenseOptFlowEstimator for PtrOfDensePyrLkOptFlowEstimatorGpu {
-		#[inline] fn as_raw_mut_IDenseOptFlowEstimator(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	ptr_cast_base! { PtrOfDensePyrLkOptFlowEstimatorGpu, core::Ptr<dyn crate::videostab::IDenseOptFlowEstimator>,
-		cv_PtrOfDensePyrLkOptFlowEstimatorGpu_to_PtrOfIDenseOptFlowEstimator,
-	}
-	
-	impl crate::videostab::PyrLkOptFlowEstimatorBaseTraitConst for PtrOfDensePyrLkOptFlowEstimatorGpu {
-		#[inline] fn as_raw_PyrLkOptFlowEstimatorBase(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::videostab::PyrLkOptFlowEstimatorBaseTrait for PtrOfDensePyrLkOptFlowEstimatorGpu {
-		#[inline] fn as_raw_mut_PyrLkOptFlowEstimatorBase(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
 	}
 	
 	pub type PtrOfFromFileMotionReader = core::Ptr<crate::videostab::FromFileMotionReader>;
@@ -16026,39 +14663,6 @@ mod videostab_types {
 	
 	ptr_cast_base! { PtrOfKeypointBasedMotionEstimator, core::Ptr<dyn crate::videostab::ImageMotionEstimatorBase>,
 		cv_PtrOfKeypointBasedMotionEstimator_to_PtrOfImageMotionEstimatorBase,
-	}
-	
-	pub type PtrOfKeypointBasedMotionEstimatorGpu = core::Ptr<crate::videostab::KeypointBasedMotionEstimatorGpu>;
-	
-	ptr_extern! { crate::videostab::KeypointBasedMotionEstimatorGpu,
-		cv_PtrOfKeypointBasedMotionEstimatorGpu_delete, cv_PtrOfKeypointBasedMotionEstimatorGpu_get_inner_ptr, cv_PtrOfKeypointBasedMotionEstimatorGpu_get_inner_ptr_mut
-	}
-	
-	ptr_extern_ctor! { crate::videostab::KeypointBasedMotionEstimatorGpu, cv_PtrOfKeypointBasedMotionEstimatorGpu_new }
-	
-	impl PtrOfKeypointBasedMotionEstimatorGpu {
-		#[inline] pub fn as_raw_PtrOfKeypointBasedMotionEstimatorGpu(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfKeypointBasedMotionEstimatorGpu(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::videostab::KeypointBasedMotionEstimatorGpuTraitConst for PtrOfKeypointBasedMotionEstimatorGpu {
-		#[inline] fn as_raw_KeypointBasedMotionEstimatorGpu(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::videostab::KeypointBasedMotionEstimatorGpuTrait for PtrOfKeypointBasedMotionEstimatorGpu {
-		#[inline] fn as_raw_mut_KeypointBasedMotionEstimatorGpu(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl crate::videostab::ImageMotionEstimatorBaseConst for PtrOfKeypointBasedMotionEstimatorGpu {
-		#[inline] fn as_raw_ImageMotionEstimatorBase(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::videostab::ImageMotionEstimatorBase for PtrOfKeypointBasedMotionEstimatorGpu {
-		#[inline] fn as_raw_mut_ImageMotionEstimatorBase(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	ptr_cast_base! { PtrOfKeypointBasedMotionEstimatorGpu, core::Ptr<dyn crate::videostab::ImageMotionEstimatorBase>,
-		cv_PtrOfKeypointBasedMotionEstimatorGpu_to_PtrOfImageMotionEstimatorBase,
 	}
 	
 	pub type PtrOfLogToStdout = core::Ptr<crate::videostab::LogToStdout>;
@@ -16650,47 +15254,6 @@ mod videostab_types {
 	}
 	
 	impl crate::videostab::PyrLkOptFlowEstimatorBaseTrait for PtrOfSparsePyrLkOptFlowEstimator {
-		#[inline] fn as_raw_mut_PyrLkOptFlowEstimatorBase(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	pub type PtrOfSparsePyrLkOptFlowEstimatorGpu = core::Ptr<crate::videostab::SparsePyrLkOptFlowEstimatorGpu>;
-	
-	ptr_extern! { crate::videostab::SparsePyrLkOptFlowEstimatorGpu,
-		cv_PtrOfSparsePyrLkOptFlowEstimatorGpu_delete, cv_PtrOfSparsePyrLkOptFlowEstimatorGpu_get_inner_ptr, cv_PtrOfSparsePyrLkOptFlowEstimatorGpu_get_inner_ptr_mut
-	}
-	
-	ptr_extern_ctor! { crate::videostab::SparsePyrLkOptFlowEstimatorGpu, cv_PtrOfSparsePyrLkOptFlowEstimatorGpu_new }
-	
-	impl PtrOfSparsePyrLkOptFlowEstimatorGpu {
-		#[inline] pub fn as_raw_PtrOfSparsePyrLkOptFlowEstimatorGpu(&self) -> *const c_void { self.as_raw() }
-		#[inline] pub fn as_raw_mut_PtrOfSparsePyrLkOptFlowEstimatorGpu(&mut self) -> *mut c_void { self.as_raw_mut() }
-	}
-	
-	impl crate::videostab::SparsePyrLkOptFlowEstimatorGpuTraitConst for PtrOfSparsePyrLkOptFlowEstimatorGpu {
-		#[inline] fn as_raw_SparsePyrLkOptFlowEstimatorGpu(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::videostab::SparsePyrLkOptFlowEstimatorGpuTrait for PtrOfSparsePyrLkOptFlowEstimatorGpu {
-		#[inline] fn as_raw_mut_SparsePyrLkOptFlowEstimatorGpu(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	impl crate::videostab::ISparseOptFlowEstimatorConst for PtrOfSparsePyrLkOptFlowEstimatorGpu {
-		#[inline] fn as_raw_ISparseOptFlowEstimator(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::videostab::ISparseOptFlowEstimator for PtrOfSparsePyrLkOptFlowEstimatorGpu {
-		#[inline] fn as_raw_mut_ISparseOptFlowEstimator(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
-	}
-	
-	ptr_cast_base! { PtrOfSparsePyrLkOptFlowEstimatorGpu, core::Ptr<dyn crate::videostab::ISparseOptFlowEstimator>,
-		cv_PtrOfSparsePyrLkOptFlowEstimatorGpu_to_PtrOfISparseOptFlowEstimator,
-	}
-	
-	impl crate::videostab::PyrLkOptFlowEstimatorBaseTraitConst for PtrOfSparsePyrLkOptFlowEstimatorGpu {
-		#[inline] fn as_raw_PyrLkOptFlowEstimatorBase(&self) -> *const c_void { self.inner_as_raw() }
-	}
-	
-	impl crate::videostab::PyrLkOptFlowEstimatorBaseTrait for PtrOfSparsePyrLkOptFlowEstimatorGpu {
 		#[inline] fn as_raw_mut_PyrLkOptFlowEstimatorBase(&mut self) -> *mut c_void { self.inner_as_raw_mut() }
 	}
 	
@@ -17549,7 +16112,7 @@ mod xfeatures2d_types {
 	vector_extern! { crate::xfeatures2d::Elliptic_KeyPoint, *const c_void, *mut c_void,
 		cv_VectorOfElliptic_KeyPoint_new, cv_VectorOfElliptic_KeyPoint_delete,
 		cv_VectorOfElliptic_KeyPoint_len, cv_VectorOfElliptic_KeyPoint_is_empty,
-		cv_VectorOfElliptic_KeyPoint_capacity, cv_VectorOfElliptic_KeyPoint_shrink_to_fit,
+		cv_VectorOfElliptic_KeyPoint_capacity, cv_VectorOfElliptic_KeyPoint_resize, cv_VectorOfElliptic_KeyPoint_shrink_to_fit,
 		cv_VectorOfElliptic_KeyPoint_reserve, cv_VectorOfElliptic_KeyPoint_remove,
 		cv_VectorOfElliptic_KeyPoint_swap, cv_VectorOfElliptic_KeyPoint_clear,
 		cv_VectorOfElliptic_KeyPoint_get, cv_VectorOfElliptic_KeyPoint_set,

@@ -21,7 +21,7 @@ pub trait VectorExtern<T: for<'a> OpenCVType<'a>> {
 	#[doc(hidden)] unsafe fn extern_len(&self) -> size_t;
 	#[doc(hidden)] unsafe fn extern_is_empty(&self) -> bool;
 	#[doc(hidden)] unsafe fn extern_capacity(&self) -> size_t;
-	#[doc(hidden)] unsafe fn extern_resize(&self, new_size: size_t);
+	#[doc(hidden)] unsafe fn extern_resize(&mut self, new_size: size_t);
 	#[doc(hidden)] unsafe fn extern_shrink_to_fit(&mut self);
 	#[doc(hidden)] unsafe fn extern_reserve(&mut self, additional: size_t);
 	#[doc(hidden)] unsafe fn extern_remove(&mut self, index: size_t);
@@ -62,7 +62,7 @@ macro_rules! vector_extern {
 			fn $extern_len(instance: $vector_extern_const) -> $crate::platform_types::size_t;
 			fn $extern_is_empty(instance: $vector_extern_const) -> bool;
 			fn $extern_capacity(instance: $vector_extern_const) -> $crate::platform_types::size_t;
-			fn $extern_resize(instance: $vector_extern_mut, new_size: $crate::platform_types::size_t)
+			fn $extern_resize(instance: $vector_extern_mut, new_size: $crate::platform_types::size_t);
 			fn $extern_shrink_to_fit(instance: $vector_extern_mut);
 			fn $extern_reserve(instance: $vector_extern_mut, additional: $crate::platform_types::size_t);
 			fn $extern_remove(instance: $vector_extern_mut, index: $crate::platform_types::size_t);
@@ -101,8 +101,8 @@ macro_rules! vector_extern {
 			}
 
 			#[inline]
-			unsafe fn extern_resize(&self, new_size: $crate::platform_types::size_t) {
-				$extern_resize(self.as_raw_mut())
+			unsafe fn extern_resize(&mut self, new_size: $crate::platform_types::size_t) {
+				$extern_resize(self.as_raw_mut(), new_size)
 			}
 
 			#[inline]

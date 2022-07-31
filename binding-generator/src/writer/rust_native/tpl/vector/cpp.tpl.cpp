@@ -19,7 +19,7 @@ extern "C" {
 		return instance->capacity();
 	}
 
-	void cv_{{rust_localias}}_resize({{cpp_full}}* instance, size_t new_size) {
+	void cv_{{rust_localalias}}_resize({{cpp_full}}* instance, size_t new_size) {
 		instance->resize(new_size)
 	}
 

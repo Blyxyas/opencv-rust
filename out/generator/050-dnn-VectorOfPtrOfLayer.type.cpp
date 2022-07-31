@@ -19,8 +19,8 @@ extern "C" {
 		return instance->capacity();
 	}
 
-	void cv_<parameter not found>_resize(std::vector<cv::Ptr<cv::dnn::Layer>>* instance, size_t new_size) {
-		instance->resize(new_size)
+	void cv_VectorOfPtrOfLayer_resize(std::vector<cv::Ptr<cv::dnn::Layer>>* instance, size_t new_size) {
+		instance->resize(new_size);
 	}
 
 	void cv_VectorOfPtrOfLayer_shrink_to_fit(std::vector<cv::Ptr<cv::dnn::Layer>>* instance) {

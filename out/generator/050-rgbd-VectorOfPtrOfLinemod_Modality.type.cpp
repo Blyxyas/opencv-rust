@@ -19,8 +19,8 @@ extern "C" {
 		return instance->capacity();
 	}
 
-	void cv_<parameter not found>_resize(std::vector<cv::Ptr<cv::linemod::Modality>>* instance, size_t new_size) {
-		instance->resize(new_size)
+	void cv_VectorOfPtrOfLinemod_Modality_resize(std::vector<cv::Ptr<cv::linemod::Modality>>* instance, size_t new_size) {
+		instance->resize(new_size);
 	}
 
 	void cv_VectorOfPtrOfLinemod_Modality_shrink_to_fit(std::vector<cv::Ptr<cv::linemod::Modality>>* instance) {

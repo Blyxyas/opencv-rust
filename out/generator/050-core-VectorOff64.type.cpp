@@ -19,8 +19,8 @@ extern "C" {
 		return instance->capacity();
 	}
 
-	void cv_<parameter not found>_resize(std::vector<double>* instance, size_t new_size) {
-		instance->resize(new_size)
+	void cv_VectorOff64_resize(std::vector<double>* instance, size_t new_size) {
+		instance->resize(new_size);
 	}
 
 	void cv_VectorOff64_shrink_to_fit(std::vector<double>* instance) {

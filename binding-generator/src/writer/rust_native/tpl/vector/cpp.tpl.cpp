@@ -20,7 +20,7 @@ extern "C" {
 	}
 
 	void cv_{{rust_localalias}}_resize({{cpp_full}}* instance, size_t new_size) {
-		instance->resize(new_size)
+		instance->resize(new_size);
 	}
 
 	void cv_{{rust_localalias}}_shrink_to_fit({{cpp_full}}* instance) {

@@ -19,8 +19,8 @@ extern "C" {
 		return instance->capacity();
 	}
 
-	void cv_<parameter not found>_resize(std::vector<cv::xfeatures2d::Elliptic_KeyPoint>* instance, size_t new_size) {
-		instance->resize(new_size)
+	void cv_VectorOfElliptic_KeyPoint_resize(std::vector<cv::xfeatures2d::Elliptic_KeyPoint>* instance, size_t new_size) {
+		instance->resize(new_size);
 	}
 
 	void cv_VectorOfElliptic_KeyPoint_shrink_to_fit(std::vector<cv::xfeatures2d::Elliptic_KeyPoint>* instance) {

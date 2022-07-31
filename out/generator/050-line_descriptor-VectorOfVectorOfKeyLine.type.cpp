@@ -19,8 +19,8 @@ extern "C" {
 		return instance->capacity();
 	}
 
-	void cv_<parameter not found>_resize(std::vector<std::vector<cv::line_descriptor::KeyLine>>* instance, size_t new_size) {
-		instance->resize(new_size)
+	void cv_VectorOfVectorOfKeyLine_resize(std::vector<std::vector<cv::line_descriptor::KeyLine>>* instance, size_t new_size) {
+		instance->resize(new_size);
 	}
 
 	void cv_VectorOfVectorOfKeyLine_shrink_to_fit(std::vector<std::vector<cv::line_descriptor::KeyLine>>* instance) {

@@ -19,8 +19,8 @@ extern "C" {
 		return instance->capacity();
 	}
 
-	void cv_<parameter not found>_resize(std::vector<cv::Point2f>* instance, size_t new_size) {
-		instance->resize(new_size)
+	void cv_VectorOfPoint2f_resize(std::vector<cv::Point2f>* instance, size_t new_size) {
+		instance->resize(new_size);
 	}
 
 	void cv_VectorOfPoint2f_shrink_to_fit(std::vector<cv::Point2f>* instance) {

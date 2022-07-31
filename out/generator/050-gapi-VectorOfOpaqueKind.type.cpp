@@ -19,8 +19,8 @@ extern "C" {
 		return instance->capacity();
 	}
 
-	void cv_<parameter not found>_resize(std::vector<cv::detail::OpaqueKind>* instance, size_t new_size) {
-		instance->resize(new_size)
+	void cv_VectorOfOpaqueKind_resize(std::vector<cv::detail::OpaqueKind>* instance, size_t new_size) {
+		instance->resize(new_size);
 	}
 
 	void cv_VectorOfOpaqueKind_shrink_to_fit(std::vector<cv::detail::OpaqueKind>* instance) {

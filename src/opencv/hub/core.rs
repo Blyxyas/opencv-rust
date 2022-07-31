@@ -47,109 +47,51 @@ pub const ACCESS_MASK: i32 = 50331648;
 pub const ACCESS_READ: i32 = 16777216;
 pub const ACCESS_RW: i32 = 50331648;
 pub const ACCESS_WRITE: i32 = 33554432;
-/// `iiiiii|abcdefgh|iiiiiii`  with some specified `i`
 pub const BORDER_CONSTANT: i32 = 0;
-/// same as BORDER_REFLECT_101
 pub const BORDER_DEFAULT: i32 = 4;
-/// do not look outside of ROI
 pub const BORDER_ISOLATED: i32 = 16;
-/// `fedcba|abcdefgh|hgfedcb`
 pub const BORDER_REFLECT: i32 = 2;
-/// same as BORDER_REFLECT_101
 pub const BORDER_REFLECT101: i32 = 4;
-/// `gfedcb|abcdefgh|gfedcba`
 pub const BORDER_REFLECT_101: i32 = 4;
-/// `aaaaaa|abcdefgh|hhhhhhh`
 pub const BORDER_REPLICATE: i32 = 1;
-/// `uvwxyz|abcdefgh|ijklmno`
 pub const BORDER_TRANSPARENT: i32 = 5;
-/// `cdefgh|abcdefgh|abcdefg`
 pub const BORDER_WRAP: i32 = 3;
-/// incorrect input align
 pub const BadAlign: i32 = -21;
 pub const BadAlphaChannel: i32 = -18;
-/// input COI is not supported
 pub const BadCOI: i32 = -24;
 pub const BadCallBack: i32 = -22;
 pub const BadDataPtr: i32 = -12;
-/// input image depth is not supported by the function
 pub const BadDepth: i32 = -17;
-/// image size is invalid
 pub const BadImageSize: i32 = -10;
 pub const BadModelOrChSeq: i32 = -14;
 pub const BadNumChannel1U: i32 = -16;
-/// bad number of channels, for example, some functions accept only single channel matrices.
 pub const BadNumChannels: i32 = -15;
-/// offset is invalid
 pub const BadOffset: i32 = -11;
-/// number of dimensions is out of range
 pub const BadOrder: i32 = -19;
-/// incorrect input origin
 pub const BadOrigin: i32 = -20;
-/// incorrect input roi
 pub const BadROISize: i32 = -25;
-/// image step is wrong, this may happen for a non-continuous matrix.
 pub const BadStep: i32 = -13;
 pub const BadTileSize: i32 = -23;
-/// src1 is equal to src2.
 pub const CMP_EQ: i32 = 0;
-/// src1 is greater than or equal to src2.
 pub const CMP_GE: i32 = 2;
-/// src1 is greater than src2.
 pub const CMP_GT: i32 = 1;
-/// src1 is less than or equal to src2.
 pub const CMP_LE: i32 = 4;
-/// src1 is less than src2.
 pub const CMP_LT: i32 = 3;
-/// src1 is unequal to src2.
 pub const CMP_NE: i32 = 5;
-/// If the flag is
-/// specified, all the input vectors are stored as columns of the samples matrix. mean should be a
-/// single-column vector in this case.
 pub const COVAR_COLS: i32 = 16;
-/// The output covariance matrix is calculated as:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bscale%7D%20%20%20%5Ccdot%20%20%5B%20%20%5Ctexttt%7Bvects%7D%20%20%5B0%5D%2D%20%20%5Ctexttt%7Bmean%7D%20%20%2C%20%5Ctexttt%7Bvects%7D%20%20%5B1%5D%2D%20%20%5Ctexttt%7Bmean%7D%20%20%2C%2E%2E%2E%5D%20%20%5Ccdot%20%20%5B%20%5Ctexttt%7Bvects%7D%20%20%5B0%5D%2D%20%5Ctexttt%7Bmean%7D%20%20%2C%20%5Ctexttt%7Bvects%7D%20%20%5B1%5D%2D%20%5Ctexttt%7Bmean%7D%20%20%2C%2E%2E%2E%5D%5ET%2C)
-/// covar will be a square matrix of the same size as the total number of elements in each input
-/// vector. One and only one of #COVAR_SCRAMBLED and #COVAR_NORMAL must be specified.
 pub const COVAR_NORMAL: i32 = 1;
-/// If the flag is
-/// specified, all the input vectors are stored as rows of the samples matrix. mean should be a
-/// single-row vector in this case.
 pub const COVAR_ROWS: i32 = 8;
-/// If the flag is specified, the covariance matrix is scaled. In the
-/// "normal" mode, scale is 1./nsamples . In the "scrambled" mode, scale is the reciprocal of the
-/// total number of elements in each input vector. By default (if the flag is not specified), the
-/// covariance matrix is not scaled ( scale=1 ).
 pub const COVAR_SCALE: i32 = 4;
-/// The output covariance matrix is calculated as:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bscale%7D%20%20%20%5Ccdot%20%20%5B%20%20%5Ctexttt%7Bvects%7D%20%20%5B0%5D%2D%20%20%5Ctexttt%7Bmean%7D%20%20%2C%20%5Ctexttt%7Bvects%7D%20%20%5B1%5D%2D%20%20%5Ctexttt%7Bmean%7D%20%20%2C%2E%2E%2E%5D%5ET%20%20%5Ccdot%20%20%5B%20%5Ctexttt%7Bvects%7D%20%20%5B0%5D%2D%20%5Ctexttt%7Bmean%7D%20%20%2C%20%5Ctexttt%7Bvects%7D%20%20%5B1%5D%2D%20%5Ctexttt%7Bmean%7D%20%20%2C%2E%2E%2E%5D%2C)
-/// The covariance matrix will be nsamples x nsamples. Such an unusual covariance matrix is used
-/// for fast PCA of a set of very large vectors (see, for example, the EigenFaces technique for
-/// face recognition). Eigenvalues of this "scrambled" matrix match the eigenvalues of the true
-/// covariance matrix. The "true" eigenvectors can be easily calculated from the eigenvectors of
-/// the "scrambled" covariance matrix.
 pub const COVAR_SCRAMBLED: i32 = 0;
-/// If the flag is specified, the function does not calculate mean from
-/// the input vectors but, instead, uses the passed mean vector. This is useful if mean has been
-/// pre-calculated or known in advance, or if the covariance matrix is calculated by parts. In
-/// this case, mean is not a mean vector of the input sub-set of vectors but rather the mean
-/// vector of the whole set.
 pub const COVAR_USE_AVG: i32 = 2;
 pub const CPU_AVX: i32 = 10;
 pub const CPU_AVX2: i32 = 11;
-/// Cascade Lake with AVX-512F/CD/BW/DQ/VL/VNNI
 pub const CPU_AVX512_CLX: i32 = 261;
-/// Cannon Lake with AVX-512F/CD/BW/DQ/VL/IFMA/VBMI
 pub const CPU_AVX512_CNL: i32 = 260;
-/// Common instructions AVX-512F/CD for all CPUs that support AVX-512
 pub const CPU_AVX512_COMMON: i32 = 257;
-/// Ice Lake with AVX-512F/CD/BW/DQ/VL/IFMA/VBMI/VNNI/VBMI2/BITALG/VPOPCNTDQ
 pub const CPU_AVX512_ICL: i32 = 262;
-/// Knights Landing with AVX-512F/CD/ER/PF
 pub const CPU_AVX512_KNL: i32 = 258;
-/// Knights Mill with AVX-512F/CD/ER/PF/4FMAPS/4VNNIW/VPOPCNTDQ
 pub const CPU_AVX512_KNM: i32 = 259;
-/// Skylake-X with AVX-512F/CD/BW/DQ/VL
 pub const CPU_AVX512_SKX: i32 = 256;
 pub const CPU_AVX_5124FMAPS: i32 = 27;
 pub const CPU_AVX_5124VNNIW: i32 = 26;
@@ -381,61 +323,19 @@ pub const CV_VSX: i32 = 0;
 pub const CV_VSX3: i32 = 0;
 pub const CV_WASM_SIMD: i32 = 0;
 pub const CV__EXCEPTION_PTR: i32 = 1;
-/// performs an inverse 1D or 2D transform instead of the default forward transform.
 pub const DCT_INVERSE: i32 = 1;
-/// performs a forward or inverse transform of every individual row of the input
-/// matrix. This flag enables you to transform multiple vectors simultaneously and can be used to
-/// decrease the overhead (which is sometimes several times larger than the processing itself) to
-/// perform 3D and higher-dimensional transforms and so forth.
 pub const DCT_ROWS: i32 = 4;
-/// Cholesky ![inline formula](https://latex.codecogs.com/png.latex?LL%5ET) factorization; the matrix src1 must be symmetrical and positively
-/// defined
 pub const DECOMP_CHOLESKY: i32 = 3;
-/// eigenvalue decomposition; the matrix src1 must be symmetrical
 pub const DECOMP_EIG: i32 = 2;
-/// Gaussian elimination with the optimal pivot element chosen.
 pub const DECOMP_LU: i32 = 0;
-/// while all the previous flags are mutually exclusive, this flag can be used together with
-/// any of the previous; it means that the normal equations
-/// ![inline formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bsrc1%7D%5ET%5Ccdot%5Ctexttt%7Bsrc1%7D%5Ccdot%5Ctexttt%7Bdst%7D%3D%5Ctexttt%7Bsrc1%7D%5ET%5Ctexttt%7Bsrc2%7D) are
-/// solved instead of the original system
-/// ![inline formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bsrc1%7D%5Ccdot%5Ctexttt%7Bdst%7D%3D%5Ctexttt%7Bsrc2%7D)
 pub const DECOMP_NORMAL: i32 = 16;
-/// QR factorization; the system can be over-defined and/or the matrix src1 can be singular
 pub const DECOMP_QR: i32 = 4;
-/// singular value decomposition (SVD) method; the system can be over-defined and/or the matrix
-/// src1 can be singular
 pub const DECOMP_SVD: i32 = 1;
-/// specifies that input is complex input. If this flag is set, the input must have 2 channels.
-/// On the other hand, for backwards compatibility reason, if input has 2 channels, input is
-/// already considered complex.
 pub const DFT_COMPLEX_INPUT: i32 = 64;
-/// performs a forward transformation of 1D or 2D real array; the result,
-/// though being a complex array, has complex-conjugate symmetry (*CCS*, see the function
-/// description below for details), and such an array can be packed into a real array of the same
-/// size as input, which is the fastest option and which is what the function does by default;
-/// however, you may wish to get a full complex array (for simpler spectrum analysis, and so on) -
-/// pass the flag to enable the function to produce a full-size complex output array.
 pub const DFT_COMPLEX_OUTPUT: i32 = 16;
-/// performs an inverse 1D or 2D transform instead of the default forward
-/// transform.
 pub const DFT_INVERSE: i32 = 1;
-/// performs an inverse transformation of a 1D or 2D complex array; the
-/// result is normally a complex array of the same size, however, if the input array has
-/// conjugate-complex symmetry (for example, it is a result of forward transformation with
-/// DFT_COMPLEX_OUTPUT flag), the output is a real array; while the function itself does not
-/// check whether the input is symmetrical or not, you can pass the flag and then the function
-/// will assume the symmetry and produce the real output array (note that when the input is packed
-/// into a real array and inverse transformation is executed, the function treats the input as a
-/// packed complex-conjugate symmetrical array, and the output will also be a real array).
 pub const DFT_REAL_OUTPUT: i32 = 32;
-/// performs a forward or inverse transform of every individual row of the input
-/// matrix; this flag enables you to transform multiple vectors simultaneously and can be used to
-/// decrease the overhead (which is sometimes several times larger than the processing itself) to
-/// perform 3D and higher-dimensional transformations and so forth.
 pub const DFT_ROWS: i32 = 4;
-/// scales the result: divide it by the number of array elements. Normally, it is
-/// combined with DFT_INVERSE.
 pub const DFT_SCALE: i32 = 2;
 pub const DYNAMIC_PARALLELISM: i32 = 35;
 pub const Detail_CV__LAST_TEST_OP: i32 = 7;
@@ -487,56 +387,31 @@ pub const FEATURE_SET_COMPUTE_50: i32 = 50;
 pub const FLAGS_EXPAND_SAME_NAMES: i32 = 2;
 pub const FLAGS_MAPPING: i32 = 1;
 pub const FLAGS_NONE: i32 = 0;
-/// empty structure (sequence or mapping)
 pub const FileNode_EMPTY: i32 = 16;
-/// synonym or REAL
 pub const FileNode_FLOAT: i32 = 2;
-/// compact representation of a sequence or mapping. Used only by YAML writer
 pub const FileNode_FLOW: i32 = 8;
-/// an integer
 pub const FileNode_INT: i32 = 1;
-/// mapping
 pub const FileNode_MAP: i32 = 5;
-/// the node has a name (i.e. it is element of a mapping).
 pub const FileNode_NAMED: i32 = 32;
-/// empty node
 pub const FileNode_NONE: i32 = 0;
-/// floating-point number
 pub const FileNode_REAL: i32 = 2;
-/// sequence
 pub const FileNode_SEQ: i32 = 4;
-/// text string in UTF-8 encoding
 pub const FileNode_STR: i32 = 3;
-/// synonym for STR
 pub const FileNode_STRING: i32 = 3;
 pub const FileNode_TYPE_MASK: i32 = 7;
-/// if set, means that all the collection elements are numbers of the same type (real's or int's).
-/// UNIFORM is used only when reading FileStorage; FLOW is used only when writing. So they share the same bit
 pub const FileNode_UNIFORM: i32 = 8;
-/// transposes src1
 pub const GEMM_1_T: i32 = 1;
-/// transposes src2
 pub const GEMM_2_T: i32 = 2;
-/// transposes src3
 pub const GEMM_3_T: i32 = 4;
 pub const GLOBAL_ATOMICS: i32 = 11;
-/// GPU API call error
 pub const GpuApiCallError: i32 = -217;
-/// no CUDA support
 pub const GpuNotSupported: i32 = -216;
-/// image header is NULL
 pub const HeaderIsNull: i32 = -9;
 pub const IMPL_IPP: i32 = 1;
 pub const IMPL_OPENCL: i32 = 2;
 pub const IMPL_PLAIN: i32 = 0;
-/// Use kmeans++ center initialization by Arthur and Vassilvitskii [Arthur2007].
 pub const KMEANS_PP_CENTERS: i32 = 2;
-/// Select random initial centers in each attempt.
 pub const KMEANS_RANDOM_CENTERS: i32 = 0;
-/// During the first (and possibly the only) attempt, use the
-/// user-supplied labels instead of computing them from the initial centers. For the second and
-/// further attempts, use the random or semi-random centers. Use one of KMEANS_\*_CENTERS flag
-/// to specify the exact method.
 pub const KMEANS_USE_INITIAL_LABELS: i32 = 1;
 pub const KernelArg_CONSTANT: i32 = 8;
 pub const KernelArg_LOCAL: i32 = 1;
@@ -548,19 +423,12 @@ pub const KernelArg_WRITE_ONLY: i32 = 4;
 pub const LINES: i32 = 1;
 pub const LINE_LOOP: i32 = 2;
 pub const LINE_STRIP: i32 = 3;
-/// Debug message. Disabled in the "Release" build.
 pub const LOG_LEVEL_DEBUG: i32 = 5;
-/// Error message
 pub const LOG_LEVEL_ERROR: i32 = 2;
-/// Fatal (critical) error (unrecoverable internal error)
 pub const LOG_LEVEL_FATAL: i32 = 1;
-/// Info message
 pub const LOG_LEVEL_INFO: i32 = 4;
-/// for using in setLogVevel() call
 pub const LOG_LEVEL_SILENT: i32 = 0;
-/// Verbose (trace) messages. Requires verbosity level. Disabled in the "Release" build.
 pub const LOG_LEVEL_VERBOSE: i32 = 6;
-/// Warning message
 pub const LOG_LEVEL_WARNING: i32 = 3;
 pub const MaskIsTiled: i32 = -26;
 pub const Mat_AUTO_STEP: usize = 0;
@@ -571,40 +439,25 @@ pub const Mat_MAGIC_VAL: i32 = 1124007936;
 pub const Mat_SUBMATRIX_FLAG: i32 = 32768;
 pub const Mat_TYPE_MASK: i32 = 4095;
 pub const NATIVE_DOUBLE: i32 = 13;
-/// In the case of one input array, calculates the Hamming distance of the array from zero,
-/// In the case of two input arrays, calculates the Hamming distance between the arrays.
 pub const NORM_HAMMING: i32 = 6;
-/// Similar to NORM_HAMMING, but in the calculation, each two bits of the input sequence will
-/// be added and treated as a single bit to be used in the same calculation as NORM_HAMMING.
 pub const NORM_HAMMING2: i32 = 7;
-/// ![block formula](https://latex.codecogs.com/png.latex?%0Anorm%20%3D%20%20%5Cforkthree%0A%7B%5C%7C%5Ctexttt%7Bsrc1%7D%5C%7C%5F%7BL%5F%7B%5Cinfty%7D%7D%20%3D%20%20%5Cmax%20%5FI%20%7C%20%5Ctexttt%7Bsrc1%7D%20%28I%29%7C%7D%7Bif%20%20%5C%28%5Ctexttt%7BnormType%7D%20%3D%20%5Ctexttt%7BNORM%5FINF%7D%5C%29%20%7D%0A%7B%5C%7C%5Ctexttt%7Bsrc1%7D%2D%5Ctexttt%7Bsrc2%7D%5C%7C%5F%7BL%5F%7B%5Cinfty%7D%7D%20%3D%20%20%5Cmax%20%5FI%20%7C%20%5Ctexttt%7Bsrc1%7D%20%28I%29%20%2D%20%20%5Ctexttt%7Bsrc2%7D%20%28I%29%7C%7D%7Bif%20%20%5C%28%5Ctexttt%7BnormType%7D%20%3D%20%5Ctexttt%7BNORM%5FINF%7D%5C%29%20%7D%0A%7B%5Cfrac%7B%5C%7C%5Ctexttt%7Bsrc1%7D%2D%5Ctexttt%7Bsrc2%7D%5C%7C%5F%7BL%5F%7B%5Cinfty%7D%7D%20%20%20%20%7D%7B%5C%7C%5Ctexttt%7Bsrc2%7D%5C%7C%5F%7BL%5F%7B%5Cinfty%7D%7D%20%7D%7D%7Bif%20%20%5C%28%5Ctexttt%7BnormType%7D%20%3D%20%5Ctexttt%7BNORM%5FRELATIVE%20%7C%20NORM%5FINF%7D%5C%29%20%7D%0A)
 pub const NORM_INF: i32 = 1;
-/// ![block formula](https://latex.codecogs.com/png.latex?%0Anorm%20%3D%20%20%5Cforkthree%0A%7B%5C%7C%20%5Ctexttt%7Bsrc1%7D%20%5C%7C%20%5F%7BL%5F1%7D%20%3D%20%20%5Csum%20%5FI%20%7C%20%5Ctexttt%7Bsrc1%7D%20%28I%29%7C%7D%7Bif%20%20%5C%28%5Ctexttt%7BnormType%7D%20%3D%20%5Ctexttt%7BNORM%5FL1%7D%5C%29%7D%0A%7B%20%5C%7C%20%5Ctexttt%7Bsrc1%7D%20%2D%20%5Ctexttt%7Bsrc2%7D%20%5C%7C%20%5F%7BL%5F1%7D%20%3D%20%20%5Csum%20%5FI%20%7C%20%5Ctexttt%7Bsrc1%7D%20%28I%29%20%2D%20%20%5Ctexttt%7Bsrc2%7D%20%28I%29%7C%7D%7Bif%20%20%5C%28%5Ctexttt%7BnormType%7D%20%3D%20%5Ctexttt%7BNORM%5FL1%7D%5C%29%20%7D%0A%7B%20%5Cfrac%7B%5C%7C%5Ctexttt%7Bsrc1%7D%2D%5Ctexttt%7Bsrc2%7D%5C%7C%5F%7BL%5F1%7D%20%7D%7B%5C%7C%5Ctexttt%7Bsrc2%7D%5C%7C%5F%7BL%5F1%7D%7D%20%7D%7Bif%20%20%5C%28%5Ctexttt%7BnormType%7D%20%3D%20%5Ctexttt%7BNORM%5FRELATIVE%20%7C%20NORM%5FL1%7D%5C%29%20%7D%0A)
 pub const NORM_L1: i32 = 2;
-/// ![block formula](https://latex.codecogs.com/png.latex?%0Anorm%20%3D%20%20%5Cforkthree%0A%7B%20%5C%7C%20%5Ctexttt%7Bsrc1%7D%20%5C%7C%20%5F%7BL%5F2%7D%20%3D%20%20%5Csqrt%7B%5Csum%5FI%20%5Ctexttt%7Bsrc1%7D%28I%29%5E2%7D%20%7D%7Bif%20%20%5C%28%5Ctexttt%7BnormType%7D%20%3D%20%5Ctexttt%7BNORM%5FL2%7D%5C%29%20%7D%0A%7B%20%5C%7C%20%5Ctexttt%7Bsrc1%7D%20%2D%20%5Ctexttt%7Bsrc2%7D%20%5C%7C%20%5F%7BL%5F2%7D%20%3D%20%20%5Csqrt%7B%5Csum%5FI%20%28%5Ctexttt%7Bsrc1%7D%28I%29%20%2D%20%5Ctexttt%7Bsrc2%7D%28I%29%29%5E2%7D%20%7D%7Bif%20%20%5C%28%5Ctexttt%7BnormType%7D%20%3D%20%5Ctexttt%7BNORM%5FL2%7D%5C%29%20%7D%0A%7B%20%5Cfrac%7B%5C%7C%5Ctexttt%7Bsrc1%7D%2D%5Ctexttt%7Bsrc2%7D%5C%7C%5F%7BL%5F2%7D%20%7D%7B%5C%7C%5Ctexttt%7Bsrc2%7D%5C%7C%5F%7BL%5F2%7D%7D%20%7D%7Bif%20%20%5C%28%5Ctexttt%7BnormType%7D%20%3D%20%5Ctexttt%7BNORM%5FRELATIVE%20%7C%20NORM%5FL2%7D%5C%29%20%7D%0A)
 pub const NORM_L2: i32 = 4;
-/// ![block formula](https://latex.codecogs.com/png.latex?%0Anorm%20%3D%20%20%5Cforkthree%0A%7B%20%5C%7C%20%5Ctexttt%7Bsrc1%7D%20%5C%7C%20%5F%7BL%5F2%7D%20%5E%7B2%7D%20%3D%20%5Csum%5FI%20%5Ctexttt%7Bsrc1%7D%28I%29%5E2%7D%20%7Bif%20%20%5C%28%5Ctexttt%7BnormType%7D%20%3D%20%5Ctexttt%7BNORM%5FL2SQR%7D%5C%29%7D%0A%7B%20%5C%7C%20%5Ctexttt%7Bsrc1%7D%20%2D%20%5Ctexttt%7Bsrc2%7D%20%5C%7C%20%5F%7BL%5F2%7D%20%5E%7B2%7D%20%3D%20%20%5Csum%5FI%20%28%5Ctexttt%7Bsrc1%7D%28I%29%20%2D%20%5Ctexttt%7Bsrc2%7D%28I%29%29%5E2%20%7D%7Bif%20%20%5C%28%5Ctexttt%7BnormType%7D%20%3D%20%5Ctexttt%7BNORM%5FL2SQR%7D%5C%29%20%7D%0A%7B%20%5Cleft%28%5Cfrac%7B%5C%7C%5Ctexttt%7Bsrc1%7D%2D%5Ctexttt%7Bsrc2%7D%5C%7C%5F%7BL%5F2%7D%20%7D%7B%5C%7C%5Ctexttt%7Bsrc2%7D%5C%7C%5F%7BL%5F2%7D%7D%5Cright%29%5E2%20%7D%7Bif%20%20%5C%28%5Ctexttt%7BnormType%7D%20%3D%20%5Ctexttt%7BNORM%5FRELATIVE%20%7C%20NORM%5FL2SQR%7D%5C%29%20%7D%0A)
 pub const NORM_L2SQR: i32 = 5;
-/// flag
 pub const NORM_MINMAX: i32 = 32;
-/// flag
 pub const NORM_RELATIVE: i32 = 8;
-/// bit-mask which can be used to separate norm type from norm flags
 pub const NORM_TYPE_MASK: i32 = 7;
 pub const OCL_VECTOR_DEFAULT: i32 = 0;
 pub const OCL_VECTOR_MAX: i32 = 1;
 pub const OCL_VECTOR_OWN: i32 = 0;
 pub const OPENCV_ABI_COMPATIBILITY: i32 = 400;
 pub const OPENCV_USE_FASTMATH_BUILTINS: i32 = 1;
-/// OpenCL API call error
 pub const OpenCLApiCallError: i32 = -220;
 pub const OpenCLDoubleNotSupported: i32 = -221;
-/// OpenCL initialization error
 pub const OpenCLInitError: i32 = -222;
 pub const OpenCLNoAMDBlasFft: i32 = -223;
-/// OpenGL API call error
 pub const OpenGlApiCallError: i32 = -219;
-/// no OpenGL support
 pub const OpenGlNotSupported: i32 = -218;
 pub const POINTS: i32 = 0;
 pub const POLYGON: i32 = 9;
@@ -622,105 +475,56 @@ pub const Param_UINT64: i32 = 9;
 pub const Param_UNSIGNED_INT: i32 = 8;
 pub const QUADS: i32 = 7;
 pub const QUAD_STRIP: i32 = 8;
-/// the output is the mean vector of all rows/columns of the matrix.
 pub const REDUCE_AVG: i32 = 1;
-/// the output is the maximum (column/row-wise) of all rows/columns of the matrix.
 pub const REDUCE_MAX: i32 = 2;
-/// the output is the minimum (column/row-wise) of all rows/columns of the matrix.
 pub const REDUCE_MIN: i32 = 3;
-/// the output is the sum of all rows/columns of the matrix.
 pub const REDUCE_SUM: i32 = 0;
 pub const RNG_NORMAL: i32 = 1;
 pub const RNG_UNIFORM: i32 = 0;
-/// Rotate 180 degrees clockwise
 pub const ROTATE_180: i32 = 1;
-/// Rotate 90 degrees clockwise
 pub const ROTATE_90_CLOCKWISE: i32 = 0;
-/// Rotate 270 degrees clockwise
 pub const ROTATE_90_COUNTERCLOCKWISE: i32 = 2;
 pub const SHARED_ATOMICS: i32 = 12;
-/// there are multiple maxima for target function - the arbitrary one is returned
 pub const SOLVELP_MULTI: i32 = 1;
-/// there is only one maximum for target function
 pub const SOLVELP_SINGLE: i32 = 0;
-/// problem is unbounded (target function can achieve arbitrary high values)
 pub const SOLVELP_UNBOUNDED: i32 = -2;
-/// problem is unfeasible (there are no points that satisfy all the constraints imposed)
 pub const SOLVELP_UNFEASIBLE: i32 = -1;
-/// each matrix row is sorted in the ascending
-/// order.
 pub const SORT_ASCENDING: i32 = 0;
-/// each matrix row is sorted in the
-/// descending order; this flag and the previous one are also
-/// mutually exclusive.
 pub const SORT_DESCENDING: i32 = 16;
-/// each matrix column is sorted
-/// independently; this flag and the previous one are
-/// mutually exclusive.
 pub const SORT_EVERY_COLUMN: i32 = 1;
-/// each matrix row is sorted independently
 pub const SORT_EVERY_ROW: i32 = 0;
 pub const SparseMat_HASH_BIT: i32 = -2147483648;
 pub const SparseMat_HASH_SCALE: i32 = 1540483477;
 pub const SparseMat_MAGIC_VAL: i32 = 1123876864;
 pub const SparseMat_MAX_DIM: i32 = 32;
-/// assertion failed
 pub const StsAssert: i32 = -215;
-/// tracing
 pub const StsAutoTrace: i32 = -8;
-/// pseudo error for back trace
 pub const StsBackTrace: i32 = -1;
-/// function arg/param is bad
 pub const StsBadArg: i32 = -5;
-/// flag is wrong or not supported
 pub const StsBadFlag: i32 = -206;
-/// unsupported function
 pub const StsBadFunc: i32 = -6;
-/// bad format of mask (neither 8uC1 nor 8sC1)
 pub const StsBadMask: i32 = -208;
-/// an allocated block has been corrupted
 pub const StsBadMemBlock: i32 = -214;
-/// bad CvPoint
 pub const StsBadPoint: i32 = -207;
-/// the input/output structure size is incorrect
 pub const StsBadSize: i32 = -201;
-/// division by zero
 pub const StsDivByZero: i32 = -202;
-/// unknown /unspecified error
 pub const StsError: i32 = -2;
-/// incorrect filter offset value
 pub const StsFilterOffsetErr: i32 = -31;
-/// incorrect filter structure content
 pub const StsFilterStructContentErr: i32 = -29;
-/// in-place operation is not supported
 pub const StsInplaceNotSupported: i32 = -203;
-/// internal error (bad state)
 pub const StsInternal: i32 = -3;
-/// incorrect transform kernel content
 pub const StsKernelStructContentErr: i32 = -30;
-/// iteration didn't converge
 pub const StsNoConv: i32 = -7;
-/// insufficient memory
 pub const StsNoMem: i32 = -4;
-/// the requested function/feature is not implemented
 pub const StsNotImplemented: i32 = -213;
-/// null pointer
 pub const StsNullPtr: i32 = -27;
-/// request can't be completed
 pub const StsObjectNotFound: i32 = -204;
-/// everything is ok
 pub const StsOk: i32 = 0;
-/// some of parameters are out of range
 pub const StsOutOfRange: i32 = -211;
-/// invalid syntax/structure of the parsed file
 pub const StsParseError: i32 = -212;
-/// formats of input/output arrays differ
 pub const StsUnmatchedFormats: i32 = -205;
-/// sizes of input/output structures do not match
 pub const StsUnmatchedSizes: i32 = -209;
-/// the data format/type is not supported by the function
 pub const StsUnsupportedFormat: i32 = -210;
-/// incorrect vector length
 pub const StsVecLengthErr: i32 = -28;
 pub const TRIANGLES: i32 = 4;
 pub const TRIANGLE_FAN: i32 = 6;
@@ -754,29 +558,17 @@ pub enum AccessFlag {
 
 opencv_type_enum! { core::AccessFlag }
 
-/// Various border types, image boundaries are denoted with `|`
-/// ## See also
-/// borderInterpolate, copyMakeBorder
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum BorderTypes {
-	/// `iiiiii|abcdefgh|iiiiiii`  with some specified `i`
 	BORDER_CONSTANT = 0,
-	/// `aaaaaa|abcdefgh|hhhhhhh`
 	BORDER_REPLICATE = 1,
-	/// `fedcba|abcdefgh|hgfedcb`
 	BORDER_REFLECT = 2,
-	/// `cdefgh|abcdefgh|abcdefg`
 	BORDER_WRAP = 3,
-	/// `gfedcb|abcdefgh|gfedcba`
 	BORDER_REFLECT_101 = 4,
-	/// `uvwxyz|abcdefgh|ijklmno`
 	BORDER_TRANSPARENT = 5,
-	// same as BORDER_REFLECT_101
 	// BORDER_REFLECT101 = 4 as isize, // duplicate discriminant
-	// same as BORDER_REFLECT_101
 	// BORDER_DEFAULT = 4 as isize, // duplicate discriminant
-	/// do not look outside of ROI
 	BORDER_ISOLATED = 16,
 }
 
@@ -792,192 +584,105 @@ pub enum Buffer_Access {
 
 opencv_type_enum! { core::Buffer_Access }
 
-/// The target defines how you intend to use the buffer object.
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum Buffer_Target {
-	/// The buffer will be used as a source for vertex data
 	ARRAY_BUFFER = 34962,
-	/// The buffer will be used for indices (in glDrawElements, for example)
 	ELEMENT_ARRAY_BUFFER = 34963,
-	/// The buffer will be used for reading from OpenGL textures
 	PIXEL_PACK_BUFFER = 35051,
-	/// The buffer will be used for writing to OpenGL textures
 	PIXEL_UNPACK_BUFFER = 35052,
 }
 
 opencv_type_enum! { core::Buffer_Target }
 
-/// comparison types
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum CmpTypes {
-	/// src1 is equal to src2.
 	CMP_EQ = 0,
-	/// src1 is greater than src2.
 	CMP_GT = 1,
-	/// src1 is greater than or equal to src2.
 	CMP_GE = 2,
-	/// src1 is less than src2.
 	CMP_LT = 3,
-	/// src1 is less than or equal to src2.
 	CMP_LE = 4,
-	/// src1 is unequal to src2.
 	CMP_NE = 5,
 }
 
 opencv_type_enum! { core::CmpTypes }
 
-/// error codes
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum Code {
-	/// everything is ok
 	StsOk = 0,
-	/// pseudo error for back trace
 	StsBackTrace = -1,
-	/// unknown /unspecified error
 	StsError = -2,
-	/// internal error (bad state)
 	StsInternal = -3,
-	/// insufficient memory
 	StsNoMem = -4,
-	/// function arg/param is bad
 	StsBadArg = -5,
-	/// unsupported function
 	StsBadFunc = -6,
-	/// iteration didn't converge
 	StsNoConv = -7,
-	/// tracing
 	StsAutoTrace = -8,
-	/// image header is NULL
 	HeaderIsNull = -9,
-	/// image size is invalid
 	BadImageSize = -10,
-	/// offset is invalid
 	BadOffset = -11,
 	BadDataPtr = -12,
-	/// image step is wrong, this may happen for a non-continuous matrix.
 	BadStep = -13,
 	BadModelOrChSeq = -14,
-	/// bad number of channels, for example, some functions accept only single channel matrices.
 	BadNumChannels = -15,
 	BadNumChannel1U = -16,
-	/// input image depth is not supported by the function
 	BadDepth = -17,
 	BadAlphaChannel = -18,
-	/// number of dimensions is out of range
 	BadOrder = -19,
-	/// incorrect input origin
 	BadOrigin = -20,
-	/// incorrect input align
 	BadAlign = -21,
 	BadCallBack = -22,
 	BadTileSize = -23,
-	/// input COI is not supported
 	BadCOI = -24,
-	/// incorrect input roi
 	BadROISize = -25,
 	MaskIsTiled = -26,
-	/// null pointer
 	StsNullPtr = -27,
-	/// incorrect vector length
 	StsVecLengthErr = -28,
-	/// incorrect filter structure content
 	StsFilterStructContentErr = -29,
-	/// incorrect transform kernel content
 	StsKernelStructContentErr = -30,
-	/// incorrect filter offset value
 	StsFilterOffsetErr = -31,
-	/// the input/output structure size is incorrect
 	StsBadSize = -201,
-	/// division by zero
 	StsDivByZero = -202,
-	/// in-place operation is not supported
 	StsInplaceNotSupported = -203,
-	/// request can't be completed
 	StsObjectNotFound = -204,
-	/// formats of input/output arrays differ
 	StsUnmatchedFormats = -205,
-	/// flag is wrong or not supported
 	StsBadFlag = -206,
-	/// bad CvPoint
 	StsBadPoint = -207,
-	/// bad format of mask (neither 8uC1 nor 8sC1)
 	StsBadMask = -208,
-	/// sizes of input/output structures do not match
 	StsUnmatchedSizes = -209,
-	/// the data format/type is not supported by the function
 	StsUnsupportedFormat = -210,
-	/// some of parameters are out of range
 	StsOutOfRange = -211,
-	/// invalid syntax/structure of the parsed file
 	StsParseError = -212,
-	/// the requested function/feature is not implemented
 	StsNotImplemented = -213,
-	/// an allocated block has been corrupted
 	StsBadMemBlock = -214,
-	/// assertion failed
 	StsAssert = -215,
-	/// no CUDA support
 	GpuNotSupported = -216,
-	/// GPU API call error
 	GpuApiCallError = -217,
-	/// no OpenGL support
 	OpenGlNotSupported = -218,
-	/// OpenGL API call error
 	OpenGlApiCallError = -219,
-	/// OpenCL API call error
 	OpenCLApiCallError = -220,
 	OpenCLDoubleNotSupported = -221,
-	/// OpenCL initialization error
 	OpenCLInitError = -222,
 	OpenCLNoAMDBlasFft = -223,
 }
 
 opencv_type_enum! { core::Code }
 
-/// Covariation flags
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum CovarFlags {
-	/// The output covariance matrix is calculated as:
-	/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bscale%7D%20%20%20%5Ccdot%20%20%5B%20%20%5Ctexttt%7Bvects%7D%20%20%5B0%5D%2D%20%20%5Ctexttt%7Bmean%7D%20%20%2C%20%5Ctexttt%7Bvects%7D%20%20%5B1%5D%2D%20%20%5Ctexttt%7Bmean%7D%20%20%2C%2E%2E%2E%5D%5ET%20%20%5Ccdot%20%20%5B%20%5Ctexttt%7Bvects%7D%20%20%5B0%5D%2D%20%5Ctexttt%7Bmean%7D%20%20%2C%20%5Ctexttt%7Bvects%7D%20%20%5B1%5D%2D%20%5Ctexttt%7Bmean%7D%20%20%2C%2E%2E%2E%5D%2C)
-	/// The covariance matrix will be nsamples x nsamples. Such an unusual covariance matrix is used
-	/// for fast PCA of a set of very large vectors (see, for example, the EigenFaces technique for
-	/// face recognition). Eigenvalues of this "scrambled" matrix match the eigenvalues of the true
-	/// covariance matrix. The "true" eigenvectors can be easily calculated from the eigenvectors of
-	/// the "scrambled" covariance matrix.
 	COVAR_SCRAMBLED = 0,
-	/// The output covariance matrix is calculated as:
-	/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bscale%7D%20%20%20%5Ccdot%20%20%5B%20%20%5Ctexttt%7Bvects%7D%20%20%5B0%5D%2D%20%20%5Ctexttt%7Bmean%7D%20%20%2C%20%5Ctexttt%7Bvects%7D%20%20%5B1%5D%2D%20%20%5Ctexttt%7Bmean%7D%20%20%2C%2E%2E%2E%5D%20%20%5Ccdot%20%20%5B%20%5Ctexttt%7Bvects%7D%20%20%5B0%5D%2D%20%5Ctexttt%7Bmean%7D%20%20%2C%20%5Ctexttt%7Bvects%7D%20%20%5B1%5D%2D%20%5Ctexttt%7Bmean%7D%20%20%2C%2E%2E%2E%5D%5ET%2C)
-	/// covar will be a square matrix of the same size as the total number of elements in each input
-	/// vector. One and only one of #COVAR_SCRAMBLED and #COVAR_NORMAL must be specified.
 	COVAR_NORMAL = 1,
-	/// If the flag is specified, the function does not calculate mean from
-	/// the input vectors but, instead, uses the passed mean vector. This is useful if mean has been
-	/// pre-calculated or known in advance, or if the covariance matrix is calculated by parts. In
-	/// this case, mean is not a mean vector of the input sub-set of vectors but rather the mean
-	/// vector of the whole set.
 	COVAR_USE_AVG = 2,
-	/// If the flag is specified, the covariance matrix is scaled. In the
-	/// "normal" mode, scale is 1./nsamples . In the "scrambled" mode, scale is the reciprocal of the
-	/// total number of elements in each input vector. By default (if the flag is not specified), the
-	/// covariance matrix is not scaled ( scale=1 ).
 	COVAR_SCALE = 4,
-	/// If the flag is
-	/// specified, all the input vectors are stored as rows of the samples matrix. mean should be a
-	/// single-row vector in this case.
 	COVAR_ROWS = 8,
-	/// If the flag is
-	/// specified, all the input vectors are stored as columns of the samples matrix. mean should be a
-	/// single-column vector in this case.
 	COVAR_COLS = 16,
 }
 
 opencv_type_enum! { core::CovarFlags }
 
-/// Available CPU features.
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum CpuFeatures {
@@ -1015,46 +720,26 @@ pub enum CpuFeatures {
 	CPU_VSX = 200,
 	CPU_VSX3 = 201,
 	CPU_RVV = 210,
-	/// Skylake-X with AVX-512F/CD/BW/DQ/VL
 	CPU_AVX512_SKX = 256,
-	/// Common instructions AVX-512F/CD for all CPUs that support AVX-512
 	CPU_AVX512_COMMON = 257,
-	/// Knights Landing with AVX-512F/CD/ER/PF
 	CPU_AVX512_KNL = 258,
-	/// Knights Mill with AVX-512F/CD/ER/PF/4FMAPS/4VNNIW/VPOPCNTDQ
 	CPU_AVX512_KNM = 259,
-	/// Cannon Lake with AVX-512F/CD/BW/DQ/VL/IFMA/VBMI
 	CPU_AVX512_CNL = 260,
-	/// Cascade Lake with AVX-512F/CD/BW/DQ/VL/VNNI
 	CPU_AVX512_CLX = 261,
-	/// Ice Lake with AVX-512F/CD/BW/DQ/VL/IFMA/VBMI/VNNI/VBMI2/BITALG/VPOPCNTDQ
 	CPU_AVX512_ICL = 262,
 	CPU_MAX_FEATURE = 512,
 }
 
 opencv_type_enum! { core::CpuFeatures }
 
-/// matrix decomposition types
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum DecompTypes {
-	/// Gaussian elimination with the optimal pivot element chosen.
 	DECOMP_LU = 0,
-	/// singular value decomposition (SVD) method; the system can be over-defined and/or the matrix
-	/// src1 can be singular
 	DECOMP_SVD = 1,
-	/// eigenvalue decomposition; the matrix src1 must be symmetrical
 	DECOMP_EIG = 2,
-	/// Cholesky ![inline formula](https://latex.codecogs.com/png.latex?LL%5ET) factorization; the matrix src1 must be symmetrical and positively
-	/// defined
 	DECOMP_CHOLESKY = 3,
-	/// QR factorization; the system can be over-defined and/or the matrix src1 can be singular
 	DECOMP_QR = 4,
-	/// while all the previous flags are mutually exclusive, this flag can be used together with
-	/// any of the previous; it means that the normal equations
-	/// ![inline formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bsrc1%7D%5ET%5Ccdot%5Ctexttt%7Bsrc1%7D%5Ccdot%5Ctexttt%7Bdst%7D%3D%5Ctexttt%7Bsrc1%7D%5ET%5Ctexttt%7Bsrc2%7D) are
-	/// solved instead of the original system
-	/// ![inline formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bsrc1%7D%5Ccdot%5Ctexttt%7Bdst%7D%3D%5Ctexttt%7Bsrc2%7D)
 	DECOMP_NORMAL = 16,
 }
 
@@ -1078,13 +763,9 @@ opencv_type_enum! { core::Detail_TestOp }
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum DeviceInfo_ComputeMode {
-	/// < default compute mode (Multiple threads can use cudaSetDevice with this device)
 	ComputeModeDefault = 0,
-	/// < compute-exclusive-thread mode (Only one thread in one process will be able to use cudaSetDevice with this device)
 	ComputeModeExclusive = 1,
-	/// < compute-prohibited mode (No threads can use cudaSetDevice with this device)
 	ComputeModeProhibited = 2,
-	/// < compute-exclusive-process mode (Many threads in one process will be able to use cudaSetDevice with this device)
 	ComputeModeExclusiveProcess = 3,
 }
 
@@ -1093,43 +774,13 @@ opencv_type_enum! { core::DeviceInfo_ComputeMode }
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum DftFlags {
-	/// performs an inverse 1D or 2D transform instead of the default forward
-	/// transform.
 	DFT_INVERSE = 1,
-	/// scales the result: divide it by the number of array elements. Normally, it is
-	/// combined with DFT_INVERSE.
 	DFT_SCALE = 2,
-	/// performs a forward or inverse transform of every individual row of the input
-	/// matrix; this flag enables you to transform multiple vectors simultaneously and can be used to
-	/// decrease the overhead (which is sometimes several times larger than the processing itself) to
-	/// perform 3D and higher-dimensional transformations and so forth.
 	DFT_ROWS = 4,
-	/// performs a forward transformation of 1D or 2D real array; the result,
-	/// though being a complex array, has complex-conjugate symmetry (*CCS*, see the function
-	/// description below for details), and such an array can be packed into a real array of the same
-	/// size as input, which is the fastest option and which is what the function does by default;
-	/// however, you may wish to get a full complex array (for simpler spectrum analysis, and so on) -
-	/// pass the flag to enable the function to produce a full-size complex output array.
 	DFT_COMPLEX_OUTPUT = 16,
-	/// performs an inverse transformation of a 1D or 2D complex array; the
-	/// result is normally a complex array of the same size, however, if the input array has
-	/// conjugate-complex symmetry (for example, it is a result of forward transformation with
-	/// DFT_COMPLEX_OUTPUT flag), the output is a real array; while the function itself does not
-	/// check whether the input is symmetrical or not, you can pass the flag and then the function
-	/// will assume the symmetry and produce the real output array (note that when the input is packed
-	/// into a real array and inverse transformation is executed, the function treats the input as a
-	/// packed complex-conjugate symmetrical array, and the output will also be a real array).
 	DFT_REAL_OUTPUT = 32,
-	/// specifies that input is complex input. If this flag is set, the input must have 2 channels.
-	/// On the other hand, for backwards compatibility reason, if input has 2 channels, input is
-	/// already considered complex.
 	DFT_COMPLEX_INPUT = 64,
-	// performs an inverse 1D or 2D transform instead of the default forward transform.
 	// DCT_INVERSE = 1 as isize, // duplicate discriminant
-	// performs a forward or inverse transform of every individual row of the input
-	// matrix. This flag enables you to transform multiple vectors simultaneously and can be used to
-	// decrease the overhead (which is sometimes several times larger than the processing itself) to
-	// perform 3D and higher-dimensional transforms and so forth.
 	// DCT_ROWS = 4 as isize, // duplicate discriminant
 }
 
@@ -1138,13 +789,9 @@ opencv_type_enum! { core::DftFlags }
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum Event_CreateFlags {
-	/// < Default event flag
 	DEFAULT = 0,
-	/// < Event uses blocking synchronization
 	BLOCKING_SYNC = 1,
-	/// < Event will not record timing data
 	DISABLE_TIMING = 2,
-	/// < Event is suitable for interprocess use. DisableTiming must be set
 	INTERPROCESS = 4,
 }
 
@@ -1160,7 +807,6 @@ pub enum FLAGS {
 
 opencv_type_enum! { core::FLAGS }
 
-/// Enumeration providing CUDA computing features.
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum FeatureSet {
@@ -1183,32 +829,19 @@ pub enum FeatureSet {
 
 opencv_type_enum! { core::FeatureSet }
 
-/// file storage mode
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum FileStorage_Mode {
-	/// value, open the file for reading
 	READ = 0,
-	/// value, open the file for writing
 	WRITE = 1,
-	/// value, open the file for appending
 	APPEND = 2,
-	/// < flag, read data from source or write data to the internal buffer (which is
-	/// returned by FileStorage::release)
 	MEMORY = 4,
-	/// mask for format flags
 	FORMAT_MASK = 56,
-	// flag, auto format
 	// FORMAT_AUTO = 0 as isize, // duplicate discriminant
-	/// flag, XML format
 	FORMAT_XML = 8,
-	/// flag, YAML format
 	FORMAT_YAML = 16,
-	/// flag, JSON format
 	FORMAT_JSON = 24,
-	/// flag, write rawdata in Base64 by default. (consider using WRITE_BASE64)
 	BASE64 = 64,
-	/// flag, enable both WRITE and BASE64
 	WRITE_BASE64 = 65,
 }
 
@@ -1238,15 +871,11 @@ pub enum Formatter_FormatType {
 
 opencv_type_enum! { core::Formatter_FormatType }
 
-/// generalized matrix multiplication flags
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum GemmFlags {
-	/// transposes src1
 	GEMM_1_T = 1,
-	/// transposes src2
 	GEMM_2_T = 2,
-	/// transposes src3
 	GEMM_3_T = 4,
 }
 
@@ -1272,71 +901,42 @@ pub enum IMPL {
 
 opencv_type_enum! { core::IMPL }
 
-/// k-Means flags
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum KmeansFlags {
-	/// Select random initial centers in each attempt.
 	KMEANS_RANDOM_CENTERS = 0,
-	/// Use kmeans++ center initialization by Arthur and Vassilvitskii [Arthur2007].
 	KMEANS_PP_CENTERS = 2,
-	/// During the first (and possibly the only) attempt, use the
-	/// user-supplied labels instead of computing them from the initial centers. For the second and
-	/// further attempts, use the random or semi-random centers. Use one of KMEANS_\*_CENTERS flag
-	/// to specify the exact method.
 	KMEANS_USE_INITIAL_LABELS = 1,
 }
 
 opencv_type_enum! { core::KmeansFlags }
 
-/// Supported logging levels and their semantic
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum LogLevel {
-	/// for using in setLogVevel() call
 	LOG_LEVEL_SILENT = 0,
-	/// Fatal (critical) error (unrecoverable internal error)
 	LOG_LEVEL_FATAL = 1,
-	/// Error message
 	LOG_LEVEL_ERROR = 2,
-	/// Warning message
 	LOG_LEVEL_WARNING = 3,
-	/// Info message
 	LOG_LEVEL_INFO = 4,
-	/// Debug message. Disabled in the "Release" build.
 	LOG_LEVEL_DEBUG = 5,
-	/// Verbose (trace) messages. Requires verbosity level. Disabled in the "Release" build.
 	LOG_LEVEL_VERBOSE = 6,
 	ENUM_LOG_LEVEL_FORCE_INT = 2147483647,
 }
 
 opencv_type_enum! { core::LogLevel }
 
-/// norm types
-/// 
-/// src1 and src2 denote input arrays.
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum NormTypes {
-	/// ![block formula](https://latex.codecogs.com/png.latex?%0Anorm%20%3D%20%20%5Cforkthree%0A%7B%5C%7C%5Ctexttt%7Bsrc1%7D%5C%7C%5F%7BL%5F%7B%5Cinfty%7D%7D%20%3D%20%20%5Cmax%20%5FI%20%7C%20%5Ctexttt%7Bsrc1%7D%20%28I%29%7C%7D%7Bif%20%20%5C%28%5Ctexttt%7BnormType%7D%20%3D%20%5Ctexttt%7BNORM%5FINF%7D%5C%29%20%7D%0A%7B%5C%7C%5Ctexttt%7Bsrc1%7D%2D%5Ctexttt%7Bsrc2%7D%5C%7C%5F%7BL%5F%7B%5Cinfty%7D%7D%20%3D%20%20%5Cmax%20%5FI%20%7C%20%5Ctexttt%7Bsrc1%7D%20%28I%29%20%2D%20%20%5Ctexttt%7Bsrc2%7D%20%28I%29%7C%7D%7Bif%20%20%5C%28%5Ctexttt%7BnormType%7D%20%3D%20%5Ctexttt%7BNORM%5FINF%7D%5C%29%20%7D%0A%7B%5Cfrac%7B%5C%7C%5Ctexttt%7Bsrc1%7D%2D%5Ctexttt%7Bsrc2%7D%5C%7C%5F%7BL%5F%7B%5Cinfty%7D%7D%20%20%20%20%7D%7B%5C%7C%5Ctexttt%7Bsrc2%7D%5C%7C%5F%7BL%5F%7B%5Cinfty%7D%7D%20%7D%7D%7Bif%20%20%5C%28%5Ctexttt%7BnormType%7D%20%3D%20%5Ctexttt%7BNORM%5FRELATIVE%20%7C%20NORM%5FINF%7D%5C%29%20%7D%0A)
 	NORM_INF = 1,
-	/// ![block formula](https://latex.codecogs.com/png.latex?%0Anorm%20%3D%20%20%5Cforkthree%0A%7B%5C%7C%20%5Ctexttt%7Bsrc1%7D%20%5C%7C%20%5F%7BL%5F1%7D%20%3D%20%20%5Csum%20%5FI%20%7C%20%5Ctexttt%7Bsrc1%7D%20%28I%29%7C%7D%7Bif%20%20%5C%28%5Ctexttt%7BnormType%7D%20%3D%20%5Ctexttt%7BNORM%5FL1%7D%5C%29%7D%0A%7B%20%5C%7C%20%5Ctexttt%7Bsrc1%7D%20%2D%20%5Ctexttt%7Bsrc2%7D%20%5C%7C%20%5F%7BL%5F1%7D%20%3D%20%20%5Csum%20%5FI%20%7C%20%5Ctexttt%7Bsrc1%7D%20%28I%29%20%2D%20%20%5Ctexttt%7Bsrc2%7D%20%28I%29%7C%7D%7Bif%20%20%5C%28%5Ctexttt%7BnormType%7D%20%3D%20%5Ctexttt%7BNORM%5FL1%7D%5C%29%20%7D%0A%7B%20%5Cfrac%7B%5C%7C%5Ctexttt%7Bsrc1%7D%2D%5Ctexttt%7Bsrc2%7D%5C%7C%5F%7BL%5F1%7D%20%7D%7B%5C%7C%5Ctexttt%7Bsrc2%7D%5C%7C%5F%7BL%5F1%7D%7D%20%7D%7Bif%20%20%5C%28%5Ctexttt%7BnormType%7D%20%3D%20%5Ctexttt%7BNORM%5FRELATIVE%20%7C%20NORM%5FL1%7D%5C%29%20%7D%0A)
 	NORM_L1 = 2,
-	/// ![block formula](https://latex.codecogs.com/png.latex?%0Anorm%20%3D%20%20%5Cforkthree%0A%7B%20%5C%7C%20%5Ctexttt%7Bsrc1%7D%20%5C%7C%20%5F%7BL%5F2%7D%20%3D%20%20%5Csqrt%7B%5Csum%5FI%20%5Ctexttt%7Bsrc1%7D%28I%29%5E2%7D%20%7D%7Bif%20%20%5C%28%5Ctexttt%7BnormType%7D%20%3D%20%5Ctexttt%7BNORM%5FL2%7D%5C%29%20%7D%0A%7B%20%5C%7C%20%5Ctexttt%7Bsrc1%7D%20%2D%20%5Ctexttt%7Bsrc2%7D%20%5C%7C%20%5F%7BL%5F2%7D%20%3D%20%20%5Csqrt%7B%5Csum%5FI%20%28%5Ctexttt%7Bsrc1%7D%28I%29%20%2D%20%5Ctexttt%7Bsrc2%7D%28I%29%29%5E2%7D%20%7D%7Bif%20%20%5C%28%5Ctexttt%7BnormType%7D%20%3D%20%5Ctexttt%7BNORM%5FL2%7D%5C%29%20%7D%0A%7B%20%5Cfrac%7B%5C%7C%5Ctexttt%7Bsrc1%7D%2D%5Ctexttt%7Bsrc2%7D%5C%7C%5F%7BL%5F2%7D%20%7D%7B%5C%7C%5Ctexttt%7Bsrc2%7D%5C%7C%5F%7BL%5F2%7D%7D%20%7D%7Bif%20%20%5C%28%5Ctexttt%7BnormType%7D%20%3D%20%5Ctexttt%7BNORM%5FRELATIVE%20%7C%20NORM%5FL2%7D%5C%29%20%7D%0A)
 	NORM_L2 = 4,
-	/// ![block formula](https://latex.codecogs.com/png.latex?%0Anorm%20%3D%20%20%5Cforkthree%0A%7B%20%5C%7C%20%5Ctexttt%7Bsrc1%7D%20%5C%7C%20%5F%7BL%5F2%7D%20%5E%7B2%7D%20%3D%20%5Csum%5FI%20%5Ctexttt%7Bsrc1%7D%28I%29%5E2%7D%20%7Bif%20%20%5C%28%5Ctexttt%7BnormType%7D%20%3D%20%5Ctexttt%7BNORM%5FL2SQR%7D%5C%29%7D%0A%7B%20%5C%7C%20%5Ctexttt%7Bsrc1%7D%20%2D%20%5Ctexttt%7Bsrc2%7D%20%5C%7C%20%5F%7BL%5F2%7D%20%5E%7B2%7D%20%3D%20%20%5Csum%5FI%20%28%5Ctexttt%7Bsrc1%7D%28I%29%20%2D%20%5Ctexttt%7Bsrc2%7D%28I%29%29%5E2%20%7D%7Bif%20%20%5C%28%5Ctexttt%7BnormType%7D%20%3D%20%5Ctexttt%7BNORM%5FL2SQR%7D%5C%29%20%7D%0A%7B%20%5Cleft%28%5Cfrac%7B%5C%7C%5Ctexttt%7Bsrc1%7D%2D%5Ctexttt%7Bsrc2%7D%5C%7C%5F%7BL%5F2%7D%20%7D%7B%5C%7C%5Ctexttt%7Bsrc2%7D%5C%7C%5F%7BL%5F2%7D%7D%5Cright%29%5E2%20%7D%7Bif%20%20%5C%28%5Ctexttt%7BnormType%7D%20%3D%20%5Ctexttt%7BNORM%5FRELATIVE%20%7C%20NORM%5FL2SQR%7D%5C%29%20%7D%0A)
 	NORM_L2SQR = 5,
-	/// In the case of one input array, calculates the Hamming distance of the array from zero,
-	/// In the case of two input arrays, calculates the Hamming distance between the arrays.
 	NORM_HAMMING = 6,
-	/// Similar to NORM_HAMMING, but in the calculation, each two bits of the input sequence will
-	/// be added and treated as a single bit to be used in the same calculation as NORM_HAMMING.
 	NORM_HAMMING2 = 7,
-	// bit-mask which can be used to separate norm type from norm flags
 	// NORM_TYPE_MASK = 7 as isize, // duplicate discriminant
-	/// flag
 	NORM_RELATIVE = 8,
-	/// flag
 	NORM_MINMAX = 32,
 }
 
@@ -1355,9 +955,7 @@ opencv_type_enum! { core::OclVectorStrategy }
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum PCA_Flags {
-	/// indicates that the input samples are stored as matrix rows
 	DATA_AS_ROW = 0,
-	/// indicates that the input samples are stored as matrix columns
 	DATA_AS_COL = 1,
 	USE_AVG = 2,
 }
@@ -1386,19 +984,14 @@ opencv_type_enum! { core::Param }
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum ReduceTypes {
-	/// the output is the sum of all rows/columns of the matrix.
 	REDUCE_SUM = 0,
-	/// the output is the mean vector of all rows/columns of the matrix.
 	REDUCE_AVG = 1,
-	/// the output is the maximum (column/row-wise) of all rows/columns of the matrix.
 	REDUCE_MAX = 2,
-	/// the output is the minimum (column/row-wise) of all rows/columns of the matrix.
 	REDUCE_MIN = 3,
 }
 
 opencv_type_enum! { core::ReduceTypes }
 
-/// render mode
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum RenderModes {
@@ -1419,11 +1012,8 @@ opencv_type_enum! { core::RenderModes }
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum RotateFlags {
-	/// Rotate 90 degrees clockwise
 	ROTATE_90_CLOCKWISE = 0,
-	/// Rotate 180 degrees clockwise
 	ROTATE_180 = 1,
-	/// Rotate 270 degrees clockwise
 	ROTATE_90_COUNTERCLOCKWISE = 2,
 }
 
@@ -1432,31 +1022,19 @@ opencv_type_enum! { core::RotateFlags }
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum SVD_Flags {
-	/// allow the algorithm to modify the decomposed matrix; it can save space and speed up
-	/// processing. currently ignored.
 	MODIFY_A = 1,
-	/// indicates that only a vector of singular values `w` is to be processed, while u and vt
-	/// will be set to empty matrices
 	NO_UV = 2,
-	/// when the matrix is not square, by default the algorithm produces u and vt matrices of
-	/// sufficiently large size for the further A reconstruction; if, however, FULL_UV flag is
-	/// specified, u and vt will be full-size square orthogonal matrices.
 	FULL_UV = 4,
 }
 
 opencv_type_enum! { core::SVD_Flags }
 
-/// return codes for cv::solveLP() function
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum SolveLPResult {
-	/// problem is unbounded (target function can achieve arbitrary high values)
 	SOLVELP_UNBOUNDED = -2,
-	/// problem is unfeasible (there are no points that satisfy all the constraints imposed)
 	SOLVELP_UNFEASIBLE = -1,
-	/// there is only one maximum for target function
 	SOLVELP_SINGLE = 0,
-	/// there are multiple maxima for target function - the arbitrary one is returned
 	SOLVELP_MULTI = 1,
 }
 
@@ -1465,18 +1043,9 @@ opencv_type_enum! { core::SolveLPResult }
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum SortFlags {
-	/// each matrix row is sorted independently
 	SORT_EVERY_ROW = 0,
-	/// each matrix column is sorted
-	/// independently; this flag and the previous one are
-	/// mutually exclusive.
 	SORT_EVERY_COLUMN = 1,
-	// each matrix row is sorted in the ascending
-	// order.
 	// SORT_ASCENDING = 0 as isize, // duplicate discriminant
-	/// each matrix row is sorted in the
-	/// descending order; this flag and the previous one are also
-	/// mutually exclusive.
 	SORT_DESCENDING = 16,
 }
 
@@ -1493,30 +1062,22 @@ pub enum TYPE {
 
 opencv_type_enum! { core::TYPE }
 
-/// Criteria type, can be one of: COUNT, EPS or COUNT + EPS
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum TermCriteria_Type {
-	/// the maximum number of iterations or elements to compute
 	COUNT = 1,
-	// ditto
 	// MAX_ITER = 1 as isize, // duplicate discriminant
-	/// the desired accuracy or change in parameters at which the iterative algorithm stops
 	EPS = 2,
 }
 
 opencv_type_enum! { core::TermCriteria_Type }
 
-/// An Image Format describes the way that the images in Textures store their data.
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum Texture2D_Format {
 	NONE = 0,
-	/// Depth
 	DEPTH_COMPONENT = 6402,
-	/// Red, Green, Blue
 	RGB = 6407,
-	/// Red, Green, Blue, Alpha
 	RGBA = 6408,
 }
 
@@ -1537,15 +1098,6 @@ pub enum UMatData_MemoryFlag {
 
 opencv_type_enum! { core::UMatData_MemoryFlag }
 
-/// Usage flags for allocator
-/// 
-/// @warning  All flags except `USAGE_DEFAULT` are experimental.
-/// 
-/// @warning  For the OpenCL allocator, `USAGE_ALLOCATE_SHARED_MEMORY` depends on
-/// OpenCV's optional, experimental integration with OpenCL SVM. To enable this
-/// integration, build OpenCV using the `WITH_OPENCL_SVM=ON` CMake option and, at
-/// runtime, call `cv::ocl::Context::getDefault().setUseSVM(true);` or similar
-/// code. Note that SVM is incompatible with OpenCL 1.x.
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum UMatUsageFlags {
@@ -1571,7 +1123,6 @@ pub enum _InputArray_KindFlag {
 	STD_VECTOR = 196608,
 	STD_VECTOR_VECTOR = 262144,
 	STD_VECTOR_MAT = 327680,
-	/// removed: https://github.com/opencv/opencv/pull/17046
 	EXPR = 393216,
 	OPENGL_BUFFER = 458752,
 	CUDA_HOST_MEM = 524288,
@@ -1580,7 +1131,6 @@ pub enum _InputArray_KindFlag {
 	STD_VECTOR_UMAT = 720896,
 	STD_BOOL_VECTOR = 786432,
 	STD_VECTOR_CUDA_GPU_MAT = 851968,
-	/// removed: https://github.com/opencv/opencv/issues/18897
 	STD_ARRAY = 917504,
 	STD_ARRAY_MAT = 983040,
 }
@@ -1700,7 +1250,6 @@ pub type Size2i = core::Size_<i32>;
 pub type Size2l = core::Size_<i64>;
 pub type SparseMat_const_iterator = core::SparseMatConstIterator;
 pub type SparseMat_iterator = core::SparseMatIterator;
-/// @name Shorter aliases for the most popular specializations of Vec<T,n>
 pub type Vec2b = core::VecN<u8, 2>;
 pub type Vec2d = core::VecN<f64, 2>;
 pub type Vec2f = core::VecN<f32, 2>;
@@ -1728,7 +1277,6 @@ pub type GpuMatND_SizeArray = core::Vector<i32>;
 pub type GpuMatND_StepArray = core::Vector<size_t>;
 pub type Stream_StreamCallback = Option<Box<dyn FnMut(i32) -> () + Send + Sync + 'static>>;
 pub type ProgramSource_hash_t = u64;
-/// proxy for hal::Cholesky
 #[inline]
 pub fn cholesky(a: &mut f64, astep: size_t, m: i32, b: &mut f64, bstep: size_t, n: i32) -> Result<bool> {
 	return_send!(via ocvrs_return);
@@ -1738,7 +1286,6 @@ pub fn cholesky(a: &mut f64, astep: size_t, m: i32, b: &mut f64, bstep: size_t, 
 	Ok(ret)
 }
 
-/// proxy for hal::Cholesky
 #[inline]
 pub fn cholesky_f32(a: &mut f32, astep: size_t, m: i32, b: &mut f32, bstep: size_t, n: i32) -> Result<bool> {
 	return_send!(via ocvrs_return);
@@ -1748,21 +1295,6 @@ pub fn cholesky_f32(a: &mut f32, astep: size_t, m: i32, b: &mut f32, bstep: size
 	Ok(ret)
 }
 
-/// Performs a look-up table transform of an array.
-/// 
-/// The function LUT fills the output array with values from the look-up table. Indices of the entries
-/// are taken from the input array. That is, the function processes each element of src as follows:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%20%20%5Cleftarrow%20%5Ctexttt%7Blut%28src%28I%29%20%2B%20d%29%7D)
-/// where
-/// ![block formula](https://latex.codecogs.com/png.latex?d%20%3D%20%20%5Cfork%7B0%7D%7Bif%20%5C%28%5Ctexttt%7Bsrc%7D%5C%29%20has%20depth%20%5C%28%5Ctexttt%7BCV%5F8U%7D%5C%29%7D%7B128%7D%7Bif%20%5C%28%5Ctexttt%7Bsrc%7D%5C%29%20has%20depth%20%5C%28%5Ctexttt%7BCV%5F8S%7D%5C%29%7D)
-/// ## Parameters
-/// * src: input array of 8-bit elements.
-/// * lut: look-up table of 256 elements; in case of multi-channel input array, the table should
-/// either have a single channel (in this case the same table is used for all channels) or the same
-/// number of channels as in the input array.
-/// * dst: output array of the same size and number of channels as src, and the same depth as lut.
-/// ## See also
-/// convertScaleAbs, Mat::convertTo
 #[inline]
 pub fn lut(src: &dyn core::ToInputArray, lut: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 	input_array_arg!(src);
@@ -1775,7 +1307,6 @@ pub fn lut(src: &dyn core::ToInputArray, lut: &dyn core::ToInputArray, dst: &mut
 	Ok(ret)
 }
 
-/// proxy for hal::LU
 #[inline]
 pub fn lu(a: &mut f64, astep: size_t, m: i32, b: &mut f64, bstep: size_t, n: i32) -> Result<i32> {
 	return_send!(via ocvrs_return);
@@ -1785,7 +1316,6 @@ pub fn lu(a: &mut f64, astep: size_t, m: i32, b: &mut f64, bstep: size_t, n: i32
 	Ok(ret)
 }
 
-/// proxy for hal::LU
 #[inline]
 pub fn lu_f32(a: &mut f32, astep: size_t, m: i32, b: &mut f32, bstep: size_t, n: i32) -> Result<i32> {
 	return_send!(via ocvrs_return);
@@ -1795,16 +1325,6 @@ pub fn lu_f32(a: &mut f32, astep: size_t, m: i32, b: &mut f32, bstep: size_t, n:
 	Ok(ret)
 }
 
-/// Calculates the Mahalanobis distance between two vectors.
-/// 
-/// The function cv::Mahalanobis calculates and returns the weighted distance between two vectors:
-/// ![block formula](https://latex.codecogs.com/png.latex?d%28%20%5Ctexttt%7Bvec1%7D%20%2C%20%5Ctexttt%7Bvec2%7D%20%29%3D%20%5Csqrt%7B%5Csum%5F%7Bi%2Cj%7D%7B%5Ctexttt%7Bicovar%28i%2Cj%29%7D%5Ccdot%28%5Ctexttt%7Bvec1%7D%28I%29%2D%5Ctexttt%7Bvec2%7D%28I%29%29%5Ccdot%28%5Ctexttt%7Bvec1%28j%29%7D%2D%5Ctexttt%7Bvec2%28j%29%7D%29%7D%20%7D)
-/// The covariance matrix may be calculated using the #calcCovarMatrix function and then inverted using
-/// the invert function (preferably using the #DECOMP_SVD method, as the most accurate).
-/// ## Parameters
-/// * v1: first 1D input vector.
-/// * v2: second 1D input vector.
-/// * icovar: inverse covariance matrix.
 #[inline]
 pub fn mahalanobis(v1: &dyn core::ToInputArray, v2: &dyn core::ToInputArray, icovar: &dyn core::ToInputArray) -> Result<f64> {
 	input_array_arg!(v1);
@@ -1817,7 +1337,6 @@ pub fn mahalanobis(v1: &dyn core::ToInputArray, v2: &dyn core::ToInputArray, ico
 	Ok(ret)
 }
 
-/// wrap PCA::backProject
 #[inline]
 pub fn pca_back_project(data: &dyn core::ToInputArray, mean: &dyn core::ToInputArray, eigenvectors: &dyn core::ToInputArray, result: &mut dyn core::ToOutputArray) -> Result<()> {
 	input_array_arg!(data);
@@ -1831,7 +1350,6 @@ pub fn pca_back_project(data: &dyn core::ToInputArray, mean: &dyn core::ToInputA
 	Ok(ret)
 }
 
-/// wrap PCA::operator() and add eigenvalues output parameter
 #[inline]
 pub fn pca_compute2_variance(data: &dyn core::ToInputArray, mean: &mut dyn core::ToInputOutputArray, eigenvectors: &mut dyn core::ToOutputArray, eigenvalues: &mut dyn core::ToOutputArray, retained_variance: f64) -> Result<()> {
 	input_array_arg!(data);
@@ -1845,8 +1363,6 @@ pub fn pca_compute2_variance(data: &dyn core::ToInputArray, mean: &mut dyn core:
 	Ok(ret)
 }
 
-/// wrap PCA::operator() and add eigenvalues output parameter
-/// 
 /// ## C++ default parameters
 /// * max_components: 0
 #[inline]
@@ -1862,7 +1378,6 @@ pub fn pca_compute2(data: &dyn core::ToInputArray, mean: &mut dyn core::ToInputO
 	Ok(ret)
 }
 
-/// wrap PCA::operator()
 #[inline]
 pub fn pca_compute_variance(data: &dyn core::ToInputArray, mean: &mut dyn core::ToInputOutputArray, eigenvectors: &mut dyn core::ToOutputArray, retained_variance: f64) -> Result<()> {
 	input_array_arg!(data);
@@ -1875,8 +1390,6 @@ pub fn pca_compute_variance(data: &dyn core::ToInputArray, mean: &mut dyn core::
 	Ok(ret)
 }
 
-/// wrap PCA::operator()
-/// 
 /// ## C++ default parameters
 /// * max_components: 0
 #[inline]
@@ -1891,7 +1404,6 @@ pub fn pca_compute(data: &dyn core::ToInputArray, mean: &mut dyn core::ToInputOu
 	Ok(ret)
 }
 
-/// wrap PCA::project
 #[inline]
 pub fn pca_project(data: &dyn core::ToInputArray, mean: &dyn core::ToInputArray, eigenvectors: &dyn core::ToInputArray, result: &mut dyn core::ToOutputArray) -> Result<()> {
 	input_array_arg!(data);
@@ -1905,23 +1417,6 @@ pub fn pca_project(data: &dyn core::ToInputArray, mean: &dyn core::ToInputArray,
 	Ok(ret)
 }
 
-/// Computes the Peak Signal-to-Noise Ratio (PSNR) image quality metric.
-/// 
-/// This function calculates the Peak Signal-to-Noise Ratio (PSNR) image quality metric in decibels (dB),
-/// between two input arrays src1 and src2. The arrays must have the same type.
-/// 
-/// The PSNR is calculated as follows:
-/// 
-/// ![block formula](https://latex.codecogs.com/png.latex?%0A%5Ctexttt%7BPSNR%7D%20%3D%2010%20%5Ccdot%20%5Clog%5F%7B10%7D%7B%5Cleft%28%20%5Cfrac%7BR%5E2%7D%7BMSE%7D%20%5Cright%29%20%7D%0A)
-/// 
-/// where R is the maximum integer value of depth (e.g. 255 in the case of CV_8U data)
-/// and MSE is the mean squared error between the two arrays.
-/// 
-/// ## Parameters
-/// * src1: first input array.
-/// * src2: second input array of the same size as src1.
-/// * R: the maximum pixel value (255 by default)
-/// 
 /// ## C++ default parameters
 /// * r: 255.
 #[inline]
@@ -1935,7 +1430,6 @@ pub fn psnr(src1: &dyn core::ToInputArray, src2: &dyn core::ToInputArray, r: f64
 	Ok(ret)
 }
 
-/// wrap SVD::backSubst
 #[inline]
 pub fn sv_back_subst(w: &dyn core::ToInputArray, u: &dyn core::ToInputArray, vt: &dyn core::ToInputArray, rhs: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 	input_array_arg!(w);
@@ -1950,8 +1444,6 @@ pub fn sv_back_subst(w: &dyn core::ToInputArray, u: &dyn core::ToInputArray, vt:
 	Ok(ret)
 }
 
-/// wrap SVD::compute
-/// 
 /// ## C++ default parameters
 /// * flags: 0
 #[inline]
@@ -1967,24 +1459,6 @@ pub fn sv_decomp(src: &dyn core::ToInputArray, w: &mut dyn core::ToOutputArray, 
 	Ok(ret)
 }
 
-/// Calculates an absolute value of each matrix element.
-/// 
-/// abs is a meta-function that is expanded to one of absdiff or convertScaleAbs forms:
-/// - C = abs(A-B) is equivalent to `absdiff(A, B, C)`
-/// - C = abs(A) is equivalent to `absdiff(A, Scalar::all(0), C)`
-/// - C = `Mat_<Vec<uchar,n> >(abs(A*alpha + beta))` is equivalent to `convertScaleAbs(A, C, alpha,
-/// beta)`
-/// 
-/// The output matrix has the same size and the same type as the input one except for the last case,
-/// where C is depth=CV_8U .
-/// ## Parameters
-/// * m: matrix.
-/// ## See also
-/// @ref MatrixExpressions, absdiff, convertScaleAbs
-/// 
-/// ## Overloaded parameters
-/// 
-/// * e: matrix expression.
 #[inline]
 pub fn abs_matexpr(e: &core::MatExpr) -> Result<core::MatExpr> {
 	return_send!(via ocvrs_return);
@@ -1995,20 +1469,6 @@ pub fn abs_matexpr(e: &core::MatExpr) -> Result<core::MatExpr> {
 	Ok(ret)
 }
 
-/// Calculates an absolute value of each matrix element.
-/// 
-/// abs is a meta-function that is expanded to one of absdiff or convertScaleAbs forms:
-/// - C = abs(A-B) is equivalent to `absdiff(A, B, C)`
-/// - C = abs(A) is equivalent to `absdiff(A, Scalar::all(0), C)`
-/// - C = `Mat_<Vec<uchar,n> >(abs(A*alpha + beta))` is equivalent to `convertScaleAbs(A, C, alpha,
-/// beta)`
-/// 
-/// The output matrix has the same size and the same type as the input one except for the last case,
-/// where C is depth=CV_8U .
-/// ## Parameters
-/// * m: matrix.
-/// ## See also
-/// @ref MatrixExpressions, absdiff, convertScaleAbs
 #[inline]
 pub fn abs(m: &core::Mat) -> Result<core::MatExpr> {
 	return_send!(via ocvrs_return);
@@ -2019,31 +1479,6 @@ pub fn abs(m: &core::Mat) -> Result<core::MatExpr> {
 	Ok(ret)
 }
 
-/// Calculates the per-element absolute difference between two arrays or between an array and a scalar.
-/// 
-/// The function cv::absdiff calculates:
-/// *   Absolute difference between two arrays when they have the same
-///    size and type:
-///    ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%28I%29%20%3D%20%20%5Ctexttt%7Bsaturate%7D%20%28%7C%20%5Ctexttt%7Bsrc1%7D%28I%29%20%2D%20%20%5Ctexttt%7Bsrc2%7D%28I%29%7C%29)
-/// *   Absolute difference between an array and a scalar when the second
-///    array is constructed from Scalar or has as many elements as the
-///    number of channels in `src1`:
-///    ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%28I%29%20%3D%20%20%5Ctexttt%7Bsaturate%7D%20%28%7C%20%5Ctexttt%7Bsrc1%7D%28I%29%20%2D%20%20%5Ctexttt%7Bsrc2%7D%20%7C%29)
-/// *   Absolute difference between a scalar and an array when the first
-///    array is constructed from Scalar or has as many elements as the
-///    number of channels in `src2`:
-///    ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%28I%29%20%3D%20%20%5Ctexttt%7Bsaturate%7D%20%28%7C%20%5Ctexttt%7Bsrc1%7D%20%2D%20%20%5Ctexttt%7Bsrc2%7D%28I%29%20%7C%29)
-///    where I is a multi-dimensional index of array elements. In case of
-///    multi-channel arrays, each channel is processed independently.
-/// 
-/// Note: Saturation is not applied when the arrays have the depth CV_32S.
-/// You may even get a negative value in the case of overflow.
-/// ## Parameters
-/// * src1: first input array or a scalar.
-/// * src2: second input array or a scalar.
-/// * dst: output array that has the same size and type as input arrays.
-/// ## See also
-/// cv::abs(const Mat&)
 #[inline]
 pub fn absdiff(src1: &dyn core::ToInputArray, src2: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 	input_array_arg!(src1);
@@ -2056,32 +1491,6 @@ pub fn absdiff(src1: &dyn core::ToInputArray, src2: &dyn core::ToInputArray, dst
 	Ok(ret)
 }
 
-/// Calculates the weighted sum of two arrays.
-/// 
-/// The function addWeighted calculates the weighted sum of two arrays as follows:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%3D%20%5Ctexttt%7Bsaturate%7D%20%28%20%5Ctexttt%7Bsrc1%7D%20%28I%29%2A%20%5Ctexttt%7Balpha%7D%20%2B%20%20%5Ctexttt%7Bsrc2%7D%20%28I%29%2A%20%5Ctexttt%7Bbeta%7D%20%2B%20%20%5Ctexttt%7Bgamma%7D%20%29)
-/// where I is a multi-dimensional index of array elements. In case of multi-channel arrays, each
-/// channel is processed independently.
-/// The function can be replaced with a matrix expression:
-/// ```ignore
-///    dst = src1*alpha + src2*beta + gamma;
-/// ```
-/// 
-/// 
-/// Note: Saturation is not applied when the output array has the depth CV_32S. You may even get
-/// result of an incorrect sign in the case of overflow.
-/// ## Parameters
-/// * src1: first input array.
-/// * alpha: weight of the first array elements.
-/// * src2: second input array of the same size and channel number as src1.
-/// * beta: weight of the second array elements.
-/// * gamma: scalar added to each sum.
-/// * dst: output array that has the same size and number of channels as the input arrays.
-/// * dtype: optional depth of the output array; when both input arrays have the same depth, dtype
-/// can be set to -1, which will be equivalent to src1.depth().
-/// ## See also
-/// add, subtract, scaleAdd, Mat::convertTo
-/// 
 /// ## C++ default parameters
 /// * dtype: -1
 #[inline]
@@ -2096,46 +1505,6 @@ pub fn add_weighted(src1: &dyn core::ToInputArray, alpha: f64, src2: &dyn core::
 	Ok(ret)
 }
 
-/// Calculates the per-element sum of two arrays or an array and a scalar.
-/// 
-/// The function add calculates:
-/// - Sum of two arrays when both input arrays have the same size and the same number of channels:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%28I%29%20%3D%20%20%5Ctexttt%7Bsaturate%7D%20%28%20%5Ctexttt%7Bsrc1%7D%28I%29%20%2B%20%20%5Ctexttt%7Bsrc2%7D%28I%29%29%20%5Cquad%20%5Ctexttt%7Bif%20mask%7D%28I%29%20%5Cne0)
-/// - Sum of an array and a scalar when src2 is constructed from Scalar or has the same number of
-/// elements as `src1.channels()`:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%28I%29%20%3D%20%20%5Ctexttt%7Bsaturate%7D%20%28%20%5Ctexttt%7Bsrc1%7D%28I%29%20%2B%20%20%5Ctexttt%7Bsrc2%7D%20%29%20%5Cquad%20%5Ctexttt%7Bif%20mask%7D%28I%29%20%5Cne0)
-/// - Sum of a scalar and an array when src1 is constructed from Scalar or has the same number of
-/// elements as `src2.channels()`:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%28I%29%20%3D%20%20%5Ctexttt%7Bsaturate%7D%20%28%20%5Ctexttt%7Bsrc1%7D%20%2B%20%20%5Ctexttt%7Bsrc2%7D%28I%29%20%29%20%5Cquad%20%5Ctexttt%7Bif%20mask%7D%28I%29%20%5Cne0)
-/// where `I` is a multi-dimensional index of array elements. In case of multi-channel arrays, each
-/// channel is processed independently.
-/// 
-/// The first function in the list above can be replaced with matrix expressions:
-/// ```ignore
-///    dst = src1 + src2;
-///    dst += src1; // equivalent to add(dst, src1, dst);
-/// ```
-/// 
-/// The input arrays and the output array can all have the same or different depths. For example, you
-/// can add a 16-bit unsigned array to a 8-bit signed array and store the sum as a 32-bit
-/// floating-point array. Depth of the output array is determined by the dtype parameter. In the second
-/// and third cases above, as well as in the first case, when src1.depth() == src2.depth(), dtype can
-/// be set to the default -1. In this case, the output array will have the same depth as the input
-/// array, be it src1, src2 or both.
-/// 
-/// Note: Saturation is not applied when the output array has the depth CV_32S. You may even get
-/// result of an incorrect sign in the case of overflow.
-/// ## Parameters
-/// * src1: first input array or a scalar.
-/// * src2: second input array or a scalar.
-/// * dst: output array that has the same size and number of channels as the input array(s); the
-/// depth is defined by dtype or src1/src2.
-/// * mask: optional operation mask - 8-bit single channel array, that specifies elements of the
-/// output array to be changed.
-/// * dtype: optional depth of the output array (see the discussion below).
-/// ## See also
-/// subtract, addWeighted, scaleAdd, Mat::convertTo
-/// 
 /// ## C++ default parameters
 /// * mask: noArray()
 /// * dtype: -1
@@ -2152,11 +1521,6 @@ pub fn add(src1: &dyn core::ToInputArray, src2: &dyn core::ToInputArray, dst: &m
 	Ok(ret)
 }
 
-/// naive nearest neighbor finder
-/// 
-/// see http://en.wikipedia.org/wiki/Nearest_neighbor_search
-/// @todo document
-/// 
 /// ## C++ default parameters
 /// * norm_type: NORM_L2
 /// * k: 0
@@ -2177,32 +1541,6 @@ pub fn batch_distance(src1: &dyn core::ToInputArray, src2: &dyn core::ToInputArr
 	Ok(ret)
 }
 
-/// computes bitwise conjunction of the two arrays (dst = src1 & src2)
-/// Calculates the per-element bit-wise conjunction of two arrays or an
-/// array and a scalar.
-/// 
-/// The function cv::bitwise_and calculates the per-element bit-wise logical conjunction for:
-/// *   Two arrays when src1 and src2 have the same size:
-///    ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%20%3D%20%20%5Ctexttt%7Bsrc1%7D%20%28I%29%20%20%5Cwedge%20%5Ctexttt%7Bsrc2%7D%20%28I%29%20%5Cquad%20%5Ctexttt%7Bif%20mask%7D%20%28I%29%20%5Cne0)
-/// *   An array and a scalar when src2 is constructed from Scalar or has
-///    the same number of elements as `src1.channels()`:
-///    ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%20%3D%20%20%5Ctexttt%7Bsrc1%7D%20%28I%29%20%20%5Cwedge%20%5Ctexttt%7Bsrc2%7D%20%5Cquad%20%5Ctexttt%7Bif%20mask%7D%20%28I%29%20%5Cne0)
-/// *   A scalar and an array when src1 is constructed from Scalar or has
-///    the same number of elements as `src2.channels()`:
-///    ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%20%3D%20%20%5Ctexttt%7Bsrc1%7D%20%20%5Cwedge%20%5Ctexttt%7Bsrc2%7D%20%28I%29%20%5Cquad%20%5Ctexttt%7Bif%20mask%7D%20%28I%29%20%5Cne0)
-/// In case of floating-point arrays, their machine-specific bit
-/// representations (usually IEEE754-compliant) are used for the operation.
-/// In case of multi-channel arrays, each channel is processed
-/// independently. In the second and third cases above, the scalar is first
-/// converted to the array type.
-/// ## Parameters
-/// * src1: first input array or a scalar.
-/// * src2: second input array or a scalar.
-/// * dst: output array that has the same size and type as the input
-/// arrays.
-/// * mask: optional operation mask, 8-bit single channel array, that
-/// specifies elements of the output array to be changed.
-/// 
 /// ## C++ default parameters
 /// * mask: noArray()
 #[inline]
@@ -2218,21 +1556,6 @@ pub fn bitwise_and(src1: &dyn core::ToInputArray, src2: &dyn core::ToInputArray,
 	Ok(ret)
 }
 
-/// Inverts every bit of an array.
-/// 
-/// The function cv::bitwise_not calculates per-element bit-wise inversion of the input
-/// array:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%20%3D%20%20%5Cneg%20%5Ctexttt%7Bsrc%7D%20%28I%29)
-/// In case of a floating-point input array, its machine-specific bit
-/// representation (usually IEEE754-compliant) is used for the operation. In
-/// case of multi-channel arrays, each channel is processed independently.
-/// ## Parameters
-/// * src: input array.
-/// * dst: output array that has the same size and type as the input
-/// array.
-/// * mask: optional operation mask, 8-bit single channel array, that
-/// specifies elements of the output array to be changed.
-/// 
 /// ## C++ default parameters
 /// * mask: noArray()
 #[inline]
@@ -2247,31 +1570,6 @@ pub fn bitwise_not(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArr
 	Ok(ret)
 }
 
-/// Calculates the per-element bit-wise disjunction of two arrays or an
-/// array and a scalar.
-/// 
-/// The function cv::bitwise_or calculates the per-element bit-wise logical disjunction for:
-/// *   Two arrays when src1 and src2 have the same size:
-///    ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%20%3D%20%20%5Ctexttt%7Bsrc1%7D%20%28I%29%20%20%5Cvee%20%5Ctexttt%7Bsrc2%7D%20%28I%29%20%5Cquad%20%5Ctexttt%7Bif%20mask%7D%20%28I%29%20%5Cne0)
-/// *   An array and a scalar when src2 is constructed from Scalar or has
-///    the same number of elements as `src1.channels()`:
-///    ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%20%3D%20%20%5Ctexttt%7Bsrc1%7D%20%28I%29%20%20%5Cvee%20%5Ctexttt%7Bsrc2%7D%20%5Cquad%20%5Ctexttt%7Bif%20mask%7D%20%28I%29%20%5Cne0)
-/// *   A scalar and an array when src1 is constructed from Scalar or has
-///    the same number of elements as `src2.channels()`:
-///    ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%20%3D%20%20%5Ctexttt%7Bsrc1%7D%20%20%5Cvee%20%5Ctexttt%7Bsrc2%7D%20%28I%29%20%5Cquad%20%5Ctexttt%7Bif%20mask%7D%20%28I%29%20%5Cne0)
-/// In case of floating-point arrays, their machine-specific bit
-/// representations (usually IEEE754-compliant) are used for the operation.
-/// In case of multi-channel arrays, each channel is processed
-/// independently. In the second and third cases above, the scalar is first
-/// converted to the array type.
-/// ## Parameters
-/// * src1: first input array or a scalar.
-/// * src2: second input array or a scalar.
-/// * dst: output array that has the same size and type as the input
-/// arrays.
-/// * mask: optional operation mask, 8-bit single channel array, that
-/// specifies elements of the output array to be changed.
-/// 
 /// ## C++ default parameters
 /// * mask: noArray()
 #[inline]
@@ -2287,32 +1585,6 @@ pub fn bitwise_or(src1: &dyn core::ToInputArray, src2: &dyn core::ToInputArray, 
 	Ok(ret)
 }
 
-/// Calculates the per-element bit-wise "exclusive or" operation on two
-/// arrays or an array and a scalar.
-/// 
-/// The function cv::bitwise_xor calculates the per-element bit-wise logical "exclusive-or"
-/// operation for:
-/// *   Two arrays when src1 and src2 have the same size:
-///    ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%20%3D%20%20%5Ctexttt%7Bsrc1%7D%20%28I%29%20%20%5Coplus%20%5Ctexttt%7Bsrc2%7D%20%28I%29%20%5Cquad%20%5Ctexttt%7Bif%20mask%7D%20%28I%29%20%5Cne0)
-/// *   An array and a scalar when src2 is constructed from Scalar or has
-///    the same number of elements as `src1.channels()`:
-///    ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%20%3D%20%20%5Ctexttt%7Bsrc1%7D%20%28I%29%20%20%5Coplus%20%5Ctexttt%7Bsrc2%7D%20%5Cquad%20%5Ctexttt%7Bif%20mask%7D%20%28I%29%20%5Cne0)
-/// *   A scalar and an array when src1 is constructed from Scalar or has
-///    the same number of elements as `src2.channels()`:
-///    ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%20%3D%20%20%5Ctexttt%7Bsrc1%7D%20%20%5Coplus%20%5Ctexttt%7Bsrc2%7D%20%28I%29%20%5Cquad%20%5Ctexttt%7Bif%20mask%7D%20%28I%29%20%5Cne0)
-/// In case of floating-point arrays, their machine-specific bit
-/// representations (usually IEEE754-compliant) are used for the operation.
-/// In case of multi-channel arrays, each channel is processed
-/// independently. In the 2nd and 3rd cases above, the scalar is first
-/// converted to the array type.
-/// ## Parameters
-/// * src1: first input array or a scalar.
-/// * src2: second input array or a scalar.
-/// * dst: output array that has the same size and type as the input
-/// arrays.
-/// * mask: optional operation mask, 8-bit single channel array, that
-/// specifies elements of the output array to be changed.
-/// 
 /// ## C++ default parameters
 /// * mask: noArray()
 #[inline]
@@ -2328,28 +1600,6 @@ pub fn bitwise_xor(src1: &dyn core::ToInputArray, src2: &dyn core::ToInputArray,
 	Ok(ret)
 }
 
-/// Computes the source location of an extrapolated pixel.
-/// 
-/// The function computes and returns the coordinate of a donor pixel corresponding to the specified
-/// extrapolated pixel when using the specified extrapolation border mode. For example, if you use
-/// cv::BORDER_WRAP mode in the horizontal direction, cv::BORDER_REFLECT_101 in the vertical direction and
-/// want to compute value of the "virtual" pixel Point(-5, 100) in a floating-point image img , it
-/// looks like:
-/// ```ignore
-///    float val = img.at<float>(borderInterpolate(100, img.rows, cv::BORDER_REFLECT_101),
-///                               borderInterpolate(-5, img.cols, cv::BORDER_WRAP));
-/// ```
-/// 
-/// Normally, the function is not called directly. It is used inside filtering functions and also in
-/// copyMakeBorder.
-/// ## Parameters
-/// * p: 0-based coordinate of the extrapolated pixel along one of the axes, likely \<0 or \>= len
-/// * len: Length of the array along the corresponding axis.
-/// * borderType: Border type, one of the #BorderTypes, except for #BORDER_TRANSPARENT and
-/// #BORDER_ISOLATED . When borderType==#BORDER_CONSTANT , the function always returns -1, regardless
-/// of p and len.
-/// ## See also
-/// copyMakeBorder
 #[inline]
 pub fn border_interpolate(p: i32, len: i32, border_type: i32) -> Result<i32> {
 	return_send!(via ocvrs_return);
@@ -2359,31 +1609,6 @@ pub fn border_interpolate(p: i32, len: i32, border_type: i32) -> Result<i32> {
 	Ok(ret)
 }
 
-/// Calculates the covariance matrix of a set of vectors.
-/// 
-/// The function cv::calcCovarMatrix calculates the covariance matrix and, optionally, the mean vector of
-/// the set of input vectors.
-/// ## Parameters
-/// * samples: samples stored as separate matrices
-/// * nsamples: number of samples
-/// * covar: output covariance matrix of the type ctype and square size.
-/// * mean: input or output (depending on the flags) array as the average value of the input vectors.
-/// * flags: operation flags as a combination of #CovarFlags
-/// * ctype: type of the matrixl; it equals 'CV_64F' by default.
-/// ## See also
-/// PCA, mulTransposed, Mahalanobis
-/// @todo InputArrayOfArrays
-/// 
-/// ## Overloaded parameters
-/// 
-/// 
-/// Note: use #COVAR_ROWS or #COVAR_COLS flag
-/// * samples: samples stored as rows/columns of a single matrix.
-/// * covar: output covariance matrix of the type ctype and square size.
-/// * mean: input or output (depending on the flags) array as the average value of the input vectors.
-/// * flags: operation flags as a combination of #CovarFlags
-/// * ctype: type of the matrixl; it equals 'CV_64F' by default.
-/// 
 /// ## C++ default parameters
 /// * ctype: CV_64F
 #[inline]
@@ -2398,26 +1623,6 @@ pub fn calc_covar_matrix(samples: &dyn core::ToInputArray, covar: &mut dyn core:
 	Ok(ret)
 }
 
-/// Calculates the magnitude and angle of 2D vectors.
-/// 
-/// The function cv::cartToPolar calculates either the magnitude, angle, or both
-/// for every 2D vector (x(I),y(I)):
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Cbegin%7Barray%7D%7Bl%7D%20%5Ctexttt%7Bmagnitude%7D%20%28I%29%3D%20%5Csqrt%7B%5Ctexttt%7Bx%7D%28I%29%5E2%2B%5Ctexttt%7By%7D%28I%29%5E2%7D%20%2C%20%5C%5C%20%5Ctexttt%7Bangle%7D%20%28I%29%3D%20%5Ctexttt%7Batan2%7D%20%28%20%5Ctexttt%7By%7D%20%28I%29%2C%20%5Ctexttt%7Bx%7D%20%28I%29%29%5B%20%5Ccdot180%20%2F%20%5Cpi%20%5D%20%5Cend%7Barray%7D)
-/// 
-/// The angles are calculated with accuracy about 0.3 degrees. For the point
-/// (0,0), the angle is set to 0.
-/// ## Parameters
-/// * x: array of x-coordinates; this must be a single-precision or
-/// double-precision floating-point array.
-/// * y: array of y-coordinates, that must have the same size and same type as x.
-/// * magnitude: output array of magnitudes of the same size and type as x.
-/// * angle: output array of angles that has the same size and type as
-/// x; the angles are measured in radians (from 0 to 2\*Pi) or in degrees (0 to 360 degrees).
-/// * angleInDegrees: a flag, indicating whether the angles are measured
-/// in radians (which is by default), or in degrees.
-/// ## See also
-/// Sobel, Scharr
-/// 
 /// ## C++ default parameters
 /// * angle_in_degrees: false
 #[inline]
@@ -2433,14 +1638,6 @@ pub fn cart_to_polar(x: &dyn core::ToInputArray, y: &dyn core::ToInputArray, mag
 	Ok(ret)
 }
 
-/// Returns true if the specified feature is supported by the host hardware.
-/// 
-/// The function returns true if the host hardware supports the specified feature. When user calls
-/// setUseOptimized(false), the subsequent calls to checkHardwareSupport() will return false until
-/// setUseOptimized(true) is called. This way user can dynamically switch on and off the optimized code
-/// in OpenCV.
-/// ## Parameters
-/// * feature: The feature of interest, one of cv::CpuFeatures
 #[inline]
 pub fn check_hardware_support(feature: i32) -> Result<bool> {
 	return_send!(via ocvrs_return);
@@ -2450,22 +1647,6 @@ pub fn check_hardware_support(feature: i32) -> Result<bool> {
 	Ok(ret)
 }
 
-/// Checks every element of an input array for invalid values.
-/// 
-/// The function cv::checkRange checks that every array element is neither NaN nor infinite. When minVal \>
-/// -DBL_MAX and maxVal \< DBL_MAX, the function also checks that each value is between minVal and
-/// maxVal. In case of multi-channel arrays, each channel is processed independently. If some values
-/// are out of range, position of the first outlier is stored in pos (when pos != NULL). Then, the
-/// function either returns false (when quiet=true) or throws an exception.
-/// ## Parameters
-/// * a: input array.
-/// * quiet: a flag, indicating whether the functions quietly return false when the array elements
-/// are out of range or they throw an exception.
-/// * pos: optional output parameter, when not NULL, must be a pointer to array of src.dims
-/// elements.
-/// * minVal: inclusive lower boundary of valid values range.
-/// * maxVal: exclusive upper boundary of valid values range.
-/// 
 /// ## C++ default parameters
 /// * quiet: true
 /// * pos: 0
@@ -2481,34 +1662,6 @@ pub fn check_range(a: &dyn core::ToInputArray, quiet: bool, pos: &mut core::Poin
 	Ok(ret)
 }
 
-/// Performs the per-element comparison of two arrays or an array and scalar value.
-/// 
-/// The function compares:
-/// *   Elements of two arrays when src1 and src2 have the same size:
-///    ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%20%3D%20%20%5Ctexttt%7Bsrc1%7D%20%28I%29%20%20%5C%2C%5Ctexttt%7Bcmpop%7D%5C%2C%20%5Ctexttt%7Bsrc2%7D%20%28I%29)
-/// *   Elements of src1 with a scalar src2 when src2 is constructed from
-///    Scalar or has a single element:
-///    ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%20%3D%20%20%5Ctexttt%7Bsrc1%7D%28I%29%20%5C%2C%5Ctexttt%7Bcmpop%7D%5C%2C%20%20%5Ctexttt%7Bsrc2%7D)
-/// *   src1 with elements of src2 when src1 is constructed from Scalar or
-///    has a single element:
-///    ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%20%3D%20%20%5Ctexttt%7Bsrc1%7D%20%20%5C%2C%5Ctexttt%7Bcmpop%7D%5C%2C%20%5Ctexttt%7Bsrc2%7D%20%28I%29)
-/// When the comparison result is true, the corresponding element of output
-/// array is set to 255. The comparison operations can be replaced with the
-/// equivalent matrix expressions:
-/// ```ignore
-///    Mat dst1 = src1 >= src2;
-///    Mat dst2 = src1 < 8;
-///    ...
-/// ```
-/// 
-/// ## Parameters
-/// * src1: first input array or a scalar; when it is an array, it must have a single channel.
-/// * src2: second input array or a scalar; when it is an array, it must have a single channel.
-/// * dst: output array of type ref CV_8U that has the same size and the same number of channels as
-///    the input arrays.
-/// * cmpop: a flag, that specifies correspondence between the arrays (cv::CmpTypes)
-/// ## See also
-/// checkRange, min, max, threshold
 #[inline]
 pub fn compare(src1: &dyn core::ToInputArray, src2: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray, cmpop: i32) -> Result<()> {
 	input_array_arg!(src1);
@@ -2521,22 +1674,6 @@ pub fn compare(src1: &dyn core::ToInputArray, src2: &dyn core::ToInputArray, dst
 	Ok(ret)
 }
 
-/// Copies the lower or the upper half of a square matrix to its another half.
-/// 
-/// The function cv::completeSymm copies the lower or the upper half of a square matrix to
-/// its another half. The matrix diagonal remains unchanged:
-///  - ![inline formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bm%7D%5F%7Bij%7D%3D%5Ctexttt%7Bm%7D%5F%7Bji%7D) for ![inline formula](https://latex.codecogs.com/png.latex?i%20%3E%20j) if
-///    lowerToUpper=false
-///  - ![inline formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bm%7D%5F%7Bij%7D%3D%5Ctexttt%7Bm%7D%5F%7Bji%7D) for ![inline formula](https://latex.codecogs.com/png.latex?i%20%3C%20j) if
-///    lowerToUpper=true
-/// 
-/// ## Parameters
-/// * m: input-output floating-point square matrix.
-/// * lowerToUpper: operation flag; if true, the lower half is copied to
-/// the upper half. Otherwise, the upper half is copied to the lower half.
-/// ## See also
-/// flip, transpose
-/// 
 /// ## C++ default parameters
 /// * lower_to_upper: false
 #[inline]
@@ -2549,16 +1686,6 @@ pub fn complete_symm(m: &mut dyn core::ToInputOutputArray, lower_to_upper: bool)
 	Ok(ret)
 }
 
-/// Converts an array to half precision floating number.
-/// 
-/// This function converts FP32 (single precision floating point) from/to FP16 (half precision floating point). CV_16S format is used to represent FP16 data.
-/// There are two use modes (src -> dst): CV_32F -> CV_16S and CV_16S -> CV_32F. The input array has to have type of CV_32F or
-/// CV_16S to represent the bit depth. If the input array is neither of them, the function will raise an error.
-/// The format of half precision floating point is defined in IEEE 754-2008.
-/// 
-/// ## Parameters
-/// * src: input array.
-/// * dst: output array.
 #[inline]
 pub fn convert_fp16(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 	input_array_arg!(src);
@@ -2570,34 +1697,6 @@ pub fn convert_fp16(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputAr
 	Ok(ret)
 }
 
-/// Scales, calculates absolute values, and converts the result to 8-bit.
-/// 
-/// On each element of the input array, the function convertScaleAbs
-/// performs three operations sequentially: scaling, taking an absolute
-/// value, conversion to an unsigned 8-bit type:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%3D%20%5Ctexttt%7Bsaturate%5C%5Fcast%3Cuchar%3E%7D%20%28%7C%20%5Ctexttt%7Bsrc%7D%20%28I%29%2A%20%5Ctexttt%7Balpha%7D%20%2B%20%20%5Ctexttt%7Bbeta%7D%20%7C%29)
-/// In case of multi-channel arrays, the function processes each channel
-/// independently. When the output is not 8-bit, the operation can be
-/// emulated by calling the Mat::convertTo method (or by using matrix
-/// expressions) and then by calculating an absolute value of the result.
-/// For example:
-/// ```ignore
-///    Mat_<float> A(30,30);
-///    randu(A, Scalar(-100), Scalar(100));
-///    Mat_<float> B = A*5 + 3;
-///    B = abs(B);
-///    // Mat_<float> B = abs(A*5+3) will also do the job,
-///    // but it will allocate a temporary matrix
-/// ```
-/// 
-/// ## Parameters
-/// * src: input array.
-/// * dst: output array.
-/// * alpha: optional scale factor.
-/// * beta: optional delta added to the scaled values.
-/// ## See also
-/// Mat::convertTo, cv::abs(const Mat&)
-/// 
 /// ## C++ default parameters
 /// * alpha: 1
 /// * beta: 0
@@ -2612,52 +1711,6 @@ pub fn convert_scale_abs(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOut
 	Ok(ret)
 }
 
-/// Forms a border around an image.
-/// 
-/// The function copies the source image into the middle of the destination image. The areas to the
-/// left, to the right, above and below the copied source image will be filled with extrapolated
-/// pixels. This is not what filtering functions based on it do (they extrapolate pixels on-fly), but
-/// what other more complex functions, including your own, may do to simplify image boundary handling.
-/// 
-/// The function supports the mode when src is already in the middle of dst . In this case, the
-/// function does not copy src itself but simply constructs the border, for example:
-/// 
-/// ```ignore
-///    // let border be the same in all directions
-///    int border=2;
-///    // constructs a larger image to fit both the image and the border
-///    Mat gray_buf(rgb.rows + border*2, rgb.cols + border*2, rgb.depth());
-///    // select the middle part of it w/o copying data
-///    Mat gray(gray_canvas, Rect(border, border, rgb.cols, rgb.rows));
-///    // convert image from RGB to grayscale
-///    cvtColor(rgb, gray, COLOR_RGB2GRAY);
-///    // form a border in-place
-///    copyMakeBorder(gray, gray_buf, border, border,
-///                    border, border, BORDER_REPLICATE);
-///    // now do some custom filtering ...
-///    ...
-/// ```
-/// 
-/// 
-/// Note: When the source image is a part (ROI) of a bigger image, the function will try to use the
-/// pixels outside of the ROI to form a border. To disable this feature and always do extrapolation, as
-/// if src was not a ROI, use borderType | #BORDER_ISOLATED.
-/// 
-/// ## Parameters
-/// * src: Source image.
-/// * dst: Destination image of the same type as src and the size Size(src.cols+left+right,
-/// src.rows+top+bottom) .
-/// * top: the top pixels
-/// * bottom: the bottom pixels
-/// * left: the left pixels
-/// * right: Parameter specifying how many pixels in each direction from the source image rectangle
-/// to extrapolate. For example, top=1, bottom=1, left=1, right=1 mean that 1 pixel-wide border needs
-/// to be built.
-/// * borderType: Border type. See borderInterpolate for details.
-/// * value: Border value if borderType==BORDER_CONSTANT .
-/// ## See also
-/// borderInterpolate
-/// 
 /// ## C++ default parameters
 /// * value: Scalar()
 #[inline]
@@ -2671,15 +1724,6 @@ pub fn copy_make_border(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutp
 	Ok(ret)
 }
 
-/// This is an overloaded member function, provided for convenience (python)
-/// Copies the matrix to another one.
-/// When the operation mask is specified, if the Mat::create call shown above reallocates the matrix, the newly allocated matrix is initialized with all zeros before copying the data.
-/// ## Parameters
-/// * src: source matrix.
-/// * dst: Destination matrix. If it does not have a proper size or type before the operation, it is
-/// reallocated.
-/// * mask: Operation mask of the same size as \*this. Its non-zero elements indicate which matrix
-/// elements need to be copied. The mask has to be of type CV_8U and can have 1 or multiple channels.
 #[inline]
 pub fn copy_to(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray, mask: &dyn core::ToInputArray) -> Result<()> {
 	input_array_arg!(src);
@@ -2692,14 +1736,6 @@ pub fn copy_to(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray, 
 	Ok(ret)
 }
 
-/// Counts non-zero array elements.
-/// 
-/// The function returns the number of non-zero elements in src :
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Csum%20%5F%7BI%3A%20%5C%3B%20%5Ctexttt%7Bsrc%7D%20%28I%29%20%5Cne0%20%7D%201)
-/// ## Parameters
-/// * src: single-channel array.
-/// ## See also
-/// mean, meanStdDev, norm, minMaxLoc, calcCovarMatrix
 #[inline]
 pub fn count_non_zero(src: &dyn core::ToInputArray) -> Result<i32> {
 	input_array_arg!(src);
@@ -2710,13 +1746,6 @@ pub fn count_non_zero(src: &dyn core::ToInputArray) -> Result<i32> {
 	Ok(ret)
 }
 
-/// Computes the cube root of an argument.
-/// 
-/// The function cubeRoot computes ![inline formula](https://latex.codecogs.com/png.latex?%5Csqrt%5B3%5D%7B%5Ctexttt%7Bval%7D%7D). Negative arguments are handled correctly.
-/// NaN and Inf are not handled. The accuracy approaches the maximum possible accuracy for
-/// single-precision data.
-/// ## Parameters
-/// * val: A function argument.
 #[inline]
 pub fn cube_root(val: f32) -> Result<f32> {
 	return_send!(via ocvrs_return);
@@ -2726,17 +1755,6 @@ pub fn cube_root(val: f32) -> Result<f32> {
 	Ok(ret)
 }
 
-/// Creates a continuous matrix.
-/// 
-/// ## Parameters
-/// * rows: Row count.
-/// * cols: Column count.
-/// * type: Type of the matrix.
-/// * arr: Destination matrix. This parameter changes only if it has a proper type and area (
-/// ![inline formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Brows%7D%20%5Ctimes%20%5Ctexttt%7Bcols%7D) ).
-/// 
-/// Matrix is called continuous if its elements are stored continuously, that is, without gaps at the
-/// end of each row.
 #[inline]
 pub fn create_continuous(rows: i32, cols: i32, typ: i32, arr: &mut dyn core::ToOutputArray) -> Result<()> {
 	output_array_arg!(arr);
@@ -2747,7 +1765,6 @@ pub fn create_continuous(rows: i32, cols: i32, typ: i32, arr: &mut dyn core::ToO
 	Ok(ret)
 }
 
-/// checks whether current device supports the given feature
 #[inline]
 pub fn device_supports(feature_set: core::FeatureSet) -> Result<bool> {
 	return_send!(via ocvrs_return);
@@ -2757,15 +1774,6 @@ pub fn device_supports(feature_set: core::FeatureSet) -> Result<bool> {
 	Ok(ret)
 }
 
-/// Ensures that the size of a matrix is big enough and the matrix has a proper type.
-/// 
-/// ## Parameters
-/// * rows: Minimum desired number of rows.
-/// * cols: Minimum desired number of columns.
-/// * type: Desired matrix type.
-/// * arr: Destination matrix.
-/// 
-/// The function does not reallocate memory if the matrix has proper attributes already.
 #[inline]
 pub fn ensure_size_is_enough(rows: i32, cols: i32, typ: i32, arr: &mut dyn core::ToOutputArray) -> Result<()> {
 	output_array_arg!(arr);
@@ -2776,11 +1784,6 @@ pub fn ensure_size_is_enough(rows: i32, cols: i32, typ: i32, arr: &mut dyn core:
 	Ok(ret)
 }
 
-/// Returns the number of installed CUDA-enabled devices.
-/// 
-/// Use this function before any other CUDA functions calls. If OpenCV is compiled without CUDA support,
-/// this function returns 0. If the CUDA driver is not installed, or is incompatible, this function
-/// returns -1.
 #[inline]
 pub fn get_cuda_enabled_device_count() -> Result<i32> {
 	return_send!(via ocvrs_return);
@@ -2790,7 +1793,6 @@ pub fn get_cuda_enabled_device_count() -> Result<i32> {
 	Ok(ret)
 }
 
-/// Returns the current device index set by cuda::setDevice or initialized by default.
 #[inline]
 pub fn get_device() -> Result<i32> {
 	return_send!(via ocvrs_return);
@@ -2818,10 +1820,6 @@ pub fn print_short_cuda_device_info(device: i32) -> Result<()> {
 	Ok(ret)
 }
 
-/// Page-locks the memory of matrix and maps it for the device(s).
-/// 
-/// ## Parameters
-/// * m: Input matrix.
 #[inline]
 pub fn register_page_locked(m: &mut core::Mat) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -2831,10 +1829,6 @@ pub fn register_page_locked(m: &mut core::Mat) -> Result<()> {
 	Ok(ret)
 }
 
-/// Explicitly destroys and cleans up all resources associated with the current device in the current
-/// process.
-/// 
-/// Any subsequent API call to this device will reinitialize the device.
 #[inline]
 pub fn reset_device() -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -2853,7 +1847,6 @@ pub fn set_buffer_pool_config(device_id: i32, stack_size: size_t, stack_count: i
 	Ok(ret)
 }
 
-/// BufferPool management (must be called before Stream creation)
 #[inline]
 pub fn set_buffer_pool_usage(on: bool) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -2863,12 +1856,6 @@ pub fn set_buffer_pool_usage(on: bool) -> Result<()> {
 	Ok(ret)
 }
 
-/// Sets a device and initializes it for the current thread.
-/// 
-/// ## Parameters
-/// * device: System index of a CUDA device starting with 0.
-/// 
-/// If the call of this function is omitted, a default device is initialized at the fist CUDA usage.
 #[inline]
 pub fn set_device(device: i32) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -2878,13 +1865,6 @@ pub fn set_device(device: i32) -> Result<()> {
 	Ok(ret)
 }
 
-/// Sets a CUDA device and initializes it for the current thread with OpenGL interoperability.
-/// 
-/// This function should be explicitly called after OpenGL context creation and before any CUDA calls.
-/// ## Parameters
-/// * device: System index of a CUDA device starting with 0.
-/// @ingroup core_opengl
-/// 
 /// ## C++ default parameters
 /// * device: 0
 #[inline]
@@ -2896,10 +1876,6 @@ pub fn set_gl_device(device: i32) -> Result<()> {
 	Ok(ret)
 }
 
-/// Unmaps the memory of matrix and makes it pageable again.
-/// 
-/// ## Parameters
-/// * m: Input matrix.
 #[inline]
 pub fn unregister_page_locked(m: &mut core::Mat) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -2909,49 +1885,6 @@ pub fn unregister_page_locked(m: &mut core::Mat) -> Result<()> {
 	Ok(ret)
 }
 
-/// Performs a forward or inverse discrete Cosine transform of 1D or 2D array.
-/// 
-/// The function cv::dct performs a forward or inverse discrete Cosine transform (DCT) of a 1D or 2D
-/// floating-point array:
-/// *   Forward Cosine transform of a 1D vector of N elements:
-///    ![block formula](https://latex.codecogs.com/png.latex?Y%20%3D%20C%5E%7B%28N%29%7D%20%20%5Ccdot%20X)
-///    where
-///    ![block formula](https://latex.codecogs.com/png.latex?C%5E%7B%28N%29%7D%5F%7Bjk%7D%3D%20%5Csqrt%7B%5Calpha%5Fj%2FN%7D%20%5Ccos%20%5Cleft%20%28%20%5Cfrac%7B%5Cpi%282k%2B1%29j%7D%7B2N%7D%20%5Cright%20%29)
-///    and
-///    ![inline formula](https://latex.codecogs.com/png.latex?%5Calpha%5F0%3D1), ![inline formula](https://latex.codecogs.com/png.latex?%5Calpha%5Fj%3D2) for *j \> 0*.
-/// *   Inverse Cosine transform of a 1D vector of N elements:
-///    ![block formula](https://latex.codecogs.com/png.latex?X%20%3D%20%20%5Cleft%20%28C%5E%7B%28N%29%7D%20%5Cright%20%29%5E%7B%2D1%7D%20%20%5Ccdot%20Y%20%3D%20%20%5Cleft%20%28C%5E%7B%28N%29%7D%20%5Cright%20%29%5ET%20%20%5Ccdot%20Y)
-///    (since ![inline formula](https://latex.codecogs.com/png.latex?C%5E%7B%28N%29%7D) is an orthogonal matrix, ![inline formula](https://latex.codecogs.com/png.latex?C%5E%7B%28N%29%7D%20%5Ccdot%20%5Cleft%28C%5E%7B%28N%29%7D%5Cright%29%5ET%20%3D%20I) )
-/// *   Forward 2D Cosine transform of M x N matrix:
-///    ![block formula](https://latex.codecogs.com/png.latex?Y%20%3D%20C%5E%7B%28N%29%7D%20%20%5Ccdot%20X%20%20%5Ccdot%20%5Cleft%20%28C%5E%7B%28N%29%7D%20%5Cright%20%29%5ET)
-/// *   Inverse 2D Cosine transform of M x N matrix:
-///    ![block formula](https://latex.codecogs.com/png.latex?X%20%3D%20%20%5Cleft%20%28C%5E%7B%28N%29%7D%20%5Cright%20%29%5ET%20%20%5Ccdot%20X%20%20%5Ccdot%20C%5E%7B%28N%29%7D)
-/// 
-/// The function chooses the mode of operation by looking at the flags and size of the input array:
-/// *   If (flags & #DCT_INVERSE) == 0 , the function does a forward 1D or 2D transform. Otherwise, it
-///    is an inverse 1D or 2D transform.
-/// *   If (flags & #DCT_ROWS) != 0 , the function performs a 1D transform of each row.
-/// *   If the array is a single column or a single row, the function performs a 1D transform.
-/// *   If none of the above is true, the function performs a 2D transform.
-/// 
-/// 
-/// Note: Currently dct supports even-size arrays (2, 4, 6 ...). For data analysis and approximation, you
-/// can pad the array when necessary.
-/// Also, the function performance depends very much, and not monotonically, on the array size (see
-/// getOptimalDFTSize ). In the current implementation DCT of a vector of size N is calculated via DFT
-/// of a vector of size N/2 . Thus, the optimal DCT size N1 \>= N can be calculated as:
-/// ```ignore
-///    size_t getOptimalDCTSize(size_t N) { return 2*getOptimalDFTSize((N+1)/2); }
-///    N1 = getOptimalDCTSize(N);
-/// ```
-/// 
-/// ## Parameters
-/// * src: input floating-point array.
-/// * dst: output array of the same size and type as src .
-/// * flags: transformation flags as a combination of cv::DftFlags (DCT_*)
-/// ## See also
-/// dft , getOptimalDFTSize , idct
-/// 
 /// ## C++ default parameters
 /// * flags: 0
 #[inline]
@@ -2965,7 +1898,6 @@ pub fn dct(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray, flag
 	Ok(ret)
 }
 
-/// Returns string of cv::Mat depth value: CV_8U -> "CV_8U" or "<invalid depth>"
 #[inline]
 pub fn depth_to_string(depth: i32) -> Result<String> {
 	return_send!(via ocvrs_return);
@@ -3130,20 +2062,6 @@ pub fn check_failed_auto_10(v1: &str, ctx: &core::Detail_CheckContext) -> Result
 	Ok(ret)
 }
 
-/// Returns the determinant of a square floating-point matrix.
-/// 
-/// The function cv::determinant calculates and returns the determinant of the
-/// specified matrix. For small matrices ( mtx.cols=mtx.rows\<=3 ), the
-/// direct method is used. For larger matrices, the function uses LU
-/// factorization with partial pivoting.
-/// 
-/// For symmetric positively-determined matrices, it is also possible to use
-/// eigen decomposition to calculate the determinant.
-/// ## Parameters
-/// * mtx: input matrix that must have CV_32FC1 or CV_64FC1 type and
-/// square size.
-/// ## See also
-/// trace, invert, solve, eigen, @ref MatrixExpressions
 #[inline]
 pub fn determinant(mtx: &dyn core::ToInputArray) -> Result<f64> {
 	input_array_arg!(mtx);
@@ -3154,142 +2072,6 @@ pub fn determinant(mtx: &dyn core::ToInputArray) -> Result<f64> {
 	Ok(ret)
 }
 
-/// Performs a forward or inverse Discrete Fourier transform of a 1D or 2D floating-point array.
-/// 
-/// The function cv::dft performs one of the following:
-/// *   Forward the Fourier transform of a 1D vector of N elements:
-///    ![block formula](https://latex.codecogs.com/png.latex?Y%20%3D%20F%5E%7B%28N%29%7D%20%20%5Ccdot%20X%2C)
-///    where ![inline formula](https://latex.codecogs.com/png.latex?F%5E%7B%28N%29%7D%5F%7Bjk%7D%3D%5Cexp%28%2D2%5Cpi%20i%20j%20k%2FN%29) and ![inline formula](https://latex.codecogs.com/png.latex?i%3D%5Csqrt%7B%2D1%7D)
-/// *   Inverse the Fourier transform of a 1D vector of N elements:
-///    ![block formula](https://latex.codecogs.com/png.latex?%5Cbegin%7Barray%7D%7Bl%7D%20X%27%3D%20%20%5Cleft%20%28F%5E%7B%28N%29%7D%20%5Cright%20%29%5E%7B%2D1%7D%20%20%5Ccdot%20Y%20%3D%20%20%5Cleft%20%28F%5E%7B%28N%29%7D%20%5Cright%20%29%5E%2A%20%20%5Ccdot%20y%20%20%5C%5C%20X%20%3D%20%281%2FN%29%20%20%5Ccdot%20X%2C%20%5Cend%7Barray%7D)
-///    where ![inline formula](https://latex.codecogs.com/png.latex?F%5E%2A%3D%5Cleft%28%5Ctextrm%7BRe%7D%28F%5E%7B%28N%29%7D%29%2D%5Ctextrm%7BIm%7D%28F%5E%7B%28N%29%7D%29%5Cright%29%5ET)
-/// *   Forward the 2D Fourier transform of a M x N matrix:
-///    ![block formula](https://latex.codecogs.com/png.latex?Y%20%3D%20F%5E%7B%28M%29%7D%20%20%5Ccdot%20X%20%20%5Ccdot%20F%5E%7B%28N%29%7D)
-/// *   Inverse the 2D Fourier transform of a M x N matrix:
-///    ![block formula](https://latex.codecogs.com/png.latex?%5Cbegin%7Barray%7D%7Bl%7D%20X%27%3D%20%20%5Cleft%20%28F%5E%7B%28M%29%7D%20%5Cright%20%29%5E%2A%20%20%5Ccdot%20Y%20%20%5Ccdot%20%5Cleft%20%28F%5E%7B%28N%29%7D%20%5Cright%20%29%5E%2A%20%5C%5C%20X%20%3D%20%20%5Cfrac%7B1%7D%7BM%20%5Ccdot%20N%7D%20%5Ccdot%20X%27%20%5Cend%7Barray%7D)
-/// 
-/// In case of real (single-channel) data, the output spectrum of the forward Fourier transform or input
-/// spectrum of the inverse Fourier transform can be represented in a packed format called *CCS*
-/// (complex-conjugate-symmetrical). It was borrowed from IPL (Intel\* Image Processing Library). Here
-/// is how 2D *CCS* spectrum looks:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Cbegin%7Bbmatrix%7D%20Re%20Y%5F%7B0%2C0%7D%20%26%20Re%20Y%5F%7B0%2C1%7D%20%26%20Im%20Y%5F%7B0%2C1%7D%20%26%20Re%20Y%5F%7B0%2C2%7D%20%26%20Im%20Y%5F%7B0%2C2%7D%20%26%20%20%5Ccdots%20%26%20Re%20Y%5F%7B0%2CN%2F2%2D1%7D%20%26%20Im%20Y%5F%7B0%2CN%2F2%2D1%7D%20%26%20Re%20Y%5F%7B0%2CN%2F2%7D%20%20%5C%5C%20Re%20Y%5F%7B1%2C0%7D%20%26%20Re%20Y%5F%7B1%2C1%7D%20%26%20Im%20Y%5F%7B1%2C1%7D%20%26%20Re%20Y%5F%7B1%2C2%7D%20%26%20Im%20Y%5F%7B1%2C2%7D%20%26%20%20%5Ccdots%20%26%20Re%20Y%5F%7B1%2CN%2F2%2D1%7D%20%26%20Im%20Y%5F%7B1%2CN%2F2%2D1%7D%20%26%20Re%20Y%5F%7B1%2CN%2F2%7D%20%20%5C%5C%20Im%20Y%5F%7B1%2C0%7D%20%26%20Re%20Y%5F%7B2%2C1%7D%20%26%20Im%20Y%5F%7B2%2C1%7D%20%26%20Re%20Y%5F%7B2%2C2%7D%20%26%20Im%20Y%5F%7B2%2C2%7D%20%26%20%20%5Ccdots%20%26%20Re%20Y%5F%7B2%2CN%2F2%2D1%7D%20%26%20Im%20Y%5F%7B2%2CN%2F2%2D1%7D%20%26%20Im%20Y%5F%7B1%2CN%2F2%7D%20%20%5C%5C%20%5Cdots%20%5C%5C%20Re%20Y%5F%7BM%2F2%2D1%2C0%7D%20%26%20%20Re%20Y%5F%7BM%2D3%2C1%7D%20%20%26%20Im%20Y%5F%7BM%2D3%2C1%7D%20%26%20%20%5Cdots%20%26%20Re%20Y%5F%7BM%2D3%2CN%2F2%2D1%7D%20%26%20Im%20Y%5F%7BM%2D3%2CN%2F2%2D1%7D%26%20Re%20Y%5F%7BM%2F2%2D1%2CN%2F2%7D%20%20%5C%5C%20Im%20Y%5F%7BM%2F2%2D1%2C0%7D%20%26%20%20Re%20Y%5F%7BM%2D2%2C1%7D%20%20%26%20Im%20Y%5F%7BM%2D2%2C1%7D%20%26%20%20%5Cdots%20%26%20Re%20Y%5F%7BM%2D2%2CN%2F2%2D1%7D%20%26%20Im%20Y%5F%7BM%2D2%2CN%2F2%2D1%7D%26%20Im%20Y%5F%7BM%2F2%2D1%2CN%2F2%7D%20%20%5C%5C%20Re%20Y%5F%7BM%2F2%2C0%7D%20%20%26%20%20Re%20Y%5F%7BM%2D1%2C1%7D%20%26%20%20Im%20Y%5F%7BM%2D1%2C1%7D%20%26%20%20%5Cdots%20%26%20Re%20Y%5F%7BM%2D1%2CN%2F2%2D1%7D%20%26%20Im%20Y%5F%7BM%2D1%2CN%2F2%2D1%7D%26%20Re%20Y%5F%7BM%2F2%2CN%2F2%7D%20%5Cend%7Bbmatrix%7D)
-/// 
-/// In case of 1D transform of a real vector, the output looks like the first row of the matrix above.
-/// 
-/// So, the function chooses an operation mode depending on the flags and size of the input array:
-/// *   If #DFT_ROWS is set or the input array has a single row or single column, the function
-///    performs a 1D forward or inverse transform of each row of a matrix when #DFT_ROWS is set.
-///    Otherwise, it performs a 2D transform.
-/// *   If the input array is real and #DFT_INVERSE is not set, the function performs a forward 1D or
-///    2D transform:
-///    *   When #DFT_COMPLEX_OUTPUT is set, the output is a complex matrix of the same size as
-///        input.
-///    *   When #DFT_COMPLEX_OUTPUT is not set, the output is a real matrix of the same size as
-///        input. In case of 2D transform, it uses the packed format as shown above. In case of a
-///        single 1D transform, it looks like the first row of the matrix above. In case of
-///        multiple 1D transforms (when using the #DFT_ROWS flag), each row of the output matrix
-///        looks like the first row of the matrix above.
-/// *   If the input array is complex and either #DFT_INVERSE or #DFT_REAL_OUTPUT are not set, the
-///    output is a complex array of the same size as input. The function performs a forward or
-///    inverse 1D or 2D transform of the whole input array or each row of the input array
-///    independently, depending on the flags DFT_INVERSE and DFT_ROWS.
-/// *   When #DFT_INVERSE is set and the input array is real, or it is complex but #DFT_REAL_OUTPUT
-///    is set, the output is a real array of the same size as input. The function performs a 1D or 2D
-///    inverse transformation of the whole input array or each individual row, depending on the flags
-///    #DFT_INVERSE and #DFT_ROWS.
-/// 
-/// If #DFT_SCALE is set, the scaling is done after the transformation.
-/// 
-/// Unlike dct , the function supports arrays of arbitrary size. But only those arrays are processed
-/// efficiently, whose sizes can be factorized in a product of small prime numbers (2, 3, and 5 in the
-/// current implementation). Such an efficient DFT size can be calculated using the getOptimalDFTSize
-/// method.
-/// 
-/// The sample below illustrates how to calculate a DFT-based convolution of two 2D real arrays:
-/// ```ignore
-///    void convolveDFT(InputArray A, InputArray B, OutputArray C)
-///    {
-///        // reallocate the output array if needed
-///        C.create(abs(A.rows - B.rows)+1, abs(A.cols - B.cols)+1, A.type());
-///        Size dftSize;
-///        // calculate the size of DFT transform
-///        dftSize.width = getOptimalDFTSize(A.cols + B.cols - 1);
-///        dftSize.height = getOptimalDFTSize(A.rows + B.rows - 1);
-/// 
-///        // allocate temporary buffers and initialize them with 0's
-///        Mat tempA(dftSize, A.type(), Scalar::all(0));
-///        Mat tempB(dftSize, B.type(), Scalar::all(0));
-/// 
-///        // copy A and B to the top-left corners of tempA and tempB, respectively
-///        Mat roiA(tempA, Rect(0,0,A.cols,A.rows));
-///        A.copyTo(roiA);
-///        Mat roiB(tempB, Rect(0,0,B.cols,B.rows));
-///        B.copyTo(roiB);
-/// 
-///        // now transform the padded A & B in-place;
-///        // use "nonzeroRows" hint for faster processing
-///        dft(tempA, tempA, 0, A.rows);
-///        dft(tempB, tempB, 0, B.rows);
-/// 
-///        // multiply the spectrums;
-///        // the function handles packed spectrum representations well
-///        mulSpectrums(tempA, tempB, tempA);
-/// 
-///        // transform the product back from the frequency domain.
-///        // Even though all the result rows will be non-zero,
-///        // you need only the first C.rows of them, and thus you
-///        // pass nonzeroRows == C.rows
-///        dft(tempA, tempA, DFT_INVERSE + DFT_SCALE, C.rows);
-/// 
-///        // now copy the result back to C.
-///        tempA(Rect(0, 0, C.cols, C.rows)).copyTo(C);
-/// 
-///        // all the temporary buffers will be deallocated automatically
-///    }
-/// ```
-/// 
-/// To optimize this sample, consider the following approaches:
-/// *   Since nonzeroRows != 0 is passed to the forward transform calls and since A and B are copied to
-///    the top-left corners of tempA and tempB, respectively, it is not necessary to clear the whole
-///    tempA and tempB. It is only necessary to clear the tempA.cols - A.cols ( tempB.cols - B.cols)
-///    rightmost columns of the matrices.
-/// *   This DFT-based convolution does not have to be applied to the whole big arrays, especially if B
-///    is significantly smaller than A or vice versa. Instead, you can calculate convolution by parts.
-///    To do this, you need to split the output array C into multiple tiles. For each tile, estimate
-///    which parts of A and B are required to calculate convolution in this tile. If the tiles in C are
-///    too small, the speed will decrease a lot because of repeated work. In the ultimate case, when
-///    each tile in C is a single pixel, the algorithm becomes equivalent to the naive convolution
-///    algorithm. If the tiles are too big, the temporary arrays tempA and tempB become too big and
-///    there is also a slowdown because of bad cache locality. So, there is an optimal tile size
-///    somewhere in the middle.
-/// *   If different tiles in C can be calculated in parallel and, thus, the convolution is done by
-///    parts, the loop can be threaded.
-/// 
-/// All of the above improvements have been implemented in #matchTemplate and #filter2D . Therefore, by
-/// using them, you can get the performance even better than with the above theoretically optimal
-/// implementation. Though, those two functions actually calculate cross-correlation, not convolution,
-/// so you need to "flip" the second convolution operand B vertically and horizontally using flip .
-/// 
-/// Note:
-/// *   An example using the discrete fourier transform can be found at
-///    opencv_source_code/samples/cpp/dft.cpp
-/// *   (Python) An example using the dft functionality to perform Wiener deconvolution can be found
-///    at opencv_source/samples/python/deconvolution.py
-/// *   (Python) An example rearranging the quadrants of a Fourier image can be found at
-///    opencv_source/samples/python/dft.py
-/// ## Parameters
-/// * src: input array that could be real or complex.
-/// * dst: output array whose size and type depends on the flags .
-/// * flags: transformation flags, representing a combination of the #DftFlags
-/// * nonzeroRows: when the parameter is not zero, the function assumes that only the first
-/// nonzeroRows rows of the input array (#DFT_INVERSE is not set) or only the first nonzeroRows of the
-/// output array (#DFT_INVERSE is set) contain non-zeros, thus, the function can handle the rest of the
-/// rows more efficiently and save some time; this technique is very useful for calculating array
-/// cross-correlation or convolution using DFT.
-/// ## See also
-/// dct , getOptimalDFTSize , mulSpectrums, filter2D , matchTemplate , flip , cartToPolar ,
-/// magnitude , phase
-/// 
 /// ## C++ default parameters
 /// * flags: 0
 /// * nonzero_rows: 0
@@ -3304,11 +2086,6 @@ pub fn dft(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray, flag
 	Ok(ret)
 }
 
-/// Get OpenCV type from DirectX type
-/// ## Parameters
-/// * iD3DFORMAT: - enum D3DTYPE for D3D9
-/// ## Returns
-/// OpenCV type or -1 if there is no equivalent
 #[inline]
 pub fn get_type_from_d3d_format(i_d3_dformat: i32) -> Result<i32> {
 	return_send!(via ocvrs_return);
@@ -3318,11 +2095,6 @@ pub fn get_type_from_d3d_format(i_d3_dformat: i32) -> Result<i32> {
 	Ok(ret)
 }
 
-/// Get OpenCV type from DirectX type
-/// ## Parameters
-/// * iDXGI_FORMAT: - enum DXGI_FORMAT for D3D10/D3D11
-/// ## Returns
-/// OpenCV type or -1 if there is no equivalent
 #[inline]
 pub fn get_type_from_dxgi_format(i_dxgi_format: i32) -> Result<i32> {
 	return_send!(via ocvrs_return);
@@ -3332,35 +2104,6 @@ pub fn get_type_from_dxgi_format(i_dxgi_format: i32) -> Result<i32> {
 	Ok(ret)
 }
 
-/// Performs per-element division of two arrays or a scalar by an array.
-/// 
-/// The function cv::divide divides one array by another:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%28I%29%20%3D%20saturate%28src1%28I%29%2Ascale%2Fsrc2%28I%29%29%7D)
-/// or a scalar by an array when there is no src1 :
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%28I%29%20%3D%20saturate%28scale%2Fsrc2%28I%29%29%7D)
-/// 
-/// Different channels of multi-channel arrays are processed independently.
-/// 
-/// For integer types when src2(I) is zero, dst(I) will also be zero.
-/// 
-/// 
-/// Note: In case of floating point data there is no special defined behavior for zero src2(I) values.
-/// Regular floating-point division is used.
-/// Expect correct IEEE-754 behaviour for floating-point data (with NaN, Inf result values).
-/// 
-/// 
-/// Note: Saturation is not applied when the output array has the depth CV_32S. You may even get
-/// result of an incorrect sign in the case of overflow.
-/// ## Parameters
-/// * src1: first input array.
-/// * src2: second input array of the same size and type as src1.
-/// * scale: scalar factor.
-/// * dst: output array of the same size and type as src2.
-/// * dtype: optional depth of the output array; if -1, dst will have depth src2.depth(), but in
-/// case of an array-by-array division, you can only pass -1 when src1.depth()==src2.depth().
-/// ## See also
-/// multiply, add, subtract
-/// 
 /// ## C++ default parameters
 /// * scale: 1
 /// * dtype: -1
@@ -3376,37 +2119,6 @@ pub fn divide2(src1: &dyn core::ToInputArray, src2: &dyn core::ToInputArray, dst
 	Ok(ret)
 }
 
-/// Performs per-element division of two arrays or a scalar by an array.
-/// 
-/// The function cv::divide divides one array by another:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%28I%29%20%3D%20saturate%28src1%28I%29%2Ascale%2Fsrc2%28I%29%29%7D)
-/// or a scalar by an array when there is no src1 :
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%28I%29%20%3D%20saturate%28scale%2Fsrc2%28I%29%29%7D)
-/// 
-/// Different channels of multi-channel arrays are processed independently.
-/// 
-/// For integer types when src2(I) is zero, dst(I) will also be zero.
-/// 
-/// 
-/// Note: In case of floating point data there is no special defined behavior for zero src2(I) values.
-/// Regular floating-point division is used.
-/// Expect correct IEEE-754 behaviour for floating-point data (with NaN, Inf result values).
-/// 
-/// 
-/// Note: Saturation is not applied when the output array has the depth CV_32S. You may even get
-/// result of an incorrect sign in the case of overflow.
-/// ## Parameters
-/// * src1: first input array.
-/// * src2: second input array of the same size and type as src1.
-/// * scale: scalar factor.
-/// * dst: output array of the same size and type as src2.
-/// * dtype: optional depth of the output array; if -1, dst will have depth src2.depth(), but in
-/// case of an array-by-array division, you can only pass -1 when src1.depth()==src2.depth().
-/// ## See also
-/// multiply, add, subtract
-/// 
-/// ## Overloaded parameters
-/// 
 /// ## C++ default parameters
 /// * dtype: -1
 #[inline]
@@ -3420,23 +2132,6 @@ pub fn divide(scale: f64, src2: &dyn core::ToInputArray, dst: &mut dyn core::ToO
 	Ok(ret)
 }
 
-/// Calculates eigenvalues and eigenvectors of a non-symmetric matrix (real eigenvalues only).
-/// 
-/// 
-/// Note: Assumes real eigenvalues.
-/// 
-/// The function calculates eigenvalues and eigenvectors (optional) of the square matrix src:
-/// ```ignore
-///    src*eigenvectors.row(i).t() = eigenvalues.at<srcType>(i)*eigenvectors.row(i).t()
-/// ```
-/// 
-/// 
-/// ## Parameters
-/// * src: input matrix (CV_32FC1 or CV_64FC1 type).
-/// * eigenvalues: output vector of eigenvalues (type is the same type as src).
-/// * eigenvectors: output matrix of eigenvectors (type is the same type as src). The eigenvectors are stored as subsequent matrix rows, in the same order as the corresponding eigenvalues.
-/// ## See also
-/// eigen
 #[inline]
 pub fn eigen_non_symmetric(src: &dyn core::ToInputArray, eigenvalues: &mut dyn core::ToOutputArray, eigenvectors: &mut dyn core::ToOutputArray) -> Result<()> {
 	input_array_arg!(src);
@@ -3449,29 +2144,6 @@ pub fn eigen_non_symmetric(src: &dyn core::ToInputArray, eigenvalues: &mut dyn c
 	Ok(ret)
 }
 
-/// Calculates eigenvalues and eigenvectors of a symmetric matrix.
-/// 
-/// The function cv::eigen calculates just eigenvalues, or eigenvalues and eigenvectors of the symmetric
-/// matrix src:
-/// ```ignore
-///    src*eigenvectors.row(i).t() = eigenvalues.at<srcType>(i)*eigenvectors.row(i).t()
-/// ```
-/// 
-/// 
-/// 
-/// Note: Use cv::eigenNonSymmetric for calculation of real eigenvalues and eigenvectors of non-symmetric matrix.
-/// 
-/// ## Parameters
-/// * src: input matrix that must have CV_32FC1 or CV_64FC1 type, square size and be symmetrical
-/// (src ^T^ == src).
-/// * eigenvalues: output vector of eigenvalues of the same type as src; the eigenvalues are stored
-/// in the descending order.
-/// * eigenvectors: output matrix of eigenvectors; it has the same size and type as src; the
-/// eigenvectors are stored as subsequent matrix rows, in the same order as the corresponding
-/// eigenvalues.
-/// ## See also
-/// eigenNonSymmetric, completeSymm , PCA
-/// 
 /// ## C++ default parameters
 /// * eigenvectors: noArray()
 #[inline]
@@ -3486,16 +2158,6 @@ pub fn eigen(src: &dyn core::ToInputArray, eigenvalues: &mut dyn core::ToOutputA
 	Ok(ret)
 }
 
-/// ! Signals an error and raises the exception.
-/// 
-/// By default the function prints information about the error to stderr,
-/// then it either stops if cv::setBreakOnError() had been called before or raises the exception.
-/// It is possible to alternate error processing by using #redirectError().
-/// ## Parameters
-/// * exc: the exception raisen.
-/// 
-/// **Deprecated**: drop this version
-#[deprecated = "drop this version"]
 #[inline]
 pub fn error_1(exc: &core::Exception) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -3505,19 +2167,6 @@ pub fn error_1(exc: &core::Exception) -> Result<()> {
 	Ok(ret)
 }
 
-/// ! Signals an error and raises the exception.
-/// 
-/// By default the function prints information about the error to stderr,
-/// then it either stops if setBreakOnError() had been called before or raises the exception.
-/// It is possible to alternate error processing by using redirectError().
-/// ## Parameters
-/// * _code: - error code (Error::Code)
-/// * _err: - error description
-/// * _func: - function name. Available only when the compiler supports getting it
-/// * _file: - source file name where the error has occurred
-/// * _line: - line number in the source file where the error has occurred
-/// ## See also
-/// CV_Error, CV_Error_, CV_Assert, CV_DbgAssert
 #[inline]
 pub fn error(_code: i32, _err: &str, _func: &str, _file: &str, _line: i32) -> Result<()> {
 	extern_container_arg!(_err);
@@ -3530,21 +2179,6 @@ pub fn error(_code: i32, _err: &str, _func: &str, _file: &str, _line: i32) -> Re
 	Ok(ret)
 }
 
-/// Calculates the exponent of every array element.
-/// 
-/// The function cv::exp calculates the exponent of every element of the input
-/// array:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%5BI%5D%20%3D%20e%5E%7B%20src%28I%29%20%7D)
-/// 
-/// The maximum relative error is about 7e-6 for single-precision input and
-/// less than 1e-10 for double-precision input. Currently, the function
-/// converts denormalized values to zeros on output. Special values (NaN,
-/// Inf) are not handled.
-/// ## Parameters
-/// * src: input array.
-/// * dst: output array of the same size and type as src.
-/// ## See also
-/// log , cartToPolar , polarToCart , phase , pow , sqrt , magnitude
 #[inline]
 pub fn exp(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 	input_array_arg!(src);
@@ -3556,13 +2190,6 @@ pub fn exp(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray) -> R
 	Ok(ret)
 }
 
-/// Extracts a single channel from src (coi is 0-based index)
-/// ## Parameters
-/// * src: input array
-/// * dst: output array
-/// * coi: index of channel to extract
-/// ## See also
-/// mixChannels, split
 #[inline]
 pub fn extract_channel(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray, coi: i32) -> Result<()> {
 	input_array_arg!(src);
@@ -3574,13 +2201,6 @@ pub fn extract_channel(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutpu
 	Ok(ret)
 }
 
-/// Calculates the angle of a 2D vector in degrees.
-/// 
-/// The function fastAtan2 calculates the full-range angle of an input 2D vector. The angle is measured
-/// in degrees and varies from 0 to 360 degrees. The accuracy is about 0.3 degrees.
-/// ## Parameters
-/// * x: x-coordinate of the vector.
-/// * y: y-coordinate of the vector.
 #[inline]
 pub fn fast_atan2(y: f32, x: f32) -> Result<f32> {
 	return_send!(via ocvrs_return);
@@ -3590,34 +2210,6 @@ pub fn fast_atan2(y: f32, x: f32) -> Result<f32> {
 	Ok(ret)
 }
 
-/// Returns the list of locations of non-zero pixels
-/// 
-/// Given a binary matrix (likely returned from an operation such
-/// as threshold(), compare(), >, ==, etc, return all of
-/// the non-zero indices as a cv::Mat or std::vector<cv::Point> (x,y)
-/// For example:
-/// ```ignore
-///    cv::Mat binaryImage; // input, binary image
-///    cv::Mat locations;   // output, locations of non-zero pixels
-///    cv::findNonZero(binaryImage, locations);
-/// 
-///    // access pixel coordinates
-///    Point pnt = locations.at<Point>(i);
-/// ```
-/// 
-/// or
-/// ```ignore
-///    cv::Mat binaryImage; // input, binary image
-///    vector<Point> locations;   // output, locations of non-zero pixels
-///    cv::findNonZero(binaryImage, locations);
-/// 
-///    // access pixel coordinates
-///    Point pnt = locations[i];
-/// ```
-/// 
-/// ## Parameters
-/// * src: single-channel array
-/// * idx: the output array, type of cv::Mat or std::vector<Point>, corresponding to non-zero indices in the input
 #[inline]
 pub fn find_non_zero(src: &dyn core::ToInputArray, idx: &mut dyn core::ToOutputArray) -> Result<()> {
 	input_array_arg!(src);
@@ -3629,32 +2221,6 @@ pub fn find_non_zero(src: &dyn core::ToInputArray, idx: &mut dyn core::ToOutputA
 	Ok(ret)
 }
 
-/// Flips a 2D array around vertical, horizontal, or both axes.
-/// 
-/// The function cv::flip flips the array in one of three different ways (row
-/// and column indices are 0-based):
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%5F%7Bij%7D%20%3D%0A%5Cleft%5C%7B%0A%5Cbegin%7Barray%7D%7Bl%20l%7D%0A%5Ctexttt%7Bsrc%7D%20%5F%7B%5Ctexttt%7Bsrc%2Erows%7D%2Di%2D1%2Cj%7D%20%26%20if%5C%3B%20%20%5Ctexttt%7BflipCode%7D%20%3D%200%20%5C%5C%0A%5Ctexttt%7Bsrc%7D%20%5F%7Bi%2C%20%5Ctexttt%7Bsrc%2Ecols%7D%20%2Dj%2D1%7D%20%26%20if%5C%3B%20%20%5Ctexttt%7BflipCode%7D%20%3E%200%20%5C%5C%0A%5Ctexttt%7Bsrc%7D%20%5F%7B%20%5Ctexttt%7Bsrc%2Erows%7D%20%2Di%2D1%2C%20%5Ctexttt%7Bsrc%2Ecols%7D%20%2Dj%2D1%7D%20%26%20if%5C%3B%20%5Ctexttt%7BflipCode%7D%20%3C%200%20%5C%5C%0A%5Cend%7Barray%7D%0A%5Cright%2E)
-/// The example scenarios of using the function are the following:
-/// *   Vertical flipping of the image (flipCode == 0) to switch between
-///    top-left and bottom-left image origin. This is a typical operation
-///    in video processing on Microsoft Windows\* OS.
-/// *   Horizontal flipping of the image with the subsequent horizontal
-///    shift and absolute difference calculation to check for a
-///    vertical-axis symmetry (flipCode \> 0).
-/// *   Simultaneous horizontal and vertical flipping of the image with
-///    the subsequent shift and absolute difference calculation to check
-///    for a central symmetry (flipCode \< 0).
-/// *   Reversing the order of point arrays (flipCode \> 0 or
-///    flipCode == 0).
-/// ## Parameters
-/// * src: input array.
-/// * dst: output array of the same size and type as src.
-/// * flipCode: a flag to specify how to flip the array; 0 means
-/// flipping around the x-axis and positive value (for example, 1) means
-/// flipping around y-axis. Negative value (for example, -1) means flipping
-/// around both axes.
-/// ## See also
-/// transpose , repeat , completeSymm
 #[inline]
 pub fn flip(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray, flip_code: i32) -> Result<()> {
 	input_array_arg!(src);
@@ -3666,37 +2232,6 @@ pub fn flip(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray, fli
 	Ok(ret)
 }
 
-/// Performs generalized matrix multiplication.
-/// 
-/// The function cv::gemm performs generalized matrix multiplication similar to the
-/// gemm functions in BLAS level 3. For example,
-/// `gemm(src1, src2, alpha, src3, beta, dst, GEMM_1_T + GEMM_3_T)`
-/// corresponds to
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%3D%20%20%5Ctexttt%7Balpha%7D%20%5Ccdot%20%5Ctexttt%7Bsrc1%7D%20%5ET%20%20%5Ccdot%20%5Ctexttt%7Bsrc2%7D%20%2B%20%20%5Ctexttt%7Bbeta%7D%20%5Ccdot%20%5Ctexttt%7Bsrc3%7D%20%5ET)
-/// 
-/// In case of complex (two-channel) data, performed a complex matrix
-/// multiplication.
-/// 
-/// The function can be replaced with a matrix expression. For example, the
-/// above call can be replaced with:
-/// ```ignore
-///    dst = alpha*src1.t()*src2 + beta*src3.t();
-/// ```
-/// 
-/// ## Parameters
-/// * src1: first multiplied input matrix that could be real(CV_32FC1,
-/// CV_64FC1) or complex(CV_32FC2, CV_64FC2).
-/// * src2: second multiplied input matrix of the same type as src1.
-/// * alpha: weight of the matrix product.
-/// * src3: third optional delta matrix added to the matrix product; it
-/// should have the same type as src1 and src2.
-/// * beta: weight of src3.
-/// * dst: output matrix; it has the proper size and the same type as
-/// input matrices.
-/// * flags: operation flags (cv::GemmFlags)
-/// ## See also
-/// mulTransposed , transform
-/// 
 /// ## C++ default parameters
 /// * flags: 0
 #[inline]
@@ -3712,11 +2247,6 @@ pub fn gemm(src1: &dyn core::ToInputArray, src2: &dyn core::ToInputArray, alpha:
 	Ok(ret)
 }
 
-/// Returns full configuration time cmake output.
-/// 
-/// Returned value is raw cmake output including version control system revision, compiler version,
-/// compiler flags, enabled modules and third party libraries, etc. Output format depends on target
-/// architecture.
 #[inline]
 pub fn get_build_information() -> Result<String> {
 	return_send!(via ocvrs_return);
@@ -3727,15 +2257,6 @@ pub fn get_build_information() -> Result<String> {
 	Ok(ret)
 }
 
-/// Returns list of CPU features enabled during compilation.
-/// 
-/// Returned value is a string containing space separated list of CPU features with following markers:
-/// 
-/// - no markers - baseline features
-/// - prefix `*` - features enabled in dispatcher
-/// - suffix `?` - features enabled but not available in HW
-/// 
-/// Example: `SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?`
 #[inline]
 pub fn get_cpu_features_line() -> Result<String> {
 	return_send!(via ocvrs_return);
@@ -3746,17 +2267,6 @@ pub fn get_cpu_features_line() -> Result<String> {
 	Ok(ret)
 }
 
-/// Returns the number of CPU ticks.
-/// 
-/// The function returns the current number of CPU ticks on some architectures (such as x86, x64,
-/// PowerPC). On other platforms the function is equivalent to getTickCount. It can also be used for
-/// very accurate time measurements, as well as for RNG initialization. Note that in case of multi-CPU
-/// systems a thread, from which getCPUTickCount is called, can be suspended and resumed at another CPU
-/// with its own counter. So, theoretically (and practically) the subsequent calls to the function do
-/// not necessary return the monotonously increasing values. Also, since a modern CPU varies the CPU
-/// frequency depending on the load, the number of CPU clocks spent in some code cannot be directly
-/// converted to time units. Therefore, getTickCount is generally a preferable solution for measuring
-/// execution time.
 #[inline]
 pub fn get_cpu_tick_count() -> Result<i64> {
 	return_send!(via ocvrs_return);
@@ -3775,9 +2285,6 @@ pub fn get_elem_size(typ: i32) -> Result<size_t> {
 	Ok(ret)
 }
 
-/// Returns feature name by ID
-/// 
-/// Returns empty string if feature is not defined
 #[inline]
 pub fn get_hardware_feature_name(feature: i32) -> Result<String> {
 	return_send!(via ocvrs_return);
@@ -3797,22 +2304,6 @@ pub fn get_log_level_1() -> Result<i32> {
 	Ok(ret)
 }
 
-/// Returns the number of threads used by OpenCV for parallel regions.
-/// 
-/// Always returns 1 if OpenCV is built without threading support.
-/// 
-/// The exact meaning of return value depends on the threading framework used by OpenCV library:
-/// - `TBB` - The number of threads, that OpenCV will try to use for parallel regions. If there is
-///   any tbb::thread_scheduler_init in user code conflicting with OpenCV, then function returns
-///   default number of threads used by TBB library.
-/// - `OpenMP` - An upper bound on the number of threads that could be used to form a new team.
-/// - `Concurrency` - The number of threads, that OpenCV will try to use for parallel regions.
-/// - `GCD` - Unsupported; returns the GCD thread pool limit (512) for compatibility.
-/// - `C=` - The number of threads, that OpenCV will try to use for parallel regions, if before
-///   called setNumThreads with threads \> 0, otherwise returns the number of logical CPUs,
-///   available for the process.
-/// ## See also
-/// setNumThreads, getThreadNum
 #[inline]
 pub fn get_num_threads() -> Result<i32> {
 	return_send!(via ocvrs_return);
@@ -3822,7 +2313,6 @@ pub fn get_num_threads() -> Result<i32> {
 	Ok(ret)
 }
 
-/// Returns the number of logical CPUs available for the process.
 #[inline]
 pub fn get_number_of_cpus() -> Result<i32> {
 	return_send!(via ocvrs_return);
@@ -3832,28 +2322,6 @@ pub fn get_number_of_cpus() -> Result<i32> {
 	Ok(ret)
 }
 
-/// Returns the optimal DFT size for a given vector size.
-/// 
-/// DFT performance is not a monotonic function of a vector size. Therefore, when you calculate
-/// convolution of two arrays or perform the spectral analysis of an array, it usually makes sense to
-/// pad the input data with zeros to get a bit larger array that can be transformed much faster than the
-/// original one. Arrays whose size is a power-of-two (2, 4, 8, 16, 32, ...) are the fastest to process.
-/// Though, the arrays whose size is a product of 2's, 3's, and 5's (for example, 300 = 5\*5\*3\*2\*2)
-/// are also processed quite efficiently.
-/// 
-/// The function cv::getOptimalDFTSize returns the minimum number N that is greater than or equal to vecsize
-/// so that the DFT of a vector of size N can be processed efficiently. In the current implementation N
-/// = 2 ^p^ \* 3 ^q^ \* 5 ^r^ for some integer p, q, r.
-/// 
-/// The function returns a negative number if vecsize is too large (very close to INT_MAX ).
-/// 
-/// While the function cannot be used directly to estimate the optimal vector size for DCT transform
-/// (since the current DCT implementation supports only even-size vectors), it can be easily processed
-/// as getOptimalDFTSize((vecsize+1)/2)\*2.
-/// ## Parameters
-/// * vecsize: vector size.
-/// ## See also
-/// dft , dct , idft , idct , mulSpectrums
 #[inline]
 pub fn get_optimal_dft_size(vecsize: i32) -> Result<i32> {
 	return_send!(via ocvrs_return);
@@ -3863,22 +2331,6 @@ pub fn get_optimal_dft_size(vecsize: i32) -> Result<i32> {
 	Ok(ret)
 }
 
-/// Returns the index of the currently executed thread within the current parallel region. Always
-/// returns 0 if called outside of parallel region.
-/// 
-/// 
-/// **Deprecated**: Current implementation doesn't corresponding to this documentation.
-/// 
-/// The exact meaning of the return value depends on the threading framework used by OpenCV library:
-/// - `TBB` - Unsupported with current 4.1 TBB release. Maybe will be supported in future.
-/// - `OpenMP` - The thread number, within the current team, of the calling thread.
-/// - `Concurrency` - An ID for the virtual processor that the current context is executing on (0
-///   for master thread and unique number for others, but not necessary 1,2,3,...).
-/// - `GCD` - System calling thread's ID. Never returns 0 inside parallel region.
-/// - `C=` - The index of the current parallel task.
-/// ## See also
-/// setNumThreads, getNumThreads
-#[deprecated = "Current implementation doesn't corresponding to this documentation."]
 #[inline]
 pub fn get_thread_num() -> Result<i32> {
 	return_send!(via ocvrs_return);
@@ -3888,13 +2340,6 @@ pub fn get_thread_num() -> Result<i32> {
 	Ok(ret)
 }
 
-/// Returns the number of ticks.
-/// 
-/// The function returns the number of ticks after the certain event (for example, when the machine was
-/// turned on). It can be used to initialize RNG or to measure a function execution time by reading the
-/// tick count before and after the function call.
-/// ## See also
-/// getTickFrequency, TickMeter
 #[inline]
 pub fn get_tick_count() -> Result<i64> {
 	return_send!(via ocvrs_return);
@@ -3904,17 +2349,6 @@ pub fn get_tick_count() -> Result<i64> {
 	Ok(ret)
 }
 
-/// Returns the number of ticks per second.
-/// 
-/// The function returns the number of ticks per second. That is, the following code computes the
-/// execution time in seconds:
-/// ```ignore
-///    double t = (double)getTickCount();
-///    // do something ...
-///    t = ((double)getTickCount() - t)/getTickFrequency();
-/// ```
-/// ## See also
-/// getTickCount, TickMeter
 #[inline]
 pub fn get_tick_frequency() -> Result<f64> {
 	return_send!(via ocvrs_return);
@@ -3924,32 +2358,24 @@ pub fn get_tick_frequency() -> Result<f64> {
 	Ok(ret)
 }
 
-/// Returns major library version
 #[inline]
 pub fn get_version_major() -> i32 {
 	let ret = unsafe { sys::cv_getVersionMajor() };
 	ret
 }
 
-/// Returns minor library version
 #[inline]
 pub fn get_version_minor() -> i32 {
 	let ret = unsafe { sys::cv_getVersionMinor() };
 	ret
 }
 
-/// Returns revision field of the library version
 #[inline]
 pub fn get_version_revision() -> i32 {
 	let ret = unsafe { sys::cv_getVersionRevision() };
 	ret
 }
 
-/// Returns library version string
-/// 
-/// For example "3.4.1-dev".
-/// ## See also
-/// getMajorVersion, getMinorVersion, getRevisionVersion
 #[inline]
 pub fn get_version_string() -> Result<String> {
 	return_send!(via ocvrs_return);
@@ -3972,7 +2398,6 @@ pub fn glob(pattern: &str, result: &mut core::Vector<String>, recursive: bool) -
 	Ok(ret)
 }
 
-/// Check if use of OpenVX is possible
 #[inline]
 pub fn have_openvx() -> Result<bool> {
 	return_send!(via ocvrs_return);
@@ -3982,51 +2407,6 @@ pub fn have_openvx() -> Result<bool> {
 	Ok(ret)
 }
 
-/// Applies horizontal concatenation to given matrices.
-/// 
-/// The function horizontally concatenates two or more cv::Mat matrices (with the same number of rows).
-/// ```ignore
-///    cv::Mat matArray[] = { cv::Mat(4, 1, CV_8UC1, cv::Scalar(1)),
-///                            cv::Mat(4, 1, CV_8UC1, cv::Scalar(2)),
-///                            cv::Mat(4, 1, CV_8UC1, cv::Scalar(3)),};
-/// 
-///    cv::Mat out;
-///    cv::hconcat( matArray, 3, out );
-///    //out:
-///    //[1, 2, 3;
-///    // 1, 2, 3;
-///    // 1, 2, 3;
-///    // 1, 2, 3]
-/// ```
-/// 
-/// ## Parameters
-/// * src: input array or vector of matrices. all of the matrices must have the same number of rows and the same depth.
-/// * nsrc: number of matrices in src.
-/// * dst: output array. It has the same number of rows and depth as the src, and the sum of cols of the src.
-/// ## See also
-/// cv::vconcat(const Mat*, size_t, OutputArray), cv::vconcat(InputArrayOfArrays, OutputArray) and cv::vconcat(InputArray, InputArray, OutputArray)
-/// 
-/// ## Overloaded parameters
-/// 
-///  ```ignore
-///    cv::Mat_<float> A = (cv::Mat_<float>(3, 2) << 1, 4,
-///                                                   2, 5,
-///                                                   3, 6);
-///    cv::Mat_<float> B = (cv::Mat_<float>(3, 2) << 7, 10,
-///                                                   8, 11,
-///                                                   9, 12);
-/// 
-///    cv::Mat C;
-///    cv::hconcat(A, B, C);
-///    //C:
-///    //[1, 4, 7, 10;
-///    // 2, 5, 8, 11;
-///    // 3, 6, 9, 12]
-///  ```
-/// 
-/// * src1: first input array to be considered for horizontal concatenation.
-/// * src2: second input array to be considered for horizontal concatenation.
-/// * dst: output array. It has the same number of rows and depth as the src1 and src2, and the sum of cols of the src1 and src2.
 #[inline]
 pub fn hconcat2(src1: &dyn core::ToInputArray, src2: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 	input_array_arg!(src1);
@@ -4039,49 +2419,6 @@ pub fn hconcat2(src1: &dyn core::ToInputArray, src2: &dyn core::ToInputArray, ds
 	Ok(ret)
 }
 
-/// Applies horizontal concatenation to given matrices.
-/// 
-/// The function horizontally concatenates two or more cv::Mat matrices (with the same number of rows).
-/// ```ignore
-///    cv::Mat matArray[] = { cv::Mat(4, 1, CV_8UC1, cv::Scalar(1)),
-///                            cv::Mat(4, 1, CV_8UC1, cv::Scalar(2)),
-///                            cv::Mat(4, 1, CV_8UC1, cv::Scalar(3)),};
-/// 
-///    cv::Mat out;
-///    cv::hconcat( matArray, 3, out );
-///    //out:
-///    //[1, 2, 3;
-///    // 1, 2, 3;
-///    // 1, 2, 3;
-///    // 1, 2, 3]
-/// ```
-/// 
-/// ## Parameters
-/// * src: input array or vector of matrices. all of the matrices must have the same number of rows and the same depth.
-/// * nsrc: number of matrices in src.
-/// * dst: output array. It has the same number of rows and depth as the src, and the sum of cols of the src.
-/// ## See also
-/// cv::vconcat(const Mat*, size_t, OutputArray), cv::vconcat(InputArrayOfArrays, OutputArray) and cv::vconcat(InputArray, InputArray, OutputArray)
-/// 
-/// ## Overloaded parameters
-/// 
-///  ```ignore
-///    std::vector<cv::Mat> matrices = { cv::Mat(4, 1, CV_8UC1, cv::Scalar(1)),
-///                                       cv::Mat(4, 1, CV_8UC1, cv::Scalar(2)),
-///                                       cv::Mat(4, 1, CV_8UC1, cv::Scalar(3)),};
-/// 
-///    cv::Mat out;
-///    cv::hconcat( matrices, out );
-///    //out:
-///    //[1, 2, 3;
-///    // 1, 2, 3;
-///    // 1, 2, 3;
-///    // 1, 2, 3]
-///  ```
-/// 
-/// * src: input array or vector of matrices. all of the matrices must have the same number of rows and the same depth.
-/// * dst: output array. It has the same number of rows and depth as the src, and the sum of cols of the src.
-/// same depth.
 #[inline]
 pub fn hconcat(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 	input_array_arg!(src);
@@ -4093,16 +2430,6 @@ pub fn hconcat(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray) 
 	Ok(ret)
 }
 
-/// Calculates the inverse Discrete Cosine Transform of a 1D or 2D array.
-/// 
-/// idct(src, dst, flags) is equivalent to dct(src, dst, flags | DCT_INVERSE).
-/// ## Parameters
-/// * src: input floating-point single-channel array.
-/// * dst: output array of the same size and type as src.
-/// * flags: operation flags.
-/// ## See also
-/// dct, dft, idft, getOptimalDFTSize
-/// 
 /// ## C++ default parameters
 /// * flags: 0
 #[inline]
@@ -4116,21 +2443,6 @@ pub fn idct(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray, fla
 	Ok(ret)
 }
 
-/// Calculates the inverse Discrete Fourier Transform of a 1D or 2D array.
-/// 
-/// idft(src, dst, flags) is equivalent to dft(src, dst, flags | #DFT_INVERSE) .
-/// 
-/// Note: None of dft and idft scales the result by default. So, you should pass #DFT_SCALE to one of
-/// dft or idft explicitly to make these transforms mutually inverse.
-/// ## See also
-/// dft, dct, idct, mulSpectrums, getOptimalDFTSize
-/// ## Parameters
-/// * src: input floating-point real or complex array.
-/// * dst: output array whose size and type depend on the flags.
-/// * flags: operation flags (see dft and #DftFlags).
-/// * nonzeroRows: number of dst rows to process; the rest of the rows have undefined content (see
-/// the convolution sample in dft description.
-/// 
 /// ## C++ default parameters
 /// * flags: 0
 /// * nonzero_rows: 0
@@ -4145,25 +2457,6 @@ pub fn idft(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray, fla
 	Ok(ret)
 }
 
-/// Checks if array elements lie between the elements of two other arrays.
-/// 
-/// The function checks the range as follows:
-/// *   For every element of a single-channel input array:
-///    ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%3D%20%5Ctexttt%7Blowerb%7D%20%28I%29%5F0%20%20%5Cleq%20%5Ctexttt%7Bsrc%7D%20%28I%29%5F0%20%5Cleq%20%20%5Ctexttt%7Bupperb%7D%20%28I%29%5F0)
-/// *   For two-channel arrays:
-///    ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%3D%20%5Ctexttt%7Blowerb%7D%20%28I%29%5F0%20%20%5Cleq%20%5Ctexttt%7Bsrc%7D%20%28I%29%5F0%20%5Cleq%20%20%5Ctexttt%7Bupperb%7D%20%28I%29%5F0%20%20%5Cland%20%5Ctexttt%7Blowerb%7D%20%28I%29%5F1%20%20%5Cleq%20%5Ctexttt%7Bsrc%7D%20%28I%29%5F1%20%5Cleq%20%20%5Ctexttt%7Bupperb%7D%20%28I%29%5F1)
-/// *   and so forth.
-/// 
-/// That is, dst (I) is set to 255 (all 1 -bits) if src (I) is within the
-/// specified 1D, 2D, 3D, ... box and 0 otherwise.
-/// 
-/// When the lower and/or upper boundary parameters are scalars, the indexes
-/// (I) at lowerb and upperb in the above formulas should be omitted.
-/// ## Parameters
-/// * src: first input array.
-/// * lowerb: inclusive lower boundary array or a scalar.
-/// * upperb: inclusive upper boundary array or a scalar.
-/// * dst: output array of the same size as src and CV_8U type.
 #[inline]
 pub fn in_range(src: &dyn core::ToInputArray, lowerb: &dyn core::ToInputArray, upperb: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 	input_array_arg!(src);
@@ -4177,13 +2470,6 @@ pub fn in_range(src: &dyn core::ToInputArray, lowerb: &dyn core::ToInputArray, u
 	Ok(ret)
 }
 
-/// Inserts a single channel to dst (coi is 0-based index)
-/// ## Parameters
-/// * src: input array
-/// * dst: output array
-/// * coi: index of channel for insertion
-/// ## See also
-/// mixChannels, merge
 #[inline]
 pub fn insert_channel(src: &dyn core::ToInputArray, dst: &mut dyn core::ToInputOutputArray, coi: i32) -> Result<()> {
 	input_array_arg!(src);
@@ -4240,33 +2526,6 @@ pub fn use_instrumentation() -> Result<bool> {
 	Ok(ret)
 }
 
-/// Finds the inverse or pseudo-inverse of a matrix.
-/// 
-/// The function cv::invert inverts the matrix src and stores the result in dst
-/// . When the matrix src is singular or non-square, the function calculates
-/// the pseudo-inverse matrix (the dst matrix) so that norm(src\*dst - I) is
-/// minimal, where I is an identity matrix.
-/// 
-/// In case of the #DECOMP_LU method, the function returns non-zero value if
-/// the inverse has been successfully calculated and 0 if src is singular.
-/// 
-/// In case of the #DECOMP_SVD method, the function returns the inverse
-/// condition number of src (the ratio of the smallest singular value to the
-/// largest singular value) and 0 if src is singular. The SVD method
-/// calculates a pseudo-inverse matrix if src is singular.
-/// 
-/// Similarly to #DECOMP_LU, the method #DECOMP_CHOLESKY works only with
-/// non-singular square matrices that should also be symmetrical and
-/// positively defined. In this case, the function stores the inverted
-/// matrix in dst and returns non-zero. Otherwise, it returns 0.
-/// 
-/// ## Parameters
-/// * src: input floating-point M x N matrix.
-/// * dst: output matrix of N x M size and the same type as src.
-/// * flags: inversion method (cv::DecompTypes)
-/// ## See also
-/// solve, SVD
-/// 
 /// ## C++ default parameters
 /// * flags: DECOMP_LU
 #[inline]
@@ -4369,42 +2628,6 @@ pub fn use_ipp_not_exact() -> Result<bool> {
 	Ok(ret)
 }
 
-/// Finds centers of clusters and groups input samples around the clusters.
-/// 
-/// The function kmeans implements a k-means algorithm that finds the centers of cluster_count clusters
-/// and groups the input samples around the clusters. As an output, ![inline formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7BbestLabels%7D%5Fi) contains a
-/// 0-based cluster index for the sample stored in the ![inline formula](https://latex.codecogs.com/png.latex?i%5E%7Bth%7D) row of the samples matrix.
-/// 
-/// 
-/// Note:
-/// *   (Python) An example on K-means clustering can be found at
-///    opencv_source_code/samples/python/kmeans.py
-/// ## Parameters
-/// * data: Data for clustering. An array of N-Dimensional points with float coordinates is needed.
-/// Examples of this array can be:
-/// *   Mat points(count, 2, CV_32F);
-/// *   Mat points(count, 1, CV_32FC2);
-/// *   Mat points(1, count, CV_32FC2);
-/// *   std::vector\<cv::Point2f\> points(sampleCount);
-/// * K: Number of clusters to split the set by.
-/// * bestLabels: Input/output integer array that stores the cluster indices for every sample.
-/// * criteria: The algorithm termination criteria, that is, the maximum number of iterations and/or
-/// the desired accuracy. The accuracy is specified as criteria.epsilon. As soon as each of the cluster
-/// centers moves by less than criteria.epsilon on some iteration, the algorithm stops.
-/// * attempts: Flag to specify the number of times the algorithm is executed using different
-/// initial labellings. The algorithm returns the labels that yield the best compactness (see the last
-/// function parameter).
-/// * flags: Flag that can take values of cv::KmeansFlags
-/// * centers: Output matrix of the cluster centers, one row per each cluster center.
-/// ## Returns
-/// The function returns the compactness measure that is computed as
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Csum%20%5Fi%20%20%5C%7C%20%5Ctexttt%7Bsamples%7D%20%5Fi%20%2D%20%20%5Ctexttt%7Bcenters%7D%20%5F%7B%20%5Ctexttt%7Blabels%7D%20%5Fi%7D%20%5C%7C%20%5E2)
-/// after every attempt. The best (minimum) value is chosen and the corresponding labels and the
-/// compactness value are returned by the function. Basically, you can use only the core of the
-/// function, set the number of attempts to 1, initialize labels each time using a custom algorithm,
-/// pass them with the ( flags = #KMEANS_USE_INITIAL_LABELS ) flag, and then choose the best
-/// (most-compact) clustering.
-/// 
 /// ## C++ default parameters
 /// * centers: noArray()
 #[inline]
@@ -4419,18 +2642,6 @@ pub fn kmeans(data: &dyn core::ToInputArray, k: i32, best_labels: &mut dyn core:
 	Ok(ret)
 }
 
-/// Calculates the natural logarithm of every array element.
-/// 
-/// The function cv::log calculates the natural logarithm of every element of the input array:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%20%3D%20%20%5Clog%20%28%5Ctexttt%7Bsrc%7D%28I%29%29%20)
-/// 
-/// Output on zero, negative and special (NaN, Inf) values is undefined.
-/// 
-/// ## Parameters
-/// * src: input array.
-/// * dst: output array of the same size and type as src .
-/// ## See also
-/// exp, cartToPolar, polarToCart, phase, pow, sqrt, magnitude
 #[inline]
 pub fn log(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 	input_array_arg!(src);
@@ -4442,18 +2653,6 @@ pub fn log(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray) -> R
 	Ok(ret)
 }
 
-/// Calculates the magnitude of 2D vectors.
-/// 
-/// The function cv::magnitude calculates the magnitude of 2D vectors formed
-/// from the corresponding elements of x and y arrays:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%20%3D%20%20%5Csqrt%7B%5Ctexttt%7Bx%7D%28I%29%5E2%20%2B%20%5Ctexttt%7By%7D%28I%29%5E2%7D)
-/// ## Parameters
-/// * x: floating-point array of x-coordinates of the vectors.
-/// * y: floating-point array of y-coordinates of the vectors; it must
-/// have the same size as x.
-/// * magnitude: output array of the same size and type as x.
-/// ## See also
-/// cartToPolar, polarToCart, phase, sqrt
 #[inline]
 pub fn magnitude(x: &dyn core::ToInputArray, y: &dyn core::ToInputArray, magnitude: &mut dyn core::ToOutputArray) -> Result<()> {
 	input_array_arg!(x);
@@ -4476,22 +2675,6 @@ pub fn max_mat(a: &core::Mat, b: &core::Mat) -> Result<core::MatExpr> {
 	Ok(ret)
 }
 
-/// Calculates per-element maximum of two arrays or an array and a scalar.
-/// 
-/// The function cv::max calculates the per-element maximum of two arrays:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%3D%20%5Cmax%20%28%20%5Ctexttt%7Bsrc1%7D%20%28I%29%2C%20%5Ctexttt%7Bsrc2%7D%20%28I%29%29)
-/// or array and a scalar:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%3D%20%5Cmax%20%28%20%5Ctexttt%7Bsrc1%7D%20%28I%29%2C%20%5Ctexttt%7Bvalue%7D%20%29)
-/// ## Parameters
-/// * src1: first input array.
-/// * src2: second input array of the same size and type as src1 .
-/// * dst: output array of the same size and type as src1.
-/// ## See also
-/// min, compare, inRange, minMaxLoc, @ref MatrixExpressions
-/// 
-/// ## Overloaded parameters
-/// 
-/// needed to avoid conflicts with const _Tp& std::min(const _Tp&, const _Tp&, _Compare)
 #[inline]
 pub fn max_mat_to(src1: &core::Mat, src2: &core::Mat, dst: &mut core::Mat) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -4511,22 +2694,6 @@ pub fn max_mat_f64(a: &core::Mat, s: f64) -> Result<core::MatExpr> {
 	Ok(ret)
 }
 
-/// Calculates per-element maximum of two arrays or an array and a scalar.
-/// 
-/// The function cv::max calculates the per-element maximum of two arrays:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%3D%20%5Cmax%20%28%20%5Ctexttt%7Bsrc1%7D%20%28I%29%2C%20%5Ctexttt%7Bsrc2%7D%20%28I%29%29)
-/// or array and a scalar:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%3D%20%5Cmax%20%28%20%5Ctexttt%7Bsrc1%7D%20%28I%29%2C%20%5Ctexttt%7Bvalue%7D%20%29)
-/// ## Parameters
-/// * src1: first input array.
-/// * src2: second input array of the same size and type as src1 .
-/// * dst: output array of the same size and type as src1.
-/// ## See also
-/// min, compare, inRange, minMaxLoc, @ref MatrixExpressions
-/// 
-/// ## Overloaded parameters
-/// 
-/// needed to avoid conflicts with const _Tp& std::min(const _Tp&, const _Tp&, _Compare)
 #[inline]
 pub fn max_umat_to(src1: &core::UMat, src2: &core::UMat, dst: &mut core::UMat) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -4536,18 +2703,6 @@ pub fn max_umat_to(src1: &core::UMat, src2: &core::UMat, dst: &mut core::UMat) -
 	Ok(ret)
 }
 
-/// Calculates per-element maximum of two arrays or an array and a scalar.
-/// 
-/// The function cv::max calculates the per-element maximum of two arrays:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%3D%20%5Cmax%20%28%20%5Ctexttt%7Bsrc1%7D%20%28I%29%2C%20%5Ctexttt%7Bsrc2%7D%20%28I%29%29)
-/// or array and a scalar:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%3D%20%5Cmax%20%28%20%5Ctexttt%7Bsrc1%7D%20%28I%29%2C%20%5Ctexttt%7Bvalue%7D%20%29)
-/// ## Parameters
-/// * src1: first input array.
-/// * src2: second input array of the same size and type as src1 .
-/// * dst: output array of the same size and type as src1.
-/// ## See also
-/// min, compare, inRange, minMaxLoc, @ref MatrixExpressions
 #[inline]
 pub fn max(src1: &dyn core::ToInputArray, src2: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 	input_array_arg!(src1);
@@ -4570,29 +2725,6 @@ pub fn max_f64_mat(s: f64, a: &core::Mat) -> Result<core::MatExpr> {
 	Ok(ret)
 }
 
-/// Calculates a mean and standard deviation of array elements.
-/// 
-/// The function cv::meanStdDev calculates the mean and the standard deviation M
-/// of array elements independently for each channel and returns it via the
-/// output parameters:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Cbegin%7Barray%7D%7Bl%7D%20N%20%3D%20%20%5Csum%20%5F%7BI%2C%20%5Ctexttt%7Bmask%7D%20%28I%29%20%20%5Cne%200%7D%201%20%5C%5C%20%5Ctexttt%7Bmean%7D%20%5Fc%20%3D%20%20%5Cfrac%7B%5Csum%5F%7B%20I%3A%20%5C%3B%20%5Ctexttt%7Bmask%7D%28I%29%20%5Cne%200%7D%20%5Ctexttt%7Bsrc%7D%20%28I%29%5Fc%7D%7BN%7D%20%5C%5C%20%5Ctexttt%7Bstddev%7D%20%5Fc%20%3D%20%20%5Csqrt%7B%5Cfrac%7B%5Csum%5F%7B%20I%3A%20%5C%3B%20%5Ctexttt%7Bmask%7D%28I%29%20%5Cne%200%7D%20%5Cleft%20%28%20%5Ctexttt%7Bsrc%7D%20%28I%29%5Fc%20%2D%20%20%5Ctexttt%7Bmean%7D%20%5Fc%20%5Cright%20%29%5E2%7D%7BN%7D%7D%20%5Cend%7Barray%7D)
-/// When all the mask elements are 0's, the function returns
-/// mean=stddev=Scalar::all(0).
-/// 
-/// Note: The calculated standard deviation is only the diagonal of the
-/// complete normalized covariance matrix. If the full matrix is needed, you
-/// can reshape the multi-channel array M x N to the single-channel array
-/// M\*N x mtx.channels() (only possible when the matrix is continuous) and
-/// then pass the matrix to calcCovarMatrix .
-/// ## Parameters
-/// * src: input array that should have from 1 to 4 channels so that the results can be stored in
-/// Scalar_ 's.
-/// * mean: output parameter: calculated mean value.
-/// * stddev: output parameter: calculated standard deviation.
-/// * mask: optional operation mask.
-/// ## See also
-/// countNonZero, mean, norm, minMaxLoc, calcCovarMatrix
-/// 
 /// ## C++ default parameters
 /// * mask: noArray()
 #[inline]
@@ -4608,19 +2740,6 @@ pub fn mean_std_dev(src: &dyn core::ToInputArray, mean: &mut dyn core::ToOutputA
 	Ok(ret)
 }
 
-/// Calculates an average (mean) of array elements.
-/// 
-/// The function cv::mean calculates the mean value M of array elements,
-/// independently for each channel, and return it:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Cbegin%7Barray%7D%7Bl%7D%20N%20%3D%20%20%5Csum%20%5F%7BI%3A%20%5C%3B%20%5Ctexttt%7Bmask%7D%20%28I%29%20%5Cne%200%7D%201%20%5C%5C%20M%5Fc%20%3D%20%20%5Cleft%20%28%20%5Csum%20%5F%7BI%3A%20%5C%3B%20%5Ctexttt%7Bmask%7D%20%28I%29%20%5Cne%200%7D%7B%20%5Ctexttt%7Bmtx%7D%20%28I%29%5Fc%7D%20%5Cright%20%29%2FN%20%5Cend%7Barray%7D)
-/// When all the mask elements are 0's, the function returns Scalar::all(0)
-/// ## Parameters
-/// * src: input array that should have from 1 to 4 channels so that the result can be stored in
-/// Scalar_ .
-/// * mask: optional operation mask.
-/// ## See also
-/// countNonZero, meanStdDev, norm, minMaxLoc
-/// 
 /// ## C++ default parameters
 /// * mask: noArray()
 #[inline]
@@ -4634,33 +2753,6 @@ pub fn mean(src: &dyn core::ToInputArray, mask: &dyn core::ToInputArray) -> Resu
 	Ok(ret)
 }
 
-/// Creates one multi-channel array out of several single-channel ones.
-/// 
-/// The function cv::merge merges several arrays to make a single multi-channel array. That is, each
-/// element of the output array will be a concatenation of the elements of the input arrays, where
-/// elements of i-th input array are treated as mv[i].channels()-element vectors.
-/// 
-/// The function cv::split does the reverse operation. If you need to shuffle channels in some other
-/// advanced way, use cv::mixChannels.
-/// 
-/// The following example shows how to merge 3 single channel matrices into a single 3-channel matrix.
-/// [example](https://github.com/opencv/opencv/blob/4.6.0/samples/cpp/tutorial_code/snippets/core_merge.cpp#L1)
-/// 
-/// ## Parameters
-/// * mv: input array of matrices to be merged; all the matrices in mv must have the same
-/// size and the same depth.
-/// * count: number of input matrices when mv is a plain C array; it must be greater than zero.
-/// * dst: output array of the same size and the same depth as mv[0]; The number of channels will
-/// be equal to the parameter count.
-/// ## See also
-/// mixChannels, split, Mat::reshape
-/// 
-/// ## Overloaded parameters
-/// 
-/// * mv: input vector of matrices to be merged; all the matrices in mv must have the same
-/// size and the same depth.
-/// * dst: output array of the same size and the same depth as mv[0]; The number of channels will
-/// be the total number of channels in the matrix array.
 #[inline]
 pub fn merge(mv: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 	input_array_arg!(mv);
@@ -4672,31 +2764,6 @@ pub fn merge(mv: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray) -> 
 	Ok(ret)
 }
 
-/// Finds the global minimum and maximum in an array
-/// 
-/// The function cv::minMaxIdx finds the minimum and maximum element values and their positions. The
-/// extremums are searched across the whole array or, if mask is not an empty array, in the specified
-/// array region. The function does not work with multi-channel arrays. If you need to find minimum or
-/// maximum elements across all the channels, use Mat::reshape first to reinterpret the array as
-/// single-channel. Or you may extract the particular channel using either extractImageCOI , or
-/// mixChannels , or split . In case of a sparse matrix, the minimum is found among non-zero elements
-/// only.
-/// 
-/// Note: When minIdx is not NULL, it must have at least 2 elements (as well as maxIdx), even if src is
-/// a single-row or single-column matrix. In OpenCV (following MATLAB) each array has at least 2
-/// dimensions, i.e. single-column matrix is Mx1 matrix (and therefore minIdx/maxIdx will be
-/// (i1,0)/(i2,0)) and single-row matrix is 1xN matrix (and therefore minIdx/maxIdx will be
-/// (0,j1)/(0,j2)).
-/// ## Parameters
-/// * src: input single-channel array.
-/// * minVal: pointer to the returned minimum value; NULL is used if not required.
-/// * maxVal: pointer to the returned maximum value; NULL is used if not required.
-/// * minIdx: pointer to the returned minimum location (in nD case); NULL is used if not required;
-/// Otherwise, it must point to an array of src.dims elements, the coordinates of the minimum element
-/// in each dimension are stored there sequentially.
-/// * maxIdx: pointer to the returned maximum location (in nD case). NULL is used if not required.
-/// * mask: specified array region
-/// 
 /// ## C++ default parameters
 /// * max_val: 0
 /// * min_idx: 0
@@ -4713,36 +2780,6 @@ pub fn min_max_idx(src: &dyn core::ToInputArray, min_val: Option<&mut f64>, max_
 	Ok(ret)
 }
 
-/// Finds the global minimum and maximum in an array.
-/// 
-/// The function cv::minMaxLoc finds the minimum and maximum element values and their positions. The
-/// extremums are searched across the whole array or, if mask is not an empty array, in the specified
-/// array region.
-/// 
-/// The function do not work with multi-channel arrays. If you need to find minimum or maximum
-/// elements across all the channels, use Mat::reshape first to reinterpret the array as
-/// single-channel. Or you may extract the particular channel using either extractImageCOI , or
-/// mixChannels , or split .
-/// ## Parameters
-/// * src: input single-channel array.
-/// * minVal: pointer to the returned minimum value; NULL is used if not required.
-/// * maxVal: pointer to the returned maximum value; NULL is used if not required.
-/// * minLoc: pointer to the returned minimum location (in 2D case); NULL is used if not required.
-/// * maxLoc: pointer to the returned maximum location (in 2D case); NULL is used if not required.
-/// * mask: optional mask used to select a sub-array.
-/// ## See also
-/// max, min, reduceArgMin, reduceArgMax, compare, inRange, extractImageCOI, mixChannels, split, Mat::reshape
-/// 
-/// ## Overloaded parameters
-/// 
-/// * a: input single-channel array.
-/// * minVal: pointer to the returned minimum value; NULL is used if not required.
-/// * maxVal: pointer to the returned maximum value; NULL is used if not required.
-/// * minIdx: pointer to the returned minimum location (in nD case); NULL is used if not required;
-/// Otherwise, it must point to an array of src.dims elements, the coordinates of the minimum element
-/// in each dimension are stored there sequentially.
-/// * maxIdx: pointer to the returned maximum location (in nD case). NULL is used if not required.
-/// 
 /// ## C++ default parameters
 /// * min_idx: 0
 /// * max_idx: 0
@@ -4755,26 +2792,6 @@ pub fn min_max_loc_sparse(a: &core::SparseMat, min_val: Option<&mut f64>, max_va
 	Ok(ret)
 }
 
-/// Finds the global minimum and maximum in an array.
-/// 
-/// The function cv::minMaxLoc finds the minimum and maximum element values and their positions. The
-/// extremums are searched across the whole array or, if mask is not an empty array, in the specified
-/// array region.
-/// 
-/// The function do not work with multi-channel arrays. If you need to find minimum or maximum
-/// elements across all the channels, use Mat::reshape first to reinterpret the array as
-/// single-channel. Or you may extract the particular channel using either extractImageCOI , or
-/// mixChannels , or split .
-/// ## Parameters
-/// * src: input single-channel array.
-/// * minVal: pointer to the returned minimum value; NULL is used if not required.
-/// * maxVal: pointer to the returned maximum value; NULL is used if not required.
-/// * minLoc: pointer to the returned minimum location (in 2D case); NULL is used if not required.
-/// * maxLoc: pointer to the returned maximum location (in 2D case); NULL is used if not required.
-/// * mask: optional mask used to select a sub-array.
-/// ## See also
-/// max, min, reduceArgMin, reduceArgMax, compare, inRange, extractImageCOI, mixChannels, split, Mat::reshape
-/// 
 /// ## C++ default parameters
 /// * max_val: 0
 /// * min_loc: 0
@@ -4801,22 +2818,6 @@ pub fn min_mat(a: &core::Mat, b: &core::Mat) -> Result<core::MatExpr> {
 	Ok(ret)
 }
 
-/// Calculates per-element minimum of two arrays or an array and a scalar.
-/// 
-/// The function cv::min calculates the per-element minimum of two arrays:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%3D%20%5Cmin%20%28%20%5Ctexttt%7Bsrc1%7D%20%28I%29%2C%20%5Ctexttt%7Bsrc2%7D%20%28I%29%29)
-/// or array and a scalar:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%3D%20%5Cmin%20%28%20%5Ctexttt%7Bsrc1%7D%20%28I%29%2C%20%5Ctexttt%7Bvalue%7D%20%29)
-/// ## Parameters
-/// * src1: first input array.
-/// * src2: second input array of the same size and type as src1.
-/// * dst: output array of the same size and type as src1.
-/// ## See also
-/// max, compare, inRange, minMaxLoc
-/// 
-/// ## Overloaded parameters
-/// 
-/// needed to avoid conflicts with const _Tp& std::min(const _Tp&, const _Tp&, _Compare)
 #[inline]
 pub fn min_mat_to(src1: &core::Mat, src2: &core::Mat, dst: &mut core::Mat) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -4836,22 +2837,6 @@ pub fn min_mat_f64(a: &core::Mat, s: f64) -> Result<core::MatExpr> {
 	Ok(ret)
 }
 
-/// Calculates per-element minimum of two arrays or an array and a scalar.
-/// 
-/// The function cv::min calculates the per-element minimum of two arrays:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%3D%20%5Cmin%20%28%20%5Ctexttt%7Bsrc1%7D%20%28I%29%2C%20%5Ctexttt%7Bsrc2%7D%20%28I%29%29)
-/// or array and a scalar:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%3D%20%5Cmin%20%28%20%5Ctexttt%7Bsrc1%7D%20%28I%29%2C%20%5Ctexttt%7Bvalue%7D%20%29)
-/// ## Parameters
-/// * src1: first input array.
-/// * src2: second input array of the same size and type as src1.
-/// * dst: output array of the same size and type as src1.
-/// ## See also
-/// max, compare, inRange, minMaxLoc
-/// 
-/// ## Overloaded parameters
-/// 
-/// needed to avoid conflicts with const _Tp& std::min(const _Tp&, const _Tp&, _Compare)
 #[inline]
 pub fn min_umat_to(src1: &core::UMat, src2: &core::UMat, dst: &mut core::UMat) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -4861,18 +2846,6 @@ pub fn min_umat_to(src1: &core::UMat, src2: &core::UMat, dst: &mut core::UMat) -
 	Ok(ret)
 }
 
-/// Calculates per-element minimum of two arrays or an array and a scalar.
-/// 
-/// The function cv::min calculates the per-element minimum of two arrays:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%3D%20%5Cmin%20%28%20%5Ctexttt%7Bsrc1%7D%20%28I%29%2C%20%5Ctexttt%7Bsrc2%7D%20%28I%29%29)
-/// or array and a scalar:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%3D%20%5Cmin%20%28%20%5Ctexttt%7Bsrc1%7D%20%28I%29%2C%20%5Ctexttt%7Bvalue%7D%20%29)
-/// ## Parameters
-/// * src1: first input array.
-/// * src2: second input array of the same size and type as src1.
-/// * dst: output array of the same size and type as src1.
-/// ## See also
-/// max, compare, inRange, minMaxLoc
 #[inline]
 pub fn min(src1: &dyn core::ToInputArray, src2: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 	input_array_arg!(src1);
@@ -4895,65 +2868,6 @@ pub fn min_f64_mat(s: f64, a: &core::Mat) -> Result<core::MatExpr> {
 	Ok(ret)
 }
 
-/// Copies specified channels from input arrays to the specified channels of
-/// output arrays.
-/// 
-/// The function cv::mixChannels provides an advanced mechanism for shuffling image channels.
-/// 
-/// cv::split,cv::merge,cv::extractChannel,cv::insertChannel and some forms of cv::cvtColor are partial cases of cv::mixChannels.
-/// 
-/// In the example below, the code splits a 4-channel BGRA image into a 3-channel BGR (with B and R
-/// channels swapped) and a separate alpha-channel image:
-/// ```ignore
-///    Mat bgra( 100, 100, CV_8UC4, Scalar(255,0,0,255) );
-///    Mat bgr( bgra.rows, bgra.cols, CV_8UC3 );
-///    Mat alpha( bgra.rows, bgra.cols, CV_8UC1 );
-/// 
-///    // forming an array of matrices is a quite efficient operation,
-///    // because the matrix data is not copied, only the headers
-///    Mat out[] = { bgr, alpha };
-///    // bgra[0] -> bgr[2], bgra[1] -> bgr[1],
-///    // bgra[2] -> bgr[0], bgra[3] -> alpha[0]
-///    int from_to[] = { 0,2, 1,1, 2,0, 3,3 };
-///    mixChannels( &bgra, 1, out, 2, from_to, 4 );
-/// ```
-/// 
-/// 
-/// Note: Unlike many other new-style C++ functions in OpenCV (see the introduction section and
-/// Mat::create ), cv::mixChannels requires the output arrays to be pre-allocated before calling the
-/// function.
-/// ## Parameters
-/// * src: input array or vector of matrices; all of the matrices must have the same size and the
-/// same depth.
-/// * nsrcs: number of matrices in `src`.
-/// * dst: output array or vector of matrices; all the matrices **must be allocated**; their size and
-/// depth must be the same as in `src[0]`.
-/// * ndsts: number of matrices in `dst`.
-/// * fromTo: array of index pairs specifying which channels are copied and where; fromTo[k\*2] is
-/// a 0-based index of the input channel in src, fromTo[k\*2+1] is an index of the output channel in
-/// dst; the continuous channel numbering is used: the first input image channels are indexed from 0 to
-/// src[0].channels()-1, the second input image channels are indexed from src[0].channels() to
-/// src[0].channels() + src[1].channels()-1, and so on, the same scheme is used for the output image
-/// channels; as a special case, when fromTo[k\*2] is negative, the corresponding output channel is
-/// filled with zero .
-/// * npairs: number of index pairs in `fromTo`.
-/// ## See also
-/// split, merge, extractChannel, insertChannel, cvtColor
-/// 
-/// ## Overloaded parameters
-/// 
-/// * src: input array or vector of matrices; all of the matrices must have the same size and the
-/// same depth.
-/// * dst: output array or vector of matrices; all the matrices **must be allocated**; their size and
-/// depth must be the same as in src[0].
-/// * fromTo: array of index pairs specifying which channels are copied and where; fromTo[k\*2] is
-/// a 0-based index of the input channel in src, fromTo[k\*2+1] is an index of the output channel in
-/// dst; the continuous channel numbering is used: the first input image channels are indexed from 0 to
-/// src[0].channels()-1, the second input image channels are indexed from src[0].channels() to
-/// src[0].channels() + src[1].channels()-1, and so on, the same scheme is used for the output image
-/// channels; as a special case, when fromTo[k\*2] is negative, the corresponding output channel is
-/// filled with zero .
-/// * npairs: number of index pairs in fromTo.
 #[inline]
 pub fn mix_channels(src: &dyn core::ToInputArray, dst: &mut dyn core::ToInputOutputArray, from_to: &[i32]) -> Result<()> {
 	input_array_arg!(src);
@@ -4965,64 +2879,6 @@ pub fn mix_channels(src: &dyn core::ToInputArray, dst: &mut dyn core::ToInputOut
 	Ok(ret)
 }
 
-/// Copies specified channels from input arrays to the specified channels of
-/// output arrays.
-/// 
-/// The function cv::mixChannels provides an advanced mechanism for shuffling image channels.
-/// 
-/// cv::split,cv::merge,cv::extractChannel,cv::insertChannel and some forms of cv::cvtColor are partial cases of cv::mixChannels.
-/// 
-/// In the example below, the code splits a 4-channel BGRA image into a 3-channel BGR (with B and R
-/// channels swapped) and a separate alpha-channel image:
-/// ```ignore
-///    Mat bgra( 100, 100, CV_8UC4, Scalar(255,0,0,255) );
-///    Mat bgr( bgra.rows, bgra.cols, CV_8UC3 );
-///    Mat alpha( bgra.rows, bgra.cols, CV_8UC1 );
-/// 
-///    // forming an array of matrices is a quite efficient operation,
-///    // because the matrix data is not copied, only the headers
-///    Mat out[] = { bgr, alpha };
-///    // bgra[0] -> bgr[2], bgra[1] -> bgr[1],
-///    // bgra[2] -> bgr[0], bgra[3] -> alpha[0]
-///    int from_to[] = { 0,2, 1,1, 2,0, 3,3 };
-///    mixChannels( &bgra, 1, out, 2, from_to, 4 );
-/// ```
-/// 
-/// 
-/// Note: Unlike many other new-style C++ functions in OpenCV (see the introduction section and
-/// Mat::create ), cv::mixChannels requires the output arrays to be pre-allocated before calling the
-/// function.
-/// ## Parameters
-/// * src: input array or vector of matrices; all of the matrices must have the same size and the
-/// same depth.
-/// * nsrcs: number of matrices in `src`.
-/// * dst: output array or vector of matrices; all the matrices **must be allocated**; their size and
-/// depth must be the same as in `src[0]`.
-/// * ndsts: number of matrices in `dst`.
-/// * fromTo: array of index pairs specifying which channels are copied and where; fromTo[k\*2] is
-/// a 0-based index of the input channel in src, fromTo[k\*2+1] is an index of the output channel in
-/// dst; the continuous channel numbering is used: the first input image channels are indexed from 0 to
-/// src[0].channels()-1, the second input image channels are indexed from src[0].channels() to
-/// src[0].channels() + src[1].channels()-1, and so on, the same scheme is used for the output image
-/// channels; as a special case, when fromTo[k\*2] is negative, the corresponding output channel is
-/// filled with zero .
-/// * npairs: number of index pairs in `fromTo`.
-/// ## See also
-/// split, merge, extractChannel, insertChannel, cvtColor
-/// 
-/// ## Overloaded parameters
-/// 
-/// * src: input array or vector of matrices; all of the matrices must have the same size and the
-/// same depth.
-/// * dst: output array or vector of matrices; all the matrices **must be allocated**; their size and
-/// depth must be the same as in src[0].
-/// * fromTo: array of index pairs specifying which channels are copied and where; fromTo[k\*2] is
-/// a 0-based index of the input channel in src, fromTo[k\*2+1] is an index of the output channel in
-/// dst; the continuous channel numbering is used: the first input image channels are indexed from 0 to
-/// src[0].channels()-1, the second input image channels are indexed from src[0].channels() to
-/// src[0].channels() + src[1].channels()-1, and so on, the same scheme is used for the output image
-/// channels; as a special case, when fromTo[k\*2] is negative, the corresponding output channel is
-/// filled with zero .
 #[inline]
 pub fn mix_channels_vec(src: &dyn core::ToInputArray, dst: &mut dyn core::ToInputOutputArray, from_to: &core::Vector<i32>) -> Result<()> {
 	input_array_arg!(src);
@@ -5034,24 +2890,6 @@ pub fn mix_channels_vec(src: &dyn core::ToInputArray, dst: &mut dyn core::ToInpu
 	Ok(ret)
 }
 
-/// Performs the per-element multiplication of two Fourier spectrums.
-/// 
-/// The function cv::mulSpectrums performs the per-element multiplication of the two CCS-packed or complex
-/// matrices that are results of a real or complex Fourier transform.
-/// 
-/// The function, together with dft and idft , may be used to calculate convolution (pass conjB=false )
-/// or correlation (pass conjB=true ) of two arrays rapidly. When the arrays are complex, they are
-/// simply multiplied (per element) with an optional conjugation of the second-array elements. When the
-/// arrays are real, they are assumed to be CCS-packed (see dft for details).
-/// ## Parameters
-/// * a: first input array.
-/// * b: second input array of the same size and type as src1 .
-/// * c: output array of the same size and type as src1 .
-/// * flags: operation flags; currently, the only supported flag is cv::DFT_ROWS, which indicates that
-/// each row of src1 and src2 is an independent 1D Fourier spectrum. If you do not want to use this flag, then simply add a `0` as value.
-/// * conjB: optional flag that conjugates the second input array before the multiplication (true)
-/// or not (false).
-/// 
 /// ## C++ default parameters
 /// * conj_b: false
 #[inline]
@@ -5066,36 +2904,6 @@ pub fn mul_spectrums(a: &dyn core::ToInputArray, b: &dyn core::ToInputArray, c: 
 	Ok(ret)
 }
 
-/// Calculates the product of a matrix and its transposition.
-/// 
-/// The function cv::mulTransposed calculates the product of src and its
-/// transposition:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%3D%20%5Ctexttt%7Bscale%7D%20%28%20%5Ctexttt%7Bsrc%7D%20%2D%20%5Ctexttt%7Bdelta%7D%20%29%5ET%20%28%20%5Ctexttt%7Bsrc%7D%20%2D%20%5Ctexttt%7Bdelta%7D%20%29)
-/// if aTa=true , and
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%3D%20%5Ctexttt%7Bscale%7D%20%28%20%5Ctexttt%7Bsrc%7D%20%2D%20%5Ctexttt%7Bdelta%7D%20%29%20%28%20%5Ctexttt%7Bsrc%7D%20%2D%20%5Ctexttt%7Bdelta%7D%20%29%5ET)
-/// otherwise. The function is used to calculate the covariance matrix. With
-/// zero delta, it can be used as a faster substitute for general matrix
-/// product A\*B when B=A'
-/// ## Parameters
-/// * src: input single-channel matrix. Note that unlike gemm, the
-/// function can multiply not only floating-point matrices.
-/// * dst: output square matrix.
-/// * aTa: Flag specifying the multiplication ordering. See the
-/// description below.
-/// * delta: Optional delta matrix subtracted from src before the
-/// multiplication. When the matrix is empty ( delta=noArray() ), it is
-/// assumed to be zero, that is, nothing is subtracted. If it has the same
-/// size as src , it is simply subtracted. Otherwise, it is "repeated" (see
-/// repeat ) to cover the full src and then subtracted. Type of the delta
-/// matrix, when it is not empty, must be the same as the type of created
-/// output matrix. See the dtype parameter description below.
-/// * scale: Optional scale factor for the matrix product.
-/// * dtype: Optional type of the output matrix. When it is negative,
-/// the output matrix will have the same type as src . Otherwise, it will be
-/// type=CV_MAT_DEPTH(dtype) that should be either CV_32F or CV_64F .
-/// ## See also
-/// calcCovarMatrix, gemm, repeat, reduce
-/// 
 /// ## C++ default parameters
 /// * delta: noArray()
 /// * scale: 1
@@ -5112,30 +2920,6 @@ pub fn mul_transposed(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutput
 	Ok(ret)
 }
 
-/// Calculates the per-element scaled product of two arrays.
-/// 
-/// The function multiply calculates the per-element product of two arrays:
-/// 
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%3D%20%5Ctexttt%7Bsaturate%7D%20%28%20%5Ctexttt%7Bscale%7D%20%5Ccdot%20%5Ctexttt%7Bsrc1%7D%20%28I%29%20%20%5Ccdot%20%5Ctexttt%7Bsrc2%7D%20%28I%29%29)
-/// 
-/// There is also a @ref MatrixExpressions -friendly variant of the first function. See Mat::mul .
-/// 
-/// For a not-per-element matrix product, see gemm .
-/// 
-/// 
-/// Note: Saturation is not applied when the output array has the depth
-/// CV_32S. You may even get result of an incorrect sign in the case of
-/// overflow.
-/// ## Parameters
-/// * src1: first input array.
-/// * src2: second input array of the same size and the same type as src1.
-/// * dst: output array of the same size and type as src1.
-/// * scale: optional scale factor.
-/// * dtype: optional depth of the output array
-/// ## See also
-/// add, subtract, divide, scaleAdd, addWeighted, accumulate, accumulateProduct, accumulateSquare,
-/// Mat::convertTo
-/// 
 /// ## C++ default parameters
 /// * scale: 1
 /// * dtype: -1
@@ -5158,22 +2942,6 @@ pub fn no_array() -> core::_InputOutputArray {
 	ret
 }
 
-/// Calculates an absolute difference norm or a relative difference norm.
-/// 
-/// This version of cv::norm calculates the absolute difference norm
-/// or the relative difference norm of arrays src1 and src2.
-/// The type of norm to calculate is specified using #NormTypes.
-/// 
-/// ## Parameters
-/// * src1: first input array.
-/// * src2: second input array of the same size and the same type as src1.
-/// * normType: type of the norm (see #NormTypes).
-/// * mask: optional operation mask; it must have the same size as src1 and CV_8UC1 type.
-/// 
-/// ## Overloaded parameters
-/// 
-/// * src: first input array.
-/// * normType: type of the norm (see #NormTypes).
 #[inline]
 pub fn norm_sparse(src: &core::SparseMat, norm_type: i32) -> Result<f64> {
 	return_send!(via ocvrs_return);
@@ -5183,18 +2951,6 @@ pub fn norm_sparse(src: &core::SparseMat, norm_type: i32) -> Result<f64> {
 	Ok(ret)
 }
 
-/// Calculates an absolute difference norm or a relative difference norm.
-/// 
-/// This version of cv::norm calculates the absolute difference norm
-/// or the relative difference norm of arrays src1 and src2.
-/// The type of norm to calculate is specified using #NormTypes.
-/// 
-/// ## Parameters
-/// * src1: first input array.
-/// * src2: second input array of the same size and the same type as src1.
-/// * normType: type of the norm (see #NormTypes).
-/// * mask: optional operation mask; it must have the same size as src1 and CV_8UC1 type.
-/// 
 /// ## C++ default parameters
 /// * norm_type: NORM_L2
 /// * mask: noArray()
@@ -5210,43 +2966,6 @@ pub fn norm2(src1: &dyn core::ToInputArray, src2: &dyn core::ToInputArray, norm_
 	Ok(ret)
 }
 
-/// Calculates the  absolute norm of an array.
-/// 
-/// This version of #norm calculates the absolute norm of src1. The type of norm to calculate is specified using #NormTypes.
-/// 
-/// As example for one array consider the function ![inline formula](https://latex.codecogs.com/png.latex?r%28x%29%3D%20%5Cbegin%7Bpmatrix%7D%20x%20%5C%5C%201%2Dx%20%5Cend%7Bpmatrix%7D%2C%20x%20%5Cin%20%5B%2D1%3B1%5D).
-/// The ![inline formula](https://latex.codecogs.com/png.latex?%20L%5F%7B1%7D%2C%20L%5F%7B2%7D%20) and ![inline formula](https://latex.codecogs.com/png.latex?%20L%5F%7B%5Cinfty%7D%20) norm for the sample value ![inline formula](https://latex.codecogs.com/png.latex?r%28%2D1%29%20%3D%20%5Cbegin%7Bpmatrix%7D%20%2D1%20%5C%5C%202%20%5Cend%7Bpmatrix%7D)
-/// is calculated as follows
-/// \f{align*}
-///    \| r(-1) \|_{L_1} &= |-1| + |2| = 3 \\
-///    \| r(-1) \|_{L_2} &= \sqrt{(-1)^{2} + (2)^{2}} = \sqrt{5} \\
-///    \| r(-1) \|_{L_\infty} &= \max(|-1|,|2|) = 2
-/// \f}
-/// and for ![inline formula](https://latex.codecogs.com/png.latex?r%280%2E5%29%20%3D%20%5Cbegin%7Bpmatrix%7D%200%2E5%20%5C%5C%200%2E5%20%5Cend%7Bpmatrix%7D) the calculation is
-/// \f{align*}
-///    \| r(0.5) \|_{L_1} &= |0.5| + |0.5| = 1 \\
-///    \| r(0.5) \|_{L_2} &= \sqrt{(0.5)^{2} + (0.5)^{2}} = \sqrt{0.5} \\
-///    \| r(0.5) \|_{L_\infty} &= \max(|0.5|,|0.5|) = 0.5.
-/// \f}
-/// The following graphic shows all values for the three norm functions ![inline formula](https://latex.codecogs.com/png.latex?%5C%7C%20r%28x%29%20%5C%7C%5F%7BL%5F1%7D%2C%20%5C%7C%20r%28x%29%20%5C%7C%5F%7BL%5F2%7D) and ![inline formula](https://latex.codecogs.com/png.latex?%5C%7C%20r%28x%29%20%5C%7C%5F%7BL%5F%5Cinfty%7D).
-/// It is notable that the ![inline formula](https://latex.codecogs.com/png.latex?%20L%5F%7B1%7D%20) norm forms the upper and the ![inline formula](https://latex.codecogs.com/png.latex?%20L%5F%7B%5Cinfty%7D%20) norm forms the lower border for the example function ![inline formula](https://latex.codecogs.com/png.latex?%20r%28x%29%20).
-/// ![Graphs for the different norm functions from the above example](https://docs.opencv.org/4.6.0/NormTypes_OneArray_1-2-INF.png)
-/// 
-/// When the mask parameter is specified and it is not empty, the norm is
-/// 
-/// If normType is not specified, #NORM_L2 is used.
-/// calculated only over the region specified by the mask.
-/// 
-/// Multi-channel input arrays are treated as single-channel arrays, that is,
-/// the results for all channels are combined.
-/// 
-/// Hamming norms can only be calculated with CV_8U depth arrays.
-/// 
-/// ## Parameters
-/// * src1: first input array.
-/// * normType: type of the norm (see #NormTypes).
-/// * mask: optional operation mask; it must have the same size as src1 and CV_8UC1 type.
-/// 
 /// ## C++ default parameters
 /// * norm_type: NORM_L2
 /// * mask: noArray()
@@ -5261,74 +2980,6 @@ pub fn norm(src1: &dyn core::ToInputArray, norm_type: i32, mask: &dyn core::ToIn
 	Ok(ret)
 }
 
-/// Normalizes the norm or value range of an array.
-/// 
-/// The function cv::normalize normalizes scale and shift the input array elements so that
-/// ![block formula](https://latex.codecogs.com/png.latex?%5C%7C%20%5Ctexttt%7Bdst%7D%20%5C%7C%20%5F%7BL%5Fp%7D%3D%20%5Ctexttt%7Balpha%7D)
-/// (where p=Inf, 1 or 2) when normType=NORM_INF, NORM_L1, or NORM_L2, respectively; or so that
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Cmin%20%5FI%20%20%5Ctexttt%7Bdst%7D%20%28I%29%3D%20%5Ctexttt%7Balpha%7D%20%2C%20%5C%2C%20%5C%2C%20%5Cmax%20%5FI%20%20%5Ctexttt%7Bdst%7D%20%28I%29%3D%20%5Ctexttt%7Bbeta%7D)
-/// 
-/// when normType=NORM_MINMAX (for dense arrays only). The optional mask specifies a sub-array to be
-/// normalized. This means that the norm or min-n-max are calculated over the sub-array, and then this
-/// sub-array is modified to be normalized. If you want to only use the mask to calculate the norm or
-/// min-max but modify the whole array, you can use norm and Mat::convertTo.
-/// 
-/// In case of sparse matrices, only the non-zero values are analyzed and transformed. Because of this,
-/// the range transformation for sparse matrices is not allowed since it can shift the zero level.
-/// 
-/// Possible usage with some positive example data:
-/// ```ignore
-///    vector<double> positiveData = { 2.0, 8.0, 10.0 };
-///    vector<double> normalizedData_l1, normalizedData_l2, normalizedData_inf, normalizedData_minmax;
-/// 
-///    // Norm to probability (total count)
-///    // sum(numbers) = 20.0
-///    // 2.0      0.1     (2.0/20.0)
-///    // 8.0      0.4     (8.0/20.0)
-///    // 10.0     0.5     (10.0/20.0)
-///    normalize(positiveData, normalizedData_l1, 1.0, 0.0, NORM_L1);
-/// 
-///    // Norm to unit vector: ||positiveData|| = 1.0
-///    // 2.0      0.15
-///    // 8.0      0.62
-///    // 10.0     0.77
-///    normalize(positiveData, normalizedData_l2, 1.0, 0.0, NORM_L2);
-/// 
-///    // Norm to max element
-///    // 2.0      0.2     (2.0/10.0)
-///    // 8.0      0.8     (8.0/10.0)
-///    // 10.0     1.0     (10.0/10.0)
-///    normalize(positiveData, normalizedData_inf, 1.0, 0.0, NORM_INF);
-/// 
-///    // Norm to range [0.0;1.0]
-///    // 2.0      0.0     (shift to left border)
-///    // 8.0      0.75    (6.0/8.0)
-///    // 10.0     1.0     (shift to right border)
-///    normalize(positiveData, normalizedData_minmax, 1.0, 0.0, NORM_MINMAX);
-/// ```
-/// 
-/// 
-/// ## Parameters
-/// * src: input array.
-/// * dst: output array of the same size as src .
-/// * alpha: norm value to normalize to or the lower range boundary in case of the range
-/// normalization.
-/// * beta: upper range boundary in case of the range normalization; it is not used for the norm
-/// normalization.
-/// * norm_type: normalization type (see cv::NormTypes).
-/// * dtype: when negative, the output array has the same type as src; otherwise, it has the same
-/// number of channels as src and the depth =CV_MAT_DEPTH(dtype).
-/// * mask: optional operation mask.
-/// ## See also
-/// norm, Mat::convertTo, SparseMat::convertTo
-/// 
-/// ## Overloaded parameters
-/// 
-/// * src: input array.
-/// * dst: output array of the same size as src .
-/// * alpha: norm value to normalize to or the lower range boundary in case of the range
-/// normalization.
-/// * normType: normalization type (see cv::NormTypes).
 #[inline]
 pub fn normalize_sparse(src: &core::SparseMat, dst: &mut core::SparseMat, alpha: f64, norm_type: i32) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -5338,67 +2989,6 @@ pub fn normalize_sparse(src: &core::SparseMat, dst: &mut core::SparseMat, alpha:
 	Ok(ret)
 }
 
-/// Normalizes the norm or value range of an array.
-/// 
-/// The function cv::normalize normalizes scale and shift the input array elements so that
-/// ![block formula](https://latex.codecogs.com/png.latex?%5C%7C%20%5Ctexttt%7Bdst%7D%20%5C%7C%20%5F%7BL%5Fp%7D%3D%20%5Ctexttt%7Balpha%7D)
-/// (where p=Inf, 1 or 2) when normType=NORM_INF, NORM_L1, or NORM_L2, respectively; or so that
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Cmin%20%5FI%20%20%5Ctexttt%7Bdst%7D%20%28I%29%3D%20%5Ctexttt%7Balpha%7D%20%2C%20%5C%2C%20%5C%2C%20%5Cmax%20%5FI%20%20%5Ctexttt%7Bdst%7D%20%28I%29%3D%20%5Ctexttt%7Bbeta%7D)
-/// 
-/// when normType=NORM_MINMAX (for dense arrays only). The optional mask specifies a sub-array to be
-/// normalized. This means that the norm or min-n-max are calculated over the sub-array, and then this
-/// sub-array is modified to be normalized. If you want to only use the mask to calculate the norm or
-/// min-max but modify the whole array, you can use norm and Mat::convertTo.
-/// 
-/// In case of sparse matrices, only the non-zero values are analyzed and transformed. Because of this,
-/// the range transformation for sparse matrices is not allowed since it can shift the zero level.
-/// 
-/// Possible usage with some positive example data:
-/// ```ignore
-///    vector<double> positiveData = { 2.0, 8.0, 10.0 };
-///    vector<double> normalizedData_l1, normalizedData_l2, normalizedData_inf, normalizedData_minmax;
-/// 
-///    // Norm to probability (total count)
-///    // sum(numbers) = 20.0
-///    // 2.0      0.1     (2.0/20.0)
-///    // 8.0      0.4     (8.0/20.0)
-///    // 10.0     0.5     (10.0/20.0)
-///    normalize(positiveData, normalizedData_l1, 1.0, 0.0, NORM_L1);
-/// 
-///    // Norm to unit vector: ||positiveData|| = 1.0
-///    // 2.0      0.15
-///    // 8.0      0.62
-///    // 10.0     0.77
-///    normalize(positiveData, normalizedData_l2, 1.0, 0.0, NORM_L2);
-/// 
-///    // Norm to max element
-///    // 2.0      0.2     (2.0/10.0)
-///    // 8.0      0.8     (8.0/10.0)
-///    // 10.0     1.0     (10.0/10.0)
-///    normalize(positiveData, normalizedData_inf, 1.0, 0.0, NORM_INF);
-/// 
-///    // Norm to range [0.0;1.0]
-///    // 2.0      0.0     (shift to left border)
-///    // 8.0      0.75    (6.0/8.0)
-///    // 10.0     1.0     (shift to right border)
-///    normalize(positiveData, normalizedData_minmax, 1.0, 0.0, NORM_MINMAX);
-/// ```
-/// 
-/// 
-/// ## Parameters
-/// * src: input array.
-/// * dst: output array of the same size as src .
-/// * alpha: norm value to normalize to or the lower range boundary in case of the range
-/// normalization.
-/// * beta: upper range boundary in case of the range normalization; it is not used for the norm
-/// normalization.
-/// * norm_type: normalization type (see cv::NormTypes).
-/// * dtype: when negative, the output array has the same type as src; otherwise, it has the same
-/// number of channels as src and the depth =CV_MAT_DEPTH(dtype).
-/// * mask: optional operation mask.
-/// ## See also
-/// norm, Mat::convertTo, SparseMat::convertTo
-/// 
 /// ## C++ default parameters
 /// * alpha: 1
 /// * beta: 0
@@ -5417,17 +3007,6 @@ pub fn normalize(src: &dyn core::ToInputArray, dst: &mut dyn core::ToInputOutput
 	Ok(ret)
 }
 
-/// Attaches OpenCL context to OpenCV
-/// 
-/// Note:
-///   OpenCV will check if available OpenCL platform has platformName name, then assign context to
-///   OpenCV and call `clRetainContext` function. The deviceID device will be used as target device and
-///   new command queue will be created.
-/// ## Parameters
-/// * platformName: name of OpenCL platform to attach, this string is used to check if platform is available to OpenCV at runtime
-/// * platformID: ID of platform attached context was created for
-/// * context: OpenCL context to be attached to OpenCV
-/// * deviceID: ID of device, must be created from attached context
 #[inline]
 pub unsafe fn attach_context(platform_name: &str, platform_id: *mut c_void, context: *mut c_void, device_id: *mut c_void) -> Result<()> {
 	extern_container_arg!(platform_name);
@@ -5479,19 +3058,6 @@ pub fn check_optimal_vector_width(vector_widths: &i32, src1: &dyn core::ToInputA
 	Ok(ret)
 }
 
-/// Convert OpenCL buffer to UMat
-/// 
-/// Note:
-///   OpenCL buffer (cl_mem_buffer) should contain 2D image data, compatible with OpenCV. Memory
-///   content is not copied from `clBuffer` to UMat. Instead, buffer handle assigned to UMat and
-///   `clRetainMemObject` is called.
-/// ## Parameters
-/// * cl_mem_buffer: source clBuffer handle
-/// * step: num of bytes in single row
-/// * rows: number of rows
-/// * cols: number of cols
-/// * type: OpenCV type of image
-/// * dst: destination UMat
 #[inline]
 pub unsafe fn convert_from_buffer(cl_mem_buffer: *mut c_void, step: size_t, rows: i32, cols: i32, typ: i32, dst: &mut core::UMat) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -5501,14 +3067,6 @@ pub unsafe fn convert_from_buffer(cl_mem_buffer: *mut c_void, step: size_t, rows
 	Ok(ret)
 }
 
-/// Convert OpenCL image2d_t to UMat
-/// 
-/// Note:
-///   OpenCL `image2d_t` (cl_mem_image), should be compatible with OpenCV UMat formats. Memory content
-///   is copied from image to UMat with `clEnqueueCopyImageToBuffer` function.
-/// ## Parameters
-/// * cl_mem_image: source image2d_t handle
-/// * dst: destination UMat
 #[inline]
 pub unsafe fn convert_from_image(cl_mem_image: *mut c_void, dst: &mut core::UMat) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -5712,10 +3270,6 @@ pub fn vecop_type_to_str(t: i32) -> Result<String> {
 	Ok(ret)
 }
 
-/// Converts Texture2D object to OutputArray.
-/// ## Parameters
-/// * texture: - source Texture2D object.
-/// * dst: - destination OutputArray.
 #[inline]
 pub fn convert_from_gl_texture_2d(texture: &core::Texture2D, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 	output_array_arg!(dst);
@@ -5726,10 +3280,6 @@ pub fn convert_from_gl_texture_2d(texture: &core::Texture2D, dst: &mut dyn core:
 	Ok(ret)
 }
 
-/// Converts InputArray to Texture2D object.
-/// ## Parameters
-/// * src: - source InputArray.
-/// * texture: - destination Texture2D object.
 #[inline]
 pub fn convert_to_gl_texture_2d(src: &dyn core::ToInputArray, texture: &mut core::Texture2D) -> Result<()> {
 	input_array_arg!(src);
@@ -5740,19 +3290,6 @@ pub fn convert_to_gl_texture_2d(src: &dyn core::ToInputArray, texture: &mut core
 	Ok(ret)
 }
 
-/// Maps Buffer object to process on CL side (convert to UMat).
-/// 
-/// Function creates CL buffer from GL one, and then constructs UMat that can be used
-/// to process buffer data with OpenCV functions. Note that in current implementation
-/// UMat constructed this way doesn't own corresponding GL buffer object, so it is
-/// the user responsibility to close down CL/GL buffers relationships by explicitly
-/// calling unmapGLBuffer() function.
-/// ## Parameters
-/// * buffer: - source Buffer object.
-/// * accessFlags: - data access flags (ACCESS_READ|ACCESS_WRITE).
-/// ## Returns
-/// Returns UMat object
-/// 
 /// ## C++ default parameters
 /// * access_flags: ACCESS_READ|ACCESS_WRITE
 #[inline]
@@ -5765,9 +3302,6 @@ pub fn map_gl_buffer(buffer: &core::Buffer, access_flags: core::AccessFlag) -> R
 	Ok(ret)
 }
 
-/// Creates OpenCL context from GL.
-/// ## Returns
-/// Returns reference to OpenCL Context
 #[inline]
 pub fn initialize_context_from_gl() -> Result<core::Context> {
 	return_send!(via ocvrs_return);
@@ -5778,19 +3312,6 @@ pub fn initialize_context_from_gl() -> Result<core::Context> {
 	Ok(ret)
 }
 
-/// Render OpenGL texture or primitives.
-/// ## Parameters
-/// * tex: Texture to draw.
-/// * wndRect: Region of window, where to draw a texture (normalized coordinates).
-/// * texRect: Region of texture to draw (normalized coordinates).
-/// 
-/// ## Overloaded parameters
-/// 
-/// * arr: Array of privitives vertices.
-/// * indices: Array of vertices indices (host or device memory).
-/// * mode: Render mode. One of cv::ogl::RenderModes
-/// * color: Color for all vertices. Will be used if arr doesn't contain color array.
-/// 
 /// ## C++ default parameters
 /// * mode: POINTS
 /// * color: Scalar::all(255)
@@ -5804,18 +3325,6 @@ pub fn render_2(arr: &core::Arrays, indices: &dyn core::ToInputArray, mode: i32,
 	Ok(ret)
 }
 
-/// Render OpenGL texture or primitives.
-/// ## Parameters
-/// * tex: Texture to draw.
-/// * wndRect: Region of window, where to draw a texture (normalized coordinates).
-/// * texRect: Region of texture to draw (normalized coordinates).
-/// 
-/// ## Overloaded parameters
-/// 
-/// * arr: Array of privitives vertices.
-/// * mode: Render mode. One of cv::ogl::RenderModes
-/// * color: Color for all vertices. Will be used if arr doesn't contain color array.
-/// 
 /// ## C++ default parameters
 /// * mode: POINTS
 /// * color: Scalar::all(255)
@@ -5828,12 +3337,6 @@ pub fn render_1(arr: &core::Arrays, mode: i32, color: core::Scalar) -> Result<()
 	Ok(ret)
 }
 
-/// Render OpenGL texture or primitives.
-/// ## Parameters
-/// * tex: Texture to draw.
-/// * wndRect: Region of window, where to draw a texture (normalized coordinates).
-/// * texRect: Region of texture to draw (normalized coordinates).
-/// 
 /// ## C++ default parameters
 /// * wnd_rect: Rect_<double>(0.0,0.0,1.0,1.0)
 /// * tex_rect: Rect_<double>(0.0,0.0,1.0,1.0)
@@ -5846,12 +3349,6 @@ pub fn render(tex: &core::Texture2D, wnd_rect: core::Rect_<f64>, tex_rect: core:
 	Ok(ret)
 }
 
-/// Unmaps Buffer object (releases UMat, previously mapped from Buffer).
-/// 
-/// Function must be called explicitly by the user for each UMat previously constructed
-/// by the call to mapGLBuffer() function.
-/// ## Parameters
-/// * u: - source UMat, created by mapGLBuffer().
 #[inline]
 pub fn unmap_gl_buffer(u: &mut core::UMat) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -5901,7 +3398,6 @@ pub fn add_mat_matexpr(m: &core::Mat, e: &core::MatExpr) -> Result<core::MatExpr
 	Ok(ret)
 }
 
-/// @relates cv::MatExpr
 #[inline]
 pub fn add_mat_mat(a: &core::Mat, b: &core::Mat) -> Result<core::MatExpr> {
 	return_send!(via ocvrs_return);
@@ -6022,7 +3518,6 @@ pub fn div_f64_mat(s: f64, a: &core::Mat) -> Result<core::MatExpr> {
 	Ok(ret)
 }
 
-/// @relates cv::FileNodeIterator
 #[inline]
 pub fn equals_filenode_iter(it1: &core::FileNodeIterator, it2: &core::FileNodeIterator) -> Result<bool> {
 	return_send!(via ocvrs_return);
@@ -6242,10 +3737,6 @@ pub fn mul_f64_mat(s: f64, a: &core::Mat) -> Result<core::MatExpr> {
 	Ok(ret)
 }
 
-/// Parallel data processor
-/// 
-/// @ingroup core_parallel
-/// 
 /// ## C++ default parameters
 /// * nstripes: -1.
 #[inline]
@@ -6257,11 +3748,6 @@ pub fn parallel_for_(range: &core::Range, body: &dyn core::ParallelLoopBody, nst
 	Ok(ret)
 }
 
-/// converts NaNs to the given number
-/// ## Parameters
-/// * a: input/output matrix (CV_32F type).
-/// * val: value to convert the NaNs
-/// 
 /// ## C++ default parameters
 /// * val: 0
 #[inline]
@@ -6274,33 +3760,6 @@ pub fn patch_na_ns(a: &mut dyn core::ToInputOutputArray, val: f64) -> Result<()>
 	Ok(ret)
 }
 
-/// Performs the perspective matrix transformation of vectors.
-/// 
-/// The function cv::perspectiveTransform transforms every element of src by
-/// treating it as a 2D or 3D vector, in the following way:
-/// ![block formula](https://latex.codecogs.com/png.latex?%28x%2C%20y%2C%20z%29%20%20%5Crightarrow%20%28x%27%2Fw%2C%20y%27%2Fw%2C%20z%27%2Fw%29)
-/// where
-/// ![block formula](https://latex.codecogs.com/png.latex?%28x%27%2C%20y%27%2C%20z%27%2C%20w%27%29%20%3D%20%20%5Ctexttt%7Bmat%7D%20%5Ccdot%20%5Cbegin%7Bbmatrix%7D%20x%20%26%20y%20%26%20z%20%26%201%20%20%5Cend%7Bbmatrix%7D)
-/// and
-/// ![block formula](https://latex.codecogs.com/png.latex?w%20%3D%20%20%5Cleft%5C%7B%20%5Cbegin%7Barray%7D%7Bl%20l%7D%20w%27%20%26%20%5Cmbox%7Bif%20%5C%28w%27%20%5Cne%200%5C%29%7D%5C%5C%20%5Cinfty%20%26%20%5Cmbox%7Botherwise%7D%5C%5C%20%5Cend%7Barray%7D%20%5Cright%2E)
-/// 
-/// Here a 3D vector transformation is shown. In case of a 2D vector
-/// transformation, the z component is omitted.
-/// 
-/// 
-/// Note: The function transforms a sparse set of 2D or 3D vectors. If you
-/// want to transform an image using perspective transformation, use
-/// warpPerspective . If you have an inverse problem, that is, you want to
-/// compute the most probable perspective transformation out of several
-/// pairs of corresponding points, you can use getPerspectiveTransform or
-/// findHomography .
-/// ## Parameters
-/// * src: input two-channel or three-channel floating-point array; each
-/// element is a 2D/3D vector to be transformed.
-/// * dst: output array of the same size and type as src.
-/// * m: 3x3 or 4x4 floating-point transformation matrix.
-/// ## See also
-/// transform, warpPerspective, getPerspectiveTransform, findHomography
 #[inline]
 pub fn perspective_transform(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray, m: &dyn core::ToInputArray) -> Result<()> {
 	input_array_arg!(src);
@@ -6313,23 +3772,6 @@ pub fn perspective_transform(src: &dyn core::ToInputArray, dst: &mut dyn core::T
 	Ok(ret)
 }
 
-/// Calculates the rotation angle of 2D vectors.
-/// 
-/// The function cv::phase calculates the rotation angle of each 2D vector that
-/// is formed from the corresponding elements of x and y :
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bangle%7D%20%28I%29%20%3D%20%20%5Ctexttt%7Batan2%7D%20%28%20%5Ctexttt%7By%7D%20%28I%29%2C%20%5Ctexttt%7Bx%7D%20%28I%29%29)
-/// 
-/// The angle estimation accuracy is about 0.3 degrees. When x(I)=y(I)=0 ,
-/// the corresponding angle(I) is set to 0.
-/// ## Parameters
-/// * x: input floating-point array of x-coordinates of 2D vectors.
-/// * y: input array of y-coordinates of 2D vectors; it must have the
-/// same size and the same type as x.
-/// * angle: output array of vector angles; it has the same size and
-/// same type as x .
-/// * angleInDegrees: when true, the function calculates the angle in
-/// degrees, otherwise, they are measured in radians.
-/// 
 /// ## C++ default parameters
 /// * angle_in_degrees: false
 #[inline]
@@ -6344,28 +3786,6 @@ pub fn phase(x: &dyn core::ToInputArray, y: &dyn core::ToInputArray, angle: &mut
 	Ok(ret)
 }
 
-/// Calculates x and y coordinates of 2D vectors from their magnitude and angle.
-/// 
-/// The function cv::polarToCart calculates the Cartesian coordinates of each 2D
-/// vector represented by the corresponding elements of magnitude and angle:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Cbegin%7Barray%7D%7Bl%7D%20%5Ctexttt%7Bx%7D%20%28I%29%20%3D%20%20%5Ctexttt%7Bmagnitude%7D%20%28I%29%20%5Ccos%20%28%20%5Ctexttt%7Bangle%7D%20%28I%29%29%20%5C%5C%20%5Ctexttt%7By%7D%20%28I%29%20%3D%20%20%5Ctexttt%7Bmagnitude%7D%20%28I%29%20%5Csin%20%28%20%5Ctexttt%7Bangle%7D%20%28I%29%29%20%5C%5C%20%5Cend%7Barray%7D)
-/// 
-/// The relative accuracy of the estimated coordinates is about 1e-6.
-/// ## Parameters
-/// * magnitude: input floating-point array of magnitudes of 2D vectors;
-/// it can be an empty matrix (=Mat()), in this case, the function assumes
-/// that all the magnitudes are =1; if it is not empty, it must have the
-/// same size and type as angle.
-/// * angle: input floating-point array of angles of 2D vectors.
-/// * x: output array of x-coordinates of 2D vectors; it has the same
-/// size and type as angle.
-/// * y: output array of y-coordinates of 2D vectors; it has the same
-/// size and type as angle.
-/// * angleInDegrees: when true, the input angles are measured in
-/// degrees, otherwise, they are measured in radians.
-/// ## See also
-/// cartToPolar, magnitude, phase, exp, log, pow, sqrt
-/// 
 /// ## C++ default parameters
 /// * angle_in_degrees: false
 #[inline]
@@ -6381,31 +3801,6 @@ pub fn polar_to_cart(magnitude: &dyn core::ToInputArray, angle: &dyn core::ToInp
 	Ok(ret)
 }
 
-/// Raises every array element to a power.
-/// 
-/// The function cv::pow raises every element of the input array to power :
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%20%3D%20%20%5Cfork%7B%5Ctexttt%7Bsrc%7D%28I%29%5E%7Bpower%7D%7D%7Bif%20%5C%28%5Ctexttt%7Bpower%7D%5C%29%20is%20integer%7D%7B%7C%5Ctexttt%7Bsrc%7D%28I%29%7C%5E%7Bpower%7D%7D%7Botherwise%7D)
-/// 
-/// So, for a non-integer power exponent, the absolute values of input array
-/// elements are used. However, it is possible to get true values for
-/// negative values using some extra operations. In the example below,
-/// computing the 5th root of array src shows:
-/// ```ignore
-///    Mat mask = src < 0;
-///    pow(src, 1./5, dst);
-///    subtract(Scalar::all(0), dst, dst, mask);
-/// ```
-/// 
-/// For some values of power, such as integer values, 0.5 and -0.5,
-/// specialized faster algorithms are used.
-/// 
-/// Special values (NaN, Inf) are not handled.
-/// ## Parameters
-/// * src: input array.
-/// * power: exponent of power.
-/// * dst: output array of the same size and type as src.
-/// ## See also
-/// sqrt, exp, log, cartToPolar, polarToCart
 #[inline]
 pub fn pow(src: &dyn core::ToInputArray, power: f64, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 	input_array_arg!(src);
@@ -6417,19 +3812,6 @@ pub fn pow(src: &dyn core::ToInputArray, power: f64, dst: &mut dyn core::ToOutpu
 	Ok(ret)
 }
 
-/// Shuffles the array elements randomly.
-/// 
-/// The function cv::randShuffle shuffles the specified 1D array by randomly choosing pairs of elements and
-/// swapping them. The number of such swap operations will be dst.rows\*dst.cols\*iterFactor .
-/// ## Parameters
-/// * dst: input/output numerical 1D array.
-/// * iterFactor: scale factor that determines the number of random swap operations (see the details
-/// below).
-/// * rng: optional random number generator used for shuffling; if it is zero, theRNG () is used
-/// instead.
-/// ## See also
-/// RNG, sort
-/// 
 /// ## C++ default parameters
 /// * iter_factor: 1.
 /// * rng: 0
@@ -6443,18 +3825,6 @@ pub fn rand_shuffle(dst: &mut dyn core::ToInputOutputArray, iter_factor: f64, rn
 	Ok(ret)
 }
 
-/// Fills the array with normally distributed random numbers.
-/// 
-/// The function cv::randn fills the matrix dst with normally distributed random numbers with the specified
-/// mean vector and the standard deviation matrix. The generated random numbers are clipped to fit the
-/// value range of the output array data type.
-/// ## Parameters
-/// * dst: output array of random numbers; the array must be pre-allocated and have 1 to 4 channels.
-/// * mean: mean value (expectation) of the generated random numbers.
-/// * stddev: standard deviation of the generated random numbers; it can be either a vector (in
-/// which case a diagonal standard deviation matrix is assumed) or a square matrix.
-/// ## See also
-/// RNG, randu
 #[inline]
 pub fn randn(dst: &mut dyn core::ToInputOutputArray, mean: &dyn core::ToInputArray, stddev: &dyn core::ToInputArray) -> Result<()> {
 	input_output_array_arg!(dst);
@@ -6467,17 +3837,6 @@ pub fn randn(dst: &mut dyn core::ToInputOutputArray, mean: &dyn core::ToInputArr
 	Ok(ret)
 }
 
-/// Generates a single uniformly-distributed random number or an array of random numbers.
-/// 
-/// Non-template variant of the function fills the matrix dst with uniformly-distributed
-/// random numbers from the specified range:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Blow%7D%20%5Fc%20%20%5Cleq%20%5Ctexttt%7Bdst%7D%20%28I%29%5Fc%20%3C%20%20%5Ctexttt%7Bhigh%7D%20%5Fc)
-/// ## Parameters
-/// * dst: output array of random numbers; the array must be pre-allocated.
-/// * low: inclusive lower boundary of the generated random numbers.
-/// * high: exclusive upper boundary of the generated random numbers.
-/// ## See also
-/// RNG, randn, theRNG
 #[inline]
 pub fn randu(dst: &mut dyn core::ToInputOutputArray, low: &dyn core::ToInputArray, high: &dyn core::ToInputArray) -> Result<()> {
 	input_output_array_arg!(dst);
@@ -6548,7 +3907,6 @@ pub fn read_f32(node: &core::FileNode, value: &mut f32, default_value: f32) -> R
 	Ok(ret)
 }
 
-/// @relates cv::FileNode
 #[inline]
 pub fn read_i32(node: &core::FileNode, value: &mut i32, default_value: i32) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -6588,23 +3946,6 @@ pub fn read_keypoint_vec_legacy(node: &core::FileNode, keypoints: &mut core::Vec
 	Ok(ret)
 }
 
-/// Finds indices of max elements along provided axis
-/// 
-/// 
-/// Note:
-///      - If input or output array is not continuous, this function will create an internal copy.
-///      - NaN handling is left unspecified, see patchNaNs().
-///      - The returned index is always in bounds of input matrix.
-/// 
-/// ## Parameters
-/// * src: input single-channel array.
-/// * dst: output array of type CV_32SC1 with the same dimensionality as src,
-/// except for axis being reduced - it should be set to 1.
-/// * lastIndex: whether to get the index of first or last occurrence of max.
-/// * axis: axis to reduce along.
-/// ## See also
-/// reduceArgMin, minMaxLoc, min, max, compare, reduce
-/// 
 /// ## C++ default parameters
 /// * last_index: false
 #[inline]
@@ -6618,23 +3959,6 @@ pub fn reduce_arg_max(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutput
 	Ok(ret)
 }
 
-/// Finds indices of min elements along provided axis
-/// 
-/// 
-/// Note:
-///      - If input or output array is not continuous, this function will create an internal copy.
-///      - NaN handling is left unspecified, see patchNaNs().
-///      - The returned index is always in bounds of input matrix.
-/// 
-/// ## Parameters
-/// * src: input single-channel array.
-/// * dst: output array of type CV_32SC1 with the same dimensionality as src,
-/// except for axis being reduced - it should be set to 1.
-/// * lastIndex: whether to get the index of first or last occurrence of min.
-/// * axis: axis to reduce along.
-/// ## See also
-/// reduceArgMax, minMaxLoc, min, max, compare, reduce
-/// 
 /// ## C++ default parameters
 /// * last_index: false
 #[inline]
@@ -6648,32 +3972,6 @@ pub fn reduce_arg_min(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutput
 	Ok(ret)
 }
 
-/// Reduces a matrix to a vector.
-/// 
-/// The function #reduce reduces the matrix to a vector by treating the matrix rows/columns as a set of
-/// 1D vectors and performing the specified operation on the vectors until a single row/column is
-/// obtained. For example, the function can be used to compute horizontal and vertical projections of a
-/// raster image. In case of #REDUCE_MAX and #REDUCE_MIN , the output image should have the same type as the source one.
-/// In case of #REDUCE_SUM and #REDUCE_AVG , the output may have a larger element bit-depth to preserve accuracy.
-/// And multi-channel arrays are also supported in these two reduction modes.
-/// 
-/// The following code demonstrates its usage for a single channel matrix.
-/// [example](https://github.com/opencv/opencv/blob/4.6.0/samples/cpp/tutorial_code/snippets/core_reduce.cpp#L1)
-/// 
-/// And the following code demonstrates its usage for a two-channel matrix.
-/// [example2](https://github.com/opencv/opencv/blob/4.6.0/samples/cpp/tutorial_code/snippets/core_reduce.cpp#L1)
-/// 
-/// ## Parameters
-/// * src: input 2D matrix.
-/// * dst: output vector. Its size and type is defined by dim and dtype parameters.
-/// * dim: dimension index along which the matrix is reduced. 0 means that the matrix is reduced to
-/// a single row. 1 means that the matrix is reduced to a single column.
-/// * rtype: reduction operation that could be one of #ReduceTypes
-/// * dtype: when negative, the output vector will have the same type as the input matrix,
-/// otherwise, its type will be CV_MAKE_TYPE(CV_MAT_DEPTH(dtype), src.channels()).
-/// ## See also
-/// repeat, reduceArgMin, reduceArgMax
-/// 
 /// ## C++ default parameters
 /// * dtype: -1
 #[inline]
@@ -6687,28 +3985,6 @@ pub fn reduce(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray, d
 	Ok(ret)
 }
 
-/// Fills the output array with repeated copies of the input array.
-/// 
-/// The function cv::repeat duplicates the input array one or more times along each of the two axes:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%5F%7Bij%7D%3D%20%5Ctexttt%7Bsrc%7D%20%5F%7Bi%5Cmod%20src%2Erows%2C%20%5C%3B%20j%5Cmod%20src%2Ecols%20%7D)
-/// The second variant of the function is more convenient to use with @ref MatrixExpressions.
-/// ## Parameters
-/// * src: input array to replicate.
-/// * ny: Flag to specify how many times the `src` is repeated along the
-/// vertical axis.
-/// * nx: Flag to specify how many times the `src` is repeated along the
-/// horizontal axis.
-/// * dst: output array of the same type as `src`.
-/// ## See also
-/// cv::reduce
-/// 
-/// ## Overloaded parameters
-/// 
-/// * src: input array to replicate.
-/// * ny: Flag to specify how many times the `src` is repeated along the
-/// vertical axis.
-/// * nx: Flag to specify how many times the `src` is repeated along the
-/// horizontal axis.
 #[inline]
 pub fn repeat(src: &core::Mat, ny: i32, nx: i32) -> Result<core::Mat> {
 	return_send!(via ocvrs_return);
@@ -6719,20 +3995,6 @@ pub fn repeat(src: &core::Mat, ny: i32, nx: i32) -> Result<core::Mat> {
 	Ok(ret)
 }
 
-/// Fills the output array with repeated copies of the input array.
-/// 
-/// The function cv::repeat duplicates the input array one or more times along each of the two axes:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%5F%7Bij%7D%3D%20%5Ctexttt%7Bsrc%7D%20%5F%7Bi%5Cmod%20src%2Erows%2C%20%5C%3B%20j%5Cmod%20src%2Ecols%20%7D)
-/// The second variant of the function is more convenient to use with @ref MatrixExpressions.
-/// ## Parameters
-/// * src: input array to replicate.
-/// * ny: Flag to specify how many times the `src` is repeated along the
-/// vertical axis.
-/// * nx: Flag to specify how many times the `src` is repeated along the
-/// horizontal axis.
-/// * dst: output array of the same type as `src`.
-/// ## See also
-/// cv::reduce
 #[inline]
 pub fn repeat_to(src: &dyn core::ToInputArray, ny: i32, nx: i32, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 	input_array_arg!(src);
@@ -6744,18 +4006,6 @@ pub fn repeat_to(src: &dyn core::ToInputArray, ny: i32, nx: i32, dst: &mut dyn c
 	Ok(ret)
 }
 
-/// Rotates a 2D array in multiples of 90 degrees.
-/// The function cv::rotate rotates the array in one of three different ways:
-/// *   Rotate by 90 degrees clockwise (rotateCode = ROTATE_90_CLOCKWISE).
-/// *   Rotate by 180 degrees clockwise (rotateCode = ROTATE_180).
-/// *   Rotate by 270 degrees clockwise (rotateCode = ROTATE_90_COUNTERCLOCKWISE).
-/// ## Parameters
-/// * src: input array.
-/// * dst: output array of the same type as src.  The size is the same with ROTATE_180,
-/// and the rows and cols are switched for ROTATE_90_CLOCKWISE and ROTATE_90_COUNTERCLOCKWISE.
-/// * rotateCode: an enum to specify how to rotate the array; see the enum #RotateFlags
-/// ## See also
-/// transpose , repeat , completeSymm, flip, RotateFlags
 #[inline]
 pub fn rotate(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray, rotate_code: i32) -> Result<()> {
 	input_array_arg!(src);
@@ -6767,13 +4017,6 @@ pub fn rotate(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray, r
 	Ok(ret)
 }
 
-/// Override search data path by adding new search location
-/// 
-/// Use this only to override default behavior
-/// Passed paths are used in LIFO order.
-/// 
-/// ## Parameters
-/// * path: Path to used samples data
 #[inline]
 pub fn add_samples_data_search_path(path: &str) -> Result<()> {
 	extern_container_arg!(path);
@@ -6784,13 +4027,6 @@ pub fn add_samples_data_search_path(path: &str) -> Result<()> {
 	Ok(ret)
 }
 
-/// Append samples search data sub directory
-/// 
-/// General usage is to add OpenCV modules name (`<opencv_contrib>/modules/<name>/samples/data` -> `<name>/samples/data` + `modules/<name>/samples/data`).
-/// Passed subdirectories are used in LIFO order.
-/// 
-/// ## Parameters
-/// * subdir: samples data sub directory
 #[inline]
 pub fn add_samples_data_search_sub_directory(subdir: &str) -> Result<()> {
 	extern_container_arg!(subdir);
@@ -6814,31 +4050,6 @@ pub fn find_file_or_keep(relative_path: &str, silent_mode: bool) -> Result<Strin
 	Ok(ret)
 }
 
-/// Try to find requested data file
-/// 
-/// Search directories:
-/// 
-/// 1. Directories passed via `addSamplesDataSearchPath()`
-/// 2. OPENCV_SAMPLES_DATA_PATH_HINT environment variable
-/// 3. OPENCV_SAMPLES_DATA_PATH environment variable
-///    If parameter value is not empty and nothing is found then stop searching.
-/// 4. Detects build/install path based on:
-///    a. current working directory (CWD)
-///    b. and/or binary module location (opencv_core/opencv_world, doesn't work with static linkage)
-/// 5. Scan `<source>/{,data,samples/data}` directories if build directory is detected or the current directory is in source tree.
-/// 6. Scan `<install>/share/OpenCV` directory if install directory is detected.
-/// ## See also
-/// cv::utils::findDataFile
-/// 
-/// ## Parameters
-/// * relative_path: Relative path to data file
-/// * required: Specify "file not found" handling.
-///        If true, function prints information message and raises cv::Exception.
-///        If false, function returns empty result
-/// * silentMode: Disables messages
-/// ## Returns
-/// Returns path (absolute or relative to the current directory) or empty string if file is not found
-/// 
 /// ## C++ default parameters
 /// * required: true
 /// * silent_mode: false
@@ -6853,26 +4064,6 @@ pub fn find_file(relative_path: &str, required: bool, silent_mode: bool) -> Resu
 	Ok(ret)
 }
 
-/// Calculates the sum of a scaled array and another array.
-/// 
-/// The function scaleAdd is one of the classical primitive linear algebra operations, known as DAXPY
-/// or SAXPY in [BLAS](http://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms). It calculates
-/// the sum of a scaled array and another array:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%3D%20%5Ctexttt%7Bscale%7D%20%5Ccdot%20%5Ctexttt%7Bsrc1%7D%20%28I%29%20%2B%20%20%5Ctexttt%7Bsrc2%7D%20%28I%29)
-/// The function can also be emulated with a matrix expression, for example:
-/// ```ignore
-///    Mat A(3, 3, CV_64F);
-///    ...
-///    A.row(0) = A.row(1)*2 + A.row(2);
-/// ```
-/// 
-/// ## Parameters
-/// * src1: first input array.
-/// * alpha: scale factor for the first array.
-/// * src2: second input array of the same size and type as src1.
-/// * dst: output array of the same size and type as src1.
-/// ## See also
-/// add, addWeighted, subtract, Mat::dot, Mat::convertTo
 #[inline]
 pub fn scale_add(src1: &dyn core::ToInputArray, alpha: f64, src2: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 	input_array_arg!(src1);
@@ -6885,12 +4076,6 @@ pub fn scale_add(src1: &dyn core::ToInputArray, alpha: f64, src2: &dyn core::ToI
 	Ok(ret)
 }
 
-/// Sets/resets the break-on-error mode.
-/// 
-/// When the break-on-error mode is set, the default error handler issues a hardware exception, which
-/// can make debugging more convenient.
-/// 
-/// \return the previous state
 #[inline]
 pub fn set_break_on_error(flag: bool) -> Result<bool> {
 	return_send!(via ocvrs_return);
@@ -6900,24 +4085,6 @@ pub fn set_break_on_error(flag: bool) -> Result<bool> {
 	Ok(ret)
 }
 
-/// Initializes a scaled identity matrix.
-/// 
-/// The function cv::setIdentity initializes a scaled identity matrix:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bmtx%7D%20%28i%2Cj%29%3D%20%5Cfork%7B%5Ctexttt%7Bvalue%7D%7D%7B%20if%20%5C%28i%3Dj%5C%29%7D%7B0%7D%7Botherwise%7D)
-/// 
-/// The function can also be emulated using the matrix initializers and the
-/// matrix expressions:
-/// ```ignore
-///    Mat A = Mat::eye(4, 3, CV_32F)*5;
-///    // A will be set to [[5, 0, 0], [0, 5, 0], [0, 0, 5], [0, 0, 0]]
-/// ```
-/// 
-/// ## Parameters
-/// * mtx: matrix to initialize (not necessarily square).
-/// * s: value to assign to diagonal elements.
-/// ## See also
-/// Mat::zeros, Mat::ones, Mat::setTo, Mat::operator=
-/// 
 /// ## C++ default parameters
 /// * s: Scalar(1)
 #[inline]
@@ -6930,7 +4097,6 @@ pub fn set_identity(mtx: &mut dyn core::ToInputOutputArray, s: core::Scalar) -> 
 	Ok(ret)
 }
 
-/// @cond IGNORED
 #[inline]
 pub fn set_log_level_1(level: i32) -> Result<i32> {
 	return_send!(via ocvrs_return);
@@ -6940,25 +4106,6 @@ pub fn set_log_level_1(level: i32) -> Result<i32> {
 	Ok(ret)
 }
 
-/// OpenCV will try to set the number of threads for the next parallel region.
-/// 
-/// If threads == 0, OpenCV will disable threading optimizations and run all it's functions
-/// sequentially. Passing threads \< 0 will reset threads number to system default. This function must
-/// be called outside of parallel region.
-/// 
-/// OpenCV will try to run its functions with specified threads number, but some behaviour differs from
-/// framework:
-/// *   `TBB` - User-defined parallel constructions will run with the same threads number, if
-///    another is not specified. If later on user creates his own scheduler, OpenCV will use it.
-/// *   `OpenMP` - No special defined behaviour.
-/// *   `Concurrency` - If threads == 1, OpenCV will disable threading optimizations and run its
-///    functions sequentially.
-/// *   `GCD` - Supports only values \<= 0.
-/// *   `C=` - No special defined behaviour.
-/// ## Parameters
-/// * nthreads: Number of threads used by OpenCV.
-/// ## See also
-/// getNumThreads, getThreadNum
 #[inline]
 pub fn set_num_threads(nthreads: i32) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -6968,13 +4115,6 @@ pub fn set_num_threads(nthreads: i32) -> Result<()> {
 	Ok(ret)
 }
 
-/// Sets state of default random number generator.
-/// 
-/// The function cv::setRNGSeed sets state of default random number generator to custom value.
-/// ## Parameters
-/// * seed: new state for default random number generator
-/// ## See also
-/// RNG, randu, randn
 #[inline]
 pub fn set_rng_seed(seed: i32) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -6984,7 +4124,6 @@ pub fn set_rng_seed(seed: i32) -> Result<()> {
 	Ok(ret)
 }
 
-/// Enable/disable use of OpenVX
 #[inline]
 pub fn set_use_openvx(flag: bool) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -6994,19 +4133,6 @@ pub fn set_use_openvx(flag: bool) -> Result<()> {
 	Ok(ret)
 }
 
-/// Enables or disables the optimized code.
-/// 
-/// The function can be used to dynamically turn on and off optimized dispatched code (code that uses SSE4.2, AVX/AVX2,
-/// and other instructions on the platforms that support it). It sets a global flag that is further
-/// checked by OpenCV functions. Since the flag is not checked in the inner OpenCV loops, it is only
-/// safe to call the function on the very top level in your application where you can be sure that no
-/// other OpenCV function is currently executed.
-/// 
-/// By default, the optimized code is enabled unless you disable it in CMake. The current status can be
-/// retrieved using useOptimized.
-/// ## Parameters
-/// * onoff: The boolean flag specifying whether the optimized code should be used (onoff=true)
-/// or not (onoff=false).
 #[inline]
 pub fn set_use_optimized(onoff: bool) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -7016,20 +4142,6 @@ pub fn set_use_optimized(onoff: bool) -> Result<()> {
 	Ok(ret)
 }
 
-/// Finds the real roots of a cubic equation.
-/// 
-/// The function solveCubic finds the real roots of a cubic equation:
-/// *   if coeffs is a 4-element vector:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bcoeffs%7D%20%5B0%5D%20x%5E3%20%2B%20%20%5Ctexttt%7Bcoeffs%7D%20%5B1%5D%20x%5E2%20%2B%20%20%5Ctexttt%7Bcoeffs%7D%20%5B2%5D%20x%20%2B%20%20%5Ctexttt%7Bcoeffs%7D%20%5B3%5D%20%3D%200)
-/// *   if coeffs is a 3-element vector:
-/// ![block formula](https://latex.codecogs.com/png.latex?x%5E3%20%2B%20%20%5Ctexttt%7Bcoeffs%7D%20%5B0%5D%20x%5E2%20%2B%20%20%5Ctexttt%7Bcoeffs%7D%20%5B1%5D%20x%20%2B%20%20%5Ctexttt%7Bcoeffs%7D%20%5B2%5D%20%3D%200)
-/// 
-/// The roots are stored in the roots array.
-/// ## Parameters
-/// * coeffs: equation coefficients, an array of 3 or 4 elements.
-/// * roots: output array of real roots that has 1 or 3 elements.
-/// ## Returns
-/// number of real roots. It can be 0, 1 or 2.
 #[inline]
 pub fn solve_cubic(coeffs: &dyn core::ToInputArray, roots: &mut dyn core::ToOutputArray) -> Result<i32> {
 	input_array_arg!(coeffs);
@@ -7041,35 +4153,6 @@ pub fn solve_cubic(coeffs: &dyn core::ToInputArray, roots: &mut dyn core::ToOutp
 	Ok(ret)
 }
 
-/// Solve given (non-integer) linear programming problem using the Simplex Algorithm (Simplex Method).
-/// 
-/// What we mean here by "linear programming problem" (or LP problem, for short) can be formulated as:
-/// 
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Cmbox%7BMaximize%20%7D%20c%5Ccdot%20x%5C%5C%0A%20%5Cmbox%7BSubject%20to%3A%7D%5C%5C%0A%20Ax%5Cleq%20b%5C%5C%0A%20x%5Cgeq%200)
-/// 
-/// Where ![inline formula](https://latex.codecogs.com/png.latex?c) is fixed `1`-by-`n` row-vector, ![inline formula](https://latex.codecogs.com/png.latex?A) is fixed `m`-by-`n` matrix, ![inline formula](https://latex.codecogs.com/png.latex?b) is fixed `m`-by-`1`
-/// column vector and ![inline formula](https://latex.codecogs.com/png.latex?x) is an arbitrary `n`-by-`1` column vector, which satisfies the constraints.
-/// 
-/// Simplex algorithm is one of many algorithms that are designed to handle this sort of problems
-/// efficiently. Although it is not optimal in theoretical sense (there exist algorithms that can solve
-/// any problem written as above in polynomial time, while simplex method degenerates to exponential
-/// time for some special cases), it is well-studied, easy to implement and is shown to work well for
-/// real-life purposes.
-/// 
-/// The particular implementation is taken almost verbatim from **Introduction to Algorithms, third
-/// edition** by T. H. Cormen, C. E. Leiserson, R. L. Rivest and Clifford Stein. In particular, the
-/// Bland's rule <http://en.wikipedia.org/wiki/Bland%27s_rule> is used to prevent cycling.
-/// 
-/// ## Parameters
-/// * Func: This row-vector corresponds to ![inline formula](https://latex.codecogs.com/png.latex?c) in the LP problem formulation (see above). It should
-/// contain 32- or 64-bit floating point numbers. As a convenience, column-vector may be also submitted,
-/// in the latter case it is understood to correspond to ![inline formula](https://latex.codecogs.com/png.latex?c%5ET).
-/// * Constr: `m`-by-`n+1` matrix, whose rightmost column corresponds to ![inline formula](https://latex.codecogs.com/png.latex?b) in formulation above
-/// and the remaining to ![inline formula](https://latex.codecogs.com/png.latex?A). It should contain 32- or 64-bit floating point numbers.
-/// * z: The solution will be returned here as a column-vector - it corresponds to ![inline formula](https://latex.codecogs.com/png.latex?c) in the
-/// formulation above. It will contain 64-bit floating point numbers.
-/// ## Returns
-/// One of cv::SolveLPResult
 #[inline]
 pub fn solve_lp(func: &dyn core::ToInputArray, constr: &dyn core::ToInputArray, z: &mut dyn core::ToOutputArray) -> Result<i32> {
 	input_array_arg!(func);
@@ -7082,15 +4165,6 @@ pub fn solve_lp(func: &dyn core::ToInputArray, constr: &dyn core::ToInputArray, 
 	Ok(ret)
 }
 
-/// Finds the real or complex roots of a polynomial equation.
-/// 
-/// The function cv::solvePoly finds real and complex roots of a polynomial equation:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bcoeffs%7D%20%5Bn%5D%20x%5E%7Bn%7D%20%2B%20%20%5Ctexttt%7Bcoeffs%7D%20%5Bn%2D1%5D%20x%5E%7Bn%2D1%7D%20%2B%20%2E%2E%2E%20%2B%20%20%5Ctexttt%7Bcoeffs%7D%20%5B1%5D%20x%20%2B%20%20%5Ctexttt%7Bcoeffs%7D%20%5B0%5D%20%3D%200)
-/// ## Parameters
-/// * coeffs: array of polynomial coefficients.
-/// * roots: output (complex) array of roots.
-/// * maxIters: maximum number of iterations the algorithm does.
-/// 
 /// ## C++ default parameters
 /// * max_iters: 300
 #[inline]
@@ -7104,31 +4178,6 @@ pub fn solve_poly(coeffs: &dyn core::ToInputArray, roots: &mut dyn core::ToOutpu
 	Ok(ret)
 }
 
-/// Solves one or more linear systems or least-squares problems.
-/// 
-/// The function cv::solve solves a linear system or least-squares problem (the
-/// latter is possible with SVD or QR methods, or by specifying the flag
-/// #DECOMP_NORMAL ):
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%3D%20%20%5Carg%20%5Cmin%20%5FX%20%5C%7C%20%5Ctexttt%7Bsrc1%7D%20%5Ccdot%20%5Ctexttt%7BX%7D%20%2D%20%20%5Ctexttt%7Bsrc2%7D%20%5C%7C)
-/// 
-/// If #DECOMP_LU or #DECOMP_CHOLESKY method is used, the function returns 1
-/// if src1 (or ![inline formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bsrc1%7D%5ET%5Ctexttt%7Bsrc1%7D) ) is non-singular. Otherwise,
-/// it returns 0. In the latter case, dst is not valid. Other methods find a
-/// pseudo-solution in case of a singular left-hand side part.
-/// 
-/// 
-/// Note: If you want to find a unity-norm solution of an under-defined
-/// singular system ![inline formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bsrc1%7D%5Ccdot%5Ctexttt%7Bdst%7D%3D0) , the function solve
-/// will not do the work. Use SVD::solveZ instead.
-/// 
-/// ## Parameters
-/// * src1: input matrix on the left-hand side of the system.
-/// * src2: input matrix on the right-hand side of the system.
-/// * dst: output solution.
-/// * flags: solution (matrix inversion) method (#DecompTypes)
-/// ## See also
-/// invert, SVD, eigen
-/// 
 /// ## C++ default parameters
 /// * flags: DECOMP_LU
 #[inline]
@@ -7143,26 +4192,6 @@ pub fn solve(src1: &dyn core::ToInputArray, src2: &dyn core::ToInputArray, dst: 
 	Ok(ret)
 }
 
-/// Sorts each row or each column of a matrix.
-/// 
-/// The function cv::sortIdx sorts each matrix row or each matrix column in the
-/// ascending or descending order. So you should pass two operation flags to
-/// get desired behaviour. Instead of reordering the elements themselves, it
-/// stores the indices of sorted elements in the output array. For example:
-/// ```ignore
-///    Mat A = Mat::eye(3,3,CV_32F), B;
-///    sortIdx(A, B, SORT_EVERY_ROW + SORT_ASCENDING);
-///    // B will probably contain
-///    // (because of equal elements in A some permutations are possible):
-///    // [[1, 2, 0], [0, 2, 1], [0, 1, 2]]
-/// ```
-/// 
-/// ## Parameters
-/// * src: input single-channel array.
-/// * dst: output integer array of the same size as src.
-/// * flags: operation flags that could be a combination of cv::SortFlags
-/// ## See also
-/// sort, randShuffle
 #[inline]
 pub fn sort_idx(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray, flags: i32) -> Result<()> {
 	input_array_arg!(src);
@@ -7174,20 +4203,6 @@ pub fn sort_idx(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray,
 	Ok(ret)
 }
 
-/// Sorts each row or each column of a matrix.
-/// 
-/// The function cv::sort sorts each matrix row or each matrix column in
-/// ascending or descending order. So you should pass two operation flags to
-/// get desired behaviour. If you want to sort matrix rows or columns
-/// lexicographically, you can use STL std::sort generic function with the
-/// proper comparison predicate.
-/// 
-/// ## Parameters
-/// * src: input single-channel array.
-/// * dst: output array of the same size and type as src.
-/// * flags: operation flags, a combination of #SortFlags
-/// ## See also
-/// sortIdx, randShuffle
 #[inline]
 pub fn sort(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray, flags: i32) -> Result<()> {
 	input_array_arg!(src);
@@ -7199,22 +4214,6 @@ pub fn sort(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray, fla
 	Ok(ret)
 }
 
-/// Divides a multi-channel array into several single-channel arrays.
-/// 
-/// The function cv::split splits a multi-channel array into separate single-channel arrays:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bmv%7D%20%5Bc%5D%28I%29%20%3D%20%20%5Ctexttt%7Bsrc%7D%20%28I%29%5Fc)
-/// If you need to extract a single channel or do some other sophisticated channel permutation, use
-/// mixChannels .
-/// 
-/// The following example demonstrates how to split a 3-channel matrix into 3 single channel matrices.
-/// [example](https://github.com/opencv/opencv/blob/4.6.0/samples/cpp/tutorial_code/snippets/core_split.cpp#L1)
-/// 
-/// ## Parameters
-/// * src: input multi-channel array.
-/// * mvbegin: output array; the number of arrays must match src.channels(); the arrays themselves are
-/// reallocated, if needed.
-/// ## See also
-/// merge, mixChannels, cvtColor
 #[inline]
 pub fn split_slice(src: &core::Mat, mvbegin: &mut core::Mat) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -7224,27 +4223,6 @@ pub fn split_slice(src: &core::Mat, mvbegin: &mut core::Mat) -> Result<()> {
 	Ok(ret)
 }
 
-/// Divides a multi-channel array into several single-channel arrays.
-/// 
-/// The function cv::split splits a multi-channel array into separate single-channel arrays:
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bmv%7D%20%5Bc%5D%28I%29%20%3D%20%20%5Ctexttt%7Bsrc%7D%20%28I%29%5Fc)
-/// If you need to extract a single channel or do some other sophisticated channel permutation, use
-/// mixChannels .
-/// 
-/// The following example demonstrates how to split a 3-channel matrix into 3 single channel matrices.
-/// [example](https://github.com/opencv/opencv/blob/4.6.0/samples/cpp/tutorial_code/snippets/core_split.cpp#L1)
-/// 
-/// ## Parameters
-/// * src: input multi-channel array.
-/// * mvbegin: output array; the number of arrays must match src.channels(); the arrays themselves are
-/// reallocated, if needed.
-/// ## See also
-/// merge, mixChannels, cvtColor
-/// 
-/// ## Overloaded parameters
-/// 
-/// * m: input multi-channel array.
-/// * mv: output vector of arrays; the arrays themselves are reallocated, if needed.
 #[inline]
 pub fn split(m: &dyn core::ToInputArray, mv: &mut dyn core::ToOutputArray) -> Result<()> {
 	input_array_arg!(m);
@@ -7256,15 +4234,6 @@ pub fn split(m: &dyn core::ToInputArray, mv: &mut dyn core::ToOutputArray) -> Re
 	Ok(ret)
 }
 
-/// Calculates a square root of array elements.
-/// 
-/// The function cv::sqrt calculates a square root of each input array element.
-/// In case of multi-channel arrays, each channel is processed
-/// independently. The accuracy is approximately the same as of the built-in
-/// std::sqrt .
-/// ## Parameters
-/// * src: input floating-point array.
-/// * dst: output array of the same size and type as src.
 #[inline]
 pub fn sqrt(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 	input_array_arg!(src);
@@ -7276,47 +4245,6 @@ pub fn sqrt(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray) -> 
 	Ok(ret)
 }
 
-/// Calculates the per-element difference between two arrays or array and a scalar.
-/// 
-/// The function subtract calculates:
-/// - Difference between two arrays, when both input arrays have the same size and the same number of
-/// channels:
-///    ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%28I%29%20%3D%20%20%5Ctexttt%7Bsaturate%7D%20%28%20%5Ctexttt%7Bsrc1%7D%28I%29%20%2D%20%20%5Ctexttt%7Bsrc2%7D%28I%29%29%20%5Cquad%20%5Ctexttt%7Bif%20mask%7D%28I%29%20%5Cne0)
-/// - Difference between an array and a scalar, when src2 is constructed from Scalar or has the same
-/// number of elements as `src1.channels()`:
-///    ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%28I%29%20%3D%20%20%5Ctexttt%7Bsaturate%7D%20%28%20%5Ctexttt%7Bsrc1%7D%28I%29%20%2D%20%20%5Ctexttt%7Bsrc2%7D%20%29%20%5Cquad%20%5Ctexttt%7Bif%20mask%7D%28I%29%20%5Cne0)
-/// - Difference between a scalar and an array, when src1 is constructed from Scalar or has the same
-/// number of elements as `src2.channels()`:
-///    ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%28I%29%20%3D%20%20%5Ctexttt%7Bsaturate%7D%20%28%20%5Ctexttt%7Bsrc1%7D%20%2D%20%20%5Ctexttt%7Bsrc2%7D%28I%29%20%29%20%5Cquad%20%5Ctexttt%7Bif%20mask%7D%28I%29%20%5Cne0)
-/// - The reverse difference between a scalar and an array in the case of `SubRS`:
-///    ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%28I%29%20%3D%20%20%5Ctexttt%7Bsaturate%7D%20%28%20%5Ctexttt%7Bsrc2%7D%20%2D%20%20%5Ctexttt%7Bsrc1%7D%28I%29%20%29%20%5Cquad%20%5Ctexttt%7Bif%20mask%7D%28I%29%20%5Cne0)
-/// where I is a multi-dimensional index of array elements. In case of multi-channel arrays, each
-/// channel is processed independently.
-/// 
-/// The first function in the list above can be replaced with matrix expressions:
-/// ```ignore
-///    dst = src1 - src2;
-///    dst -= src1; // equivalent to subtract(dst, src1, dst);
-/// ```
-/// 
-/// The input arrays and the output array can all have the same or different depths. For example, you
-/// can subtract to 8-bit unsigned arrays and store the difference in a 16-bit signed array. Depth of
-/// the output array is determined by dtype parameter. In the second and third cases above, as well as
-/// in the first case, when src1.depth() == src2.depth(), dtype can be set to the default -1. In this
-/// case the output array will have the same depth as the input array, be it src1, src2 or both.
-/// 
-/// Note: Saturation is not applied when the output array has the depth CV_32S. You may even get
-/// result of an incorrect sign in the case of overflow.
-/// ## Parameters
-/// * src1: first input array or a scalar.
-/// * src2: second input array or a scalar.
-/// * dst: output array of the same size and the same number of channels as the input array.
-/// * mask: optional operation mask; this is an 8-bit single channel array that specifies elements
-/// of the output array to be changed.
-/// * dtype: optional depth of the output array
-/// ## See also
-/// add, addWeighted, scaleAdd, Mat::convertTo
-/// 
 /// ## C++ default parameters
 /// * mask: noArray()
 /// * dtype: -1
@@ -7333,14 +4261,6 @@ pub fn subtract(src1: &dyn core::ToInputArray, src2: &dyn core::ToInputArray, ds
 	Ok(ret)
 }
 
-/// Calculates the sum of array elements.
-/// 
-/// The function cv::sum calculates and returns the sum of array elements,
-/// independently for each channel.
-/// ## Parameters
-/// * src: input array that must have from 1 to 4 channels.
-/// ## See also
-/// countNonZero, mean, meanStdDev, norm, minMaxLoc, reduce
 #[inline]
 pub fn sum_elems(src: &dyn core::ToInputArray) -> Result<core::Scalar> {
 	input_array_arg!(src);
@@ -7351,7 +4271,6 @@ pub fn sum_elems(src: &dyn core::ToInputArray) -> Result<core::Scalar> {
 	Ok(ret)
 }
 
-/// Swaps two matrices
 #[inline]
 pub fn swap(a: &mut core::Mat, b: &mut core::Mat) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -7361,9 +4280,6 @@ pub fn swap(a: &mut core::Mat, b: &mut core::Mat) -> Result<()> {
 	Ok(ret)
 }
 
-/// Swaps two matrices
-/// 
-/// ## Overloaded parameters
 #[inline]
 pub fn swap_umat(a: &mut core::UMat, b: &mut core::UMat) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -7386,15 +4302,6 @@ pub fn tempfile(suffix: &str) -> Result<String> {
 	Ok(ret)
 }
 
-/// Returns the default random number generator.
-/// 
-/// The function cv::theRNG returns the default random number generator. For each thread, there is a
-/// separate random number generator, so you can use the function safely in multi-thread environments.
-/// If you just need to get a single random number using this generator or initialize an array, you can
-/// use randu or randn instead. But if you are going to generate many random numbers inside a loop, it
-/// is much faster to use this function to retrieve the generator and then use RNG::operator _Tp() .
-/// ## See also
-/// RNG, randu, randn
 #[inline]
 pub fn the_rng() -> Result<core::RNG> {
 	return_send!(via ocvrs_return);
@@ -7405,13 +4312,6 @@ pub fn the_rng() -> Result<core::RNG> {
 	Ok(ret)
 }
 
-/// Returns the trace of a matrix.
-/// 
-/// The function cv::trace returns the sum of the diagonal elements of the
-/// matrix mtx .
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Cmathrm%7Btr%7D%20%28%20%5Ctexttt%7Bmtx%7D%20%29%20%3D%20%20%5Csum%20%5Fi%20%20%5Ctexttt%7Bmtx%7D%20%28i%2Ci%29)
-/// ## Parameters
-/// * mtx: input matrix.
 #[inline]
 pub fn trace(mtx: &dyn core::ToInputArray) -> Result<core::Scalar> {
 	input_array_arg!(mtx);
@@ -7422,31 +4322,6 @@ pub fn trace(mtx: &dyn core::ToInputArray) -> Result<core::Scalar> {
 	Ok(ret)
 }
 
-/// Performs the matrix transformation of every array element.
-/// 
-/// The function cv::transform performs the matrix transformation of every
-/// element of the array src and stores the results in dst :
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%20%3D%20%20%5Ctexttt%7Bm%7D%20%5Ccdot%20%5Ctexttt%7Bsrc%7D%20%28I%29)
-/// (when m.cols=src.channels() ), or
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28I%29%20%3D%20%20%5Ctexttt%7Bm%7D%20%5Ccdot%20%5B%20%5Ctexttt%7Bsrc%7D%20%28I%29%3B%201%5D)
-/// (when m.cols=src.channels()+1 )
-/// 
-/// Every element of the N -channel array src is interpreted as N -element
-/// vector that is transformed using the M x N or M x (N+1) matrix m to
-/// M-element vector - the corresponding element of the output array dst .
-/// 
-/// The function may be used for geometrical transformation of
-/// N -dimensional points, arbitrary linear color space transformation (such
-/// as various kinds of RGB to YUV transforms), shuffling the image
-/// channels, and so forth.
-/// ## Parameters
-/// * src: input array that must have as many channels (1 to 4) as
-/// m.cols or m.cols-1.
-/// * dst: output array of the same size and depth as src; it has as
-/// many channels as m.rows.
-/// * m: transformation 2x2 or 2x3 floating-point matrix.
-/// ## See also
-/// perspectiveTransform, getAffineTransform, estimateAffine2D, warpAffine, warpPerspective
 #[inline]
 pub fn transform(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray, m: &dyn core::ToInputArray) -> Result<()> {
 	input_array_arg!(src);
@@ -7459,15 +4334,6 @@ pub fn transform(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray
 	Ok(ret)
 }
 
-/// Transpose for n-dimensional matrices.
-/// 
-/// 
-/// Note: Input should be continuous single-channel matrix.
-/// ## Parameters
-/// * src: input array.
-/// * order: a permutation of [0,1,..,N-1] where N is the number of axes of src.
-/// The i’th axis of dst will correspond to the axis numbered order[i] of the input.
-/// * dst: output array of the same type as src.
 #[inline]
 pub fn transpose_nd(src: &dyn core::ToInputArray, order: &core::Vector<i32>, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 	input_array_arg!(src);
@@ -7479,16 +4345,6 @@ pub fn transpose_nd(src: &dyn core::ToInputArray, order: &core::Vector<i32>, dst
 	Ok(ret)
 }
 
-/// Transposes a matrix.
-/// 
-/// The function cv::transpose transposes the matrix src :
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bdst%7D%20%28i%2Cj%29%20%3D%20%20%5Ctexttt%7Bsrc%7D%20%28j%2Ci%29)
-/// 
-/// Note: No complex conjugation is done in case of a complex matrix. It
-/// should be done separately if needed.
-/// ## Parameters
-/// * src: input array.
-/// * dst: output array of the same type as src.
 #[inline]
 pub fn transpose(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 	input_array_arg!(src);
@@ -7500,7 +4356,6 @@ pub fn transpose(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray
 	Ok(ret)
 }
 
-/// Returns string of cv::Mat depth value: CV_8UC3 -> "CV_8UC3" or "<invalid type>"
 #[inline]
 pub fn type_to_string(typ: i32) -> Result<String> {
 	return_send!(via ocvrs_return);
@@ -7511,7 +4366,6 @@ pub fn type_to_string(typ: i32) -> Result<String> {
 	Ok(ret)
 }
 
-/// Check if use of OpenVX is enabled
 #[inline]
 pub fn use_openvx() -> Result<bool> {
 	return_send!(via ocvrs_return);
@@ -7521,9 +4375,6 @@ pub fn use_openvx() -> Result<bool> {
 	Ok(ret)
 }
 
-/// Returns the status of optimized code usage.
-/// 
-/// The function returns true if the optimized code is enabled. Otherwise, it returns false.
 #[inline]
 pub fn use_optimized() -> Result<bool> {
 	return_send!(via ocvrs_return);
@@ -7765,7 +4616,6 @@ pub fn get_thread_id() -> Result<i32> {
 	Ok(ret)
 }
 
-/// Get global logging level
 #[inline]
 pub fn get_log_level() -> Result<core::LogLevel> {
 	return_send!(via ocvrs_return);
@@ -7785,7 +4635,6 @@ pub fn get_log_tag_level(tag: &str) -> Result<core::LogLevel> {
 	Ok(ret)
 }
 
-/// Get global log tag
 #[inline]
 pub fn get_global_log_tag() -> Result<core::LogTag> {
 	return_send!(via ocvrs_return);
@@ -7796,7 +4645,6 @@ pub fn get_global_log_tag() -> Result<core::LogTag> {
 	Ok(ret)
 }
 
-/// Write log message
 #[inline]
 pub fn write_log_message_ex(log_level: core::LogLevel, tag: &str, file: &str, line: i32, func: &str, message: &str) -> Result<()> {
 	extern_container_arg!(tag);
@@ -7810,7 +4658,6 @@ pub fn write_log_message_ex(log_level: core::LogLevel, tag: &str, file: &str, li
 	Ok(ret)
 }
 
-/// Write log message
 #[inline]
 pub fn write_log_message(log_level: core::LogLevel, message: &str) -> Result<()> {
 	extern_container_arg!(message);
@@ -7830,9 +4677,6 @@ pub fn register_log_tag(plogtag: &mut core::LogTag) -> Result<()> {
 	Ok(ret)
 }
 
-/// Set global logging level
-/// ## Returns
-/// previous logging level
 #[inline]
 pub fn set_log_level(log_level: core::LogLevel) -> Result<core::LogLevel> {
 	return_send!(via ocvrs_return);
@@ -7955,12 +4799,6 @@ pub fn test_rotated_rect(x: f32, y: f32, w: f32, h: f32, angle: f32) -> Result<c
 	Ok(ret)
 }
 
-/// Converts VASurfaceID object to OutputArray.
-/// ## Parameters
-/// * display: - VADisplay object.
-/// * surface: - source VASurfaceID object.
-/// * size: - size of image represented by VASurfaceID object.
-/// * dst: - destination OutputArray.
 #[inline]
 pub unsafe fn convert_from_va_surface(display: core::va_display, surface: core::va_surface_id, size: core::Size, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 	output_array_arg!(dst);
@@ -7971,12 +4809,6 @@ pub unsafe fn convert_from_va_surface(display: core::va_display, surface: core::
 	Ok(ret)
 }
 
-/// Converts InputArray to VASurfaceID object.
-/// ## Parameters
-/// * display: - VADisplay object.
-/// * src: - source InputArray.
-/// * surface: - destination VASurfaceID object.
-/// * size: - size of image represented by VASurfaceID object.
 #[inline]
 pub unsafe fn convert_to_va_surface(display: core::va_display, src: &dyn core::ToInputArray, surface: core::va_surface_id, size: core::Size) -> Result<()> {
 	input_array_arg!(src);
@@ -7987,13 +4819,6 @@ pub unsafe fn convert_to_va_surface(display: core::va_display, src: &dyn core::T
 	Ok(ret)
 }
 
-/// Creates OpenCL context from VA.
-/// ## Parameters
-/// * display: - VADisplay for which CL interop should be established.
-/// * tryInterop: - try to set up for interoperability, if true; set up for use slow copy if false.
-/// ## Returns
-/// Returns reference to OpenCL Context
-/// 
 /// ## C++ default parameters
 /// * try_interop: true
 #[inline]
@@ -8006,53 +4831,6 @@ pub unsafe fn initialize_context_from_va(display: core::va_display, try_interop:
 	Ok(ret)
 }
 
-/// Applies vertical concatenation to given matrices.
-/// 
-/// The function vertically concatenates two or more cv::Mat matrices (with the same number of cols).
-/// ```ignore
-///    cv::Mat matArray[] = { cv::Mat(1, 4, CV_8UC1, cv::Scalar(1)),
-///                            cv::Mat(1, 4, CV_8UC1, cv::Scalar(2)),
-///                            cv::Mat(1, 4, CV_8UC1, cv::Scalar(3)),};
-/// 
-///    cv::Mat out;
-///    cv::vconcat( matArray, 3, out );
-///    //out:
-///    //[1,   1,   1,   1;
-///    // 2,   2,   2,   2;
-///    // 3,   3,   3,   3]
-/// ```
-/// 
-/// ## Parameters
-/// * src: input array or vector of matrices. all of the matrices must have the same number of cols and the same depth.
-/// * nsrc: number of matrices in src.
-/// * dst: output array. It has the same number of cols and depth as the src, and the sum of rows of the src.
-/// ## See also
-/// cv::hconcat(const Mat*, size_t, OutputArray), cv::hconcat(InputArrayOfArrays, OutputArray) and cv::hconcat(InputArray, InputArray, OutputArray)
-/// 
-/// ## Overloaded parameters
-/// 
-///  ```ignore
-///    cv::Mat_<float> A = (cv::Mat_<float>(3, 2) << 1, 7,
-///                                                   2, 8,
-///                                                   3, 9);
-///    cv::Mat_<float> B = (cv::Mat_<float>(3, 2) << 4, 10,
-///                                                   5, 11,
-///                                                   6, 12);
-/// 
-///    cv::Mat C;
-///    cv::vconcat(A, B, C);
-///    //C:
-///    //[1, 7;
-///    // 2, 8;
-///    // 3, 9;
-///    // 4, 10;
-///    // 5, 11;
-///    // 6, 12]
-///  ```
-/// 
-/// * src1: first input array to be considered for vertical concatenation.
-/// * src2: second input array to be considered for vertical concatenation.
-/// * dst: output array. It has the same number of cols and depth as the src1 and src2, and the sum of rows of the src1 and src2.
 #[inline]
 pub fn vconcat2(src1: &dyn core::ToInputArray, src2: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 	input_array_arg!(src1);
@@ -8065,47 +4843,6 @@ pub fn vconcat2(src1: &dyn core::ToInputArray, src2: &dyn core::ToInputArray, ds
 	Ok(ret)
 }
 
-/// Applies vertical concatenation to given matrices.
-/// 
-/// The function vertically concatenates two or more cv::Mat matrices (with the same number of cols).
-/// ```ignore
-///    cv::Mat matArray[] = { cv::Mat(1, 4, CV_8UC1, cv::Scalar(1)),
-///                            cv::Mat(1, 4, CV_8UC1, cv::Scalar(2)),
-///                            cv::Mat(1, 4, CV_8UC1, cv::Scalar(3)),};
-/// 
-///    cv::Mat out;
-///    cv::vconcat( matArray, 3, out );
-///    //out:
-///    //[1,   1,   1,   1;
-///    // 2,   2,   2,   2;
-///    // 3,   3,   3,   3]
-/// ```
-/// 
-/// ## Parameters
-/// * src: input array or vector of matrices. all of the matrices must have the same number of cols and the same depth.
-/// * nsrc: number of matrices in src.
-/// * dst: output array. It has the same number of cols and depth as the src, and the sum of rows of the src.
-/// ## See also
-/// cv::hconcat(const Mat*, size_t, OutputArray), cv::hconcat(InputArrayOfArrays, OutputArray) and cv::hconcat(InputArray, InputArray, OutputArray)
-/// 
-/// ## Overloaded parameters
-/// 
-///  ```ignore
-///    std::vector<cv::Mat> matrices = { cv::Mat(1, 4, CV_8UC1, cv::Scalar(1)),
-///                                       cv::Mat(1, 4, CV_8UC1, cv::Scalar(2)),
-///                                       cv::Mat(1, 4, CV_8UC1, cv::Scalar(3)),};
-/// 
-///    cv::Mat out;
-///    cv::vconcat( matrices, out );
-///    //out:
-///    //[1,   1,   1,   1;
-///    // 2,   2,   2,   2;
-///    // 3,   3,   3,   3]
-///  ```
-/// 
-/// * src: input array or vector of matrices. all of the matrices must have the same number of cols and the same depth
-/// * dst: output array. It has the same number of cols and depth as the src, and the sum of rows of the src.
-/// same depth.
 #[inline]
 pub fn vconcat(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 	input_array_arg!(src);
@@ -8225,7 +4962,6 @@ pub fn write_f32(fs: &mut core::FileStorage, name: &str, value: f32) -> Result<(
 	Ok(ret)
 }
 
-/// @relates cv::FileStorage
 #[inline]
 pub fn write_i32(fs: &mut core::FileStorage, name: &str, value: i32) -> Result<()> {
 	extern_container_arg!(name);
@@ -8236,20 +4972,9 @@ pub fn write_i32(fs: &mut core::FileStorage, name: &str, value: i32) -> Result<(
 	Ok(ret)
 }
 
-/// This is a base class for all more or less complex algorithms in OpenCV
-/// 
-/// especially for classes of algorithms, for which there can be multiple implementations. The examples
-/// are stereo correspondence (for which there are algorithms like block matching, semi-global block
-/// matching, graph-cut etc.), background subtraction (which can be done using mixture-of-gaussians
-/// models, codebook-based algorithm etc.), optical flow (block matching, Lucas-Kanade, Horn-Schunck
-/// etc.).
-/// 
-/// Here is example of SimpleBlobDetector use in your application via Algorithm interface:
-/// [Algorithm](https://github.com/opencv/opencv/blob/4.6.0/samples/cpp/tutorial_code/snippets/core_various.cpp#L1)
 pub trait AlgorithmTraitConst {
 	fn as_raw_Algorithm(&self) -> *const c_void;
 
-	/// Stores algorithm parameters in a file storage
 	#[inline]
 	fn write(&self, fs: &mut core::FileStorage) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -8259,11 +4984,6 @@ pub trait AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// simplified API for language bindings
-	///  Stores algorithm parameters in a file storage
-	/// 
-	/// ## Overloaded parameters
-	/// 
 	/// ## C++ default parameters
 	/// * name: String()
 	#[inline]
@@ -8276,7 +4996,6 @@ pub trait AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns true if the Algorithm is empty (e.g. in the very beginning or after unsuccessful read
 	#[inline]
 	fn empty(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -8286,8 +5005,6 @@ pub trait AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Saves the algorithm to a file.
-	/// In order to make this method work, the derived class must implement Algorithm::write(FileStorage& fs).
 	#[inline]
 	fn save(&self, filename: &str) -> Result<()> {
 		extern_container_arg!(filename);
@@ -8298,8 +5015,6 @@ pub trait AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns the algorithm string identifier.
-	/// This string is used as top level xml/yml node tag when the object is saved to a file or string.
 	#[inline]
 	fn get_default_name(&self) -> Result<String> {
 		return_send!(via ocvrs_return);
@@ -8315,7 +5030,6 @@ pub trait AlgorithmTraitConst {
 pub trait AlgorithmTrait: core::AlgorithmTraitConst {
 	fn as_raw_mut_Algorithm(&mut self) -> *mut c_void;
 
-	/// Clears the algorithm state
 	#[inline]
 	fn clear(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -8325,7 +5039,6 @@ pub trait AlgorithmTrait: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Reads algorithm parameters from a file storage
 	#[inline]
 	fn read(&mut self, fn_: &core::FileNode) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -8337,16 +5050,6 @@ pub trait AlgorithmTrait: core::AlgorithmTraitConst {
 	
 }
 
-/// This is a base class for all more or less complex algorithms in OpenCV
-/// 
-/// especially for classes of algorithms, for which there can be multiple implementations. The examples
-/// are stereo correspondence (for which there are algorithms like block matching, semi-global block
-/// matching, graph-cut etc.), background subtraction (which can be done using mixture-of-gaussians
-/// models, codebook-based algorithm etc.), optical flow (block matching, Lucas-Kanade, Horn-Schunck
-/// etc.).
-/// 
-/// Here is example of SimpleBlobDetector use in your application via Algorithm interface:
-/// [Algorithm](https://github.com/opencv/opencv/blob/4.6.0/samples/cpp/tutorial_code/snippets/core_various.cpp#L1)
 pub struct Algorithm {
 	ptr: *mut c_void
 }
@@ -8383,26 +5086,9 @@ impl Algorithm {
 	
 }
 
-/// Returns result of asynchronous operations
-/// 
-/// Object has attached asynchronous state.
-/// Assignment operator doesn't clone asynchronous state (it is shared between all instances).
-/// 
-/// Result can be fetched via get() method only once.
 pub trait AsyncArrayTraitConst {
 	fn as_raw_AsyncArray(&self) -> *const c_void;
 
-	/// Fetch the result.
-	/// ## Parameters
-	/// * dst:[out] destination array
-	/// 
-	/// Waits for result until container has valid result.
-	/// Throws exception if exception was stored as a result.
-	/// 
-	/// Throws exception on invalid container state.
-	/// 
-	/// 
-	/// Note: Result or stored exception can be fetched only once.
 	#[inline]
 	fn get(&self, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 		output_array_arg!(dst);
@@ -8413,16 +5099,6 @@ pub trait AsyncArrayTraitConst {
 		Ok(ret)
 	}
 	
-	/// Retrieving the result with timeout
-	/// ## Parameters
-	/// * dst:[out] destination array
-	/// * timeoutNs: timeout in nanoseconds, -1 for infinite wait
-	/// 
-	/// ## Returns
-	/// true if result is ready, false if the timeout has expired
-	/// 
-	/// 
-	/// Note: Result or stored exception can be fetched only once.
 	#[inline]
 	fn get_with_timeout(&self, dst: &mut dyn core::ToOutputArray, timeout_ns: i64) -> Result<bool> {
 		output_array_arg!(dst);
@@ -8480,12 +5156,6 @@ pub trait AsyncArrayTrait: core::AsyncArrayTraitConst {
 	
 }
 
-/// Returns result of asynchronous operations
-/// 
-/// Object has attached asynchronous state.
-/// Assignment operator doesn't clone asynchronous state (it is shared between all instances).
-/// 
-/// Result can be fetched via get() method only once.
 pub struct AsyncArray {
 	ptr: *mut c_void
 }
@@ -8544,7 +5214,6 @@ impl Default for AsyncArray {
 	}
 }
 
-/// Provides result of asynchronous operations
 pub trait AsyncPromiseTraitConst {
 	fn as_raw_AsyncPromise(&self) -> *const c_void;
 
@@ -8565,9 +5234,6 @@ pub trait AsyncPromiseTrait: core::AsyncPromiseTraitConst {
 		ret
 	}
 	
-	/// Returns associated AsyncArray
-	/// 
-	/// Note: Can be called once
 	#[inline]
 	fn get_array_result(&mut self) -> Result<core::AsyncArray> {
 		return_send!(via ocvrs_return);
@@ -8578,9 +5244,6 @@ pub trait AsyncPromiseTrait: core::AsyncPromiseTraitConst {
 		Ok(ret)
 	}
 	
-	/// Stores asynchronous result.
-	/// ## Parameters
-	/// * value: result
 	#[inline]
 	fn set_value(&mut self, value: &dyn core::ToInputArray) -> Result<()> {
 		input_array_arg!(value);
@@ -8591,9 +5254,6 @@ pub trait AsyncPromiseTrait: core::AsyncPromiseTraitConst {
 		Ok(ret)
 	}
 	
-	/// Stores exception.
-	/// ## Parameters
-	/// * exception: exception to be raised in AsyncArray
 	#[inline]
 	fn set_exception(&mut self, exception: &core::Exception) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -8605,7 +5265,6 @@ pub trait AsyncPromiseTrait: core::AsyncPromiseTraitConst {
 	
 }
 
-/// Provides result of asynchronous operations
 pub struct AsyncPromise {
 	ptr: *mut c_void
 }
@@ -8664,98 +5323,9 @@ impl Default for AsyncPromise {
 	}
 }
 
-/// Designed for command line parsing
-/// 
-/// The sample below demonstrates how to use CommandLineParser:
-/// ```ignore
-///    CommandLineParser parser(argc, argv, keys);
-///    parser.about("Application name v1.0.0");
-/// 
-///    if (parser.has("help"))
-///    {
-///        parser.printMessage();
-///        return 0;
-///    }
-/// 
-///    int N = parser.get<int>("N");
-///    double fps = parser.get<double>("fps");
-///    String path = parser.get<String>("path");
-/// 
-///    use_time_stamp = parser.has("timestamp");
-/// 
-///    String img1 = parser.get<String>(0);
-///    String img2 = parser.get<String>(1);
-/// 
-///    int repeat = parser.get<int>(2);
-/// 
-///    if (!parser.check())
-///    {
-///        parser.printErrors();
-///        return 0;
-///    }
-/// ```
-/// 
-/// 
-/// ### Keys syntax
-/// 
-/// The keys parameter is a string containing several blocks, each one is enclosed in curly braces and
-/// describes one argument. Each argument contains three parts separated by the `|` symbol:
-/// 
-/// -# argument names is a space-separated list of option synonyms (to mark argument as positional, prefix it with the `@` symbol)
-/// -# default value will be used if the argument was not provided (can be empty)
-/// -# help message (can be empty)
-/// 
-/// For example:
-/// 
-/// ```ignore
-///    const String keys =
-///        "{help h usage ? |      | print this message   }"
-///        "{@image1        |      | image1 for compare   }"
-///        "{@image2        |<none>| image2 for compare   }"
-///        "{@repeat        |1     | number               }"
-///        "{path           |.     | path to file         }"
-///        "{fps            | -1.0 | fps for output video }"
-///        "{N count        |100   | count of objects     }"
-///        "{ts timestamp   |      | use time stamp       }"
-///        ;
-/// }
-/// ```
-/// 
-/// 
-/// Note that there are no default values for `help` and `timestamp` so we can check their presence using the `has()` method.
-/// Arguments with default values are considered to be always present. Use the `get()` method in these cases to check their
-/// actual value instead.
-/// 
-/// String keys like `get<String>("@image1")` return the empty string `""` by default - even with an empty default value.
-/// Use the special `<none>` default value to enforce that the returned string must not be empty. (like in `get<String>("@image2")`)
-/// 
-/// ### Usage
-/// 
-/// For the described keys:
-/// 
-/// ```ignore
-///    # Good call (3 positional parameters: image1, image2 and repeat; N is 200, ts is true)
-///    $ ./app -N=200 1.png 2.jpg 19 -ts
-/// 
-///    # Bad call
-///    $ ./app -fps=aaa
-///    ERRORS:
-///    Parameter "fps": can not convert: [aaa] to [double]
-/// ```
-/// 
 pub trait CommandLineParserTraitConst {
 	fn as_raw_CommandLineParser(&self) -> *const c_void;
 
-	/// Returns application path
-	/// 
-	/// This method returns the path to the executable from the command line (`argv[0]`).
-	/// 
-	/// For example, if the application has been started with such a command:
-	/// ```ignore
-	/// $ ./bin/my-executable
-	/// ```
-	/// 
-	/// this method will return `./bin`.
 	#[inline]
 	fn get_path_to_application(&self) -> Result<String> {
 		return_send!(via ocvrs_return);
@@ -8766,10 +5336,6 @@ pub trait CommandLineParserTraitConst {
 		Ok(ret)
 	}
 	
-	/// Check if field was provided in the command line
-	/// 
-	/// ## Parameters
-	/// * name: argument name to check
 	#[inline]
 	fn has(&self, name: &str) -> Result<bool> {
 		extern_container_arg!(name);
@@ -8780,10 +5346,6 @@ pub trait CommandLineParserTraitConst {
 		Ok(ret)
 	}
 	
-	/// Check for parsing errors
-	/// 
-	/// Returns false if error occurred while accessing the parameters (bad conversion, missing arguments,
-	/// etc.). Call @ref printErrors to print error messages list.
 	#[inline]
 	fn check(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -8793,11 +5355,6 @@ pub trait CommandLineParserTraitConst {
 		Ok(ret)
 	}
 	
-	/// Print help message
-	/// 
-	/// This method will print standard help message containing the about message and arguments description.
-	/// ## See also
-	/// about
 	#[inline]
 	fn print_message(&self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -8807,9 +5364,6 @@ pub trait CommandLineParserTraitConst {
 		Ok(ret)
 	}
 	
-	/// Print list of errors occurred
-	/// ## See also
-	/// check
 	#[inline]
 	fn print_errors(&self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -8824,9 +5378,6 @@ pub trait CommandLineParserTraitConst {
 pub trait CommandLineParserTrait: core::CommandLineParserTraitConst {
 	fn as_raw_mut_CommandLineParser(&mut self) -> *mut c_void;
 
-	/// Set the about message
-	/// 
-	/// The about message will be shown when @ref printMessage is called, right before arguments table.
 	#[inline]
 	fn about(&mut self, message: &str) -> Result<()> {
 		extern_container_arg!(message);
@@ -8839,85 +5390,6 @@ pub trait CommandLineParserTrait: core::CommandLineParserTraitConst {
 	
 }
 
-/// Designed for command line parsing
-/// 
-/// The sample below demonstrates how to use CommandLineParser:
-/// ```ignore
-///    CommandLineParser parser(argc, argv, keys);
-///    parser.about("Application name v1.0.0");
-/// 
-///    if (parser.has("help"))
-///    {
-///        parser.printMessage();
-///        return 0;
-///    }
-/// 
-///    int N = parser.get<int>("N");
-///    double fps = parser.get<double>("fps");
-///    String path = parser.get<String>("path");
-/// 
-///    use_time_stamp = parser.has("timestamp");
-/// 
-///    String img1 = parser.get<String>(0);
-///    String img2 = parser.get<String>(1);
-/// 
-///    int repeat = parser.get<int>(2);
-/// 
-///    if (!parser.check())
-///    {
-///        parser.printErrors();
-///        return 0;
-///    }
-/// ```
-/// 
-/// 
-/// ### Keys syntax
-/// 
-/// The keys parameter is a string containing several blocks, each one is enclosed in curly braces and
-/// describes one argument. Each argument contains three parts separated by the `|` symbol:
-/// 
-/// -# argument names is a space-separated list of option synonyms (to mark argument as positional, prefix it with the `@` symbol)
-/// -# default value will be used if the argument was not provided (can be empty)
-/// -# help message (can be empty)
-/// 
-/// For example:
-/// 
-/// ```ignore
-///    const String keys =
-///        "{help h usage ? |      | print this message   }"
-///        "{@image1        |      | image1 for compare   }"
-///        "{@image2        |<none>| image2 for compare   }"
-///        "{@repeat        |1     | number               }"
-///        "{path           |.     | path to file         }"
-///        "{fps            | -1.0 | fps for output video }"
-///        "{N count        |100   | count of objects     }"
-///        "{ts timestamp   |      | use time stamp       }"
-///        ;
-/// }
-/// ```
-/// 
-/// 
-/// Note that there are no default values for `help` and `timestamp` so we can check their presence using the `has()` method.
-/// Arguments with default values are considered to be always present. Use the `get()` method in these cases to check their
-/// actual value instead.
-/// 
-/// String keys like `get<String>("@image1")` return the empty string `""` by default - even with an empty default value.
-/// Use the special `<none>` default value to enforce that the returned string must not be empty. (like in `get<String>("@image2")`)
-/// 
-/// ### Usage
-/// 
-/// For the described keys:
-/// 
-/// ```ignore
-///    # Good call (3 positional parameters: image1, image2 and repeat; N is 200, ts is true)
-///    $ ./app -N=200 1.png 2.jpg 19 -ts
-/// 
-///    # Bad call
-///    $ ./app -fps=aaa
-///    ERRORS:
-///    Parameter "fps": can not convert: [aaa] to [double]
-/// ```
-/// 
 pub struct CommandLineParser {
 	ptr: *mut c_void
 }
@@ -8942,14 +5414,6 @@ impl core::CommandLineParserTrait for CommandLineParser {
 }
 
 impl CommandLineParser {
-	/// Constructor
-	/// 
-	/// Initializes command line parser object
-	/// 
-	/// ## Parameters
-	/// * argc: number of command line arguments (from main())
-	/// * argv: array of command line arguments (from main())
-	/// * keys: string describing acceptable command line parameters (see class description for syntax)
 	#[inline]
 	pub fn new(argc: i32, argv: &[&str], keys: &str) -> Result<core::CommandLineParser> {
 		string_array_arg!(argv);
@@ -8962,7 +5426,6 @@ impl CommandLineParser {
 		Ok(ret)
 	}
 	
-	/// Copy constructor
 	#[inline]
 	pub fn copy(parser: &core::CommandLineParser) -> Result<core::CommandLineParser> {
 		return_send!(via ocvrs_return);
@@ -8975,41 +5438,6 @@ impl CommandLineParser {
 	
 }
 
-/// This class is used to perform the non-linear non-constrained minimization of a function
-/// with known gradient,
-/// 
-/// defined on an *n*-dimensional Euclidean space, using the **Nonlinear Conjugate Gradient method**.
-/// The implementation was done based on the beautifully clear explanatory article [An Introduction to
-/// the Conjugate Gradient Method Without the Agonizing
-/// Pain](http://www.cs.cmu.edu/~quake-papers/painless-conjugate-gradient.pdf) by Jonathan Richard
-/// Shewchuk. The method can be seen as an adaptation of a standard Conjugate Gradient method (see, for
-/// example <http://en.wikipedia.org/wiki/Conjugate_gradient_method>) for numerically solving the
-/// systems of linear equations.
-/// 
-/// It should be noted, that this method, although deterministic, is rather a heuristic method and
-/// therefore may converge to a local minima, not necessary a global one. What is even more disastrous,
-/// most of its behaviour is ruled by gradient, therefore it essentially cannot distinguish between
-/// local minima and maxima. Therefore, if it starts sufficiently near to the local maximum, it may
-/// converge to it. Another obvious restriction is that it should be possible to compute the gradient of
-/// a function at any point, thus it is preferable to have analytic expression for gradient and
-/// computational burden should be born by the user.
-/// 
-/// The latter responsibility is accomplished via the getGradient method of a
-/// MinProblemSolver::Function interface (which represents function being optimized). This method takes
-/// point a point in *n*-dimensional space (first argument represents the array of coordinates of that
-/// point) and compute its gradient (it should be stored in the second argument as an array).
-/// 
-/// 
-/// Note: class ConjGradSolver thus does not add any new methods to the basic MinProblemSolver interface.
-/// 
-/// 
-/// Note: term criteria should meet following condition:
-/// ```ignore
-///    termcrit.type == (TermCriteria::MAX_ITER + TermCriteria::EPS) && termcrit.epsilon > 0 && termcrit.maxCount > 0
-///    // or
-///    termcrit.type == TermCriteria::MAX_ITER) && termcrit.maxCount > 0
-/// ```
-/// 
 pub trait ConjGradSolverConst: core::MinProblemSolverConst {
 	fn as_raw_ConjGradSolver(&self) -> *const c_void;
 
@@ -9021,20 +5449,6 @@ pub trait ConjGradSolver: core::ConjGradSolverConst + core::MinProblemSolver {
 }
 
 impl dyn ConjGradSolver + '_ {
-	/// This function returns the reference to the ready-to-use ConjGradSolver object.
-	/// 
-	/// All the parameters are optional, so this procedure can be called even without parameters at
-	/// all. In this case, the default values will be used. As default value for terminal criteria are
-	/// the only sensible ones, MinProblemSolver::setFunction() should be called upon the obtained
-	/// object, if the function was not given to create(). Otherwise, the two ways (submit it to
-	/// create() or miss it out and call the MinProblemSolver::setFunction()) are absolutely equivalent
-	/// (and will drop the same errors in the same way, should invalid input be detected).
-	/// ## Parameters
-	/// * f: Pointer to the function that will be minimized, similarly to the one you submit via
-	/// MinProblemSolver::setFunction.
-	/// * termcrit: Terminal criteria to the algorithm, similarly to the one you submit via
-	/// MinProblemSolver::setTermCriteria.
-	/// 
 	/// ## C++ default parameters
 	/// * f: Ptr<ConjGradSolver::Function>()
 	/// * termcrit: TermCriteria(TermCriteria::MAX_ITER+TermCriteria::EPS,5000,0.000001)
@@ -9049,18 +5463,11 @@ impl dyn ConjGradSolver + '_ {
 	}
 	
 }
-/// Class for matching keypoint descriptors
-/// 
-/// query descriptor index, train descriptor index, train image index, and distance between
-/// descriptors.
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub struct DMatch {
-	/// query descriptor index
 	pub query_idx: i32,
-	/// train descriptor index
 	pub train_idx: i32,
-	/// train image index
 	pub img_idx: i32,
 	pub distance: f32,
 }
@@ -9068,7 +5475,6 @@ pub struct DMatch {
 opencv_type_simple! { core::DMatch }
 
 impl DMatch {
-	/// ////////////////////////////// DMatch ////////////////////////////////
 	#[inline]
 	pub fn default() -> Result<core::DMatch> {
 		return_send!(via ocvrs_return);
@@ -9098,48 +5504,9 @@ impl DMatch {
 	
 }
 
-/// This class is used to perform the non-linear non-constrained minimization of a function,
-/// 
-/// defined on an `n`-dimensional Euclidean space, using the **Nelder-Mead method**, also known as
-/// **downhill simplex method**. The basic idea about the method can be obtained from
-/// <http://en.wikipedia.org/wiki/Nelder-Mead_method>.
-/// 
-/// It should be noted, that this method, although deterministic, is rather a heuristic and therefore
-/// may converge to a local minima, not necessary a global one. It is iterative optimization technique,
-/// which at each step uses an information about the values of a function evaluated only at `n+1`
-/// points, arranged as a *simplex* in `n`-dimensional space (hence the second name of the method). At
-/// each step new point is chosen to evaluate function at, obtained value is compared with previous
-/// ones and based on this information simplex changes it's shape , slowly moving to the local minimum.
-/// Thus this method is using *only* function values to make decision, on contrary to, say, Nonlinear
-/// Conjugate Gradient method (which is also implemented in optim).
-/// 
-/// Algorithm stops when the number of function evaluations done exceeds termcrit.maxCount, when the
-/// function values at the vertices of simplex are within termcrit.epsilon range or simplex becomes so
-/// small that it can enclosed in a box with termcrit.epsilon sides, whatever comes first, for some
-/// defined by user positive integer termcrit.maxCount and positive non-integer termcrit.epsilon.
-/// 
-/// 
-/// Note: DownhillSolver is a derivative of the abstract interface
-/// cv::MinProblemSolver, which in turn is derived from the Algorithm interface and is used to
-/// encapsulate the functionality, common to all non-linear optimization algorithms in the optim
-/// module.
-/// 
-/// 
-/// Note: term criteria should meet following condition:
-/// ```ignore
-///    termcrit.type == (TermCriteria::MAX_ITER + TermCriteria::EPS) && termcrit.epsilon > 0 && termcrit.maxCount > 0
-/// ```
-/// 
 pub trait DownhillSolverConst: core::MinProblemSolverConst {
 	fn as_raw_DownhillSolver(&self) -> *const c_void;
 
-	/// Returns the initial step that will be used in downhill simplex algorithm.
-	/// 
-	/// ## Parameters
-	/// * step: Initial step that will be used in algorithm. Note, that although corresponding setter
-	/// accepts column-vectors as well as row-vectors, this method will return a row-vector.
-	/// ## See also
-	/// DownhillSolver::setInitStep
 	#[inline]
 	fn get_init_step(&self, step: &mut dyn core::ToOutputArray) -> Result<()> {
 		output_array_arg!(step);
@@ -9155,20 +5522,6 @@ pub trait DownhillSolverConst: core::MinProblemSolverConst {
 pub trait DownhillSolver: core::DownhillSolverConst + core::MinProblemSolver {
 	fn as_raw_mut_DownhillSolver(&mut self) -> *mut c_void;
 
-	/// Sets the initial step that will be used in downhill simplex algorithm.
-	/// 
-	/// Step, together with initial point (given in DownhillSolver::minimize) are two `n`-dimensional
-	/// vectors that are used to determine the shape of initial simplex. Roughly said, initial point
-	/// determines the position of a simplex (it will become simplex's centroid), while step determines the
-	/// spread (size in each dimension) of a simplex. To be more precise, if ![inline formula](https://latex.codecogs.com/png.latex?s%2Cx%5F0%5Cin%5Cmathbb%7BR%7D%5En) are
-	/// the initial step and initial point respectively, the vertices of a simplex will be:
-	/// ![inline formula](https://latex.codecogs.com/png.latex?v%5F0%3A%3Dx%5F0%2D%5Cfrac%7B1%7D%7B2%7D%20s) and ![inline formula](https://latex.codecogs.com/png.latex?v%5Fi%3A%3Dx%5F0%2Bs%5Fi) for ![inline formula](https://latex.codecogs.com/png.latex?i%3D1%2C2%2C%5Cdots%2Cn) where ![inline formula](https://latex.codecogs.com/png.latex?s%5Fi) denotes
-	/// projections of the initial step of *n*-th coordinate (the result of projection is treated to be
-	/// vector given by ![inline formula](https://latex.codecogs.com/png.latex?s%5Fi%3A%3De%5Fi%5Ccdot%5Cleft%3Ce%5Fi%5Ccdot%20s%5Cright%3E), where ![inline formula](https://latex.codecogs.com/png.latex?e%5Fi) form canonical basis)
-	/// 
-	/// ## Parameters
-	/// * step: Initial step that will be used in algorithm. Roughly said, it determines the spread
-	/// (size in each dimension) of an initial simplex.
 	#[inline]
 	fn set_init_step(&mut self, step: &dyn core::ToInputArray) -> Result<()> {
 		input_array_arg!(step);
@@ -9182,23 +5535,6 @@ pub trait DownhillSolver: core::DownhillSolverConst + core::MinProblemSolver {
 }
 
 impl dyn DownhillSolver + '_ {
-	/// This function returns the reference to the ready-to-use DownhillSolver object.
-	/// 
-	/// All the parameters are optional, so this procedure can be called even without parameters at
-	/// all. In this case, the default values will be used. As default value for terminal criteria are
-	/// the only sensible ones, MinProblemSolver::setFunction() and DownhillSolver::setInitStep()
-	/// should be called upon the obtained object, if the respective parameters were not given to
-	/// create(). Otherwise, the two ways (give parameters to createDownhillSolver() or miss them out
-	/// and call the MinProblemSolver::setFunction() and DownhillSolver::setInitStep()) are absolutely
-	/// equivalent (and will drop the same errors in the same way, should invalid input be detected).
-	/// ## Parameters
-	/// * f: Pointer to the function that will be minimized, similarly to the one you submit via
-	/// MinProblemSolver::setFunction.
-	/// * initStep: Initial step, that will be used to construct the initial simplex, similarly to the one
-	/// you submit via MinProblemSolver::setInitStep.
-	/// * termcrit: Terminal criteria to the algorithm, similarly to the one you submit via
-	/// MinProblemSolver::setTermCriteria.
-	/// 
 	/// ## C++ default parameters
 	/// * f: Ptr<MinProblemSolver::Function>()
 	/// * init_step: Mat_<double>(1,1,0.0)
@@ -9215,17 +5551,9 @@ impl dyn DownhillSolver + '_ {
 	}
 	
 }
-/// ! Class passed to an error.
-/// 
-/// This class encapsulates all or almost all necessary
-/// information about the error happened in the program. The exception is
-/// usually constructed and thrown implicitly via CV_Error and CV_Error_ macros.
-/// ## See also
-/// error
 pub trait ExceptionTraitConst {
 	fn as_raw_Exception(&self) -> *const c_void;
 
-	/// the formatted error message
 	#[inline]
 	fn msg(&self) -> String {
 		let ret = unsafe { sys::cv_Exception_getPropMsg_const(self.as_raw_Exception()) };
@@ -9233,14 +5561,12 @@ pub trait ExceptionTraitConst {
 		ret
 	}
 	
-	/// error code see also: CVStatus
 	#[inline]
 	fn code(&self) -> i32 {
 		let ret = unsafe { sys::cv_Exception_getPropCode_const(self.as_raw_Exception()) };
 		ret
 	}
 	
-	/// error description
 	#[inline]
 	fn err(&self) -> String {
 		let ret = unsafe { sys::cv_Exception_getPropErr_const(self.as_raw_Exception()) };
@@ -9248,7 +5574,6 @@ pub trait ExceptionTraitConst {
 		ret
 	}
 	
-	/// function name. Available only when the compiler supports getting it
 	#[inline]
 	fn func(&self) -> String {
 		let ret = unsafe { sys::cv_Exception_getPropFunc_const(self.as_raw_Exception()) };
@@ -9256,7 +5581,6 @@ pub trait ExceptionTraitConst {
 		ret
 	}
 	
-	/// source file name where the error has occurred
 	#[inline]
 	fn file(&self) -> String {
 		let ret = unsafe { sys::cv_Exception_getPropFile_const(self.as_raw_Exception()) };
@@ -9264,15 +5588,12 @@ pub trait ExceptionTraitConst {
 		ret
 	}
 	
-	/// line number in the source file where the error has occurred
 	#[inline]
 	fn line(&self) -> i32 {
 		let ret = unsafe { sys::cv_Exception_getPropLine_const(self.as_raw_Exception()) };
 		ret
 	}
 	
-	/// !
-	/// \return the error description and the context as a text string.
 	#[inline]
 	fn what(&self) -> Result<String> {
 		return_send!(via ocvrs_return);
@@ -9288,7 +5609,6 @@ pub trait ExceptionTraitConst {
 pub trait ExceptionTrait: core::ExceptionTraitConst {
 	fn as_raw_mut_Exception(&mut self) -> *mut c_void;
 
-	/// the formatted error message
 	#[inline]
 	fn set_msg(&mut self, val: &str) {
 		extern_container_arg!(nofail mut val);
@@ -9296,14 +5616,12 @@ pub trait ExceptionTrait: core::ExceptionTraitConst {
 		ret
 	}
 	
-	/// error code see also: CVStatus
 	#[inline]
 	fn set_code(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_Exception_setPropCode_int(self.as_raw_mut_Exception(), val) };
 		ret
 	}
 	
-	/// error description
 	#[inline]
 	fn set_err(&mut self, val: &str) {
 		extern_container_arg!(nofail mut val);
@@ -9311,7 +5629,6 @@ pub trait ExceptionTrait: core::ExceptionTraitConst {
 		ret
 	}
 	
-	/// function name. Available only when the compiler supports getting it
 	#[inline]
 	fn set_func(&mut self, val: &str) {
 		extern_container_arg!(nofail mut val);
@@ -9319,7 +5636,6 @@ pub trait ExceptionTrait: core::ExceptionTraitConst {
 		ret
 	}
 	
-	/// source file name where the error has occurred
 	#[inline]
 	fn set_file(&mut self, val: &str) {
 		extern_container_arg!(nofail mut val);
@@ -9327,7 +5643,6 @@ pub trait ExceptionTrait: core::ExceptionTraitConst {
 		ret
 	}
 	
-	/// line number in the source file where the error has occurred
 	#[inline]
 	fn set_line(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_Exception_setPropLine_int(self.as_raw_mut_Exception(), val) };
@@ -9345,13 +5660,6 @@ pub trait ExceptionTrait: core::ExceptionTraitConst {
 	
 }
 
-/// ! Class passed to an error.
-/// 
-/// This class encapsulates all or almost all necessary
-/// information about the error happened in the program. The exception is
-/// usually constructed and thrown implicitly via CV_Error and CV_Error_ macros.
-/// ## See also
-/// error
 pub struct Exception {
 	ptr: *mut c_void
 }
@@ -9376,8 +5684,6 @@ impl core::ExceptionTrait for Exception {
 }
 
 impl Exception {
-	/// !
-	/// Default constructor
 	#[inline]
 	pub fn default() -> Result<core::Exception> {
 		return_send!(via ocvrs_return);
@@ -9388,9 +5694,6 @@ impl Exception {
 		Ok(ret)
 	}
 	
-	/// !
-	/// Full constructor. Normally the constructor is not called explicitly.
-	/// Instead, the macros CV_Error(), CV_Error_() and CV_Assert() are used.
 	#[inline]
 	pub fn new(_code: i32, _err: &str, _func: &str, _file: &str, _line: i32) -> Result<core::Exception> {
 		extern_container_arg!(_err);
@@ -9406,17 +5709,6 @@ impl Exception {
 	
 }
 
-/// File Storage Node class.
-/// 
-/// The node is used to store each and every element of the file storage opened for reading. When
-/// XML/YAML file is read, it is first parsed and stored in the memory as a hierarchical collection of
-/// nodes. Each node can be a "leaf" that is contain a single number or a string, or be a collection of
-/// other nodes. There can be named collections (mappings) where each element has a name and it is
-/// accessed by a name, and ordered collections (sequences) where elements do not have names but rather
-/// accessed by index. Type of the file node can be determined using FileNode::type method.
-/// 
-/// Note that file nodes are only used for navigating file storages opened for reading. When a file
-/// storage is opened for writing, no data is stored in memory after it is written.
 pub trait FileNodeTraitConst {
 	fn as_raw_FileNode(&self) -> *const c_void;
 
@@ -9432,11 +5724,6 @@ pub trait FileNodeTraitConst {
 		ret
 	}
 	
-	/// Returns element of a mapping node or a sequence node.
-	/// ## Parameters
-	/// * nodename: Name of an element in the mapping node.
-	/// ## Returns
-	/// Returns the element with the given identifier.
 	#[inline]
 	fn get(&self, nodename: &str) -> Result<core::FileNode> {
 		extern_container_arg!(nodename);
@@ -9448,15 +5735,6 @@ pub trait FileNodeTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns element of a mapping node or a sequence node.
-	/// ## Parameters
-	/// * nodename: Name of an element in the mapping node.
-	/// ## Returns
-	/// Returns the element with the given identifier.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * nodename: Name of an element in the mapping node.
 	#[inline]
 	fn get_node(&self, nodename: &str) -> Result<core::FileNode> {
 		extern_container_arg!(nodename);
@@ -9468,15 +5746,6 @@ pub trait FileNodeTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns element of a mapping node or a sequence node.
-	/// ## Parameters
-	/// * nodename: Name of an element in the mapping node.
-	/// ## Returns
-	/// Returns the element with the given identifier.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * i: Index of an element in the sequence node.
 	#[inline]
 	fn at(&self, i: i32) -> Result<core::FileNode> {
 		return_send!(via ocvrs_return);
@@ -9487,9 +5756,6 @@ pub trait FileNodeTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns keys of a mapping node.
-	/// ## Returns
-	/// Keys of a mapping node.
 	#[inline]
 	fn keys(&self) -> Result<core::Vector<String>> {
 		return_send!(via ocvrs_return);
@@ -9500,9 +5766,6 @@ pub trait FileNodeTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns type of the node.
-	/// ## Returns
-	/// Type of the node. See FileNode::Type
 	#[inline]
 	fn typ(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -9512,7 +5775,6 @@ pub trait FileNodeTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns true if the node is empty
 	#[inline]
 	fn empty(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -9522,7 +5784,6 @@ pub trait FileNodeTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns true if the node is a "none" object
 	#[inline]
 	fn is_none(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -9532,7 +5793,6 @@ pub trait FileNodeTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns true if the node is a sequence
 	#[inline]
 	fn is_seq(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -9542,7 +5802,6 @@ pub trait FileNodeTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns true if the node is a mapping
 	#[inline]
 	fn is_map(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -9552,7 +5811,6 @@ pub trait FileNodeTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns true if the node is an integer
 	#[inline]
 	fn is_int(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -9562,7 +5820,6 @@ pub trait FileNodeTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns true if the node is a floating-point number
 	#[inline]
 	fn is_real(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -9572,7 +5829,6 @@ pub trait FileNodeTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns true if the node is a text string
 	#[inline]
 	fn is_string(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -9582,7 +5838,6 @@ pub trait FileNodeTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns true if the node has a name
 	#[inline]
 	fn is_named(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -9592,7 +5847,6 @@ pub trait FileNodeTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns the node name or an empty string if the node is nameless
 	#[inline]
 	fn name(&self) -> Result<String> {
 		return_send!(via ocvrs_return);
@@ -9603,7 +5857,6 @@ pub trait FileNodeTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns the number of elements in the node, if it is a sequence or mapping, or 1 otherwise.
 	#[inline]
 	fn size(&self) -> Result<size_t> {
 		return_send!(via ocvrs_return);
@@ -9613,7 +5866,6 @@ pub trait FileNodeTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns raw size of the FileNode in bytes
 	#[inline]
 	fn raw_size(&self) -> Result<size_t> {
 		return_send!(via ocvrs_return);
@@ -9623,7 +5875,6 @@ pub trait FileNodeTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns the node content as an integer. If the node stores floating-point number, it is rounded.
 	#[inline]
 	fn to_i32(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -9633,7 +5884,6 @@ pub trait FileNodeTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns the node content as float
 	#[inline]
 	fn to_f32(&self) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -9643,7 +5893,6 @@ pub trait FileNodeTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns the node content as double
 	#[inline]
 	fn to_f64(&self) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -9653,7 +5902,6 @@ pub trait FileNodeTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns the node content as text string
 	#[inline]
 	fn to_string(&self) -> Result<String> {
 		return_send!(via ocvrs_return);
@@ -9673,7 +5921,6 @@ pub trait FileNodeTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns iterator pointing to the first node element
 	#[inline]
 	fn begin(&self) -> Result<core::FileNodeIterator> {
 		return_send!(via ocvrs_return);
@@ -9684,7 +5931,6 @@ pub trait FileNodeTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns iterator pointing to the element following the last node element
 	#[inline]
 	fn end(&self) -> Result<core::FileNodeIterator> {
 		return_send!(via ocvrs_return);
@@ -9695,14 +5941,6 @@ pub trait FileNodeTraitConst {
 		Ok(ret)
 	}
 	
-	/// Reads node elements to the buffer with the specified format.
-	/// 
-	/// Usually it is more convenient to use operator `>>` instead of this method.
-	/// ## Parameters
-	/// * fmt: Specification of each array element. See @ref format_spec "format specification"
-	/// * vec: Pointer to the destination array.
-	/// * len: Number of bytes to read (buffer size limit). If it is greater than number of
-	///            remaining elements then all of them will be read.
 	#[inline]
 	unsafe fn read_raw(&self, fmt: &str, vec: *mut c_void, len: size_t) -> Result<()> {
 		extern_container_arg!(fmt);
@@ -9713,7 +5951,6 @@ pub trait FileNodeTraitConst {
 		Ok(ret)
 	}
 	
-	/// Simplified reading API to use with bindings.
 	#[inline]
 	fn real(&self) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -9723,7 +5960,6 @@ pub trait FileNodeTraitConst {
 		Ok(ret)
 	}
 	
-	/// Simplified reading API to use with bindings.
 	#[inline]
 	fn string(&self) -> Result<String> {
 		return_send!(via ocvrs_return);
@@ -9734,7 +5970,6 @@ pub trait FileNodeTraitConst {
 		Ok(ret)
 	}
 	
-	/// Simplified reading API to use with bindings.
 	#[inline]
 	fn mat(&self) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -9771,9 +6006,6 @@ pub trait FileNodeTrait: core::FileNodeTraitConst {
 		Ok(ret)
 	}
 	
-	/// Internal method used when reading FileStorage.
-	/// Sets the type (int, real or string) and value of the previously created node.
-	/// 
 	/// ## C++ default parameters
 	/// * len: -1
 	#[inline]
@@ -9787,17 +6019,6 @@ pub trait FileNodeTrait: core::FileNodeTraitConst {
 	
 }
 
-/// File Storage Node class.
-/// 
-/// The node is used to store each and every element of the file storage opened for reading. When
-/// XML/YAML file is read, it is first parsed and stored in the memory as a hierarchical collection of
-/// nodes. Each node can be a "leaf" that is contain a single number or a string, or be a collection of
-/// other nodes. There can be named collections (mappings) where each element has a name and it is
-/// accessed by a name, and ordered collections (sequences) where elements do not have names but rather
-/// accessed by index. Type of the file node can be determined using FileNode::type method.
-/// 
-/// Note that file nodes are only used for navigating file storages opened for reading. When a file
-/// storage is opened for writing, no data is stored in memory after it is written.
 pub struct FileNode {
 	ptr: *mut c_void
 }
@@ -9822,10 +6043,6 @@ impl core::FileNodeTrait for FileNode {
 }
 
 impl FileNode {
-	/// The constructors.
-	/// 
-	/// These constructors are used to create a default file node, construct it from obsolete structures or
-	/// from the another file node.
 	#[inline]
 	pub fn default() -> Result<core::FileNode> {
 		return_send!(via ocvrs_return);
@@ -9836,19 +6053,6 @@ impl FileNode {
 		Ok(ret)
 	}
 	
-	/// The constructors.
-	/// 
-	/// These constructors are used to create a default file node, construct it from obsolete structures or
-	/// from the another file node.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * fs: Pointer to the file storage structure.
-	/// * blockIdx: Index of the memory block where the file node is stored
-	/// * ofs: Offset in bytes from the beginning of the serialized storage
-	/// 
-	///      @deprecated
 	#[inline]
 	pub fn new(fs: &core::FileStorage, block_idx: size_t, ofs: size_t) -> Result<core::FileNode> {
 		return_send!(via ocvrs_return);
@@ -9859,15 +6063,6 @@ impl FileNode {
 		Ok(ret)
 	}
 	
-	/// The constructors.
-	/// 
-	/// These constructors are used to create a default file node, construct it from obsolete structures or
-	/// from the another file node.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * node: File node to be used as initialization for the created file node.
 	#[inline]
 	pub fn copy(node: &core::FileNode) -> Result<core::FileNode> {
 		return_send!(via ocvrs_return);
@@ -9925,14 +6120,9 @@ impl FileNode {
 	
 }
 
-/// used to iterate through sequences and mappings.
-/// 
-/// A standard STL notation, with node.begin(), node.end() denoting the beginning and the end of a
-/// sequence, stored in node. See the data reading sample in the beginning of the section.
 pub trait FileNodeIteratorTraitConst {
 	fn as_raw_FileNodeIterator(&self) -> *const c_void;
 
-	/// returns the currently observed element
 	#[inline]
 	fn try_deref(&self) -> Result<core::FileNode> {
 		return_send!(via ocvrs_return);
@@ -9943,7 +6133,6 @@ pub trait FileNodeIteratorTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns the number of remaining (not read yet) elements
 	#[inline]
 	fn remaining(&self) -> Result<size_t> {
 		return_send!(via ocvrs_return);
@@ -9967,7 +6156,6 @@ pub trait FileNodeIteratorTraitConst {
 pub trait FileNodeIteratorTrait: core::FileNodeIteratorTraitConst {
 	fn as_raw_mut_FileNodeIterator(&mut self) -> *mut c_void;
 
-	/// moves iterator to the next node
 	#[inline]
 	fn incr(&mut self) -> Result<core::FileNodeIterator> {
 		return_send!(via ocvrs_return);
@@ -9978,15 +6166,6 @@ pub trait FileNodeIteratorTrait: core::FileNodeIteratorTraitConst {
 		Ok(ret)
 	}
 	
-	/// Reads node elements to the buffer with the specified format.
-	/// 
-	/// Usually it is more convenient to use operator `>>` instead of this method.
-	/// ## Parameters
-	/// * fmt: Specification of each array element. See @ref format_spec "format specification"
-	/// * vec: Pointer to the destination array.
-	/// * len: Number of bytes to read (buffer size limit). If it is greater than number of
-	///            remaining elements then all of them will be read.
-	/// 
 	/// ## C++ default parameters
 	/// * len: (size_t)INT_MAX
 	#[inline]
@@ -10002,10 +6181,6 @@ pub trait FileNodeIteratorTrait: core::FileNodeIteratorTraitConst {
 	
 }
 
-/// used to iterate through sequences and mappings.
-/// 
-/// A standard STL notation, with node.begin(), node.end() denoting the beginning and the end of a
-/// sequence, stored in node. See the data reading sample in the beginning of the section.
 pub struct FileNodeIterator {
 	ptr: *mut c_void
 }
@@ -10030,10 +6205,6 @@ impl core::FileNodeIteratorTrait for FileNodeIterator {
 }
 
 impl FileNodeIterator {
-	/// The constructors.
-	/// 
-	/// These constructors are used to create a default iterator, set it to specific element in a file node
-	/// or construct it from another iterator.
 	#[inline]
 	pub fn default() -> Result<core::FileNodeIterator> {
 		return_send!(via ocvrs_return);
@@ -10044,20 +6215,6 @@ impl FileNodeIterator {
 		Ok(ret)
 	}
 	
-	/// The constructors.
-	/// 
-	/// These constructors are used to create a default iterator, set it to specific element in a file node
-	/// or construct it from another iterator.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * node: File node - the collection to iterate over;
-	///        it can be a scalar (equivalent to 1-element collection) or "none" (equivalent to empty collection).
-	/// * seekEnd: - true if iterator needs to be set after the last element of the node;
-	///        that is:
-	///            * node.begin() => FileNodeIterator(node, false)
-	///            * node.end() => FileNodeIterator(node, true)
 	#[inline]
 	pub fn new(node: &core::FileNode, seek_end: bool) -> Result<core::FileNodeIterator> {
 		return_send!(via ocvrs_return);
@@ -10068,15 +6225,6 @@ impl FileNodeIterator {
 		Ok(ret)
 	}
 	
-	/// The constructors.
-	/// 
-	/// These constructors are used to create a default iterator, set it to specific element in a file node
-	/// or construct it from another iterator.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * it: Iterator to be used as initialization for the created iterator.
 	#[inline]
 	pub fn copy(it: &core::FileNodeIterator) -> Result<core::FileNodeIterator> {
 		return_send!(via ocvrs_return);
@@ -10089,8 +6237,6 @@ impl FileNodeIterator {
 	
 }
 
-/// XML/YAML/JSON file storage class that encapsulates all the information necessary for writing or
-/// reading data to/from a file.
 pub trait FileStorageTraitConst {
 	fn as_raw_FileStorage(&self) -> *const c_void;
 
@@ -10107,11 +6253,6 @@ pub trait FileStorageTraitConst {
 		ret
 	}
 	
-	/// Checks whether the file is opened.
-	/// 
-	/// ## Returns
-	/// true if the object is associated with the current file and false otherwise. It is a
-	/// good practice to call this method after you tried to open a file.
 	#[inline]
 	fn is_opened(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -10121,9 +6262,6 @@ pub trait FileStorageTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns the first element of the top-level mapping.
-	/// ## Returns
-	/// The first element of the top-level mapping.
 	#[inline]
 	fn get_first_top_level_node(&self) -> Result<core::FileNode> {
 		return_send!(via ocvrs_return);
@@ -10134,13 +6272,6 @@ pub trait FileStorageTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns the top-level mapping
-	/// ## Parameters
-	/// * streamidx: Zero-based index of the stream. In most cases there is only one stream in the file.
-	/// However, YAML supports multiple streams and so there can be several.
-	/// ## Returns
-	/// The top-level mapping.
-	/// 
 	/// ## C++ default parameters
 	/// * streamidx: 0
 	#[inline]
@@ -10153,11 +6284,6 @@ pub trait FileStorageTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns the specified element of the top-level mapping.
-	/// ## Parameters
-	/// * nodename: Name of the file node.
-	/// ## Returns
-	/// Node with the given name.
 	#[inline]
 	fn get(&self, nodename: &str) -> Result<core::FileNode> {
 		extern_container_arg!(nodename);
@@ -10169,13 +6295,6 @@ pub trait FileStorageTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns the specified element of the top-level mapping.
-	/// ## Parameters
-	/// * nodename: Name of the file node.
-	/// ## Returns
-	/// Node with the given name.
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn get_node(&self, nodename: &str) -> Result<core::FileNode> {
 		extern_container_arg!(nodename);
@@ -10187,9 +6306,6 @@ pub trait FileStorageTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns the current format.
-	/// ## Returns
-	/// The current format, see FileStorage::Mode
 	#[inline]
 	fn get_format(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -10217,22 +6333,6 @@ pub trait FileStorageTrait: core::FileStorageTraitConst {
 		ret
 	}
 	
-	/// Opens a file.
-	/// 
-	/// See description of parameters in FileStorage::FileStorage. The method calls FileStorage::release
-	/// before opening the file.
-	/// ## Parameters
-	/// * filename: Name of the file to open or the text string to read the data from.
-	/// Extension of the file (.xml, .yml/.yaml or .json) determines its format (XML, YAML or JSON
-	/// respectively). Also you can append .gz to work with compressed files, for example myHugeMatrix.xml.gz. If both
-	/// FileStorage::WRITE and FileStorage::MEMORY flags are specified, source is used just to specify
-	/// the output file format (e.g. mydata.xml, .yml etc.). A file name can also contain parameters.
-	/// You can use this format, "*?base64" (e.g. "file.json?base64" (case sensitive)), as an alternative to
-	/// FileStorage::BASE64 flag.
-	/// * flags: Mode of operation. One of FileStorage::Mode
-	/// * encoding: Encoding of the file. Note that UTF-16 XML encoding is not supported currently and
-	/// you should use 8-bit encoding instead of it.
-	/// 
 	/// ## C++ default parameters
 	/// * encoding: String()
 	#[inline]
@@ -10246,9 +6346,6 @@ pub trait FileStorageTrait: core::FileStorageTraitConst {
 		Ok(ret)
 	}
 	
-	/// Closes the file and releases all the memory buffers.
-	/// 
-	/// Call this method after all I/O operations with the storage are finished.
 	#[inline]
 	fn release(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -10258,10 +6355,6 @@ pub trait FileStorageTrait: core::FileStorageTraitConst {
 		Ok(ret)
 	}
 	
-	/// Closes the file and releases all the memory buffers.
-	/// 
-	/// Call this method after all I/O operations with the storage are finished. If the storage was
-	/// opened for writing data and FileStorage::WRITE was specified
 	#[inline]
 	fn release_and_get_string(&mut self) -> Result<String> {
 		return_send!(via ocvrs_return);
@@ -10272,10 +6365,6 @@ pub trait FileStorageTrait: core::FileStorageTraitConst {
 		Ok(ret)
 	}
 	
-	/// Simplified writing API to use with bindings.
-	/// ## Parameters
-	/// * name: Name of the written object. When writing to sequences (a.k.a. "arrays"), pass an empty string.
-	/// * val: Value of the written object.
 	#[inline]
 	fn write_i32(&mut self, name: &str, val: i32) -> Result<()> {
 		extern_container_arg!(name);
@@ -10286,12 +6375,6 @@ pub trait FileStorageTrait: core::FileStorageTraitConst {
 		Ok(ret)
 	}
 	
-	/// Simplified writing API to use with bindings.
-	/// ## Parameters
-	/// * name: Name of the written object. When writing to sequences (a.k.a. "arrays"), pass an empty string.
-	/// * val: Value of the written object.
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn write_f64(&mut self, name: &str, val: f64) -> Result<()> {
 		extern_container_arg!(name);
@@ -10302,12 +6385,6 @@ pub trait FileStorageTrait: core::FileStorageTraitConst {
 		Ok(ret)
 	}
 	
-	/// Simplified writing API to use with bindings.
-	/// ## Parameters
-	/// * name: Name of the written object. When writing to sequences (a.k.a. "arrays"), pass an empty string.
-	/// * val: Value of the written object.
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn write_str(&mut self, name: &str, val: &str) -> Result<()> {
 		extern_container_arg!(name);
@@ -10319,12 +6396,6 @@ pub trait FileStorageTrait: core::FileStorageTraitConst {
 		Ok(ret)
 	}
 	
-	/// Simplified writing API to use with bindings.
-	/// ## Parameters
-	/// * name: Name of the written object. When writing to sequences (a.k.a. "arrays"), pass an empty string.
-	/// * val: Value of the written object.
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn write_mat(&mut self, name: &str, val: &core::Mat) -> Result<()> {
 		extern_container_arg!(name);
@@ -10335,12 +6406,6 @@ pub trait FileStorageTrait: core::FileStorageTraitConst {
 		Ok(ret)
 	}
 	
-	/// Simplified writing API to use with bindings.
-	/// ## Parameters
-	/// * name: Name of the written object. When writing to sequences (a.k.a. "arrays"), pass an empty string.
-	/// * val: Value of the written object.
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn write_str_vec(&mut self, name: &str, val: &core::Vector<String>) -> Result<()> {
 		extern_container_arg!(name);
@@ -10351,14 +6416,6 @@ pub trait FileStorageTrait: core::FileStorageTraitConst {
 		Ok(ret)
 	}
 	
-	/// Writes multiple numbers.
-	/// 
-	/// Writes one or more numbers of the specified format to the currently written structure. Usually it is
-	/// more convenient to use operator `<<` instead of this method.
-	/// ## Parameters
-	/// * fmt: Specification of each array element, see @ref format_spec "format specification"
-	/// * vec: Pointer to the written array.
-	/// * len: Number of the uchar elements to write.
 	#[inline]
 	unsafe fn write_raw(&mut self, fmt: &str, vec: *const c_void, len: size_t) -> Result<()> {
 		extern_container_arg!(fmt);
@@ -10369,15 +6426,6 @@ pub trait FileStorageTrait: core::FileStorageTraitConst {
 		Ok(ret)
 	}
 	
-	/// Writes a comment.
-	/// 
-	/// The function writes a comment into file storage. The comments are skipped when the storage is read.
-	/// ## Parameters
-	/// * comment: The written comment, single-line or multi-line
-	/// * append: If true, the function tries to put the comment at the end of current line.
-	/// Else if the comment is multi-line, or if it does not fit at the end of the current
-	/// line, the comment starts a new line.
-	/// 
 	/// ## C++ default parameters
 	/// * append: false
 	#[inline]
@@ -10390,13 +6438,6 @@ pub trait FileStorageTrait: core::FileStorageTraitConst {
 		Ok(ret)
 	}
 	
-	/// Starts to write a nested structure (sequence or a mapping).
-	/// ## Parameters
-	/// * name: name of the structure. When writing to sequences (a.k.a. "arrays"), pass an empty string.
-	/// * flags: type of the structure (FileNode::MAP or FileNode::SEQ (both with optional FileNode::FLOW)).
-	/// * typeName: optional name of the type you store. The effect of setting this depends on the storage format.
-	/// I.e. if the format has a specification for storing type information, this parameter is used.
-	/// 
 	/// ## C++ default parameters
 	/// * type_name: String()
 	#[inline]
@@ -10410,7 +6451,6 @@ pub trait FileStorageTrait: core::FileStorageTraitConst {
 		Ok(ret)
 	}
 	
-	/// Finishes writing nested structure (should pair startWriteStruct())
 	#[inline]
 	fn end_write_struct(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -10422,8 +6462,6 @@ pub trait FileStorageTrait: core::FileStorageTraitConst {
 	
 }
 
-/// XML/YAML/JSON file storage class that encapsulates all the information necessary for writing or
-/// reading data to/from a file.
 pub struct FileStorage {
 	ptr: *mut c_void
 }
@@ -10448,10 +6486,6 @@ impl core::FileStorageTrait for FileStorage {
 }
 
 impl FileStorage {
-	/// The constructors.
-	/// 
-	/// The full constructor opens the file. Alternatively you can use the default constructor and then
-	/// call FileStorage::open.
 	#[inline]
 	pub fn default() -> Result<core::FileStorage> {
 		return_send!(via ocvrs_return);
@@ -10462,15 +6496,6 @@ impl FileStorage {
 		Ok(ret)
 	}
 	
-	/// The constructors.
-	/// 
-	/// The full constructor opens the file. Alternatively you can use the default constructor and then
-	/// call FileStorage::open.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	///      @copydoc open()
-	/// 
 	/// ## C++ default parameters
 	/// * encoding: String()
 	#[inline]
@@ -10485,11 +6510,6 @@ impl FileStorage {
 		Ok(ret)
 	}
 	
-	/// Returns the normalized object name for the specified name of a file.
-	/// ## Parameters
-	/// * filename: Name of a file
-	/// ## Returns
-	/// The normalized object name.
 	#[inline]
 	pub fn get_default_object_name(filename: &str) -> Result<String> {
 		extern_container_arg!(filename);
@@ -10503,7 +6523,6 @@ impl FileStorage {
 	
 }
 
-/// @todo document
 pub trait FormattedConst {
 	fn as_raw_Formatted(&self) -> *const c_void;
 
@@ -10533,7 +6552,6 @@ pub trait Formatted: core::FormattedConst {
 	
 }
 
-/// @todo document
 pub trait FormatterConst {
 	fn as_raw_Formatter(&self) -> *const c_void;
 
@@ -10649,32 +6667,14 @@ impl Hamming {
 	pub const normType: u32 = 6;
 }
 
-/// Data structure for salient point detectors.
-/// 
-/// The class instance stores a keypoint, i.e. a point feature found by one of many available keypoint
-/// detectors, such as Harris corner detector, #FAST, %StarDetector, %SURF, %SIFT etc.
-/// 
-/// The keypoint is characterized by the 2D position, scale (proportional to the diameter of the
-/// neighborhood that needs to be taken into account), orientation and some other parameters. The
-/// keypoint neighborhood is then analyzed by another algorithm that builds a descriptor (usually
-/// represented as a feature vector). The keypoints representing the same object in different images
-/// can then be matched using %KDTree or another method.
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub struct KeyPoint {
-	/// coordinates of the keypoints
 	pub pt: core::Point2f,
-	/// diameter of the meaningful keypoint neighborhood
 	pub size: f32,
-	/// computed orientation of the keypoint (-1 if not applicable);
-	/// it's in [0,360) degrees and measured relative to
-	/// image coordinate system, ie in clockwise.
 	pub angle: f32,
-	/// the response by which the most strong keypoints have been selected. Can be used for the further sorting or subsampling
 	pub response: f32,
-	/// octave (pyramid layer) from which the keypoint has been extracted
 	pub octave: i32,
-	/// object class (if the keypoints need to be clustered by an object they belong to)
 	pub class_id: i32,
 }
 
@@ -10690,7 +6690,6 @@ impl KeyPoint {
 		Ok(ret)
 	}
 	
-	/// the default constructor
 	#[inline]
 	pub fn default() -> Result<core::KeyPoint> {
 		return_send!(via ocvrs_return);
@@ -10700,14 +6699,6 @@ impl KeyPoint {
 		Ok(ret)
 	}
 	
-	/// ## Parameters
-	/// * pt: x & y coordinates of the keypoint
-	/// * size: keypoint diameter
-	/// * angle: keypoint orientation
-	/// * response: keypoint detector response on the keypoint (that is, strength of the keypoint)
-	/// * octave: pyramid octave in which the keypoint has been detected
-	/// * class_id: object id
-	/// 
 	/// ## C++ default parameters
 	/// * angle: -1
 	/// * response: 0
@@ -10722,15 +6713,6 @@ impl KeyPoint {
 		Ok(ret)
 	}
 	
-	/// ## Parameters
-	/// * x: x-coordinate of the keypoint
-	/// * y: y-coordinate of the keypoint
-	/// * size: keypoint diameter
-	/// * angle: keypoint orientation
-	/// * response: keypoint detector response on the keypoint (that is, strength of the keypoint)
-	/// * octave: pyramid octave in which the keypoint has been detected
-	/// * class_id: object id
-	/// 
 	/// ## C++ default parameters
 	/// * angle: -1
 	/// * response: 0
@@ -10745,15 +6727,6 @@ impl KeyPoint {
 		Ok(ret)
 	}
 	
-	/// This method converts vector of keypoints to vector of points or the reverse, where each keypoint is
-	/// assigned the same size and the same orientation.
-	/// 
-	/// ## Parameters
-	/// * keypoints: Keypoints obtained from any feature detection algorithm like SIFT/SURF/ORB
-	/// * points2f: Array of (x,y) coordinates of each keypoint
-	/// * keypointIndexes: Array of indexes of keypoints to be converted to points. (Acts like a mask to
-	/// convert only specified keypoints)
-	/// 
 	/// ## C++ default parameters
 	/// * keypoint_indexes: std::vector<int>()
 	#[inline]
@@ -10765,24 +6738,6 @@ impl KeyPoint {
 		Ok(ret)
 	}
 	
-	/// This method converts vector of keypoints to vector of points or the reverse, where each keypoint is
-	/// assigned the same size and the same orientation.
-	/// 
-	/// ## Parameters
-	/// * keypoints: Keypoints obtained from any feature detection algorithm like SIFT/SURF/ORB
-	/// * points2f: Array of (x,y) coordinates of each keypoint
-	/// * keypointIndexes: Array of indexes of keypoints to be converted to points. (Acts like a mask to
-	/// convert only specified keypoints)
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * points2f: Array of (x,y) coordinates of each keypoint
-	/// * keypoints: Keypoints obtained from any feature detection algorithm like SIFT/SURF/ORB
-	/// * size: keypoint diameter
-	/// * response: keypoint detector response on the keypoint (that is, strength of the keypoint)
-	/// * octave: pyramid octave in which the keypoint has been detected
-	/// * class_id: object id
-	/// 
 	/// ## C++ default parameters
 	/// * size: 1
 	/// * response: 1
@@ -10797,12 +6752,6 @@ impl KeyPoint {
 		Ok(ret)
 	}
 	
-	/// This method computes overlap for pair of keypoints. Overlap is the ratio between area of keypoint
-	/// regions' intersection and area of keypoint regions' union (considering keypoint region as circle).
-	/// If they don't overlap, we get zero. If they coincide at same location with same size, we get 1.
-	/// ## Parameters
-	/// * kp1: First keypoint
-	/// * kp2: Second keypoint
 	#[inline]
 	pub fn overlap(kp1: core::KeyPoint, kp2: core::KeyPoint) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -10814,12 +6763,9 @@ impl KeyPoint {
 	
 }
 
-/// Linear Discriminant Analysis
-/// @todo document this class
 pub trait LDATraitConst {
 	fn as_raw_LDA(&self) -> *const c_void;
 
-	/// Serializes this object to a given filename.
 	#[inline]
 	fn save(&self, filename: &str) -> Result<()> {
 		extern_container_arg!(filename);
@@ -10830,7 +6776,6 @@ pub trait LDATraitConst {
 		Ok(ret)
 	}
 	
-	/// Serializes this object to a given cv::FileStorage.
 	#[inline]
 	fn save_1(&self, fs: &mut core::FileStorage) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -10840,7 +6785,6 @@ pub trait LDATraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns the eigenvectors of this LDA.
 	#[inline]
 	fn eigenvectors(&self) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -10851,7 +6795,6 @@ pub trait LDATraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns the eigenvalues of this LDA.
 	#[inline]
 	fn eigenvalues(&self) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -10867,7 +6810,6 @@ pub trait LDATraitConst {
 pub trait LDATrait: core::LDATraitConst {
 	fn as_raw_mut_LDA(&mut self) -> *mut c_void;
 
-	/// Deserializes this object from a given filename.
 	#[inline]
 	fn load(&mut self, filename: &str) -> Result<()> {
 		extern_container_arg!(filename);
@@ -10878,7 +6820,6 @@ pub trait LDATrait: core::LDATraitConst {
 		Ok(ret)
 	}
 	
-	/// Deserializes this object from a given cv::FileStorage.
 	#[inline]
 	fn load_1(&mut self, node: &core::FileStorage) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -10888,7 +6829,6 @@ pub trait LDATrait: core::LDATraitConst {
 		Ok(ret)
 	}
 	
-	/// Compute the discriminants for data in src (row aligned) and labels.
 	#[inline]
 	fn compute(&mut self, src: &dyn core::ToInputArray, labels: &dyn core::ToInputArray) -> Result<()> {
 		input_array_arg!(src);
@@ -10900,8 +6840,6 @@ pub trait LDATrait: core::LDATraitConst {
 		Ok(ret)
 	}
 	
-	/// Projects samples into the LDA subspace.
-	/// src may be one or more row aligned samples.
 	#[inline]
 	fn project(&mut self, src: &dyn core::ToInputArray) -> Result<core::Mat> {
 		input_array_arg!(src);
@@ -10913,8 +6851,6 @@ pub trait LDATrait: core::LDATraitConst {
 		Ok(ret)
 	}
 	
-	/// Reconstructs projections from the LDA subspace.
-	/// src may be one or more row aligned projections.
 	#[inline]
 	fn reconstruct(&mut self, src: &dyn core::ToInputArray) -> Result<core::Mat> {
 		input_array_arg!(src);
@@ -10928,8 +6864,6 @@ pub trait LDATrait: core::LDATraitConst {
 	
 }
 
-/// Linear Discriminant Analysis
-/// @todo document this class
 pub struct LDA {
 	ptr: *mut c_void
 }
@@ -10954,9 +6888,6 @@ impl core::LDATrait for LDA {
 }
 
 impl LDA {
-	/// constructor
-	/// Initializes a LDA with num_components (default 0).
-	/// 
 	/// ## C++ default parameters
 	/// * num_components: 0
 	#[inline]
@@ -10969,11 +6900,6 @@ impl LDA {
 		Ok(ret)
 	}
 	
-	/// Initializes and performs a Discriminant Analysis with Fisher's
-	/// Optimization Criterion on given data in src and corresponding labels
-	/// in labels. If 0 (or less) number of components are given, they are
-	/// automatically determined for given data in computation.
-	/// 
 	/// ## C++ default parameters
 	/// * num_components: 0
 	#[inline]
@@ -11016,245 +6942,33 @@ impl LDA {
 	
 }
 
-/// n-dimensional dense array class \anchor CVMat_Details
-/// 
-/// The class Mat represents an n-dimensional dense numerical single-channel or multi-channel array. It
-/// can be used to store real or complex-valued vectors and matrices, grayscale or color images, voxel
-/// volumes, vector fields, point clouds, tensors, histograms (though, very high-dimensional histograms
-/// may be better stored in a SparseMat ). The data layout of the array `M` is defined by the array
-/// `M.step[]`, so that the address of element ![inline formula](https://latex.codecogs.com/png.latex?%28i%5F0%2C%2E%2E%2E%2Ci%5F%7BM%2Edims%2D1%7D%29), where ![inline formula](https://latex.codecogs.com/png.latex?0%5Cleq%20i%5Fk%3CM%2Esize%5Bk%5D), is
-/// computed as:
-/// ![block formula](https://latex.codecogs.com/png.latex?addr%28M%5F%7Bi%5F0%2C%2E%2E%2E%2Ci%5F%7BM%2Edims%2D1%7D%7D%29%20%3D%20M%2Edata%20%2B%20M%2Estep%5B0%5D%2Ai%5F0%20%2B%20M%2Estep%5B1%5D%2Ai%5F1%20%2B%20%2E%2E%2E%20%2B%20M%2Estep%5BM%2Edims%2D1%5D%2Ai%5F%7BM%2Edims%2D1%7D)
-/// In case of a 2-dimensional array, the above formula is reduced to:
-/// ![block formula](https://latex.codecogs.com/png.latex?addr%28M%5F%7Bi%2Cj%7D%29%20%3D%20M%2Edata%20%2B%20M%2Estep%5B0%5D%2Ai%20%2B%20M%2Estep%5B1%5D%2Aj)
-/// Note that `M.step[i] >= M.step[i+1]` (in fact, `M.step[i] >= M.step[i+1]*M.size[i+1]` ). This means
-/// that 2-dimensional matrices are stored row-by-row, 3-dimensional matrices are stored plane-by-plane,
-/// and so on. M.step[M.dims-1] is minimal and always equal to the element size M.elemSize() .
-/// 
-/// So, the data layout in Mat is compatible with the majority of dense array types from the standard
-/// toolkits and SDKs, such as Numpy (ndarray), Win32 (independent device bitmaps), and others,
-/// that is, with any array that uses *steps* (or *strides*) to compute the position of a pixel.
-/// Due to this compatibility, it is possible to make a Mat header for user-allocated data and process
-/// it in-place using OpenCV functions.
-/// 
-/// There are many different ways to create a Mat object. The most popular options are listed below:
-/// 
-/// - Use the create(nrows, ncols, type) method or the similar Mat(nrows, ncols, type[, fillValue])
-/// constructor. A new array of the specified size and type is allocated. type has the same meaning as
-/// in the cvCreateMat method. For example, CV_8UC1 means a 8-bit single-channel array, CV_32FC2
-/// means a 2-channel (complex) floating-point array, and so on.
-/// ```ignore
-///    // make a 7x7 complex matrix filled with 1+3j.
-///    Mat M(7,7,CV_32FC2,Scalar(1,3));
-///    // and now turn M to a 100x60 15-channel 8-bit matrix.
-///    // The old content will be deallocated
-///    M.create(100,60,CV_8UC(15));
-/// ```
-/// 
-/// As noted in the introduction to this chapter, create() allocates only a new array when the shape
-/// or type of the current array are different from the specified ones.
-/// 
-/// - Create a multi-dimensional array:
-/// ```ignore
-///    // create a 100x100x100 8-bit array
-///    int sz[] = {100, 100, 100};
-///    Mat bigCube(3, sz, CV_8U, Scalar::all(0));
-/// ```
-/// 
-/// It passes the number of dimensions =1 to the Mat constructor but the created array will be
-/// 2-dimensional with the number of columns set to 1. So, Mat::dims is always \>= 2 (can also be 0
-/// when the array is empty).
-/// 
-/// - Use a copy constructor or assignment operator where there can be an array or expression on the
-/// right side (see below). As noted in the introduction, the array assignment is an O(1) operation
-/// because it only copies the header and increases the reference counter. The Mat::clone() method can
-/// be used to get a full (deep) copy of the array when you need it.
-/// 
-/// - Construct a header for a part of another array. It can be a single row, single column, several
-/// rows, several columns, rectangular region in the array (called a *minor* in algebra) or a
-/// diagonal. Such operations are also O(1) because the new header references the same data. You can
-/// actually modify a part of the array using this feature, for example:
-/// ```ignore
-///    // add the 5-th row, multiplied by 3 to the 3rd row
-///    M.row(3) = M.row(3) + M.row(5)*3;
-///    // now copy the 7-th column to the 1-st column
-///    // M.col(1) = M.col(7); // this will not work
-///    Mat M1 = M.col(1);
-///    M.col(7).copyTo(M1);
-///    // create a new 320x240 image
-///    Mat img(Size(320,240),CV_8UC3);
-///    // select a ROI
-///    Mat roi(img, Rect(10,10,100,100));
-///    // fill the ROI with (0,255,0) (which is green in RGB space);
-///    // the original 320x240 image will be modified
-///    roi = Scalar(0,255,0);
-/// ```
-/// 
-/// Due to the additional datastart and dataend members, it is possible to compute a relative
-/// sub-array position in the main *container* array using locateROI():
-/// ```ignore
-///    Mat A = Mat::eye(10, 10, CV_32S);
-///    // extracts A columns, 1 (inclusive) to 3 (exclusive).
-///    Mat B = A(Range::all(), Range(1, 3));
-///    // extracts B rows, 5 (inclusive) to 9 (exclusive).
-///    // that is, C \~ A(Range(5, 9), Range(1, 3))
-///    Mat C = B(Range(5, 9), Range::all());
-///    Size size; Point ofs;
-///    C.locateROI(size, ofs);
-///    // size will be (width=10,height=10) and the ofs will be (x=1, y=5)
-/// ```
-/// 
-/// As in case of whole matrices, if you need a deep copy, use the `clone()` method of the extracted
-/// sub-matrices.
-/// 
-/// - Make a header for user-allocated data. It can be useful to do the following:
-///    -# Process "foreign" data using OpenCV (for example, when you implement a DirectShow\* filter or
-///    a processing module for gstreamer, and so on). For example:
-///    ```ignore
-///        Mat process_video_frame(const unsigned char* pixels,
-///                                 int width, int height, int step)
-///        {
-///            // wrap input buffer
-///            Mat img(height, width, CV_8UC3, (unsigned char*)pixels, step);
-/// 
-///            Mat result;
-///            GaussianBlur(img, result, Size(7, 7), 1.5, 1.5);
-/// 
-///            return result;
-///        }
-///    ```
-/// 
-///    -# Quickly initialize small matrices and/or get a super-fast element access.
-///    ```ignore
-///        double m[3][3] = {{a, b, c}, {d, e, f}, {g, h, i}};
-///        Mat M = Mat(3, 3, CV_64F, m).inv();
-///    ```
-/// 
-///    .
-/// 
-/// - Use MATLAB-style array initializers, zeros(), ones(), eye(), for example:
-/// ```ignore
-///    // create a double-precision identity matrix and add it to M.
-///    M += Mat::eye(M.rows, M.cols, CV_64F);
-/// ```
-/// 
-/// 
-/// - Use a comma-separated initializer:
-/// ```ignore
-///    // create a 3x3 double-precision identity matrix
-///    Mat M = (Mat_<double>(3,3) << 1, 0, 0, 0, 1, 0, 0, 0, 1);
-/// ```
-/// 
-/// With this approach, you first call a constructor of the Mat class with the proper parameters, and
-/// then you just put `<< operator` followed by comma-separated values that can be constants,
-/// variables, expressions, and so on. Also, note the extra parentheses required to avoid compilation
-/// errors.
-/// 
-/// Once the array is created, it is automatically managed via a reference-counting mechanism. If the
-/// array header is built on top of user-allocated data, you should handle the data by yourself. The
-/// array data is deallocated when no one points to it. If you want to release the data pointed by a
-/// array header before the array destructor is called, use Mat::release().
-/// 
-/// The next important thing to learn about the array class is element access. This manual already
-/// described how to compute an address of each array element. Normally, you are not required to use the
-/// formula directly in the code. If you know the array element type (which can be retrieved using the
-/// method Mat::type() ), you can access the element ![inline formula](https://latex.codecogs.com/png.latex?M%5F%7Bij%7D) of a 2-dimensional array as:
-/// ```ignore
-///    M.at<double>(i,j) += 1.f;
-/// ```
-/// 
-/// assuming that `M` is a double-precision floating-point array. There are several variants of the method
-/// at for a different number of dimensions.
-/// 
-/// If you need to process a whole row of a 2D array, the most efficient way is to get the pointer to
-/// the row first, and then just use the plain C operator [] :
-/// ```ignore
-///    // compute sum of positive matrix elements
-///    // (assuming that M is a double-precision matrix)
-///    double sum=0;
-///    for(int i = 0; i < M.rows; i++)
-///    {
-///        const double* Mi = M.ptr<double>(i);
-///        for(int j = 0; j < M.cols; j++)
-///            sum += std::max(Mi[j], 0.);
-///    }
-/// ```
-/// 
-/// Some operations, like the one above, do not actually depend on the array shape. They just process
-/// elements of an array one by one (or elements from multiple arrays that have the same coordinates,
-/// for example, array addition). Such operations are called *element-wise*. It makes sense to check
-/// whether all the input/output arrays are continuous, namely, have no gaps at the end of each row. If
-/// yes, process them as a long single row:
-/// ```ignore
-///    // compute the sum of positive matrix elements, optimized variant
-///    double sum=0;
-///    int cols = M.cols, rows = M.rows;
-///    if(M.isContinuous())
-///    {
-///        cols *= rows;
-///        rows = 1;
-///    }
-///    for(int i = 0; i < rows; i++)
-///    {
-///        const double* Mi = M.ptr<double>(i);
-///        for(int j = 0; j < cols; j++)
-///            sum += std::max(Mi[j], 0.);
-///    }
-/// ```
-/// 
-/// In case of the continuous matrix, the outer loop body is executed just once. So, the overhead is
-/// smaller, which is especially noticeable in case of small matrices.
-/// 
-/// Finally, there are STL-style iterators that are smart enough to skip gaps between successive rows:
-/// ```ignore
-///    // compute sum of positive matrix elements, iterator-based variant
-///    double sum=0;
-///    MatConstIterator_<double> it = M.begin<double>(), it_end = M.end<double>();
-///    for(; it != it_end; ++it)
-///        sum += std::max(*it, 0.);
-/// ```
-/// 
-/// The matrix iterators are random-access iterators, so they can be passed to any STL algorithm,
-/// including std::sort().
-/// 
-/// 
-/// Note: Matrix Expressions and arithmetic see MatExpr
 pub trait MatTraitConst {
 	fn as_raw_Mat(&self) -> *const c_void;
 
-	/// ! includes several bit-fields:
-	/// - the magic signature
-	/// - continuity flag
-	/// - depth
-	/// - number of channels
 	#[inline]
 	fn flags(&self) -> i32 {
 		let ret = unsafe { sys::cv_Mat_getPropFlags_const(self.as_raw_Mat()) };
 		ret
 	}
 	
-	/// the matrix dimensionality, >= 2
 	#[inline]
 	fn dims(&self) -> i32 {
 		let ret = unsafe { sys::cv_Mat_getPropDims_const(self.as_raw_Mat()) };
 		ret
 	}
 	
-	/// the number of rows and columns or (-1, -1) when the matrix has more than 2 dimensions
 	#[inline]
 	fn rows(&self) -> i32 {
 		let ret = unsafe { sys::cv_Mat_getPropRows_const(self.as_raw_Mat()) };
 		ret
 	}
 	
-	/// the number of rows and columns or (-1, -1) when the matrix has more than 2 dimensions
 	#[inline]
 	fn cols(&self) -> i32 {
 		let ret = unsafe { sys::cv_Mat_getPropCols_const(self.as_raw_Mat()) };
 		ret
 	}
 	
-	/// helper fields used in locateROI and adjustROI
 	#[inline]
 	fn datastart(&self) -> *const u8 {
 		let ret = unsafe { sys::cv_Mat_getPropDatastart_const(self.as_raw_Mat()) };
@@ -11287,8 +7001,6 @@ pub trait MatTraitConst {
 		ret
 	}
 	
-	/// retrieve UMat from Mat
-	/// 
 	/// ## C++ default parameters
 	/// * usage_flags: USAGE_DEFAULT
 	#[inline]
@@ -11301,43 +7013,6 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Creates a matrix header for the specified matrix row.
-	/// 
-	/// The method makes a new header for the specified matrix row and returns it. This is an O(1)
-	/// operation, regardless of the matrix size. The underlying data of the new matrix is shared with the
-	/// original matrix. Here is the example of one of the classical basic matrix processing operations,
-	/// axpy, used by LU and many other algorithms:
-	/// ```ignore
-	///    inline void matrix_axpy(Mat& A, int i, int j, double alpha)
-	///    {
-	///        A.row(i) += A.row(j)*alpha;
-	///    }
-	/// ```
-	/// 
-	/// 
-	/// Note: In the current implementation, the following code does not work as expected:
-	/// ```ignore
-	///    Mat A;
-	///    ...
-	///    A.row(i) = A.row(j); // will not work
-	/// ```
-	/// 
-	/// This happens because A.row(i) forms a temporary header that is further assigned to another header.
-	/// Remember that each of these operations is O(1), that is, no data is copied. Thus, the above
-	/// assignment is not true if you may have expected the j-th row to be copied to the i-th row. To
-	/// achieve that, you should either turn this simple assignment into an expression or use the
-	/// Mat::copyTo method:
-	/// ```ignore
-	///    Mat A;
-	///    ...
-	///    // works, but looks a bit obscure.
-	///    A.row(i) = A.row(j) + 0;
-	///    // this is a bit longer, but the recommended method.
-	///    A.row(j).copyTo(A.row(i));
-	/// ```
-	/// 
-	/// ## Parameters
-	/// * y: A 0-based row index.
 	#[inline]
 	fn row(&self, y: i32) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -11348,13 +7023,6 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Creates a matrix header for the specified matrix column.
-	/// 
-	/// The method makes a new header for the specified matrix column and returns it. This is an O(1)
-	/// operation, regardless of the matrix size. The underlying data of the new matrix is shared with the
-	/// original matrix. See also the Mat::row description.
-	/// ## Parameters
-	/// * x: A 0-based column index.
 	#[inline]
 	fn col(&self, x: i32) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -11365,13 +7033,6 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Creates a matrix header for the specified row span.
-	/// 
-	/// The method makes a new header for the specified row span of the matrix. Similarly to Mat::row and
-	/// Mat::col , this is an O(1) operation.
-	/// ## Parameters
-	/// * startrow: An inclusive 0-based start index of the row span.
-	/// * endrow: An exclusive 0-based ending index of the row span.
 	#[inline]
 	fn row_bounds(&self, startrow: i32, endrow: i32) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -11382,17 +7043,6 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Creates a matrix header for the specified row span.
-	/// 
-	/// The method makes a new header for the specified row span of the matrix. Similarly to Mat::row and
-	/// Mat::col , this is an O(1) operation.
-	/// ## Parameters
-	/// * startrow: An inclusive 0-based start index of the row span.
-	/// * endrow: An exclusive 0-based ending index of the row span.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * r: Range structure containing both the start and the end indices.
 	#[inline]
 	fn row_range(&self, r: &core::Range) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -11403,13 +7053,6 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Creates a matrix header for the specified column span.
-	/// 
-	/// The method makes a new header for the specified column span of the matrix. Similarly to Mat::row and
-	/// Mat::col , this is an O(1) operation.
-	/// ## Parameters
-	/// * startcol: An inclusive 0-based start index of the column span.
-	/// * endcol: An exclusive 0-based ending index of the column span.
 	#[inline]
 	fn col_bounds(&self, startcol: i32, endcol: i32) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -11420,17 +7063,6 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Creates a matrix header for the specified column span.
-	/// 
-	/// The method makes a new header for the specified column span of the matrix. Similarly to Mat::row and
-	/// Mat::col , this is an O(1) operation.
-	/// ## Parameters
-	/// * startcol: An inclusive 0-based start index of the column span.
-	/// * endcol: An exclusive 0-based ending index of the column span.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * r: Range structure containing both the start and the end indices.
 	#[inline]
 	fn col_range(&self, r: &core::Range) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -11441,43 +7073,6 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Extracts a diagonal from a matrix
-	/// 
-	/// The method makes a new header for the specified matrix diagonal. The new matrix is represented as a
-	/// single-column matrix. Similarly to Mat::row and Mat::col, this is an O(1) operation.
-	/// ## Parameters
-	/// * d: index of the diagonal, with the following values:
-	/// - `d=0` is the main diagonal.
-	/// - `d<0` is a diagonal from the lower half. For example, d=-1 means the diagonal is set
-	///   immediately below the main one.
-	/// - `d>0` is a diagonal from the upper half. For example, d=1 means the diagonal is set
-	///   immediately above the main one.
-	/// For example:
-	/// ```ignore
-	///    Mat m = (Mat_<int>(3,3) <<
-	///                1,2,3,
-	///                4,5,6,
-	///                7,8,9);
-	///    Mat d0 = m.diag(0);
-	///    Mat d1 = m.diag(1);
-	///    Mat d_1 = m.diag(-1);
-	/// ```
-	/// 
-	/// The resulting matrices are
-	/// ```ignore
-	///  d0 =
-	///    [1;
-	///    5;
-	///    9]
-	///  d1 =
-	///    [2;
-	///    6]
-	///  d_1 =
-	///    [4;
-	///    8]
-	/// ```
-	/// 
-	/// 
 	/// ## C++ default parameters
 	/// * d: 0
 	#[inline]
@@ -11490,10 +7085,6 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Creates a full copy of the array and the underlying data.
-	/// 
-	/// The method creates a full copy of the array. The original step[] is not taken into account. So, the
-	/// array copy is a continuous array occupying total()*elemSize() bytes.
 	#[inline]
 	#[must_use]
 	fn try_clone(&self) -> Result<core::Mat> {
@@ -11505,22 +7096,6 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Copies the matrix to another one.
-	/// 
-	/// The method copies the matrix data to another matrix. Before copying the data, the method invokes :
-	/// ```ignore
-	///    m.create(this->size(), this->type());
-	/// ```
-	/// 
-	/// so that the destination matrix is reallocated if needed. While m.copyTo(m); works flawlessly, the
-	/// function does not handle the case of a partial overlap between the source and the destination
-	/// matrices.
-	/// 
-	/// When the operation mask is specified, if the Mat::create call shown above reallocates the matrix,
-	/// the newly allocated matrix is initialized with all zeros before copying the data.
-	/// ## Parameters
-	/// * m: Destination matrix. If it does not have a proper size or type before the operation, it is
-	/// reallocated.
 	#[inline]
 	fn copy_to(&self, m: &mut dyn core::ToOutputArray) -> Result<()> {
 		output_array_arg!(m);
@@ -11531,29 +7106,6 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Copies the matrix to another one.
-	/// 
-	/// The method copies the matrix data to another matrix. Before copying the data, the method invokes :
-	/// ```ignore
-	///    m.create(this->size(), this->type());
-	/// ```
-	/// 
-	/// so that the destination matrix is reallocated if needed. While m.copyTo(m); works flawlessly, the
-	/// function does not handle the case of a partial overlap between the source and the destination
-	/// matrices.
-	/// 
-	/// When the operation mask is specified, if the Mat::create call shown above reallocates the matrix,
-	/// the newly allocated matrix is initialized with all zeros before copying the data.
-	/// ## Parameters
-	/// * m: Destination matrix. If it does not have a proper size or type before the operation, it is
-	/// reallocated.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * m: Destination matrix. If it does not have a proper size or type before the operation, it is
-	///    reallocated.
-	/// * mask: Operation mask of the same size as \*this. Its non-zero elements indicate which matrix
-	///    elements need to be copied. The mask has to be of type CV_8U and can have 1 or multiple channels.
 	#[inline]
 	fn copy_to_masked(&self, m: &mut dyn core::ToOutputArray, mask: &dyn core::ToInputArray) -> Result<()> {
 		output_array_arg!(m);
@@ -11565,20 +7117,6 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Converts an array to another data type with optional scaling.
-	/// 
-	/// The method converts source pixel values to the target data type. saturate_cast\<\> is applied at
-	/// the end to avoid possible overflows:
-	/// 
-	/// ![block formula](https://latex.codecogs.com/png.latex?m%28x%2Cy%29%20%3D%20saturate%20%5C%5F%20cast%3CrType%3E%28%20%5Calpha%20%28%2Athis%29%28x%2Cy%29%20%2B%20%20%5Cbeta%20%29)
-	/// ## Parameters
-	/// * m: output matrix; if it does not have a proper size or type before the operation, it is
-	/// reallocated.
-	/// * rtype: desired output matrix type or, rather, the depth since the number of channels are the
-	/// same as the input has; if rtype is negative, the output matrix will have the same type as the input.
-	/// * alpha: optional scale factor.
-	/// * beta: optional delta added to the scaled values.
-	/// 
 	/// ## C++ default parameters
 	/// * alpha: 1
 	/// * beta: 0
@@ -11592,13 +7130,6 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Provides a functional form of convertTo.
-	/// 
-	/// This is an internally used method called by the @ref MatrixExpressions engine.
-	/// ## Parameters
-	/// * m: Destination array.
-	/// * type: Desired destination array depth (or -1 if it should be the same as the source type).
-	/// 
 	/// ## C++ default parameters
 	/// * typ: -1
 	#[inline]
@@ -11610,32 +7141,6 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Changes the shape and/or the number of channels of a 2D matrix without copying the data.
-	/// 
-	/// The method makes a new matrix header for \*this elements. The new matrix may have a different size
-	/// and/or different number of channels. Any combination is possible if:
-	/// *   No extra elements are included into the new matrix and no elements are excluded. Consequently,
-	///    the product rows\*cols\*channels() must stay the same after the transformation.
-	/// *   No data is copied. That is, this is an O(1) operation. Consequently, if you change the number of
-	///    rows, or the operation changes the indices of elements row in some other way, the matrix must be
-	///    continuous. See Mat::isContinuous .
-	/// 
-	/// For example, if there is a set of 3D points stored as an STL vector, and you want to represent the
-	/// points as a 3xN matrix, do the following:
-	/// ```ignore
-	///    std::vector<Point3f> vec;
-	///    ...
-	///    Mat pointMat = Mat(vec). // convert vector to Mat, O(1) operation
-	///                       reshape(1). // make Nx3 1-channel matrix out of Nx1 3-channel.
-	///                                   // Also, an O(1) operation
-	///                          t(); // finally, transpose the Nx3 matrix.
-	///                               // This involves copying all the elements
-	/// ```
-	/// 
-	/// ## Parameters
-	/// * cn: New number of channels. If the parameter is 0, the number of channels remains the same.
-	/// * rows: New number of rows. If the parameter is 0, the number of rows remains the same.
-	/// 
 	/// ## C++ default parameters
 	/// * rows: 0
 	#[inline]
@@ -11648,33 +7153,6 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Changes the shape and/or the number of channels of a 2D matrix without copying the data.
-	/// 
-	/// The method makes a new matrix header for \*this elements. The new matrix may have a different size
-	/// and/or different number of channels. Any combination is possible if:
-	/// *   No extra elements are included into the new matrix and no elements are excluded. Consequently,
-	///    the product rows\*cols\*channels() must stay the same after the transformation.
-	/// *   No data is copied. That is, this is an O(1) operation. Consequently, if you change the number of
-	///    rows, or the operation changes the indices of elements row in some other way, the matrix must be
-	///    continuous. See Mat::isContinuous .
-	/// 
-	/// For example, if there is a set of 3D points stored as an STL vector, and you want to represent the
-	/// points as a 3xN matrix, do the following:
-	/// ```ignore
-	///    std::vector<Point3f> vec;
-	///    ...
-	///    Mat pointMat = Mat(vec). // convert vector to Mat, O(1) operation
-	///                       reshape(1). // make Nx3 1-channel matrix out of Nx1 3-channel.
-	///                                   // Also, an O(1) operation
-	///                          t(); // finally, transpose the Nx3 matrix.
-	///                               // This involves copying all the elements
-	/// ```
-	/// 
-	/// ## Parameters
-	/// * cn: New number of channels. If the parameter is 0, the number of channels remains the same.
-	/// * rows: New number of rows. If the parameter is 0, the number of rows remains the same.
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn reshape_nd(&self, cn: i32, newsz: &[i32]) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -11685,33 +7163,6 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Changes the shape and/or the number of channels of a 2D matrix without copying the data.
-	/// 
-	/// The method makes a new matrix header for \*this elements. The new matrix may have a different size
-	/// and/or different number of channels. Any combination is possible if:
-	/// *   No extra elements are included into the new matrix and no elements are excluded. Consequently,
-	///    the product rows\*cols\*channels() must stay the same after the transformation.
-	/// *   No data is copied. That is, this is an O(1) operation. Consequently, if you change the number of
-	///    rows, or the operation changes the indices of elements row in some other way, the matrix must be
-	///    continuous. See Mat::isContinuous .
-	/// 
-	/// For example, if there is a set of 3D points stored as an STL vector, and you want to represent the
-	/// points as a 3xN matrix, do the following:
-	/// ```ignore
-	///    std::vector<Point3f> vec;
-	///    ...
-	///    Mat pointMat = Mat(vec). // convert vector to Mat, O(1) operation
-	///                       reshape(1). // make Nx3 1-channel matrix out of Nx1 3-channel.
-	///                                   // Also, an O(1) operation
-	///                          t(); // finally, transpose the Nx3 matrix.
-	///                               // This involves copying all the elements
-	/// ```
-	/// 
-	/// ## Parameters
-	/// * cn: New number of channels. If the parameter is 0, the number of channels remains the same.
-	/// * rows: New number of rows. If the parameter is 0, the number of rows remains the same.
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn reshape_nd_vec(&self, cn: i32, newshape: &core::Vector<i32>) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -11722,16 +7173,6 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Transposes a matrix.
-	/// 
-	/// The method performs matrix transposition by means of matrix expressions. It does not perform the
-	/// actual transposition but returns a temporary matrix transposition object that can be further used as
-	/// a part of more complex matrix expressions or can be assigned to a matrix:
-	/// ```ignore
-	///    Mat A1 = A + Mat::eye(A.size(), A.type())*lambda;
-	///    Mat C = A1.t()*A1; // compute (A + lambda*I)^t * (A + lamda*I)
-	/// ```
-	/// 
 	#[inline]
 	fn t(&self) -> Result<core::MatExpr> {
 		return_send!(via ocvrs_return);
@@ -11742,14 +7183,6 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Inverses a matrix.
-	/// 
-	/// The method performs a matrix inversion by means of matrix expressions. This means that a temporary
-	/// matrix inversion object is returned by the method and can be used further as a part of more complex
-	/// matrix expressions or can be assigned to a matrix.
-	/// ## Parameters
-	/// * method: Matrix inversion method. One of cv::DecompTypes
-	/// 
 	/// ## C++ default parameters
 	/// * method: DECOMP_LU
 	#[inline]
@@ -11762,20 +7195,6 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Performs an element-wise multiplication or division of the two matrices.
-	/// 
-	/// The method returns a temporary object encoding per-element array multiplication, with optional
-	/// scale. Note that this is not a matrix multiplication that corresponds to a simpler "\*" operator.
-	/// 
-	/// Example:
-	/// ```ignore
-	///    Mat C = A.mul(5/B); // equivalent to divide(A, B, C, 5)
-	/// ```
-	/// 
-	/// ## Parameters
-	/// * m: Another array of the same type and the same size as \*this, or a matrix expression.
-	/// * scale: Optional scale factor.
-	/// 
 	/// ## C++ default parameters
 	/// * scale: 1
 	#[inline]
@@ -11789,13 +7208,6 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Computes a cross-product of two 3-element vectors.
-	/// 
-	/// The method computes a cross-product of two 3-element vectors. The vectors must be 3-element
-	/// floating-point vectors of the same shape and size. The result is another 3-element vector of the
-	/// same shape and type as operands.
-	/// ## Parameters
-	/// * m: Another cross-product operand.
 	#[inline]
 	fn cross(&self, m: &dyn core::ToInputArray) -> Result<core::Mat> {
 		input_array_arg!(m);
@@ -11807,14 +7219,6 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Computes a dot-product of two vectors.
-	/// 
-	/// The method computes a dot-product of two matrices. If the matrices are not single-column or
-	/// single-row vectors, the top-to-bottom left-to-right scan ordering is used to treat them as 1D
-	/// vectors. The vectors must have the same size and type. If the matrices have more than one channel,
-	/// the dot products from all the channels are summed together.
-	/// ## Parameters
-	/// * m: another dot-product operand.
 	#[inline]
 	fn dot(&self, m: &dyn core::ToInputArray) -> Result<f64> {
 		input_array_arg!(m);
@@ -11825,17 +7229,6 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Locates the matrix header within a parent matrix.
-	/// 
-	/// After you extracted a submatrix from a matrix using Mat::row, Mat::col, Mat::rowRange,
-	/// Mat::colRange, and others, the resultant submatrix points just to the part of the original big
-	/// matrix. However, each submatrix contains information (represented by datastart and dataend
-	/// fields) that helps reconstruct the original matrix size and the position of the extracted
-	/// submatrix within the original matrix. The method locateROI does exactly that.
-	/// ## Parameters
-	/// * wholeSize: Output parameter that contains the size of the whole matrix containing *this*
-	/// as a part.
-	/// * ofs: Output parameter that contains an offset of *this* inside the whole matrix.
 	#[inline]
 	fn locate_roi(&self, whole_size: &mut core::Size, ofs: &mut core::Point) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -11845,98 +7238,18 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Reports whether the matrix is continuous or not.
-	/// 
-	/// The method returns true if the matrix elements are stored continuously without gaps at the end of
-	/// each row. Otherwise, it returns false. Obviously, 1x1 or 1xN matrices are always continuous.
-	/// Matrices created with Mat::create are always continuous. But if you extract a part of the matrix
-	/// using Mat::col, Mat::diag, and so on, or constructed a matrix header for externally allocated data,
-	/// such matrices may no longer have this property.
-	/// 
-	/// The continuity flag is stored as a bit in the Mat::flags field and is computed automatically when
-	/// you construct a matrix header. Thus, the continuity check is a very fast operation, though
-	/// theoretically it could be done as follows:
-	/// ```ignore
-	///    // alternative implementation of Mat::isContinuous()
-	///    bool myCheckMatContinuity(const Mat& m)
-	///    {
-	///        //return (m.flags & Mat::CONTINUOUS_FLAG) != 0;
-	///        return m.rows == 1 || m.step == m.cols*m.elemSize();
-	///    }
-	/// ```
-	/// 
-	/// The method is used in quite a few of OpenCV functions. The point is that element-wise operations
-	/// (such as arithmetic and logical operations, math functions, alpha blending, color space
-	/// transformations, and others) do not depend on the image geometry. Thus, if all the input and output
-	/// arrays are continuous, the functions can process them as very long single-row vectors. The example
-	/// below illustrates how an alpha-blending function can be implemented:
-	/// ```ignore
-	///    template<typename T>
-	///    void alphaBlendRGBA(const Mat& src1, const Mat& src2, Mat& dst)
-	///    {
-	///        const float alpha_scale = (float)std::numeric_limits<T>::max(),
-	///                    inv_scale = 1.f/alpha_scale;
-	/// 
-	///        CV_Assert( src1.type() == src2.type() &&
-	///                    src1.type() == CV_MAKETYPE(traits::Depth<T>::value, 4) &&
-	///                    src1.size() == src2.size());
-	///        Size size = src1.size();
-	///        dst.create(size, src1.type());
-	/// 
-	///        // here is the idiom: check the arrays for continuity and,
-	///        // if this is the case,
-	///        // treat the arrays as 1D vectors
-	///        if( src1.isContinuous() && src2.isContinuous() && dst.isContinuous() )
-	///        {
-	///            size.width *= size.height;
-	///            size.height = 1;
-	///        }
-	///        size.width *= 4;
-	/// 
-	///        for( int i = 0; i < size.height; i++ )
-	///        {
-	///            // when the arrays are continuous,
-	///            // the outer loop is executed only once
-	///            const T* ptr1 = src1.ptr<T>(i);
-	///            const T* ptr2 = src2.ptr<T>(i);
-	///            T* dptr = dst.ptr<T>(i);
-	/// 
-	///            for( int j = 0; j < size.width; j += 4 )
-	///            {
-	///                float alpha = ptr1[j+3]*inv_scale, beta = ptr2[j+3]*inv_scale;
-	///                dptr[j] = saturate_cast<T>(ptr1[j]*alpha + ptr2[j]*beta);
-	///                dptr[j+1] = saturate_cast<T>(ptr1[j+1]*alpha + ptr2[j+1]*beta);
-	///                dptr[j+2] = saturate_cast<T>(ptr1[j+2]*alpha + ptr2[j+2]*beta);
-	///                dptr[j+3] = saturate_cast<T>((1 - (1-alpha)*(1-beta))*alpha_scale);
-	///            }
-	///        }
-	///    }
-	/// ```
-	/// 
-	/// This approach, while being very simple, can boost the performance of a simple element-operation by
-	/// 10-20 percents, especially if the image is rather small and the operation is quite simple.
-	/// 
-	/// Another OpenCV idiom in this function, a call of Mat::create for the destination array, that
-	/// allocates the destination array unless it already has the proper size and type. And while the newly
-	/// allocated arrays are always continuous, you still need to check the destination array because
-	/// Mat::create does not always allocate a new matrix.
 	#[inline]
 	fn is_continuous(&self) -> bool {
 		let ret = unsafe { sys::cv_Mat_isContinuous_const(self.as_raw_Mat()) };
 		ret
 	}
 	
-	/// returns true if the matrix is a submatrix of another matrix
 	#[inline]
 	fn is_submatrix(&self) -> bool {
 		let ret = unsafe { sys::cv_Mat_isSubmatrix_const(self.as_raw_Mat()) };
 		ret
 	}
 	
-	/// Returns the matrix element size in bytes.
-	/// 
-	/// The method returns the matrix element size in bytes. For example, if the matrix type is CV_16SC3 ,
-	/// the method returns 3\*sizeof(short) or 6.
 	#[inline]
 	fn elem_size(&self) -> Result<size_t> {
 		return_send!(via ocvrs_return);
@@ -11946,58 +7259,30 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns the size of each matrix element channel in bytes.
-	/// 
-	/// The method returns the matrix element channel size in bytes, that is, it ignores the number of
-	/// channels. For example, if the matrix type is CV_16SC3 , the method returns sizeof(short) or 2.
 	#[inline]
 	fn elem_size1(&self) -> size_t {
 		let ret = unsafe { sys::cv_Mat_elemSize1_const(self.as_raw_Mat()) };
 		ret
 	}
 	
-	/// Returns the type of a matrix element.
-	/// 
-	/// The method returns a matrix element type. This is an identifier compatible with the CvMat type
-	/// system, like CV_16SC3 or 16-bit signed 3-channel array, and so on.
 	#[inline]
 	fn typ(&self) -> i32 {
 		let ret = unsafe { sys::cv_Mat_type_const(self.as_raw_Mat()) };
 		ret
 	}
 	
-	/// Returns the depth of a matrix element.
-	/// 
-	/// The method returns the identifier of the matrix element depth (the type of each individual channel).
-	/// For example, for a 16-bit signed element array, the method returns CV_16S . A complete list of
-	/// matrix types contains the following values:
-	/// *   CV_8U - 8-bit unsigned integers ( 0..255 )
-	/// *   CV_8S - 8-bit signed integers ( -128..127 )
-	/// *   CV_16U - 16-bit unsigned integers ( 0..65535 )
-	/// *   CV_16S - 16-bit signed integers ( -32768..32767 )
-	/// *   CV_32S - 32-bit signed integers ( -2147483648..2147483647 )
-	/// *   CV_32F - 32-bit floating-point numbers ( -FLT_MAX..FLT_MAX, INF, NAN )
-	/// *   CV_64F - 64-bit floating-point numbers ( -DBL_MAX..DBL_MAX, INF, NAN )
 	#[inline]
 	fn depth(&self) -> i32 {
 		let ret = unsafe { sys::cv_Mat_depth_const(self.as_raw_Mat()) };
 		ret
 	}
 	
-	/// Returns the number of matrix channels.
-	/// 
-	/// The method returns the number of matrix channels.
 	#[inline]
 	fn channels(&self) -> i32 {
 		let ret = unsafe { sys::cv_Mat_channels_const(self.as_raw_Mat()) };
 		ret
 	}
 	
-	/// Returns a normalized step.
-	/// 
-	/// The method returns a matrix step divided by Mat::elemSize1() . It can be useful to quickly access an
-	/// arbitrary matrix element.
-	/// 
 	/// ## C++ default parameters
 	/// * i: 0
 	#[inline]
@@ -12009,30 +7294,18 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns true if the array has no elements.
-	/// 
-	/// The method returns true if Mat::total() is 0 or if Mat::data is NULL. Because of pop_back() and
-	/// resize() methods `M.total() == 0` does not imply that `M.data == NULL`.
 	#[inline]
 	fn empty(&self) -> bool {
 		let ret = unsafe { sys::cv_Mat_empty_const(self.as_raw_Mat()) };
 		ret
 	}
 	
-	/// Returns the total number of array elements.
-	/// 
-	/// The method returns the number of array elements (a number of pixels if the array represents an
-	/// image).
 	#[inline]
 	fn total(&self) -> size_t {
 		let ret = unsafe { sys::cv_Mat_total_const(self.as_raw_Mat()) };
 		ret
 	}
 	
-	/// Returns the total number of array elements.
-	/// 
-	/// The method returns the number of elements within a certain sub-array slice with startDim <= dim < endDim
-	/// 
 	/// ## C++ default parameters
 	/// * end_dim: INT_MAX
 	#[inline]
@@ -12044,28 +7317,6 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// ## Parameters
-	/// * elemChannels: Number of channels or number of columns the matrix should have.
-	///                    For a 2-D matrix, when the matrix has only 1 column, then it should have
-	///                    elemChannels channels; When the matrix has only 1 channel,
-	///                    then it should have elemChannels columns.
-	///                    For a 3-D matrix, it should have only one channel. Furthermore,
-	///                    if the number of planes is not one, then the number of rows
-	///                    within every plane has to be 1; if the number of rows within
-	///                    every plane is not 1, then the number of planes has to be 1.
-	/// * depth: The depth the matrix should have. Set it to -1 when any depth is fine.
-	/// * requireContinuous: Set it to true to require the matrix to be continuous
-	/// ## Returns
-	/// -1 if the requirement is not satisfied.
-	///        Otherwise, it returns the number of elements in the matrix. Note
-	///        that an element may have multiple channels.
-	/// 
-	/// The following code demonstrates its usage for a 2-d matrix:
-	/// [example-2d](https://github.com/opencv/opencv/blob/4.6.0/samples/cpp/tutorial_code/snippets/core_mat_checkVector.cpp#L1)
-	/// 
-	/// The following code demonstrates its usage for a 3-d matrix:
-	/// [example-3d](https://github.com/opencv/opencv/blob/4.6.0/samples/cpp/tutorial_code/snippets/core_mat_checkVector.cpp#L1)
-	/// 
 	/// ## C++ default parameters
 	/// * depth: -1
 	/// * require_continuous: true
@@ -12078,15 +7329,6 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns a pointer to the specified matrix row.
-	/// 
-	/// The methods return `uchar*` or typed pointer to the specified matrix row. See the sample in
-	/// Mat::isContinuous to know how to use these methods.
-	/// ## Parameters
-	/// * i0: A 0-based row index.
-	/// 
-	/// ## Overloaded parameters
-	/// 
 	/// ## C++ default parameters
 	/// * i0: 0
 	#[inline]
@@ -12098,17 +7340,6 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns a pointer to the specified matrix row.
-	/// 
-	/// The methods return `uchar*` or typed pointer to the specified matrix row. See the sample in
-	/// Mat::isContinuous to know how to use these methods.
-	/// ## Parameters
-	/// * i0: A 0-based row index.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * row: Index along the dimension 0
-	/// * col: Index along the dimension 1
 	#[inline]
 	fn ptr_2d(&self, row: i32, col: i32) -> Result<*const u8> {
 		return_send!(via ocvrs_return);
@@ -12118,14 +7349,6 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns a pointer to the specified matrix row.
-	/// 
-	/// The methods return `uchar*` or typed pointer to the specified matrix row. See the sample in
-	/// Mat::isContinuous to know how to use these methods.
-	/// ## Parameters
-	/// * i0: A 0-based row index.
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn ptr_3d(&self, i0: i32, i1: i32, i2: i32) -> Result<*const u8> {
 		return_send!(via ocvrs_return);
@@ -12135,14 +7358,6 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns a pointer to the specified matrix row.
-	/// 
-	/// The methods return `uchar*` or typed pointer to the specified matrix row. See the sample in
-	/// Mat::isContinuous to know how to use these methods.
-	/// ## Parameters
-	/// * i0: A 0-based row index.
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn ptr_nd(&self, idx: &[i32]) -> Result<*const u8> {
 		return_send!(via ocvrs_return);
@@ -12152,196 +7367,16 @@ pub trait MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns a reference to the specified array element.
-	/// 
-	/// The template methods return a reference to the specified array element. For the sake of higher
-	/// performance, the index range checks are only performed in the Debug configuration.
-	/// 
-	/// Note that the variants with a single index (i) can be used to access elements of single-row or
-	/// single-column 2-dimensional arrays. That is, if, for example, A is a 1 x N floating-point matrix and
-	/// B is an M x 1 integer matrix, you can simply write `A.at<float>(k+4)` and `B.at<int>(2*i+1)`
-	/// instead of `A.at<float>(0,k+4)` and `B.at<int>(2*i+1,0)`, respectively.
-	/// 
-	/// The example below initializes a Hilbert matrix:
-	/// ```ignore
-	///    Mat H(100, 100, CV_64F);
-	///    for(int i = 0; i < H.rows; i++)
-	///        for(int j = 0; j < H.cols; j++)
-	///            H.at<double>(i,j)=1./(i+j+1);
-	/// ```
-	/// 
-	/// 
-	/// Keep in mind that the size identifier used in the at operator cannot be chosen at random. It depends
-	/// on the image from which you are trying to retrieve the data. The table below gives a better insight in this:
-	///  - If matrix is of type `CV_8U` then use `Mat.at<uchar>(y,x)`.
-	///  - If matrix is of type `CV_8S` then use `Mat.at<schar>(y,x)`.
-	///  - If matrix is of type `CV_16U` then use `Mat.at<ushort>(y,x)`.
-	///  - If matrix is of type `CV_16S` then use `Mat.at<short>(y,x)`.
-	///  - If matrix is of type `CV_32S`  then use `Mat.at<int>(y,x)`.
-	///  - If matrix is of type `CV_32F`  then use `Mat.at<float>(y,x)`.
-	///  - If matrix is of type `CV_64F` then use `Mat.at<double>(y,x)`.
-	/// 
-	/// ## Parameters
-	/// * i0: Index along the dimension 0
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * i0: Index along the dimension 0
-	/// 
 	/// ## C++ default parameters
 	/// * i0: 0
 	fn at<T: core::DataType>(&self, i0: i32) -> Result<&T> { core::mat_forward::at(self, i0) }
 	
-	/// Returns a reference to the specified array element.
-	/// 
-	/// The template methods return a reference to the specified array element. For the sake of higher
-	/// performance, the index range checks are only performed in the Debug configuration.
-	/// 
-	/// Note that the variants with a single index (i) can be used to access elements of single-row or
-	/// single-column 2-dimensional arrays. That is, if, for example, A is a 1 x N floating-point matrix and
-	/// B is an M x 1 integer matrix, you can simply write `A.at<float>(k+4)` and `B.at<int>(2*i+1)`
-	/// instead of `A.at<float>(0,k+4)` and `B.at<int>(2*i+1,0)`, respectively.
-	/// 
-	/// The example below initializes a Hilbert matrix:
-	/// ```ignore
-	///    Mat H(100, 100, CV_64F);
-	///    for(int i = 0; i < H.rows; i++)
-	///        for(int j = 0; j < H.cols; j++)
-	///            H.at<double>(i,j)=1./(i+j+1);
-	/// ```
-	/// 
-	/// 
-	/// Keep in mind that the size identifier used in the at operator cannot be chosen at random. It depends
-	/// on the image from which you are trying to retrieve the data. The table below gives a better insight in this:
-	///  - If matrix is of type `CV_8U` then use `Mat.at<uchar>(y,x)`.
-	///  - If matrix is of type `CV_8S` then use `Mat.at<schar>(y,x)`.
-	///  - If matrix is of type `CV_16U` then use `Mat.at<ushort>(y,x)`.
-	///  - If matrix is of type `CV_16S` then use `Mat.at<short>(y,x)`.
-	///  - If matrix is of type `CV_32S`  then use `Mat.at<int>(y,x)`.
-	///  - If matrix is of type `CV_32F`  then use `Mat.at<float>(y,x)`.
-	///  - If matrix is of type `CV_64F` then use `Mat.at<double>(y,x)`.
-	/// 
-	/// ## Parameters
-	/// * i0: Index along the dimension 0
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * row: Index along the dimension 0
-	/// * col: Index along the dimension 1
 	fn at_2d<T: core::DataType>(&self, row: i32, col: i32) -> Result<&T> { core::mat_forward::at_2d(self, row, col) }
 	
-	/// Returns a reference to the specified array element.
-	/// 
-	/// The template methods return a reference to the specified array element. For the sake of higher
-	/// performance, the index range checks are only performed in the Debug configuration.
-	/// 
-	/// Note that the variants with a single index (i) can be used to access elements of single-row or
-	/// single-column 2-dimensional arrays. That is, if, for example, A is a 1 x N floating-point matrix and
-	/// B is an M x 1 integer matrix, you can simply write `A.at<float>(k+4)` and `B.at<int>(2*i+1)`
-	/// instead of `A.at<float>(0,k+4)` and `B.at<int>(2*i+1,0)`, respectively.
-	/// 
-	/// The example below initializes a Hilbert matrix:
-	/// ```ignore
-	///    Mat H(100, 100, CV_64F);
-	///    for(int i = 0; i < H.rows; i++)
-	///        for(int j = 0; j < H.cols; j++)
-	///            H.at<double>(i,j)=1./(i+j+1);
-	/// ```
-	/// 
-	/// 
-	/// Keep in mind that the size identifier used in the at operator cannot be chosen at random. It depends
-	/// on the image from which you are trying to retrieve the data. The table below gives a better insight in this:
-	///  - If matrix is of type `CV_8U` then use `Mat.at<uchar>(y,x)`.
-	///  - If matrix is of type `CV_8S` then use `Mat.at<schar>(y,x)`.
-	///  - If matrix is of type `CV_16U` then use `Mat.at<ushort>(y,x)`.
-	///  - If matrix is of type `CV_16S` then use `Mat.at<short>(y,x)`.
-	///  - If matrix is of type `CV_32S`  then use `Mat.at<int>(y,x)`.
-	///  - If matrix is of type `CV_32F`  then use `Mat.at<float>(y,x)`.
-	///  - If matrix is of type `CV_64F` then use `Mat.at<double>(y,x)`.
-	/// 
-	/// ## Parameters
-	/// * i0: Index along the dimension 0
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * i0: Index along the dimension 0
-	/// * i1: Index along the dimension 1
-	/// * i2: Index along the dimension 2
 	fn at_3d<T: core::DataType>(&self, i0: i32, i1: i32, i2: i32) -> Result<&T> { core::mat_forward::at_3d(self, i0, i1, i2) }
 	
-	/// Returns a reference to the specified array element.
-	/// 
-	/// The template methods return a reference to the specified array element. For the sake of higher
-	/// performance, the index range checks are only performed in the Debug configuration.
-	/// 
-	/// Note that the variants with a single index (i) can be used to access elements of single-row or
-	/// single-column 2-dimensional arrays. That is, if, for example, A is a 1 x N floating-point matrix and
-	/// B is an M x 1 integer matrix, you can simply write `A.at<float>(k+4)` and `B.at<int>(2*i+1)`
-	/// instead of `A.at<float>(0,k+4)` and `B.at<int>(2*i+1,0)`, respectively.
-	/// 
-	/// The example below initializes a Hilbert matrix:
-	/// ```ignore
-	///    Mat H(100, 100, CV_64F);
-	///    for(int i = 0; i < H.rows; i++)
-	///        for(int j = 0; j < H.cols; j++)
-	///            H.at<double>(i,j)=1./(i+j+1);
-	/// ```
-	/// 
-	/// 
-	/// Keep in mind that the size identifier used in the at operator cannot be chosen at random. It depends
-	/// on the image from which you are trying to retrieve the data. The table below gives a better insight in this:
-	///  - If matrix is of type `CV_8U` then use `Mat.at<uchar>(y,x)`.
-	///  - If matrix is of type `CV_8S` then use `Mat.at<schar>(y,x)`.
-	///  - If matrix is of type `CV_16U` then use `Mat.at<ushort>(y,x)`.
-	///  - If matrix is of type `CV_16S` then use `Mat.at<short>(y,x)`.
-	///  - If matrix is of type `CV_32S`  then use `Mat.at<int>(y,x)`.
-	///  - If matrix is of type `CV_32F`  then use `Mat.at<float>(y,x)`.
-	///  - If matrix is of type `CV_64F` then use `Mat.at<double>(y,x)`.
-	/// 
-	/// ## Parameters
-	/// * i0: Index along the dimension 0
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * idx: Array of Mat::dims indices.
 	fn at_nd<T: core::DataType>(&self, idx: &[i32]) -> Result<&T> { core::mat_forward::at_nd(self, idx) }
 	
-	/// Returns a reference to the specified array element.
-	/// 
-	/// The template methods return a reference to the specified array element. For the sake of higher
-	/// performance, the index range checks are only performed in the Debug configuration.
-	/// 
-	/// Note that the variants with a single index (i) can be used to access elements of single-row or
-	/// single-column 2-dimensional arrays. That is, if, for example, A is a 1 x N floating-point matrix and
-	/// B is an M x 1 integer matrix, you can simply write `A.at<float>(k+4)` and `B.at<int>(2*i+1)`
-	/// instead of `A.at<float>(0,k+4)` and `B.at<int>(2*i+1,0)`, respectively.
-	/// 
-	/// The example below initializes a Hilbert matrix:
-	/// ```ignore
-	///    Mat H(100, 100, CV_64F);
-	///    for(int i = 0; i < H.rows; i++)
-	///        for(int j = 0; j < H.cols; j++)
-	///            H.at<double>(i,j)=1./(i+j+1);
-	/// ```
-	/// 
-	/// 
-	/// Keep in mind that the size identifier used in the at operator cannot be chosen at random. It depends
-	/// on the image from which you are trying to retrieve the data. The table below gives a better insight in this:
-	///  - If matrix is of type `CV_8U` then use `Mat.at<uchar>(y,x)`.
-	///  - If matrix is of type `CV_8S` then use `Mat.at<schar>(y,x)`.
-	///  - If matrix is of type `CV_16U` then use `Mat.at<ushort>(y,x)`.
-	///  - If matrix is of type `CV_16S` then use `Mat.at<short>(y,x)`.
-	///  - If matrix is of type `CV_32S`  then use `Mat.at<int>(y,x)`.
-	///  - If matrix is of type `CV_32F`  then use `Mat.at<float>(y,x)`.
-	///  - If matrix is of type `CV_64F` then use `Mat.at<double>(y,x)`.
-	/// 
-	/// ## Parameters
-	/// * i0: Index along the dimension 0
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	///    special versions for 2D arrays (especially convenient for referencing image pixels)
-	/// * pt: Element position specified as Point(j,i) .
 	fn at_pt<T: core::DataType>(&self, pt: core::Point) -> Result<&T> { core::mat_forward::at_pt(self, pt) }
 	
 }
@@ -12349,53 +7384,42 @@ pub trait MatTraitConst {
 pub trait MatTrait: core::MatTraitConst {
 	fn as_raw_mut_Mat(&mut self) -> *mut c_void;
 
-	/// ! includes several bit-fields:
-	/// - the magic signature
-	/// - continuity flag
-	/// - depth
-	/// - number of channels
 	#[inline]
 	fn set_flags(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_Mat_setPropFlags_int(self.as_raw_mut_Mat(), val) };
 		ret
 	}
 	
-	/// the matrix dimensionality, >= 2
 	#[inline]
 	fn set_dims(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_Mat_setPropDims_int(self.as_raw_mut_Mat(), val) };
 		ret
 	}
 	
-	/// the number of rows and columns or (-1, -1) when the matrix has more than 2 dimensions
 	#[inline]
 	fn set_rows(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_Mat_setPropRows_int(self.as_raw_mut_Mat(), val) };
 		ret
 	}
 	
-	/// the number of rows and columns or (-1, -1) when the matrix has more than 2 dimensions
 	#[inline]
 	fn set_cols(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_Mat_setPropCols_int(self.as_raw_mut_Mat(), val) };
 		ret
 	}
 	
-	/// pointer to the data
 	#[inline]
 	fn data_mut(&mut self) -> *mut u8 {
 		let ret = unsafe { sys::cv_Mat_getPropData(self.as_raw_mut_Mat()) };
 		ret
 	}
 	
-	/// pointer to the data
 	#[inline]
 	unsafe fn set_data(&mut self, val: *mut u8) {
 		let ret = { sys::cv_Mat_setPropData_unsigned_charX(self.as_raw_mut_Mat(), val) };
 		ret
 	}
 	
-	/// interaction with UMat
 	#[inline]
 	fn u(&mut self) -> core::UMatData {
 		let ret = unsafe { sys::cv_Mat_getPropU(self.as_raw_mut_Mat()) };
@@ -12403,21 +7427,12 @@ pub trait MatTrait: core::MatTraitConst {
 		ret
 	}
 	
-	/// interaction with UMat
 	#[inline]
 	fn set_u(&mut self, val: &mut core::UMatData) {
 		let ret = unsafe { sys::cv_Mat_setPropU_UMatDataX(self.as_raw_mut_Mat(), val.as_raw_mut_UMatData()) };
 		ret
 	}
 	
-	/// Sets all or some of the array elements to the specified value.
-	/// 
-	/// This is an advanced variant of the Mat::operator=(const Scalar& s) operator.
-	/// ## Parameters
-	/// * value: Assigned scalar converted to the actual array type.
-	/// * mask: Operation mask of the same size as \*this. Its non-zero elements indicate which matrix
-	/// elements need to be copied. The mask has to be of type CV_8U and can have 1 or multiple channels
-	/// 
 	/// ## C++ default parameters
 	/// * mask: noArray()
 	#[inline]
@@ -12432,41 +7447,6 @@ pub trait MatTrait: core::MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Allocates new array data if needed.
-	/// 
-	/// This is one of the key Mat methods. Most new-style OpenCV functions and methods that produce arrays
-	/// call this method for each output array. The method uses the following algorithm:
-	/// 
-	/// -# If the current array shape and the type match the new ones, return immediately. Otherwise,
-	///    de-reference the previous data by calling Mat::release.
-	/// -# Initialize the new header.
-	/// -# Allocate the new data of total()\*elemSize() bytes.
-	/// -# Allocate the new, associated with the data, reference counter and set it to 1.
-	/// 
-	/// Such a scheme makes the memory management robust and efficient at the same time and helps avoid
-	/// extra typing for you. This means that usually there is no need to explicitly allocate output arrays.
-	/// That is, instead of writing:
-	/// ```ignore
-	///    Mat color;
-	///    ...
-	///    Mat gray(color.rows, color.cols, color.depth());
-	///    cvtColor(color, gray, COLOR_BGR2GRAY);
-	/// ```
-	/// 
-	/// you can simply write:
-	/// ```ignore
-	///    Mat color;
-	///    ...
-	///    Mat gray;
-	///    cvtColor(color, gray, COLOR_BGR2GRAY);
-	/// ```
-	/// 
-	/// because cvtColor, as well as the most of OpenCV functions, calls Mat::create() for the output array
-	/// internally.
-	/// ## Parameters
-	/// * rows: New number of rows.
-	/// * cols: New number of columns.
-	/// * type: New matrix type.
 	#[inline]
 	unsafe fn create_rows_cols(&mut self, rows: i32, cols: i32, typ: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -12476,46 +7456,6 @@ pub trait MatTrait: core::MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Allocates new array data if needed.
-	/// 
-	/// This is one of the key Mat methods. Most new-style OpenCV functions and methods that produce arrays
-	/// call this method for each output array. The method uses the following algorithm:
-	/// 
-	/// -# If the current array shape and the type match the new ones, return immediately. Otherwise,
-	///    de-reference the previous data by calling Mat::release.
-	/// -# Initialize the new header.
-	/// -# Allocate the new data of total()\*elemSize() bytes.
-	/// -# Allocate the new, associated with the data, reference counter and set it to 1.
-	/// 
-	/// Such a scheme makes the memory management robust and efficient at the same time and helps avoid
-	/// extra typing for you. This means that usually there is no need to explicitly allocate output arrays.
-	/// That is, instead of writing:
-	/// ```ignore
-	///    Mat color;
-	///    ...
-	///    Mat gray(color.rows, color.cols, color.depth());
-	///    cvtColor(color, gray, COLOR_BGR2GRAY);
-	/// ```
-	/// 
-	/// you can simply write:
-	/// ```ignore
-	///    Mat color;
-	///    ...
-	///    Mat gray;
-	///    cvtColor(color, gray, COLOR_BGR2GRAY);
-	/// ```
-	/// 
-	/// because cvtColor, as well as the most of OpenCV functions, calls Mat::create() for the output array
-	/// internally.
-	/// ## Parameters
-	/// * rows: New number of rows.
-	/// * cols: New number of columns.
-	/// * type: New matrix type.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * size: Alternative new matrix size specification: Size(cols, rows)
-	/// * type: New matrix type.
 	#[inline]
 	unsafe fn create_size(&mut self, size: core::Size, typ: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -12525,47 +7465,6 @@ pub trait MatTrait: core::MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Allocates new array data if needed.
-	/// 
-	/// This is one of the key Mat methods. Most new-style OpenCV functions and methods that produce arrays
-	/// call this method for each output array. The method uses the following algorithm:
-	/// 
-	/// -# If the current array shape and the type match the new ones, return immediately. Otherwise,
-	///    de-reference the previous data by calling Mat::release.
-	/// -# Initialize the new header.
-	/// -# Allocate the new data of total()\*elemSize() bytes.
-	/// -# Allocate the new, associated with the data, reference counter and set it to 1.
-	/// 
-	/// Such a scheme makes the memory management robust and efficient at the same time and helps avoid
-	/// extra typing for you. This means that usually there is no need to explicitly allocate output arrays.
-	/// That is, instead of writing:
-	/// ```ignore
-	///    Mat color;
-	///    ...
-	///    Mat gray(color.rows, color.cols, color.depth());
-	///    cvtColor(color, gray, COLOR_BGR2GRAY);
-	/// ```
-	/// 
-	/// you can simply write:
-	/// ```ignore
-	///    Mat color;
-	///    ...
-	///    Mat gray;
-	///    cvtColor(color, gray, COLOR_BGR2GRAY);
-	/// ```
-	/// 
-	/// because cvtColor, as well as the most of OpenCV functions, calls Mat::create() for the output array
-	/// internally.
-	/// ## Parameters
-	/// * rows: New number of rows.
-	/// * cols: New number of columns.
-	/// * type: New matrix type.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * ndims: New array dimensionality.
-	/// * sizes: Array of integers specifying a new array shape.
-	/// * type: New matrix type.
 	#[inline]
 	unsafe fn create_nd(&mut self, sizes: &[i32], typ: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -12575,46 +7474,6 @@ pub trait MatTrait: core::MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Allocates new array data if needed.
-	/// 
-	/// This is one of the key Mat methods. Most new-style OpenCV functions and methods that produce arrays
-	/// call this method for each output array. The method uses the following algorithm:
-	/// 
-	/// -# If the current array shape and the type match the new ones, return immediately. Otherwise,
-	///    de-reference the previous data by calling Mat::release.
-	/// -# Initialize the new header.
-	/// -# Allocate the new data of total()\*elemSize() bytes.
-	/// -# Allocate the new, associated with the data, reference counter and set it to 1.
-	/// 
-	/// Such a scheme makes the memory management robust and efficient at the same time and helps avoid
-	/// extra typing for you. This means that usually there is no need to explicitly allocate output arrays.
-	/// That is, instead of writing:
-	/// ```ignore
-	///    Mat color;
-	///    ...
-	///    Mat gray(color.rows, color.cols, color.depth());
-	///    cvtColor(color, gray, COLOR_BGR2GRAY);
-	/// ```
-	/// 
-	/// you can simply write:
-	/// ```ignore
-	///    Mat color;
-	///    ...
-	///    Mat gray;
-	///    cvtColor(color, gray, COLOR_BGR2GRAY);
-	/// ```
-	/// 
-	/// because cvtColor, as well as the most of OpenCV functions, calls Mat::create() for the output array
-	/// internally.
-	/// ## Parameters
-	/// * rows: New number of rows.
-	/// * cols: New number of columns.
-	/// * type: New matrix type.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * sizes: Array of integers specifying a new array shape.
-	/// * type: New matrix type.
 	#[inline]
 	unsafe fn create_nd_vec(&mut self, sizes: &core::Vector<i32>, typ: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -12624,14 +7483,6 @@ pub trait MatTrait: core::MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Increments the reference counter.
-	/// 
-	/// The method increments the reference counter associated with the matrix data. If the matrix header
-	/// points to an external data set (see Mat::Mat ), the reference counter is NULL, and the method has no
-	/// effect in this case. Normally, to avoid memory leaks, the method should not be called explicitly. It
-	/// is called implicitly by the matrix assignment operator. The reference counter increment is an atomic
-	/// operation on the platforms that support it. Thus, it is safe to operate on the same matrices
-	/// asynchronously in different threads.
 	#[inline]
 	fn addref(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -12641,18 +7492,6 @@ pub trait MatTrait: core::MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Decrements the reference counter and deallocates the matrix if needed.
-	/// 
-	/// The method decrements the reference counter associated with the matrix data. When the reference
-	/// counter reaches 0, the matrix data is deallocated and the data and the reference counter pointers
-	/// are set to NULL's. If the matrix header points to an external data set (see Mat::Mat ), the
-	/// reference counter is NULL, and the method has no effect in this case.
-	/// 
-	/// This method can be called manually to force the matrix data deallocation. But since this method is
-	/// automatically called in the destructor, or by any other method that changes the data pointer, it is
-	/// usually not needed. The reference counter decrement and check for 0 is an atomic operation on the
-	/// platforms that support it. Thus, it is safe to operate on the same matrices asynchronously in
-	/// different threads.
 	#[inline]
 	fn release(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -12662,7 +7501,6 @@ pub trait MatTrait: core::MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// internal use function, consider to use 'release' method instead; deallocates the matrix data
 	#[inline]
 	fn deallocate(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -12672,13 +7510,6 @@ pub trait MatTrait: core::MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Reserves space for the certain number of rows.
-	/// 
-	/// The method reserves space for sz rows. If the matrix already has enough space to store sz rows,
-	/// nothing happens. If the matrix is reallocated, the first Mat::rows rows are preserved. The method
-	/// emulates the corresponding method of the STL vector class.
-	/// ## Parameters
-	/// * sz: Number of rows.
 	#[inline]
 	fn reserve(&mut self, sz: size_t) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -12688,12 +7519,6 @@ pub trait MatTrait: core::MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Reserves space for the certain number of bytes.
-	/// 
-	/// The method reserves space for sz bytes. If the matrix already has enough space to store sz bytes,
-	/// nothing happens. If matrix has to be reallocated its previous content could be lost.
-	/// ## Parameters
-	/// * sz: Number of bytes.
 	#[inline]
 	fn reserve_buffer(&mut self, sz: size_t) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -12703,13 +7528,6 @@ pub trait MatTrait: core::MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Changes the number of matrix rows.
-	/// 
-	/// The methods change the number of matrix rows. If the matrix is reallocated, the first
-	/// min(Mat::rows, sz) rows are preserved. The methods emulate the corresponding methods of the STL
-	/// vector class.
-	/// ## Parameters
-	/// * sz: New number of rows.
 	#[inline]
 	fn resize(&mut self, sz: size_t) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -12719,18 +7537,6 @@ pub trait MatTrait: core::MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Changes the number of matrix rows.
-	/// 
-	/// The methods change the number of matrix rows. If the matrix is reallocated, the first
-	/// min(Mat::rows, sz) rows are preserved. The methods emulate the corresponding methods of the STL
-	/// vector class.
-	/// ## Parameters
-	/// * sz: New number of rows.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * sz: New number of rows.
-	/// * s: Value assigned to the newly added elements.
 	#[inline]
 	fn resize_with_default(&mut self, sz: size_t, s: core::Scalar) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -12740,17 +7546,6 @@ pub trait MatTrait: core::MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Adds elements to the bottom of the matrix.
-	/// 
-	/// The methods add one or more elements to the bottom of the matrix. They emulate the corresponding
-	/// method of the STL vector class. When elem is Mat , its type and the number of columns must be the
-	/// same as in the container matrix.
-	/// ## Parameters
-	/// * elem: Added element(s).
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * m: Added line(s).
 	#[inline]
 	fn push_back(&mut self, m: &core::Mat) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -12760,13 +7555,6 @@ pub trait MatTrait: core::MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Removes elements from the bottom of the matrix.
-	/// 
-	/// The method removes one or more rows from the bottom of the matrix.
-	/// ## Parameters
-	/// * nelems: Number of removed rows. If it is greater than the total number of rows, an exception
-	/// is thrown.
-	/// 
 	/// ## C++ default parameters
 	/// * nelems: 1
 	#[inline]
@@ -12778,35 +7566,6 @@ pub trait MatTrait: core::MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Adjusts a submatrix size and position within the parent matrix.
-	/// 
-	/// The method is complimentary to Mat::locateROI . The typical use of these functions is to determine
-	/// the submatrix position within the parent matrix and then shift the position somehow. Typically, it
-	/// can be required for filtering operations when pixels outside of the ROI should be taken into
-	/// account. When all the method parameters are positive, the ROI needs to grow in all directions by the
-	/// specified amount, for example:
-	/// ```ignore
-	///    A.adjustROI(2, 2, 2, 2);
-	/// ```
-	/// 
-	/// In this example, the matrix size is increased by 4 elements in each direction. The matrix is shifted
-	/// by 2 elements to the left and 2 elements up, which brings in all the necessary pixels for the
-	/// filtering with the 5x5 kernel.
-	/// 
-	/// adjustROI forces the adjusted ROI to be inside of the parent matrix that is boundaries of the
-	/// adjusted ROI are constrained by boundaries of the parent matrix. For example, if the submatrix A is
-	/// located in the first row of a parent matrix and you called A.adjustROI(2, 2, 2, 2) then A will not
-	/// be increased in the upward direction.
-	/// 
-	/// The function is used internally by the OpenCV filtering functions, like filter2D , morphological
-	/// operations, and so on.
-	/// ## Parameters
-	/// * dtop: Shift of the top submatrix boundary upwards.
-	/// * dbottom: Shift of the bottom submatrix boundary downwards.
-	/// * dleft: Shift of the left submatrix boundary to the left.
-	/// * dright: Shift of the right submatrix boundary to the right.
-	/// ## See also
-	/// copyMakeBorder
 	#[inline]
 	fn adjust_roi(&mut self, dtop: i32, dbottom: i32, dleft: i32, dright: i32) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -12817,13 +7576,6 @@ pub trait MatTrait: core::MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns a pointer to the specified matrix row.
-	/// 
-	/// The methods return `uchar*` or typed pointer to the specified matrix row. See the sample in
-	/// Mat::isContinuous to know how to use these methods.
-	/// ## Parameters
-	/// * i0: A 0-based row index.
-	/// 
 	/// ## C++ default parameters
 	/// * i0: 0
 	#[inline]
@@ -12835,17 +7587,6 @@ pub trait MatTrait: core::MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns a pointer to the specified matrix row.
-	/// 
-	/// The methods return `uchar*` or typed pointer to the specified matrix row. See the sample in
-	/// Mat::isContinuous to know how to use these methods.
-	/// ## Parameters
-	/// * i0: A 0-based row index.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * row: Index along the dimension 0
-	/// * col: Index along the dimension 1
 	#[inline]
 	fn ptr_2d_mut(&mut self, row: i32, col: i32) -> Result<*mut u8> {
 		return_send!(via ocvrs_return);
@@ -12855,14 +7596,6 @@ pub trait MatTrait: core::MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns a pointer to the specified matrix row.
-	/// 
-	/// The methods return `uchar*` or typed pointer to the specified matrix row. See the sample in
-	/// Mat::isContinuous to know how to use these methods.
-	/// ## Parameters
-	/// * i0: A 0-based row index.
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn ptr_3d_mut(&mut self, i0: i32, i1: i32, i2: i32) -> Result<*mut u8> {
 		return_send!(via ocvrs_return);
@@ -12872,14 +7605,6 @@ pub trait MatTrait: core::MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns a pointer to the specified matrix row.
-	/// 
-	/// The methods return `uchar*` or typed pointer to the specified matrix row. See the sample in
-	/// Mat::isContinuous to know how to use these methods.
-	/// ## Parameters
-	/// * i0: A 0-based row index.
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn ptr_nd_mut(&mut self, idx: &[i32]) -> Result<*mut u8> {
 		return_send!(via ocvrs_return);
@@ -12889,195 +7614,18 @@ pub trait MatTrait: core::MatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns a reference to the specified array element.
-	/// 
-	/// The template methods return a reference to the specified array element. For the sake of higher
-	/// performance, the index range checks are only performed in the Debug configuration.
-	/// 
-	/// Note that the variants with a single index (i) can be used to access elements of single-row or
-	/// single-column 2-dimensional arrays. That is, if, for example, A is a 1 x N floating-point matrix and
-	/// B is an M x 1 integer matrix, you can simply write `A.at<float>(k+4)` and `B.at<int>(2*i+1)`
-	/// instead of `A.at<float>(0,k+4)` and `B.at<int>(2*i+1,0)`, respectively.
-	/// 
-	/// The example below initializes a Hilbert matrix:
-	/// ```ignore
-	///    Mat H(100, 100, CV_64F);
-	///    for(int i = 0; i < H.rows; i++)
-	///        for(int j = 0; j < H.cols; j++)
-	///            H.at<double>(i,j)=1./(i+j+1);
-	/// ```
-	/// 
-	/// 
-	/// Keep in mind that the size identifier used in the at operator cannot be chosen at random. It depends
-	/// on the image from which you are trying to retrieve the data. The table below gives a better insight in this:
-	///  - If matrix is of type `CV_8U` then use `Mat.at<uchar>(y,x)`.
-	///  - If matrix is of type `CV_8S` then use `Mat.at<schar>(y,x)`.
-	///  - If matrix is of type `CV_16U` then use `Mat.at<ushort>(y,x)`.
-	///  - If matrix is of type `CV_16S` then use `Mat.at<short>(y,x)`.
-	///  - If matrix is of type `CV_32S`  then use `Mat.at<int>(y,x)`.
-	///  - If matrix is of type `CV_32F`  then use `Mat.at<float>(y,x)`.
-	///  - If matrix is of type `CV_64F` then use `Mat.at<double>(y,x)`.
-	/// 
-	/// ## Parameters
-	/// * i0: Index along the dimension 0
-	/// 
 	/// ## C++ default parameters
 	/// * i0: 0
 	fn at_mut<T: core::DataType>(&mut self, i0: i32) -> Result<&mut T> { core::mat_forward::at_mut(self, i0) }
 	
-	/// Returns a reference to the specified array element.
-	/// 
-	/// The template methods return a reference to the specified array element. For the sake of higher
-	/// performance, the index range checks are only performed in the Debug configuration.
-	/// 
-	/// Note that the variants with a single index (i) can be used to access elements of single-row or
-	/// single-column 2-dimensional arrays. That is, if, for example, A is a 1 x N floating-point matrix and
-	/// B is an M x 1 integer matrix, you can simply write `A.at<float>(k+4)` and `B.at<int>(2*i+1)`
-	/// instead of `A.at<float>(0,k+4)` and `B.at<int>(2*i+1,0)`, respectively.
-	/// 
-	/// The example below initializes a Hilbert matrix:
-	/// ```ignore
-	///    Mat H(100, 100, CV_64F);
-	///    for(int i = 0; i < H.rows; i++)
-	///        for(int j = 0; j < H.cols; j++)
-	///            H.at<double>(i,j)=1./(i+j+1);
-	/// ```
-	/// 
-	/// 
-	/// Keep in mind that the size identifier used in the at operator cannot be chosen at random. It depends
-	/// on the image from which you are trying to retrieve the data. The table below gives a better insight in this:
-	///  - If matrix is of type `CV_8U` then use `Mat.at<uchar>(y,x)`.
-	///  - If matrix is of type `CV_8S` then use `Mat.at<schar>(y,x)`.
-	///  - If matrix is of type `CV_16U` then use `Mat.at<ushort>(y,x)`.
-	///  - If matrix is of type `CV_16S` then use `Mat.at<short>(y,x)`.
-	///  - If matrix is of type `CV_32S`  then use `Mat.at<int>(y,x)`.
-	///  - If matrix is of type `CV_32F`  then use `Mat.at<float>(y,x)`.
-	///  - If matrix is of type `CV_64F` then use `Mat.at<double>(y,x)`.
-	/// 
-	/// ## Parameters
-	/// * i0: Index along the dimension 0
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * row: Index along the dimension 0
-	/// * col: Index along the dimension 1
 	fn at_2d_mut<T: core::DataType>(&mut self, row: i32, col: i32) -> Result<&mut T> { core::mat_forward::at_2d_mut(self, row, col) }
 	
-	/// Returns a reference to the specified array element.
-	/// 
-	/// The template methods return a reference to the specified array element. For the sake of higher
-	/// performance, the index range checks are only performed in the Debug configuration.
-	/// 
-	/// Note that the variants with a single index (i) can be used to access elements of single-row or
-	/// single-column 2-dimensional arrays. That is, if, for example, A is a 1 x N floating-point matrix and
-	/// B is an M x 1 integer matrix, you can simply write `A.at<float>(k+4)` and `B.at<int>(2*i+1)`
-	/// instead of `A.at<float>(0,k+4)` and `B.at<int>(2*i+1,0)`, respectively.
-	/// 
-	/// The example below initializes a Hilbert matrix:
-	/// ```ignore
-	///    Mat H(100, 100, CV_64F);
-	///    for(int i = 0; i < H.rows; i++)
-	///        for(int j = 0; j < H.cols; j++)
-	///            H.at<double>(i,j)=1./(i+j+1);
-	/// ```
-	/// 
-	/// 
-	/// Keep in mind that the size identifier used in the at operator cannot be chosen at random. It depends
-	/// on the image from which you are trying to retrieve the data. The table below gives a better insight in this:
-	///  - If matrix is of type `CV_8U` then use `Mat.at<uchar>(y,x)`.
-	///  - If matrix is of type `CV_8S` then use `Mat.at<schar>(y,x)`.
-	///  - If matrix is of type `CV_16U` then use `Mat.at<ushort>(y,x)`.
-	///  - If matrix is of type `CV_16S` then use `Mat.at<short>(y,x)`.
-	///  - If matrix is of type `CV_32S`  then use `Mat.at<int>(y,x)`.
-	///  - If matrix is of type `CV_32F`  then use `Mat.at<float>(y,x)`.
-	///  - If matrix is of type `CV_64F` then use `Mat.at<double>(y,x)`.
-	/// 
-	/// ## Parameters
-	/// * i0: Index along the dimension 0
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * i0: Index along the dimension 0
-	/// * i1: Index along the dimension 1
-	/// * i2: Index along the dimension 2
 	fn at_3d_mut<T: core::DataType>(&mut self, i0: i32, i1: i32, i2: i32) -> Result<&mut T> { core::mat_forward::at_3d_mut(self, i0, i1, i2) }
 	
-	/// Returns a reference to the specified array element.
-	/// 
-	/// The template methods return a reference to the specified array element. For the sake of higher
-	/// performance, the index range checks are only performed in the Debug configuration.
-	/// 
-	/// Note that the variants with a single index (i) can be used to access elements of single-row or
-	/// single-column 2-dimensional arrays. That is, if, for example, A is a 1 x N floating-point matrix and
-	/// B is an M x 1 integer matrix, you can simply write `A.at<float>(k+4)` and `B.at<int>(2*i+1)`
-	/// instead of `A.at<float>(0,k+4)` and `B.at<int>(2*i+1,0)`, respectively.
-	/// 
-	/// The example below initializes a Hilbert matrix:
-	/// ```ignore
-	///    Mat H(100, 100, CV_64F);
-	///    for(int i = 0; i < H.rows; i++)
-	///        for(int j = 0; j < H.cols; j++)
-	///            H.at<double>(i,j)=1./(i+j+1);
-	/// ```
-	/// 
-	/// 
-	/// Keep in mind that the size identifier used in the at operator cannot be chosen at random. It depends
-	/// on the image from which you are trying to retrieve the data. The table below gives a better insight in this:
-	///  - If matrix is of type `CV_8U` then use `Mat.at<uchar>(y,x)`.
-	///  - If matrix is of type `CV_8S` then use `Mat.at<schar>(y,x)`.
-	///  - If matrix is of type `CV_16U` then use `Mat.at<ushort>(y,x)`.
-	///  - If matrix is of type `CV_16S` then use `Mat.at<short>(y,x)`.
-	///  - If matrix is of type `CV_32S`  then use `Mat.at<int>(y,x)`.
-	///  - If matrix is of type `CV_32F`  then use `Mat.at<float>(y,x)`.
-	///  - If matrix is of type `CV_64F` then use `Mat.at<double>(y,x)`.
-	/// 
-	/// ## Parameters
-	/// * i0: Index along the dimension 0
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * idx: Array of Mat::dims indices.
 	fn at_nd_mut<T: core::DataType>(&mut self, idx: &[i32]) -> Result<&mut T> { core::mat_forward::at_nd_mut(self, idx) }
 	
-	/// Returns a reference to the specified array element.
-	/// 
-	/// The template methods return a reference to the specified array element. For the sake of higher
-	/// performance, the index range checks are only performed in the Debug configuration.
-	/// 
-	/// Note that the variants with a single index (i) can be used to access elements of single-row or
-	/// single-column 2-dimensional arrays. That is, if, for example, A is a 1 x N floating-point matrix and
-	/// B is an M x 1 integer matrix, you can simply write `A.at<float>(k+4)` and `B.at<int>(2*i+1)`
-	/// instead of `A.at<float>(0,k+4)` and `B.at<int>(2*i+1,0)`, respectively.
-	/// 
-	/// The example below initializes a Hilbert matrix:
-	/// ```ignore
-	///    Mat H(100, 100, CV_64F);
-	///    for(int i = 0; i < H.rows; i++)
-	///        for(int j = 0; j < H.cols; j++)
-	///            H.at<double>(i,j)=1./(i+j+1);
-	/// ```
-	/// 
-	/// 
-	/// Keep in mind that the size identifier used in the at operator cannot be chosen at random. It depends
-	/// on the image from which you are trying to retrieve the data. The table below gives a better insight in this:
-	///  - If matrix is of type `CV_8U` then use `Mat.at<uchar>(y,x)`.
-	///  - If matrix is of type `CV_8S` then use `Mat.at<schar>(y,x)`.
-	///  - If matrix is of type `CV_16U` then use `Mat.at<ushort>(y,x)`.
-	///  - If matrix is of type `CV_16S` then use `Mat.at<short>(y,x)`.
-	///  - If matrix is of type `CV_32S`  then use `Mat.at<int>(y,x)`.
-	///  - If matrix is of type `CV_32F`  then use `Mat.at<float>(y,x)`.
-	///  - If matrix is of type `CV_64F` then use `Mat.at<double>(y,x)`.
-	/// 
-	/// ## Parameters
-	/// * i0: Index along the dimension 0
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	///    special versions for 2D arrays (especially convenient for referencing image pixels)
-	/// * pt: Element position specified as Point(j,i) .
 	fn at_pt_mut<T: core::DataType>(&mut self, pt: core::Point) -> Result<&mut T> { core::mat_forward::at_pt_mut(self, pt) }
 	
-	/// internal use method: updates the continuity flag
 	#[inline]
 	fn update_continuity_flag(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -13089,209 +7637,6 @@ pub trait MatTrait: core::MatTraitConst {
 	
 }
 
-/// n-dimensional dense array class \anchor CVMat_Details
-/// 
-/// The class Mat represents an n-dimensional dense numerical single-channel or multi-channel array. It
-/// can be used to store real or complex-valued vectors and matrices, grayscale or color images, voxel
-/// volumes, vector fields, point clouds, tensors, histograms (though, very high-dimensional histograms
-/// may be better stored in a SparseMat ). The data layout of the array `M` is defined by the array
-/// `M.step[]`, so that the address of element ![inline formula](https://latex.codecogs.com/png.latex?%28i%5F0%2C%2E%2E%2E%2Ci%5F%7BM%2Edims%2D1%7D%29), where ![inline formula](https://latex.codecogs.com/png.latex?0%5Cleq%20i%5Fk%3CM%2Esize%5Bk%5D), is
-/// computed as:
-/// ![block formula](https://latex.codecogs.com/png.latex?addr%28M%5F%7Bi%5F0%2C%2E%2E%2E%2Ci%5F%7BM%2Edims%2D1%7D%7D%29%20%3D%20M%2Edata%20%2B%20M%2Estep%5B0%5D%2Ai%5F0%20%2B%20M%2Estep%5B1%5D%2Ai%5F1%20%2B%20%2E%2E%2E%20%2B%20M%2Estep%5BM%2Edims%2D1%5D%2Ai%5F%7BM%2Edims%2D1%7D)
-/// In case of a 2-dimensional array, the above formula is reduced to:
-/// ![block formula](https://latex.codecogs.com/png.latex?addr%28M%5F%7Bi%2Cj%7D%29%20%3D%20M%2Edata%20%2B%20M%2Estep%5B0%5D%2Ai%20%2B%20M%2Estep%5B1%5D%2Aj)
-/// Note that `M.step[i] >= M.step[i+1]` (in fact, `M.step[i] >= M.step[i+1]*M.size[i+1]` ). This means
-/// that 2-dimensional matrices are stored row-by-row, 3-dimensional matrices are stored plane-by-plane,
-/// and so on. M.step[M.dims-1] is minimal and always equal to the element size M.elemSize() .
-/// 
-/// So, the data layout in Mat is compatible with the majority of dense array types from the standard
-/// toolkits and SDKs, such as Numpy (ndarray), Win32 (independent device bitmaps), and others,
-/// that is, with any array that uses *steps* (or *strides*) to compute the position of a pixel.
-/// Due to this compatibility, it is possible to make a Mat header for user-allocated data and process
-/// it in-place using OpenCV functions.
-/// 
-/// There are many different ways to create a Mat object. The most popular options are listed below:
-/// 
-/// - Use the create(nrows, ncols, type) method or the similar Mat(nrows, ncols, type[, fillValue])
-/// constructor. A new array of the specified size and type is allocated. type has the same meaning as
-/// in the cvCreateMat method. For example, CV_8UC1 means a 8-bit single-channel array, CV_32FC2
-/// means a 2-channel (complex) floating-point array, and so on.
-/// ```ignore
-///    // make a 7x7 complex matrix filled with 1+3j.
-///    Mat M(7,7,CV_32FC2,Scalar(1,3));
-///    // and now turn M to a 100x60 15-channel 8-bit matrix.
-///    // The old content will be deallocated
-///    M.create(100,60,CV_8UC(15));
-/// ```
-/// 
-/// As noted in the introduction to this chapter, create() allocates only a new array when the shape
-/// or type of the current array are different from the specified ones.
-/// 
-/// - Create a multi-dimensional array:
-/// ```ignore
-///    // create a 100x100x100 8-bit array
-///    int sz[] = {100, 100, 100};
-///    Mat bigCube(3, sz, CV_8U, Scalar::all(0));
-/// ```
-/// 
-/// It passes the number of dimensions =1 to the Mat constructor but the created array will be
-/// 2-dimensional with the number of columns set to 1. So, Mat::dims is always \>= 2 (can also be 0
-/// when the array is empty).
-/// 
-/// - Use a copy constructor or assignment operator where there can be an array or expression on the
-/// right side (see below). As noted in the introduction, the array assignment is an O(1) operation
-/// because it only copies the header and increases the reference counter. The Mat::clone() method can
-/// be used to get a full (deep) copy of the array when you need it.
-/// 
-/// - Construct a header for a part of another array. It can be a single row, single column, several
-/// rows, several columns, rectangular region in the array (called a *minor* in algebra) or a
-/// diagonal. Such operations are also O(1) because the new header references the same data. You can
-/// actually modify a part of the array using this feature, for example:
-/// ```ignore
-///    // add the 5-th row, multiplied by 3 to the 3rd row
-///    M.row(3) = M.row(3) + M.row(5)*3;
-///    // now copy the 7-th column to the 1-st column
-///    // M.col(1) = M.col(7); // this will not work
-///    Mat M1 = M.col(1);
-///    M.col(7).copyTo(M1);
-///    // create a new 320x240 image
-///    Mat img(Size(320,240),CV_8UC3);
-///    // select a ROI
-///    Mat roi(img, Rect(10,10,100,100));
-///    // fill the ROI with (0,255,0) (which is green in RGB space);
-///    // the original 320x240 image will be modified
-///    roi = Scalar(0,255,0);
-/// ```
-/// 
-/// Due to the additional datastart and dataend members, it is possible to compute a relative
-/// sub-array position in the main *container* array using locateROI():
-/// ```ignore
-///    Mat A = Mat::eye(10, 10, CV_32S);
-///    // extracts A columns, 1 (inclusive) to 3 (exclusive).
-///    Mat B = A(Range::all(), Range(1, 3));
-///    // extracts B rows, 5 (inclusive) to 9 (exclusive).
-///    // that is, C \~ A(Range(5, 9), Range(1, 3))
-///    Mat C = B(Range(5, 9), Range::all());
-///    Size size; Point ofs;
-///    C.locateROI(size, ofs);
-///    // size will be (width=10,height=10) and the ofs will be (x=1, y=5)
-/// ```
-/// 
-/// As in case of whole matrices, if you need a deep copy, use the `clone()` method of the extracted
-/// sub-matrices.
-/// 
-/// - Make a header for user-allocated data. It can be useful to do the following:
-///    -# Process "foreign" data using OpenCV (for example, when you implement a DirectShow\* filter or
-///    a processing module for gstreamer, and so on). For example:
-///    ```ignore
-///        Mat process_video_frame(const unsigned char* pixels,
-///                                 int width, int height, int step)
-///        {
-///            // wrap input buffer
-///            Mat img(height, width, CV_8UC3, (unsigned char*)pixels, step);
-/// 
-///            Mat result;
-///            GaussianBlur(img, result, Size(7, 7), 1.5, 1.5);
-/// 
-///            return result;
-///        }
-///    ```
-/// 
-///    -# Quickly initialize small matrices and/or get a super-fast element access.
-///    ```ignore
-///        double m[3][3] = {{a, b, c}, {d, e, f}, {g, h, i}};
-///        Mat M = Mat(3, 3, CV_64F, m).inv();
-///    ```
-/// 
-///    .
-/// 
-/// - Use MATLAB-style array initializers, zeros(), ones(), eye(), for example:
-/// ```ignore
-///    // create a double-precision identity matrix and add it to M.
-///    M += Mat::eye(M.rows, M.cols, CV_64F);
-/// ```
-/// 
-/// 
-/// - Use a comma-separated initializer:
-/// ```ignore
-///    // create a 3x3 double-precision identity matrix
-///    Mat M = (Mat_<double>(3,3) << 1, 0, 0, 0, 1, 0, 0, 0, 1);
-/// ```
-/// 
-/// With this approach, you first call a constructor of the Mat class with the proper parameters, and
-/// then you just put `<< operator` followed by comma-separated values that can be constants,
-/// variables, expressions, and so on. Also, note the extra parentheses required to avoid compilation
-/// errors.
-/// 
-/// Once the array is created, it is automatically managed via a reference-counting mechanism. If the
-/// array header is built on top of user-allocated data, you should handle the data by yourself. The
-/// array data is deallocated when no one points to it. If you want to release the data pointed by a
-/// array header before the array destructor is called, use Mat::release().
-/// 
-/// The next important thing to learn about the array class is element access. This manual already
-/// described how to compute an address of each array element. Normally, you are not required to use the
-/// formula directly in the code. If you know the array element type (which can be retrieved using the
-/// method Mat::type() ), you can access the element ![inline formula](https://latex.codecogs.com/png.latex?M%5F%7Bij%7D) of a 2-dimensional array as:
-/// ```ignore
-///    M.at<double>(i,j) += 1.f;
-/// ```
-/// 
-/// assuming that `M` is a double-precision floating-point array. There are several variants of the method
-/// at for a different number of dimensions.
-/// 
-/// If you need to process a whole row of a 2D array, the most efficient way is to get the pointer to
-/// the row first, and then just use the plain C operator [] :
-/// ```ignore
-///    // compute sum of positive matrix elements
-///    // (assuming that M is a double-precision matrix)
-///    double sum=0;
-///    for(int i = 0; i < M.rows; i++)
-///    {
-///        const double* Mi = M.ptr<double>(i);
-///        for(int j = 0; j < M.cols; j++)
-///            sum += std::max(Mi[j], 0.);
-///    }
-/// ```
-/// 
-/// Some operations, like the one above, do not actually depend on the array shape. They just process
-/// elements of an array one by one (or elements from multiple arrays that have the same coordinates,
-/// for example, array addition). Such operations are called *element-wise*. It makes sense to check
-/// whether all the input/output arrays are continuous, namely, have no gaps at the end of each row. If
-/// yes, process them as a long single row:
-/// ```ignore
-///    // compute the sum of positive matrix elements, optimized variant
-///    double sum=0;
-///    int cols = M.cols, rows = M.rows;
-///    if(M.isContinuous())
-///    {
-///        cols *= rows;
-///        rows = 1;
-///    }
-///    for(int i = 0; i < rows; i++)
-///    {
-///        const double* Mi = M.ptr<double>(i);
-///        for(int j = 0; j < cols; j++)
-///            sum += std::max(Mi[j], 0.);
-///    }
-/// ```
-/// 
-/// In case of the continuous matrix, the outer loop body is executed just once. So, the overhead is
-/// smaller, which is especially noticeable in case of small matrices.
-/// 
-/// Finally, there are STL-style iterators that are smart enough to skip gaps between successive rows:
-/// ```ignore
-///    // compute sum of positive matrix elements, iterator-based variant
-///    double sum=0;
-///    MatConstIterator_<double> it = M.begin<double>(), it_end = M.end<double>();
-///    for(; it != it_end; ++it)
-///        sum += std::max(*it, 0.);
-/// ```
-/// 
-/// The matrix iterators are random-access iterators, so they can be passed to any STL algorithm,
-/// including std::sort().
-/// 
-/// 
-/// Note: Matrix Expressions and arithmetic see MatExpr
 pub struct Mat {
 	ptr: *mut c_void
 }
@@ -13316,10 +7661,6 @@ impl core::MatTrait for Mat {
 }
 
 impl Mat {
-	/// These are various constructors that form a matrix. As noted in the AutomaticAllocation, often
-	/// the default constructor is enough, and the proper matrix will be allocated by an OpenCV function.
-	/// The constructed matrix can further be assigned to another matrix or matrix expression or can be
-	/// allocated with Mat::create . In the former case, the old content is de-referenced.
 	#[inline]
 	pub fn default() -> core::Mat {
 		let ret = unsafe { sys::cv_Mat_Mat() };
@@ -13327,18 +7668,6 @@ impl Mat {
 		ret
 	}
 	
-	/// These are various constructors that form a matrix. As noted in the AutomaticAllocation, often
-	/// the default constructor is enough, and the proper matrix will be allocated by an OpenCV function.
-	/// The constructed matrix can further be assigned to another matrix or matrix expression or can be
-	/// allocated with Mat::create . In the former case, the old content is de-referenced.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * rows: Number of rows in a 2D array.
-	/// * cols: Number of columns in a 2D array.
-	/// * type: Array type. Use CV_8UC1, ..., CV_64FC4 to create 1-4 channel matrices, or
-	///    CV_8UC(n), ..., CV_64FC(n) to create multi-channel (up to CV_CN_MAX channels) matrices.
 	#[inline]
 	pub unsafe fn new_rows_cols(rows: i32, cols: i32, typ: i32) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -13349,18 +7678,6 @@ impl Mat {
 		Ok(ret)
 	}
 	
-	/// These are various constructors that form a matrix. As noted in the AutomaticAllocation, often
-	/// the default constructor is enough, and the proper matrix will be allocated by an OpenCV function.
-	/// The constructed matrix can further be assigned to another matrix or matrix expression or can be
-	/// allocated with Mat::create . In the former case, the old content is de-referenced.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * size: 2D array size: Size(cols, rows) . In the Size() constructor, the number of rows and the
-	///    number of columns go in the reverse order.
-	/// * type: Array type. Use CV_8UC1, ..., CV_64FC4 to create 1-4 channel matrices, or
-	///    CV_8UC(n), ..., CV_64FC(n) to create multi-channel (up to CV_CN_MAX channels) matrices.
 	#[inline]
 	pub unsafe fn new_size(size: core::Size, typ: i32) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -13371,21 +7688,6 @@ impl Mat {
 		Ok(ret)
 	}
 	
-	/// These are various constructors that form a matrix. As noted in the AutomaticAllocation, often
-	/// the default constructor is enough, and the proper matrix will be allocated by an OpenCV function.
-	/// The constructed matrix can further be assigned to another matrix or matrix expression or can be
-	/// allocated with Mat::create . In the former case, the old content is de-referenced.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * rows: Number of rows in a 2D array.
-	/// * cols: Number of columns in a 2D array.
-	/// * type: Array type. Use CV_8UC1, ..., CV_64FC4 to create 1-4 channel matrices, or
-	///    CV_8UC(n), ..., CV_64FC(n) to create multi-channel (up to CV_CN_MAX channels) matrices.
-	/// * s: An optional value to initialize each matrix element with. To set all the matrix elements to
-	///    the particular value after the construction, use the assignment operator
-	///    Mat::operator=(const Scalar& value) .
 	#[inline]
 	pub fn new_rows_cols_with_default(rows: i32, cols: i32, typ: i32, s: core::Scalar) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -13396,21 +7698,6 @@ impl Mat {
 		Ok(ret)
 	}
 	
-	/// These are various constructors that form a matrix. As noted in the AutomaticAllocation, often
-	/// the default constructor is enough, and the proper matrix will be allocated by an OpenCV function.
-	/// The constructed matrix can further be assigned to another matrix or matrix expression or can be
-	/// allocated with Mat::create . In the former case, the old content is de-referenced.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * size: 2D array size: Size(cols, rows) . In the Size() constructor, the number of rows and the
-	///    number of columns go in the reverse order.
-	/// * type: Array type. Use CV_8UC1, ..., CV_64FC4 to create 1-4 channel matrices, or
-	///    CV_8UC(n), ..., CV_64FC(n) to create multi-channel (up to CV_CN_MAX channels) matrices.
-	/// * s: An optional value to initialize each matrix element with. To set all the matrix elements to
-	///    the particular value after the construction, use the assignment operator
-	///    Mat::operator=(const Scalar& value) .
 	#[inline]
 	pub fn new_size_with_default(size: core::Size, typ: i32, s: core::Scalar) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -13421,18 +7708,6 @@ impl Mat {
 		Ok(ret)
 	}
 	
-	/// These are various constructors that form a matrix. As noted in the AutomaticAllocation, often
-	/// the default constructor is enough, and the proper matrix will be allocated by an OpenCV function.
-	/// The constructed matrix can further be assigned to another matrix or matrix expression or can be
-	/// allocated with Mat::create . In the former case, the old content is de-referenced.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * ndims: Array dimensionality.
-	/// * sizes: Array of integers specifying an n-dimensional array shape.
-	/// * type: Array type. Use CV_8UC1, ..., CV_64FC4 to create 1-4 channel matrices, or
-	///    CV_8UC(n), ..., CV_64FC(n) to create multi-channel (up to CV_CN_MAX channels) matrices.
 	#[inline]
 	pub unsafe fn new_nd(ndims: i32, sizes: &i32, typ: i32) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -13443,17 +7718,6 @@ impl Mat {
 		Ok(ret)
 	}
 	
-	/// These are various constructors that form a matrix. As noted in the AutomaticAllocation, often
-	/// the default constructor is enough, and the proper matrix will be allocated by an OpenCV function.
-	/// The constructed matrix can further be assigned to another matrix or matrix expression or can be
-	/// allocated with Mat::create . In the former case, the old content is de-referenced.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * sizes: Array of integers specifying an n-dimensional array shape.
-	/// * type: Array type. Use CV_8UC1, ..., CV_64FC4 to create 1-4 channel matrices, or
-	///    CV_8UC(n), ..., CV_64FC(n) to create multi-channel (up to CV_CN_MAX channels) matrices.
 	#[inline]
 	pub unsafe fn new_nd_vec(sizes: &core::Vector<i32>, typ: i32) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -13464,21 +7728,6 @@ impl Mat {
 		Ok(ret)
 	}
 	
-	/// These are various constructors that form a matrix. As noted in the AutomaticAllocation, often
-	/// the default constructor is enough, and the proper matrix will be allocated by an OpenCV function.
-	/// The constructed matrix can further be assigned to another matrix or matrix expression or can be
-	/// allocated with Mat::create . In the former case, the old content is de-referenced.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * ndims: Array dimensionality.
-	/// * sizes: Array of integers specifying an n-dimensional array shape.
-	/// * type: Array type. Use CV_8UC1, ..., CV_64FC4 to create 1-4 channel matrices, or
-	///    CV_8UC(n), ..., CV_64FC(n) to create multi-channel (up to CV_CN_MAX channels) matrices.
-	/// * s: An optional value to initialize each matrix element with. To set all the matrix elements to
-	///    the particular value after the construction, use the assignment operator
-	///    Mat::operator=(const Scalar& value) .
 	#[inline]
 	pub fn new_nd_with_default(sizes: &[i32], typ: i32, s: core::Scalar) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -13489,20 +7738,6 @@ impl Mat {
 		Ok(ret)
 	}
 	
-	/// These are various constructors that form a matrix. As noted in the AutomaticAllocation, often
-	/// the default constructor is enough, and the proper matrix will be allocated by an OpenCV function.
-	/// The constructed matrix can further be assigned to another matrix or matrix expression or can be
-	/// allocated with Mat::create . In the former case, the old content is de-referenced.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * sizes: Array of integers specifying an n-dimensional array shape.
-	/// * type: Array type. Use CV_8UC1, ..., CV_64FC4 to create 1-4 channel matrices, or
-	///    CV_8UC(n), ..., CV_64FC(n) to create multi-channel (up to CV_CN_MAX channels) matrices.
-	/// * s: An optional value to initialize each matrix element with. To set all the matrix elements to
-	///    the particular value after the construction, use the assignment operator
-	///    Mat::operator=(const Scalar& value) .
 	#[inline]
 	pub fn new_nd_vec_with_default(sizes: &core::Vector<i32>, typ: i32, s: core::Scalar) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -13513,19 +7748,6 @@ impl Mat {
 		Ok(ret)
 	}
 	
-	/// These are various constructors that form a matrix. As noted in the AutomaticAllocation, often
-	/// the default constructor is enough, and the proper matrix will be allocated by an OpenCV function.
-	/// The constructed matrix can further be assigned to another matrix or matrix expression or can be
-	/// allocated with Mat::create . In the former case, the old content is de-referenced.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * m: Array that (as a whole or partly) is assigned to the constructed matrix. No data is copied
-	///    by these constructors. Instead, the header pointing to m data or its sub-array is constructed and
-	///    associated with it. The reference counter, if any, is incremented. So, when you modify the matrix
-	///    formed using such a constructor, you also modify the corresponding elements of m . If you want to
-	///    have an independent copy of the sub-array, use Mat::clone() .
 	#[inline]
 	pub fn copy(m: &core::Mat) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -13536,27 +7758,6 @@ impl Mat {
 		Ok(ret)
 	}
 	
-	/// These are various constructors that form a matrix. As noted in the AutomaticAllocation, often
-	/// the default constructor is enough, and the proper matrix will be allocated by an OpenCV function.
-	/// The constructed matrix can further be assigned to another matrix or matrix expression or can be
-	/// allocated with Mat::create . In the former case, the old content is de-referenced.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * rows: Number of rows in a 2D array.
-	/// * cols: Number of columns in a 2D array.
-	/// * type: Array type. Use CV_8UC1, ..., CV_64FC4 to create 1-4 channel matrices, or
-	///    CV_8UC(n), ..., CV_64FC(n) to create multi-channel (up to CV_CN_MAX channels) matrices.
-	/// * data: Pointer to the user data. Matrix constructors that take data and step parameters do not
-	///    allocate matrix data. Instead, they just initialize the matrix header that points to the specified
-	///    data, which means that no data is copied. This operation is very efficient and can be used to
-	///    process external data using OpenCV functions. The external data is not automatically deallocated, so
-	///    you should take care of it.
-	/// * step: Number of bytes each matrix row occupies. The value should include the padding bytes at
-	///    the end of each row, if any. If the parameter is missing (set to AUTO_STEP ), no padding is assumed
-	///    and the actual step is calculated as cols*elemSize(). See Mat::elemSize.
-	/// 
 	/// ## C++ default parameters
 	/// * step: AUTO_STEP
 	#[inline]
@@ -13569,27 +7770,6 @@ impl Mat {
 		Ok(ret)
 	}
 	
-	/// These are various constructors that form a matrix. As noted in the AutomaticAllocation, often
-	/// the default constructor is enough, and the proper matrix will be allocated by an OpenCV function.
-	/// The constructed matrix can further be assigned to another matrix or matrix expression or can be
-	/// allocated with Mat::create . In the former case, the old content is de-referenced.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * size: 2D array size: Size(cols, rows) . In the Size() constructor, the number of rows and the
-	///    number of columns go in the reverse order.
-	/// * type: Array type. Use CV_8UC1, ..., CV_64FC4 to create 1-4 channel matrices, or
-	///    CV_8UC(n), ..., CV_64FC(n) to create multi-channel (up to CV_CN_MAX channels) matrices.
-	/// * data: Pointer to the user data. Matrix constructors that take data and step parameters do not
-	///    allocate matrix data. Instead, they just initialize the matrix header that points to the specified
-	///    data, which means that no data is copied. This operation is very efficient and can be used to
-	///    process external data using OpenCV functions. The external data is not automatically deallocated, so
-	///    you should take care of it.
-	/// * step: Number of bytes each matrix row occupies. The value should include the padding bytes at
-	///    the end of each row, if any. If the parameter is missing (set to AUTO_STEP ), no padding is assumed
-	///    and the actual step is calculated as cols*elemSize(). See Mat::elemSize.
-	/// 
 	/// ## C++ default parameters
 	/// * step: AUTO_STEP
 	#[inline]
@@ -13602,26 +7782,6 @@ impl Mat {
 		Ok(ret)
 	}
 	
-	/// These are various constructors that form a matrix. As noted in the AutomaticAllocation, often
-	/// the default constructor is enough, and the proper matrix will be allocated by an OpenCV function.
-	/// The constructed matrix can further be assigned to another matrix or matrix expression or can be
-	/// allocated with Mat::create . In the former case, the old content is de-referenced.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * ndims: Array dimensionality.
-	/// * sizes: Array of integers specifying an n-dimensional array shape.
-	/// * type: Array type. Use CV_8UC1, ..., CV_64FC4 to create 1-4 channel matrices, or
-	///    CV_8UC(n), ..., CV_64FC(n) to create multi-channel (up to CV_CN_MAX channels) matrices.
-	/// * data: Pointer to the user data. Matrix constructors that take data and step parameters do not
-	///    allocate matrix data. Instead, they just initialize the matrix header that points to the specified
-	///    data, which means that no data is copied. This operation is very efficient and can be used to
-	///    process external data using OpenCV functions. The external data is not automatically deallocated, so
-	///    you should take care of it.
-	/// * steps: Array of ndims-1 steps in case of a multi-dimensional array (the last step is always
-	///    set to the element size). If not specified, the matrix is assumed to be continuous.
-	/// 
 	/// ## C++ default parameters
 	/// * steps: 0
 	#[inline]
@@ -13634,25 +7794,6 @@ impl Mat {
 		Ok(ret)
 	}
 	
-	/// These are various constructors that form a matrix. As noted in the AutomaticAllocation, often
-	/// the default constructor is enough, and the proper matrix will be allocated by an OpenCV function.
-	/// The constructed matrix can further be assigned to another matrix or matrix expression or can be
-	/// allocated with Mat::create . In the former case, the old content is de-referenced.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * sizes: Array of integers specifying an n-dimensional array shape.
-	/// * type: Array type. Use CV_8UC1, ..., CV_64FC4 to create 1-4 channel matrices, or
-	///    CV_8UC(n), ..., CV_64FC(n) to create multi-channel (up to CV_CN_MAX channels) matrices.
-	/// * data: Pointer to the user data. Matrix constructors that take data and step parameters do not
-	///    allocate matrix data. Instead, they just initialize the matrix header that points to the specified
-	///    data, which means that no data is copied. This operation is very efficient and can be used to
-	///    process external data using OpenCV functions. The external data is not automatically deallocated, so
-	///    you should take care of it.
-	/// * steps: Array of ndims-1 steps in case of a multi-dimensional array (the last step is always
-	///    set to the element size). If not specified, the matrix is assumed to be continuous.
-	/// 
 	/// ## C++ default parameters
 	/// * steps: 0
 	#[inline]
@@ -13665,23 +7806,6 @@ impl Mat {
 		Ok(ret)
 	}
 	
-	/// These are various constructors that form a matrix. As noted in the AutomaticAllocation, often
-	/// the default constructor is enough, and the proper matrix will be allocated by an OpenCV function.
-	/// The constructed matrix can further be assigned to another matrix or matrix expression or can be
-	/// allocated with Mat::create . In the former case, the old content is de-referenced.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * m: Array that (as a whole or partly) is assigned to the constructed matrix. No data is copied
-	///    by these constructors. Instead, the header pointing to m data or its sub-array is constructed and
-	///    associated with it. The reference counter, if any, is incremented. So, when you modify the matrix
-	///    formed using such a constructor, you also modify the corresponding elements of m . If you want to
-	///    have an independent copy of the sub-array, use Mat::clone() .
-	/// * rowRange: Range of the m rows to take. As usual, the range start is inclusive and the range
-	///    end is exclusive. Use Range::all() to take all the rows.
-	/// * colRange: Range of the m columns to take. Use Range::all() to take all the columns.
-	/// 
 	/// ## C++ default parameters
 	/// * col_range: Range::all()
 	#[inline]
@@ -13694,20 +7818,6 @@ impl Mat {
 		Ok(ret)
 	}
 	
-	/// These are various constructors that form a matrix. As noted in the AutomaticAllocation, often
-	/// the default constructor is enough, and the proper matrix will be allocated by an OpenCV function.
-	/// The constructed matrix can further be assigned to another matrix or matrix expression or can be
-	/// allocated with Mat::create . In the former case, the old content is de-referenced.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * m: Array that (as a whole or partly) is assigned to the constructed matrix. No data is copied
-	///    by these constructors. Instead, the header pointing to m data or its sub-array is constructed and
-	///    associated with it. The reference counter, if any, is incremented. So, when you modify the matrix
-	///    formed using such a constructor, you also modify the corresponding elements of m . If you want to
-	///    have an independent copy of the sub-array, use Mat::clone() .
-	/// * roi: Region of interest.
 	#[inline]
 	pub fn roi(m: &core::Mat, roi: core::Rect) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -13718,20 +7828,6 @@ impl Mat {
 		Ok(ret)
 	}
 	
-	/// These are various constructors that form a matrix. As noted in the AutomaticAllocation, often
-	/// the default constructor is enough, and the proper matrix will be allocated by an OpenCV function.
-	/// The constructed matrix can further be assigned to another matrix or matrix expression or can be
-	/// allocated with Mat::create . In the former case, the old content is de-referenced.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * m: Array that (as a whole or partly) is assigned to the constructed matrix. No data is copied
-	///    by these constructors. Instead, the header pointing to m data or its sub-array is constructed and
-	///    associated with it. The reference counter, if any, is incremented. So, when you modify the matrix
-	///    formed using such a constructor, you also modify the corresponding elements of m . If you want to
-	///    have an independent copy of the sub-array, use Mat::clone() .
-	/// * ranges: Array of selected ranges of m along each dimensionality.
 	#[inline]
 	pub fn ranges(m: &core::Mat, ranges: &core::Vector<core::Range>) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -13742,7 +7838,6 @@ impl Mat {
 		Ok(ret)
 	}
 	
-	/// download data from GpuMat
 	#[inline]
 	pub fn from_gpumat(m: &core::GpuMat) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -13753,11 +7848,6 @@ impl Mat {
 		Ok(ret)
 	}
 	
-	/// creates a diagonal matrix
-	/// 
-	/// The method creates a square diagonal matrix from specified main diagonal.
-	/// ## Parameters
-	/// * d: One-dimensional matrix that represents the main diagonal.
 	#[inline]
 	#[must_use]
 	pub fn diag_mat(d: &core::Mat) -> Result<core::Mat> {
@@ -13769,21 +7859,6 @@ impl Mat {
 		Ok(ret)
 	}
 	
-	/// Returns a zero array of the specified size and type.
-	/// 
-	/// The method returns a Matlab-style zero array initializer. It can be used to quickly form a constant
-	/// array as a function parameter, part of a matrix expression, or as a matrix initializer:
-	/// ```ignore
-	///    Mat A;
-	///    A = Mat::zeros(3, 3, CV_32F);
-	/// ```
-	/// 
-	/// In the example above, a new matrix is allocated only if A is not a 3x3 floating-point matrix.
-	/// Otherwise, the existing matrix A is filled with zeros.
-	/// ## Parameters
-	/// * rows: Number of rows.
-	/// * cols: Number of columns.
-	/// * type: Created matrix type.
 	#[inline]
 	#[must_use]
 	pub fn zeros(rows: i32, cols: i32, typ: i32) -> Result<core::MatExpr> {
@@ -13795,26 +7870,6 @@ impl Mat {
 		Ok(ret)
 	}
 	
-	/// Returns a zero array of the specified size and type.
-	/// 
-	/// The method returns a Matlab-style zero array initializer. It can be used to quickly form a constant
-	/// array as a function parameter, part of a matrix expression, or as a matrix initializer:
-	/// ```ignore
-	///    Mat A;
-	///    A = Mat::zeros(3, 3, CV_32F);
-	/// ```
-	/// 
-	/// In the example above, a new matrix is allocated only if A is not a 3x3 floating-point matrix.
-	/// Otherwise, the existing matrix A is filled with zeros.
-	/// ## Parameters
-	/// * rows: Number of rows.
-	/// * cols: Number of columns.
-	/// * type: Created matrix type.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * size: Alternative to the matrix size specification Size(cols, rows) .
-	/// * type: Created matrix type.
 	#[inline]
 	#[must_use]
 	pub fn zeros_size(size: core::Size, typ: i32) -> Result<core::MatExpr> {
@@ -13826,27 +7881,6 @@ impl Mat {
 		Ok(ret)
 	}
 	
-	/// Returns a zero array of the specified size and type.
-	/// 
-	/// The method returns a Matlab-style zero array initializer. It can be used to quickly form a constant
-	/// array as a function parameter, part of a matrix expression, or as a matrix initializer:
-	/// ```ignore
-	///    Mat A;
-	///    A = Mat::zeros(3, 3, CV_32F);
-	/// ```
-	/// 
-	/// In the example above, a new matrix is allocated only if A is not a 3x3 floating-point matrix.
-	/// Otherwise, the existing matrix A is filled with zeros.
-	/// ## Parameters
-	/// * rows: Number of rows.
-	/// * cols: Number of columns.
-	/// * type: Created matrix type.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * ndims: Array dimensionality.
-	/// * sz: Array of integers specifying the array shape.
-	/// * type: Created matrix type.
 	#[inline]
 	#[must_use]
 	pub fn zeros_nd(sz: &[i32], typ: i32) -> Result<core::MatExpr> {
@@ -13858,24 +7892,6 @@ impl Mat {
 		Ok(ret)
 	}
 	
-	/// Returns an array of all 1's of the specified size and type.
-	/// 
-	/// The method returns a Matlab-style 1's array initializer, similarly to Mat::zeros. Note that using
-	/// this method you can initialize an array with an arbitrary value, using the following Matlab idiom:
-	/// ```ignore
-	///    Mat A = Mat::ones(100, 100, CV_8U)*3; // make 100x100 matrix filled with 3.
-	/// ```
-	/// 
-	/// The above operation does not form a 100x100 matrix of 1's and then multiply it by 3. Instead, it
-	/// just remembers the scale factor (3 in this case) and use it when actually invoking the matrix
-	/// initializer.
-	/// 
-	/// Note: In case of multi-channels type, only the first channel will be initialized with 1's, the
-	/// others will be set to 0's.
-	/// ## Parameters
-	/// * rows: Number of rows.
-	/// * cols: Number of columns.
-	/// * type: Created matrix type.
 	#[inline]
 	#[must_use]
 	pub fn ones(rows: i32, cols: i32, typ: i32) -> Result<core::MatExpr> {
@@ -13887,29 +7903,6 @@ impl Mat {
 		Ok(ret)
 	}
 	
-	/// Returns an array of all 1's of the specified size and type.
-	/// 
-	/// The method returns a Matlab-style 1's array initializer, similarly to Mat::zeros. Note that using
-	/// this method you can initialize an array with an arbitrary value, using the following Matlab idiom:
-	/// ```ignore
-	///    Mat A = Mat::ones(100, 100, CV_8U)*3; // make 100x100 matrix filled with 3.
-	/// ```
-	/// 
-	/// The above operation does not form a 100x100 matrix of 1's and then multiply it by 3. Instead, it
-	/// just remembers the scale factor (3 in this case) and use it when actually invoking the matrix
-	/// initializer.
-	/// 
-	/// Note: In case of multi-channels type, only the first channel will be initialized with 1's, the
-	/// others will be set to 0's.
-	/// ## Parameters
-	/// * rows: Number of rows.
-	/// * cols: Number of columns.
-	/// * type: Created matrix type.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * size: Alternative to the matrix size specification Size(cols, rows) .
-	/// * type: Created matrix type.
 	#[inline]
 	#[must_use]
 	pub fn ones_size(size: core::Size, typ: i32) -> Result<core::MatExpr> {
@@ -13921,30 +7914,6 @@ impl Mat {
 		Ok(ret)
 	}
 	
-	/// Returns an array of all 1's of the specified size and type.
-	/// 
-	/// The method returns a Matlab-style 1's array initializer, similarly to Mat::zeros. Note that using
-	/// this method you can initialize an array with an arbitrary value, using the following Matlab idiom:
-	/// ```ignore
-	///    Mat A = Mat::ones(100, 100, CV_8U)*3; // make 100x100 matrix filled with 3.
-	/// ```
-	/// 
-	/// The above operation does not form a 100x100 matrix of 1's and then multiply it by 3. Instead, it
-	/// just remembers the scale factor (3 in this case) and use it when actually invoking the matrix
-	/// initializer.
-	/// 
-	/// Note: In case of multi-channels type, only the first channel will be initialized with 1's, the
-	/// others will be set to 0's.
-	/// ## Parameters
-	/// * rows: Number of rows.
-	/// * cols: Number of columns.
-	/// * type: Created matrix type.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * ndims: Array dimensionality.
-	/// * sz: Array of integers specifying the array shape.
-	/// * type: Created matrix type.
 	#[inline]
 	#[must_use]
 	pub fn ones_nd(sz: &[i32], typ: i32) -> Result<core::MatExpr> {
@@ -13956,22 +7925,6 @@ impl Mat {
 		Ok(ret)
 	}
 	
-	/// Returns an identity matrix of the specified size and type.
-	/// 
-	/// The method returns a Matlab-style identity matrix initializer, similarly to Mat::zeros. Similarly to
-	/// Mat::ones, you can use a scale operation to create a scaled identity matrix efficiently:
-	/// ```ignore
-	///    // make a 4x4 diagonal matrix with 0.1's on the diagonal.
-	///    Mat A = Mat::eye(4, 4, CV_32F)*0.1;
-	/// ```
-	/// 
-	/// 
-	/// Note: In case of multi-channels type, identity matrix will be initialized only for the first channel,
-	/// the others will be set to 0's
-	/// ## Parameters
-	/// * rows: Number of rows.
-	/// * cols: Number of columns.
-	/// * type: Created matrix type.
 	#[inline]
 	#[must_use]
 	pub fn eye(rows: i32, cols: i32, typ: i32) -> Result<core::MatExpr> {
@@ -13983,27 +7936,6 @@ impl Mat {
 		Ok(ret)
 	}
 	
-	/// Returns an identity matrix of the specified size and type.
-	/// 
-	/// The method returns a Matlab-style identity matrix initializer, similarly to Mat::zeros. Similarly to
-	/// Mat::ones, you can use a scale operation to create a scaled identity matrix efficiently:
-	/// ```ignore
-	///    // make a 4x4 diagonal matrix with 0.1's on the diagonal.
-	///    Mat A = Mat::eye(4, 4, CV_32F)*0.1;
-	/// ```
-	/// 
-	/// 
-	/// Note: In case of multi-channels type, identity matrix will be initialized only for the first channel,
-	/// the others will be set to 0's
-	/// ## Parameters
-	/// * rows: Number of rows.
-	/// * cols: Number of columns.
-	/// * type: Created matrix type.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * size: Alternative matrix size specification as Size(cols, rows) .
-	/// * type: Created matrix type.
 	#[inline]
 	#[must_use]
 	pub fn eye_size(size: core::Size, typ: i32) -> Result<core::MatExpr> {
@@ -14043,7 +7975,6 @@ impl Default for Mat {
 	}
 }
 
-/// /////////////////////////////// MatConstIterator //////////////////////////////////
 pub trait MatConstIteratorTraitConst {
 	fn as_raw_MatConstIterator(&self) -> *const c_void;
 
@@ -14078,7 +8009,6 @@ pub trait MatConstIteratorTraitConst {
 		ret
 	}
 	
-	/// returns the current matrix element
 	#[inline]
 	fn try_deref(&self) -> Result<*const u8> {
 		return_send!(via ocvrs_return);
@@ -14088,7 +8018,6 @@ pub trait MatConstIteratorTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns the i-th matrix element, relative to the current
 	#[inline]
 	fn get(&self, i: ptrdiff_t) -> Result<*const u8> {
 		return_send!(via ocvrs_return);
@@ -14098,7 +8027,6 @@ pub trait MatConstIteratorTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns the current iterator position
 	#[inline]
 	fn pos(&self) -> Result<core::Point> {
 		return_send!(via ocvrs_return);
@@ -14108,7 +8036,6 @@ pub trait MatConstIteratorTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns the current iterator position
 	#[inline]
 	fn pos_to(&self, _idx: &mut i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -14138,7 +8065,6 @@ pub trait MatConstIteratorTrait: core::MatConstIteratorTraitConst {
 		ret
 	}
 	
-	/// decrements the iterator
 	#[inline]
 	fn decr(&mut self) -> Result<core::MatConstIterator> {
 		return_send!(via ocvrs_return);
@@ -14149,7 +8075,6 @@ pub trait MatConstIteratorTrait: core::MatConstIteratorTraitConst {
 		Ok(ret)
 	}
 	
-	/// increments the iterator
 	#[inline]
 	fn incr(&mut self) -> Result<core::MatConstIterator> {
 		return_send!(via ocvrs_return);
@@ -14184,7 +8109,6 @@ pub trait MatConstIteratorTrait: core::MatConstIteratorTraitConst {
 	
 }
 
-/// /////////////////////////////// MatConstIterator //////////////////////////////////
 pub struct MatConstIterator {
 	ptr: *mut c_void
 }
@@ -14209,7 +8133,6 @@ impl core::MatConstIteratorTrait for MatConstIterator {
 }
 
 impl MatConstIterator {
-	/// default constructor
 	#[inline]
 	pub fn default() -> Result<core::MatConstIterator> {
 		return_send!(via ocvrs_return);
@@ -14220,7 +8143,6 @@ impl MatConstIterator {
 		Ok(ret)
 	}
 	
-	/// constructor that sets the iterator to the beginning of the matrix
 	#[inline]
 	pub fn over(_m: &core::Mat) -> Result<core::MatConstIterator> {
 		return_send!(via ocvrs_return);
@@ -14231,8 +8153,6 @@ impl MatConstIterator {
 		Ok(ret)
 	}
 	
-	/// constructor that sets the iterator to the specified element of the matrix
-	/// 
 	/// ## C++ default parameters
 	/// * _col: 0
 	#[inline]
@@ -14245,7 +8165,6 @@ impl MatConstIterator {
 		Ok(ret)
 	}
 	
-	/// constructor that sets the iterator to the specified element of the matrix
 	#[inline]
 	pub fn with_start(_m: &core::Mat, _pt: core::Point) -> Result<core::MatConstIterator> {
 		return_send!(via ocvrs_return);
@@ -14256,7 +8175,6 @@ impl MatConstIterator {
 		Ok(ret)
 	}
 	
-	/// copy constructor
 	#[inline]
 	pub fn copy(it: &core::MatConstIterator) -> Result<core::MatConstIterator> {
 		return_send!(via ocvrs_return);
@@ -14269,53 +8187,6 @@ impl MatConstIterator {
 	
 }
 
-/// Matrix expression representation
-/// @anchor MatrixExpressions
-/// This is a list of implemented matrix operations that can be combined in arbitrary complex
-/// expressions (here A, B stand for matrices ( Mat ), s for a scalar ( Scalar ), alpha for a
-/// real-valued scalar ( double )):
-/// *   Addition, subtraction, negation: `A+B`, `A-B`, `A+s`, `A-s`, `s+A`, `s-A`, `-A`
-/// *   Scaling: `A*alpha`
-/// *   Per-element multiplication and division: `A.mul(B)`, `A/B`, `alpha/A`
-/// *   Matrix multiplication: `A*B`
-/// *   Transposition: `A.t()` (means A<sup>T</sup>)
-/// *   Matrix inversion and pseudo-inversion, solving linear systems and least-squares problems:
-///    `A.inv([method]) (~ A<sup>-1</sup>)`,   `A.inv([method])*B (~ X: AX=B)`
-/// *   Comparison: `A cmpop B`, `A cmpop alpha`, `alpha cmpop A`, where *cmpop* is one of
-///   `>`, `>=`, `==`, `!=`, `<=`, `<`. The result of comparison is an 8-bit single channel mask whose
-///    elements are set to 255 (if the particular element or pair of elements satisfy the condition) or
-///    0.
-/// *   Bitwise logical operations: `A logicop B`, `A logicop s`, `s logicop A`, `~A`, where *logicop* is one of
-///   `&`, `|`, `^`.
-/// *   Element-wise minimum and maximum: `min(A, B)`, `min(A, alpha)`, `max(A, B)`, `max(A, alpha)`
-/// *   Element-wise absolute value: `abs(A)`
-/// *   Cross-product, dot-product: `A.cross(B)`, `A.dot(B)`
-/// *   Any function of matrix or matrices and scalars that returns a matrix or a scalar, such as norm,
-///    mean, sum, countNonZero, trace, determinant, repeat, and others.
-/// *   Matrix initializers ( Mat::eye(), Mat::zeros(), Mat::ones() ), matrix comma-separated
-///    initializers, matrix constructors and operators that extract sub-matrices (see Mat description).
-/// *   Mat_<destination_type>() constructors to cast the result to the proper type.
-/// 
-/// Note: Comma-separated initializers and probably some other operations may require additional
-/// explicit Mat() or Mat_<T>() constructor calls to resolve a possible ambiguity.
-/// 
-/// Here are examples of matrix expressions:
-/// ```ignore
-///    // compute pseudo-inverse of A, equivalent to A.inv(DECOMP_SVD)
-///    SVD svd(A);
-///    Mat pinvA = svd.vt.t()*Mat::diag(1./svd.w)*svd.u.t();
-/// 
-///    // compute the new vector of parameters in the Levenberg-Marquardt algorithm
-///    x -= (A.t()*A + lambda*Mat::eye(A.cols,A.cols,A.type())).inv(DECOMP_CHOLESKY)*(A.t()*err);
-/// 
-///    // sharpen image using "unsharp mask" algorithm
-///    Mat blurred; double sigma = 1, threshold = 5, amount = 1;
-///    GaussianBlur(img, blurred, Size(), sigma, sigma);
-///    Mat lowContrastMask = abs(img - blurred) < threshold;
-///    Mat sharpened = img*(1+amount) + blurred*(-amount);
-///    img.copyTo(sharpened, lowContrastMask);
-/// ```
-/// 
 pub trait MatExprTraitConst {
 	fn as_raw_MatExpr(&self) -> *const c_void;
 
@@ -14549,53 +8420,6 @@ pub trait MatExprTrait: core::MatExprTraitConst {
 	
 }
 
-/// Matrix expression representation
-/// @anchor MatrixExpressions
-/// This is a list of implemented matrix operations that can be combined in arbitrary complex
-/// expressions (here A, B stand for matrices ( Mat ), s for a scalar ( Scalar ), alpha for a
-/// real-valued scalar ( double )):
-/// *   Addition, subtraction, negation: `A+B`, `A-B`, `A+s`, `A-s`, `s+A`, `s-A`, `-A`
-/// *   Scaling: `A*alpha`
-/// *   Per-element multiplication and division: `A.mul(B)`, `A/B`, `alpha/A`
-/// *   Matrix multiplication: `A*B`
-/// *   Transposition: `A.t()` (means A<sup>T</sup>)
-/// *   Matrix inversion and pseudo-inversion, solving linear systems and least-squares problems:
-///    `A.inv([method]) (~ A<sup>-1</sup>)`,   `A.inv([method])*B (~ X: AX=B)`
-/// *   Comparison: `A cmpop B`, `A cmpop alpha`, `alpha cmpop A`, where *cmpop* is one of
-///   `>`, `>=`, `==`, `!=`, `<=`, `<`. The result of comparison is an 8-bit single channel mask whose
-///    elements are set to 255 (if the particular element or pair of elements satisfy the condition) or
-///    0.
-/// *   Bitwise logical operations: `A logicop B`, `A logicop s`, `s logicop A`, `~A`, where *logicop* is one of
-///   `&`, `|`, `^`.
-/// *   Element-wise minimum and maximum: `min(A, B)`, `min(A, alpha)`, `max(A, B)`, `max(A, alpha)`
-/// *   Element-wise absolute value: `abs(A)`
-/// *   Cross-product, dot-product: `A.cross(B)`, `A.dot(B)`
-/// *   Any function of matrix or matrices and scalars that returns a matrix or a scalar, such as norm,
-///    mean, sum, countNonZero, trace, determinant, repeat, and others.
-/// *   Matrix initializers ( Mat::eye(), Mat::zeros(), Mat::ones() ), matrix comma-separated
-///    initializers, matrix constructors and operators that extract sub-matrices (see Mat description).
-/// *   Mat_<destination_type>() constructors to cast the result to the proper type.
-/// 
-/// Note: Comma-separated initializers and probably some other operations may require additional
-/// explicit Mat() or Mat_<T>() constructor calls to resolve a possible ambiguity.
-/// 
-/// Here are examples of matrix expressions:
-/// ```ignore
-///    // compute pseudo-inverse of A, equivalent to A.inv(DECOMP_SVD)
-///    SVD svd(A);
-///    Mat pinvA = svd.vt.t()*Mat::diag(1./svd.w)*svd.u.t();
-/// 
-///    // compute the new vector of parameters in the Levenberg-Marquardt algorithm
-///    x -= (A.t()*A + lambda*Mat::eye(A.cols,A.cols,A.type())).inv(DECOMP_CHOLESKY)*(A.t()*err);
-/// 
-///    // sharpen image using "unsharp mask" algorithm
-///    Mat blurred; double sigma = 1, threshold = 5, amount = 1;
-///    GaussianBlur(img, blurred, Size(), sigma, sigma);
-///    Mat lowContrastMask = abs(img - blurred) < threshold;
-///    Mat sharpened = img*(1+amount) + blurred*(-amount);
-///    img.copyTo(sharpened, lowContrastMask);
-/// ```
-/// 
 pub struct MatExpr {
 	ptr: *mut c_void
 }
@@ -14659,7 +8483,6 @@ impl MatExpr {
 	
 }
 
-/// ////////////////////////////// Matrix Expressions /////////////////////////////////
 pub trait MatOpConst {
 	fn as_raw_MatOp(&self) -> *const c_void;
 
@@ -14983,7 +8806,6 @@ impl core::MatSizeTrait for MatSize {
 }
 
 impl MatSize {
-	/// ////////////////////////// MatSize ////////////////////////////
 	#[inline]
 	pub fn new(_p: &mut i32) -> core::MatSize {
 		let ret = unsafe { sys::cv_MatSize_MatSize_intX(_p) };
@@ -15067,7 +8889,6 @@ impl core::MatStepTrait for MatStep {
 }
 
 impl MatStep {
-	/// ////////////////////////// MatStep ////////////////////////////
 	#[inline]
 	pub fn default() -> core::MatStep {
 		let ret = unsafe { sys::cv_MatStep_MatStep() };
@@ -15092,7 +8913,6 @@ impl Default for MatStep {
 	}
 }
 
-/// @cond IGNORED
 pub trait Matx_AddOpTraitConst {
 	fn as_raw_Matx_AddOp(&self) -> *const c_void;
 
@@ -15103,7 +8923,6 @@ pub trait Matx_AddOpTrait: core::Matx_AddOpTraitConst {
 
 }
 
-/// @cond IGNORED
 pub struct Matx_AddOp {
 	ptr: *mut c_void
 }
@@ -15486,18 +9305,9 @@ impl Matx_TOp {
 	
 }
 
-/// Basic interface for all solvers
 pub trait MinProblemSolverConst: core::AlgorithmTraitConst {
 	fn as_raw_MinProblemSolver(&self) -> *const c_void;
 
-	/// Getter for the optimized function.
-	/// 
-	/// The optimized function is represented by Function interface, which requires derivatives to
-	/// implement the calc(double*) and getDim() methods to evaluate the function.
-	/// 
-	/// ## Returns
-	/// Smart-pointer to an object that implements Function interface - it represents the
-	/// function that is being optimized. It can be empty, if no function was given so far.
 	#[inline]
 	fn get_function(&self) -> Result<core::Ptr<dyn core::MinProblemSolver_Function>> {
 		return_send!(via ocvrs_return);
@@ -15508,10 +9318,6 @@ pub trait MinProblemSolverConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Getter for the previously set terminal criteria for this algorithm.
-	/// 
-	/// ## Returns
-	/// Deep copy of the terminal criteria used at the moment.
 	#[inline]
 	fn get_term_criteria(&self) -> Result<core::TermCriteria> {
 		return_send!(via ocvrs_return);
@@ -15526,12 +9332,6 @@ pub trait MinProblemSolverConst: core::AlgorithmTraitConst {
 pub trait MinProblemSolver: core::AlgorithmTrait + core::MinProblemSolverConst {
 	fn as_raw_mut_MinProblemSolver(&mut self) -> *mut c_void;
 
-	/// Setter for the optimized function.
-	/// 
-	/// *It should be called at least once before the call to* minimize(), as default value is not usable.
-	/// 
-	/// ## Parameters
-	/// * f: The new function to optimize.
 	#[inline]
 	fn set_function(&mut self, f: &core::Ptr<dyn core::MinProblemSolver_Function>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -15541,17 +9341,6 @@ pub trait MinProblemSolver: core::AlgorithmTrait + core::MinProblemSolverConst {
 		Ok(ret)
 	}
 	
-	/// Set terminal criteria for solver.
-	/// 
-	/// This method *is not necessary* to be called before the first call to minimize(), as the default
-	/// value is sensible.
-	/// 
-	/// Algorithm stops when the number of function evaluations done exceeds termcrit.maxCount, when
-	/// the function values at the vertices of simplex are within termcrit.epsilon range or simplex
-	/// becomes so small that it can enclosed in a box with termcrit.epsilon sides, whatever comes
-	/// first.
-	/// ## Parameters
-	/// * termcrit: Terminal criteria to be used, represented as cv::TermCriteria structure.
 	#[inline]
 	fn set_term_criteria(&mut self, termcrit: core::TermCriteria) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -15561,19 +9350,6 @@ pub trait MinProblemSolver: core::AlgorithmTrait + core::MinProblemSolverConst {
 		Ok(ret)
 	}
 	
-	/// actually runs the algorithm and performs the minimization.
-	/// 
-	/// The sole input parameter determines the centroid of the starting simplex (roughly, it tells
-	/// where to start), all the others (terminal criteria, initial step, function to be minimized) are
-	/// supposed to be set via the setters before the call to this method or the default values (not
-	/// always sensible) will be used.
-	/// 
-	/// ## Parameters
-	/// * x: The initial point, that will become a centroid of an initial simplex. After the algorithm
-	/// will terminate, it will be set to the point where the algorithm stops, the point of possible
-	/// minimum.
-	/// ## Returns
-	/// The value of a function at the point found.
 	#[inline]
 	fn minimize(&mut self, x: &mut dyn core::ToInputOutputArray) -> Result<f64> {
 		input_output_array_arg!(x);
@@ -15586,7 +9362,6 @@ pub trait MinProblemSolver: core::AlgorithmTrait + core::MinProblemSolverConst {
 	
 }
 
-/// Represents function being optimized
 pub trait MinProblemSolver_FunctionConst {
 	fn as_raw_MinProblemSolver_Function(&self) -> *const c_void;
 
@@ -15633,96 +9408,38 @@ pub trait MinProblemSolver_Function: core::MinProblemSolver_FunctionConst {
 	
 }
 
-/// struct returned by cv::moments
-/// 
-/// The spatial moments ![inline formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7BMoments%3A%3Am%7D%5F%7Bji%7D) are computed as:
-/// 
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bm%7D%20%5F%7Bji%7D%3D%20%5Csum%20%5F%7Bx%2Cy%7D%20%20%5Cleft%20%28%20%5Ctexttt%7Barray%7D%20%28x%2Cy%29%20%20%5Ccdot%20x%5Ej%20%20%5Ccdot%20y%5Ei%20%5Cright%20%29)
-/// 
-/// The central moments ![inline formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7BMoments%3A%3Amu%7D%5F%7Bji%7D) are computed as:
-/// 
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bmu%7D%20%5F%7Bji%7D%3D%20%5Csum%20%5F%7Bx%2Cy%7D%20%20%5Cleft%20%28%20%5Ctexttt%7Barray%7D%20%28x%2Cy%29%20%20%5Ccdot%20%28x%20%2D%20%20%5Cbar%7Bx%7D%20%29%5Ej%20%20%5Ccdot%20%28y%20%2D%20%20%5Cbar%7By%7D%20%29%5Ei%20%5Cright%20%29)
-/// 
-/// where ![inline formula](https://latex.codecogs.com/png.latex?%28%5Cbar%7Bx%7D%2C%20%5Cbar%7By%7D%29) is the mass center:
-/// 
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Cbar%7Bx%7D%20%3D%20%5Cfrac%7B%5Ctexttt%7Bm%7D%5F%7B10%7D%7D%7B%5Ctexttt%7Bm%7D%5F%7B00%7D%7D%20%2C%20%5C%3B%20%5Cbar%7By%7D%20%3D%20%5Cfrac%7B%5Ctexttt%7Bm%7D%5F%7B01%7D%7D%7B%5Ctexttt%7Bm%7D%5F%7B00%7D%7D)
-/// 
-/// The normalized central moments ![inline formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7BMoments%3A%3Anu%7D%5F%7Bij%7D) are computed as:
-/// 
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bnu%7D%20%5F%7Bji%7D%3D%20%5Cfrac%7B%5Ctexttt%7Bmu%7D%5F%7Bji%7D%7D%7B%5Ctexttt%7Bm%7D%5F%7B00%7D%5E%7B%28i%2Bj%29%2F2%2B1%7D%7D%20%2E)
-/// 
-/// 
-/// Note:
-/// ![inline formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bmu%7D%5F%7B00%7D%3D%5Ctexttt%7Bm%7D%5F%7B00%7D), ![inline formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bnu%7D%5F%7B00%7D%3D1)
-/// ![inline formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bnu%7D%5F%7B10%7D%3D%5Ctexttt%7Bmu%7D%5F%7B10%7D%3D%5Ctexttt%7Bmu%7D%5F%7B01%7D%3D%5Ctexttt%7Bmu%7D%5F%7B10%7D%3D0) , hence the values are not
-/// stored.
-/// 
-/// The moments of a contour are defined in the same way but computed using the Green's formula (see
-/// <http://en.wikipedia.org/wiki/Green_theorem>). So, due to a limited raster resolution, the moments
-/// computed for a contour are slightly different from the moments computed for the same rasterized
-/// contour.
-/// 
-/// 
-/// Note:
-/// Since the contour moments are computed using Green formula, you may get seemingly odd results for
-/// contours with self-intersections, e.g. a zero area (m00) for butterfly-shaped contours.
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub struct Moments {
-	/// @name spatial moments
 	pub m00: f64,
-	/// @name spatial moments
 	pub m10: f64,
-	/// @name spatial moments
 	pub m01: f64,
-	/// @name spatial moments
 	pub m20: f64,
-	/// @name spatial moments
 	pub m11: f64,
-	/// @name spatial moments
 	pub m02: f64,
-	/// @name spatial moments
 	pub m30: f64,
-	/// @name spatial moments
 	pub m21: f64,
-	/// @name spatial moments
 	pub m12: f64,
-	/// @name spatial moments
 	pub m03: f64,
-	/// @name central moments
 	pub mu20: f64,
-	/// @name central moments
 	pub mu11: f64,
-	/// @name central moments
 	pub mu02: f64,
-	/// @name central moments
 	pub mu30: f64,
-	/// @name central moments
 	pub mu21: f64,
-	/// @name central moments
 	pub mu12: f64,
-	/// @name central moments
 	pub mu03: f64,
-	/// @name central normalized moments
 	pub nu20: f64,
-	/// @name central normalized moments
 	pub nu11: f64,
-	/// @name central normalized moments
 	pub nu02: f64,
-	/// @name central normalized moments
 	pub nu30: f64,
-	/// @name central normalized moments
 	pub nu21: f64,
-	/// @name central normalized moments
 	pub nu12: f64,
-	/// @name central normalized moments
 	pub nu03: f64,
 }
 
 opencv_type_simple! { core::Moments }
 
 impl Moments {
-	/// the default constructor
 	#[inline]
 	pub fn default() -> Result<core::Moments> {
 		return_send!(via ocvrs_return);
@@ -15732,7 +9449,6 @@ impl Moments {
 		Ok(ret)
 	}
 	
-	/// the full constructor
 	#[inline]
 	pub fn new(m00: f64, m10: f64, m01: f64, m20: f64, m11: f64, m02: f64, m30: f64, m21: f64, m12: f64, m03: f64) -> Result<core::Moments> {
 		return_send!(via ocvrs_return);
@@ -15744,75 +9460,9 @@ impl Moments {
 	
 }
 
-/// Principal Component Analysis
-/// 
-/// The class is used to calculate a special basis for a set of vectors. The
-/// basis will consist of eigenvectors of the covariance matrix calculated
-/// from the input set of vectors. The class %PCA can also transform
-/// vectors to/from the new coordinate space defined by the basis. Usually,
-/// in this new coordinate system, each vector from the original set (and
-/// any linear combination of such vectors) can be quite accurately
-/// approximated by taking its first few components, corresponding to the
-/// eigenvectors of the largest eigenvalues of the covariance matrix.
-/// Geometrically it means that you calculate a projection of the vector to
-/// a subspace formed by a few eigenvectors corresponding to the dominant
-/// eigenvalues of the covariance matrix. And usually such a projection is
-/// very close to the original vector. So, you can represent the original
-/// vector from a high-dimensional space with a much shorter vector
-/// consisting of the projected vector's coordinates in the subspace. Such a
-/// transformation is also known as Karhunen-Loeve Transform, or KLT.
-/// See http://en.wikipedia.org/wiki/Principal_component_analysis
-/// 
-/// The sample below is the function that takes two matrices. The first
-/// function stores a set of vectors (a row per vector) that is used to
-/// calculate PCA. The second function stores another "test" set of vectors
-/// (a row per vector). First, these vectors are compressed with PCA, then
-/// reconstructed back, and then the reconstruction error norm is computed
-/// and printed for each vector. :
-/// 
-/// ```ignore
-/// using namespace cv;
-/// 
-/// PCA compressPCA(const Mat& pcaset, int maxComponents,
-///                const Mat& testset, Mat& compressed)
-/// {
-///    PCA pca(pcaset, // pass the data
-///            Mat(), // we do not have a pre-computed mean vector,
-///                    // so let the PCA engine to compute it
-///            PCA::DATA_AS_ROW, // indicate that the vectors
-///                                 // are stored as matrix rows
-///                                 // (use PCA::DATA_AS_COL if the vectors are
-///                                 // the matrix columns)
-///            maxComponents // specify, how many principal components to retain
-///            );
-///    // if there is no test data, just return the computed basis, ready-to-use
-///    if( !testset.data )
-///        return pca;
-///    CV_Assert( testset.cols == pcaset.cols );
-/// 
-///    compressed.create(testset.rows, maxComponents, testset.type());
-/// 
-///    Mat reconstructed;
-///    for( int i = 0; i < testset.rows; i++ )
-///    {
-///        Mat vec = testset.row(i), coeffs = compressed.row(i), reconstructed;
-///        // compress the vector, the result will be stored
-///        // in the i-th row of the output matrix
-///        pca.project(vec, coeffs);
-///        // and then reconstruct it
-///        pca.backProject(coeffs, reconstructed);
-///        // and measure the error
-///        printf("%d. diff = %g\n", i, norm(vec, reconstructed, NORM_L2));
-///    }
-///    return pca;
-/// }
-/// ```
-/// ## See also
-/// calcCovarMatrix, mulTransposed, SVD, dft, dct
 pub trait PCATraitConst {
 	fn as_raw_PCA(&self) -> *const c_void;
 
-	/// eigenvectors of the covariation matrix
 	#[inline]
 	fn eigenvectors(&self) -> core::Mat {
 		let ret = unsafe { sys::cv_PCA_getPropEigenvectors_const(self.as_raw_PCA()) };
@@ -15820,7 +9470,6 @@ pub trait PCATraitConst {
 		ret
 	}
 	
-	/// eigenvalues of the covariation matrix
 	#[inline]
 	fn eigenvalues(&self) -> core::Mat {
 		let ret = unsafe { sys::cv_PCA_getPropEigenvalues_const(self.as_raw_PCA()) };
@@ -15828,7 +9477,6 @@ pub trait PCATraitConst {
 		ret
 	}
 	
-	/// mean value subtracted before the projection and added after the back projection
 	#[inline]
 	fn mean(&self) -> core::Mat {
 		let ret = unsafe { sys::cv_PCA_getPropMean_const(self.as_raw_PCA()) };
@@ -15836,20 +9484,6 @@ pub trait PCATraitConst {
 		ret
 	}
 	
-	/// Projects vector(s) to the principal component subspace.
-	/// 
-	/// The methods project one or more vectors to the principal component
-	/// subspace, where each vector projection is represented by coefficients in
-	/// the principal component basis. The first form of the method returns the
-	/// matrix that the second form writes to the result. So the first form can
-	/// be used as a part of expression while the second form can be more
-	/// efficient in a processing loop.
-	/// ## Parameters
-	/// * vec: input vector(s); must have the same dimensionality and the
-	/// same layout as the input data used at %PCA phase, that is, if
-	/// DATA_AS_ROW are specified, then `vec.cols==data.cols`
-	/// (vector dimensionality) and `vec.rows` is the number of vectors to
-	/// project, and the same is true for the PCA::DATA_AS_COL case.
 	#[inline]
 	fn project(&self, vec: &dyn core::ToInputArray) -> Result<core::Mat> {
 		input_array_arg!(vec);
@@ -15861,33 +9495,6 @@ pub trait PCATraitConst {
 		Ok(ret)
 	}
 	
-	/// Projects vector(s) to the principal component subspace.
-	/// 
-	/// The methods project one or more vectors to the principal component
-	/// subspace, where each vector projection is represented by coefficients in
-	/// the principal component basis. The first form of the method returns the
-	/// matrix that the second form writes to the result. So the first form can
-	/// be used as a part of expression while the second form can be more
-	/// efficient in a processing loop.
-	/// ## Parameters
-	/// * vec: input vector(s); must have the same dimensionality and the
-	/// same layout as the input data used at %PCA phase, that is, if
-	/// DATA_AS_ROW are specified, then `vec.cols==data.cols`
-	/// (vector dimensionality) and `vec.rows` is the number of vectors to
-	/// project, and the same is true for the PCA::DATA_AS_COL case.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * vec: input vector(s); must have the same dimensionality and the
-	///    same layout as the input data used at PCA phase, that is, if
-	///    DATA_AS_ROW are specified, then `vec.cols==data.cols`
-	///    (vector dimensionality) and `vec.rows` is the number of vectors to
-	///    project, and the same is true for the PCA::DATA_AS_COL case.
-	/// * result: output vectors; in case of PCA::DATA_AS_COL, the
-	///    output matrix has as many columns as the number of input vectors, this
-	///    means that `result.cols==vec.cols` and the number of rows match the
-	///    number of principal components (for example, `maxComponents` parameter
-	///    passed to the constructor).
 	#[inline]
 	fn project_to(&self, vec: &dyn core::ToInputArray, result: &mut dyn core::ToOutputArray) -> Result<()> {
 		input_array_arg!(vec);
@@ -15899,19 +9506,6 @@ pub trait PCATraitConst {
 		Ok(ret)
 	}
 	
-	/// Reconstructs vectors from their PC projections.
-	/// 
-	/// The methods are inverse operations to PCA::project. They take PC
-	/// coordinates of projected vectors and reconstruct the original vectors.
-	/// Unless all the principal components have been retained, the
-	/// reconstructed vectors are different from the originals. But typically,
-	/// the difference is small if the number of components is large enough (but
-	/// still much smaller than the original vector dimensionality). As a
-	/// result, PCA is used.
-	/// ## Parameters
-	/// * vec: coordinates of the vectors in the principal component
-	/// subspace, the layout and size are the same as of PCA::project output
-	/// vectors.
 	#[inline]
 	fn back_project(&self, vec: &dyn core::ToInputArray) -> Result<core::Mat> {
 		input_array_arg!(vec);
@@ -15923,27 +9517,6 @@ pub trait PCATraitConst {
 		Ok(ret)
 	}
 	
-	/// Reconstructs vectors from their PC projections.
-	/// 
-	/// The methods are inverse operations to PCA::project. They take PC
-	/// coordinates of projected vectors and reconstruct the original vectors.
-	/// Unless all the principal components have been retained, the
-	/// reconstructed vectors are different from the originals. But typically,
-	/// the difference is small if the number of components is large enough (but
-	/// still much smaller than the original vector dimensionality). As a
-	/// result, PCA is used.
-	/// ## Parameters
-	/// * vec: coordinates of the vectors in the principal component
-	/// subspace, the layout and size are the same as of PCA::project output
-	/// vectors.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * vec: coordinates of the vectors in the principal component
-	///    subspace, the layout and size are the same as of PCA::project output
-	///    vectors.
-	/// * result: reconstructed vectors; the layout and size are the same as
-	///    of PCA::project input vectors.
 	#[inline]
 	fn back_project_to(&self, vec: &dyn core::ToInputArray, result: &mut dyn core::ToOutputArray) -> Result<()> {
 		input_array_arg!(vec);
@@ -15955,9 +9528,6 @@ pub trait PCATraitConst {
 		Ok(ret)
 	}
 	
-	/// write PCA objects
-	/// 
-	/// Writes @ref eigenvalues @ref eigenvectors and @ref mean to specified FileStorage
 	#[inline]
 	fn write(&self, fs: &mut core::FileStorage) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -15972,30 +9542,24 @@ pub trait PCATraitConst {
 pub trait PCATrait: core::PCATraitConst {
 	fn as_raw_mut_PCA(&mut self) -> *mut c_void;
 
-	/// eigenvectors of the covariation matrix
 	#[inline]
 	fn set_eigenvectors(&mut self, mut val: core::Mat) {
 		let ret = unsafe { sys::cv_PCA_setPropEigenvectors_Mat(self.as_raw_mut_PCA(), val.as_raw_mut_Mat()) };
 		ret
 	}
 	
-	/// eigenvalues of the covariation matrix
 	#[inline]
 	fn set_eigenvalues(&mut self, mut val: core::Mat) {
 		let ret = unsafe { sys::cv_PCA_setPropEigenvalues_Mat(self.as_raw_mut_PCA(), val.as_raw_mut_Mat()) };
 		ret
 	}
 	
-	/// mean value subtracted before the projection and added after the back projection
 	#[inline]
 	fn set_mean(&mut self, mut val: core::Mat) {
 		let ret = unsafe { sys::cv_PCA_setPropMean_Mat(self.as_raw_mut_PCA(), val.as_raw_mut_Mat()) };
 		ret
 	}
 	
-	/// load PCA objects
-	/// 
-	/// Loads @ref eigenvalues @ref eigenvectors and @ref mean from specified FileNode
 	#[inline]
 	fn read(&mut self, fn_: &core::FileNode) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -16007,71 +9571,6 @@ pub trait PCATrait: core::PCATraitConst {
 	
 }
 
-/// Principal Component Analysis
-/// 
-/// The class is used to calculate a special basis for a set of vectors. The
-/// basis will consist of eigenvectors of the covariance matrix calculated
-/// from the input set of vectors. The class %PCA can also transform
-/// vectors to/from the new coordinate space defined by the basis. Usually,
-/// in this new coordinate system, each vector from the original set (and
-/// any linear combination of such vectors) can be quite accurately
-/// approximated by taking its first few components, corresponding to the
-/// eigenvectors of the largest eigenvalues of the covariance matrix.
-/// Geometrically it means that you calculate a projection of the vector to
-/// a subspace formed by a few eigenvectors corresponding to the dominant
-/// eigenvalues of the covariance matrix. And usually such a projection is
-/// very close to the original vector. So, you can represent the original
-/// vector from a high-dimensional space with a much shorter vector
-/// consisting of the projected vector's coordinates in the subspace. Such a
-/// transformation is also known as Karhunen-Loeve Transform, or KLT.
-/// See http://en.wikipedia.org/wiki/Principal_component_analysis
-/// 
-/// The sample below is the function that takes two matrices. The first
-/// function stores a set of vectors (a row per vector) that is used to
-/// calculate PCA. The second function stores another "test" set of vectors
-/// (a row per vector). First, these vectors are compressed with PCA, then
-/// reconstructed back, and then the reconstruction error norm is computed
-/// and printed for each vector. :
-/// 
-/// ```ignore
-/// using namespace cv;
-/// 
-/// PCA compressPCA(const Mat& pcaset, int maxComponents,
-///                const Mat& testset, Mat& compressed)
-/// {
-///    PCA pca(pcaset, // pass the data
-///            Mat(), // we do not have a pre-computed mean vector,
-///                    // so let the PCA engine to compute it
-///            PCA::DATA_AS_ROW, // indicate that the vectors
-///                                 // are stored as matrix rows
-///                                 // (use PCA::DATA_AS_COL if the vectors are
-///                                 // the matrix columns)
-///            maxComponents // specify, how many principal components to retain
-///            );
-///    // if there is no test data, just return the computed basis, ready-to-use
-///    if( !testset.data )
-///        return pca;
-///    CV_Assert( testset.cols == pcaset.cols );
-/// 
-///    compressed.create(testset.rows, maxComponents, testset.type());
-/// 
-///    Mat reconstructed;
-///    for( int i = 0; i < testset.rows; i++ )
-///    {
-///        Mat vec = testset.row(i), coeffs = compressed.row(i), reconstructed;
-///        // compress the vector, the result will be stored
-///        // in the i-th row of the output matrix
-///        pca.project(vec, coeffs);
-///        // and then reconstruct it
-///        pca.backProject(coeffs, reconstructed);
-///        // and measure the error
-///        printf("%d. diff = %g\n", i, norm(vec, reconstructed, NORM_L2));
-///    }
-///    return pca;
-/// }
-/// ```
-/// ## See also
-/// calcCovarMatrix, mulTransposed, SVD, dft, dct
 pub struct PCA {
 	ptr: *mut c_void
 }
@@ -16096,10 +9595,6 @@ impl core::PCATrait for PCA {
 }
 
 impl PCA {
-	/// default constructor
-	/// 
-	/// The default constructor initializes an empty %PCA structure. The other
-	/// constructors initialize the structure and call PCA::operator()().
 	#[inline]
 	pub fn default() -> Result<core::PCA> {
 		return_send!(via ocvrs_return);
@@ -16110,22 +9605,6 @@ impl PCA {
 		Ok(ret)
 	}
 	
-	/// default constructor
-	/// 
-	/// The default constructor initializes an empty %PCA structure. The other
-	/// constructors initialize the structure and call PCA::operator()().
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * data: input samples stored as matrix rows or matrix columns.
-	/// * mean: optional mean value; if the matrix is empty (@c noArray()),
-	///    the mean is computed from the data.
-	/// * flags: operation flags; currently the parameter is only used to
-	///    specify the data layout (PCA::Flags)
-	/// * maxComponents: maximum number of components that %PCA should
-	///    retain; by default, all the components are retained.
-	/// 
 	/// ## C++ default parameters
 	/// * max_components: 0
 	#[inline]
@@ -16140,22 +9619,6 @@ impl PCA {
 		Ok(ret)
 	}
 	
-	/// default constructor
-	/// 
-	/// The default constructor initializes an empty %PCA structure. The other
-	/// constructors initialize the structure and call PCA::operator()().
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * data: input samples stored as matrix rows or matrix columns.
-	/// * mean: optional mean value; if the matrix is empty (noArray()),
-	///    the mean is computed from the data.
-	/// * flags: operation flags; currently the parameter is only used to
-	///    specify the data layout (PCA::Flags)
-	/// * retainedVariance: Percentage of variance that PCA should retain.
-	///    Using this parameter will let the PCA decided how many components to
-	///    retain but it will always keep at least 2.
 	#[inline]
 	pub fn new_with_variance(data: &dyn core::ToInputArray, mean: &dyn core::ToInputArray, flags: i32, retained_variance: f64) -> Result<core::PCA> {
 		input_array_arg!(data);
@@ -16170,9 +9633,6 @@ impl PCA {
 	
 }
 
-/// Base class for parallel data processors
-/// 
-/// @ingroup core_parallel
 pub trait ParallelLoopBodyConst {
 	fn as_raw_ParallelLoopBody(&self) -> *const c_void;
 
@@ -16183,17 +9643,6 @@ pub trait ParallelLoopBody: core::ParallelLoopBodyConst {
 
 }
 
-/// Random Number Generator
-/// 
-/// Random number generator. It encapsulates the state (currently, a 64-bit
-/// integer) and has methods to return scalar random values and to fill
-/// arrays with random values. Currently it supports uniform and Gaussian
-/// (normal) distributions. The generator uses Multiply-With-Carry
-/// algorithm, introduced by G. Marsaglia (
-/// <http://en.wikipedia.org/wiki/Multiply-with-carry> ).
-/// Gaussian-distribution random numbers are generated using the Ziggurat
-/// algorithm ( <http://en.wikipedia.org/wiki/Ziggurat_algorithm> ),
-/// introduced by G. Marsaglia and W. W. Tsang.
 pub trait RNGTraitConst {
 	fn as_raw_RNG(&self) -> *const c_void;
 
@@ -16223,8 +9672,6 @@ pub trait RNGTrait: core::RNGTraitConst {
 		ret
 	}
 	
-	/// The method updates the state using the MWC algorithm and returns the
-	/// next 32-bit random number.
 	#[inline]
 	fn next(&mut self) -> Result<u32> {
 		return_send!(via ocvrs_return);
@@ -16234,11 +9681,6 @@ pub trait RNGTrait: core::RNGTraitConst {
 		Ok(ret)
 	}
 	
-	/// Each of the methods updates the state using the MWC algorithm and
-	/// returns the next random number of the specified type. In case of integer
-	/// types, the returned number is from the available value range for the
-	/// specified type. In case of floating-point types, the returned value is
-	/// from [0,1) range.
 	#[inline]
 	fn to_u8(&mut self) -> Result<u8> {
 		return_send!(via ocvrs_return);
@@ -16248,7 +9690,6 @@ pub trait RNGTrait: core::RNGTraitConst {
 		Ok(ret)
 	}
 	
-	/// This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
 	#[inline]
 	fn to_i8(&mut self) -> Result<i8> {
 		return_send!(via ocvrs_return);
@@ -16258,7 +9699,6 @@ pub trait RNGTrait: core::RNGTraitConst {
 		Ok(ret)
 	}
 	
-	/// This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
 	#[inline]
 	fn to_u16(&mut self) -> Result<u16> {
 		return_send!(via ocvrs_return);
@@ -16268,7 +9708,6 @@ pub trait RNGTrait: core::RNGTraitConst {
 		Ok(ret)
 	}
 	
-	/// This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
 	#[inline]
 	fn to_i16(&mut self) -> Result<i16> {
 		return_send!(via ocvrs_return);
@@ -16278,7 +9717,6 @@ pub trait RNGTrait: core::RNGTraitConst {
 		Ok(ret)
 	}
 	
-	/// This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
 	#[inline]
 	fn to_u32(&mut self) -> Result<u32> {
 		return_send!(via ocvrs_return);
@@ -16288,7 +9726,6 @@ pub trait RNGTrait: core::RNGTraitConst {
 		Ok(ret)
 	}
 	
-	/// This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
 	#[inline]
 	fn to_i32(&mut self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -16298,7 +9735,6 @@ pub trait RNGTrait: core::RNGTraitConst {
 		Ok(ret)
 	}
 	
-	/// This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
 	#[inline]
 	fn to_f32(&mut self) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -16308,7 +9744,6 @@ pub trait RNGTrait: core::RNGTraitConst {
 		Ok(ret)
 	}
 	
-	/// This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
 	#[inline]
 	fn to_f64(&mut self) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -16318,43 +9753,6 @@ pub trait RNGTrait: core::RNGTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns uniformly distributed integer random number from [a,b) range
-	/// 
-	/// The methods transform the state using the MWC algorithm and return the
-	/// next uniformly-distributed random number of the specified type, deduced
-	/// from the input parameter type, from the range [a, b) . There is a nuance
-	/// illustrated by the following sample:
-	/// 
-	/// ```ignore
-	/// RNG rng;
-	/// 
-	/// // always produces 0
-	/// double a = rng.uniform(0, 1);
-	/// 
-	/// // produces double from [0, 1)
-	/// double a1 = rng.uniform((double)0, (double)1);
-	/// 
-	/// // produces float from [0, 1)
-	/// float b = rng.uniform(0.f, 1.f);
-	/// 
-	/// // produces double from [0, 1)
-	/// double c = rng.uniform(0., 1.);
-	/// 
-	/// // may cause compiler error because of ambiguity:
-	/// //  RNG::uniform(0, (int)0.999999)? or RNG::uniform((double)0, 0.99999)?
-	/// double d = rng.uniform(0, 0.999999);
-	/// ```
-	/// 
-	/// 
-	/// The compiler does not take into account the type of the variable to
-	/// which you assign the result of RNG::uniform . The only thing that
-	/// matters to the compiler is the type of a and b parameters. So, if you
-	/// want a floating-point random number, but the range boundaries are
-	/// integer numbers, either put dots in the end, if they are constants, or
-	/// use explicit type cast operators, as in the a1 initialization above.
-	/// ## Parameters
-	/// * a: lower inclusive boundary of the returned random number.
-	/// * b: upper non-inclusive boundary of the returned random number.
 	#[inline]
 	fn uniform(&mut self, a: i32, b: i32) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -16364,45 +9762,6 @@ pub trait RNGTrait: core::RNGTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns uniformly distributed integer random number from [a,b) range
-	/// 
-	/// The methods transform the state using the MWC algorithm and return the
-	/// next uniformly-distributed random number of the specified type, deduced
-	/// from the input parameter type, from the range [a, b) . There is a nuance
-	/// illustrated by the following sample:
-	/// 
-	/// ```ignore
-	/// RNG rng;
-	/// 
-	/// // always produces 0
-	/// double a = rng.uniform(0, 1);
-	/// 
-	/// // produces double from [0, 1)
-	/// double a1 = rng.uniform((double)0, (double)1);
-	/// 
-	/// // produces float from [0, 1)
-	/// float b = rng.uniform(0.f, 1.f);
-	/// 
-	/// // produces double from [0, 1)
-	/// double c = rng.uniform(0., 1.);
-	/// 
-	/// // may cause compiler error because of ambiguity:
-	/// //  RNG::uniform(0, (int)0.999999)? or RNG::uniform((double)0, 0.99999)?
-	/// double d = rng.uniform(0, 0.999999);
-	/// ```
-	/// 
-	/// 
-	/// The compiler does not take into account the type of the variable to
-	/// which you assign the result of RNG::uniform . The only thing that
-	/// matters to the compiler is the type of a and b parameters. So, if you
-	/// want a floating-point random number, but the range boundaries are
-	/// integer numbers, either put dots in the end, if they are constants, or
-	/// use explicit type cast operators, as in the a1 initialization above.
-	/// ## Parameters
-	/// * a: lower inclusive boundary of the returned random number.
-	/// * b: upper non-inclusive boundary of the returned random number.
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn uniform_1(&mut self, a: f32, b: f32) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -16412,45 +9771,6 @@ pub trait RNGTrait: core::RNGTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns uniformly distributed integer random number from [a,b) range
-	/// 
-	/// The methods transform the state using the MWC algorithm and return the
-	/// next uniformly-distributed random number of the specified type, deduced
-	/// from the input parameter type, from the range [a, b) . There is a nuance
-	/// illustrated by the following sample:
-	/// 
-	/// ```ignore
-	/// RNG rng;
-	/// 
-	/// // always produces 0
-	/// double a = rng.uniform(0, 1);
-	/// 
-	/// // produces double from [0, 1)
-	/// double a1 = rng.uniform((double)0, (double)1);
-	/// 
-	/// // produces float from [0, 1)
-	/// float b = rng.uniform(0.f, 1.f);
-	/// 
-	/// // produces double from [0, 1)
-	/// double c = rng.uniform(0., 1.);
-	/// 
-	/// // may cause compiler error because of ambiguity:
-	/// //  RNG::uniform(0, (int)0.999999)? or RNG::uniform((double)0, 0.99999)?
-	/// double d = rng.uniform(0, 0.999999);
-	/// ```
-	/// 
-	/// 
-	/// The compiler does not take into account the type of the variable to
-	/// which you assign the result of RNG::uniform . The only thing that
-	/// matters to the compiler is the type of a and b parameters. So, if you
-	/// want a floating-point random number, but the range boundaries are
-	/// integer numbers, either put dots in the end, if they are constants, or
-	/// use explicit type cast operators, as in the a1 initialization above.
-	/// ## Parameters
-	/// * a: lower inclusive boundary of the returned random number.
-	/// * b: upper non-inclusive boundary of the returned random number.
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn uniform_2(&mut self, a: f64, b: f64) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -16460,41 +9780,6 @@ pub trait RNGTrait: core::RNGTraitConst {
 		Ok(ret)
 	}
 	
-	/// Fills arrays with random numbers.
-	/// 
-	/// ## Parameters
-	/// * mat: 2D or N-dimensional matrix; currently matrices with more than
-	/// 4 channels are not supported by the methods, use Mat::reshape as a
-	/// possible workaround.
-	/// * distType: distribution type, RNG::UNIFORM or RNG::NORMAL.
-	/// * a: first distribution parameter; in case of the uniform
-	/// distribution, this is an inclusive lower boundary, in case of the normal
-	/// distribution, this is a mean value.
-	/// * b: second distribution parameter; in case of the uniform
-	/// distribution, this is a non-inclusive upper boundary, in case of the
-	/// normal distribution, this is a standard deviation (diagonal of the
-	/// standard deviation matrix or the full standard deviation matrix).
-	/// * saturateRange: pre-saturation flag; for uniform distribution only;
-	/// if true, the method will first convert a and b to the acceptable value
-	/// range (according to the mat datatype) and then will generate uniformly
-	/// distributed random numbers within the range [saturate(a), saturate(b)),
-	/// if saturateRange=false, the method will generate uniformly distributed
-	/// random numbers in the original range [a, b) and then will saturate them,
-	/// it means, for example, that
-	/// <tt>theRNG().fill(mat_8u, RNG::UNIFORM, -DBL_MAX, DBL_MAX)</tt> will likely
-	/// produce array mostly filled with 0's and 255's, since the range (0, 255)
-	/// is significantly smaller than [-DBL_MAX, DBL_MAX).
-	/// 
-	/// Each of the methods fills the matrix with the random values from the
-	/// specified distribution. As the new numbers are generated, the RNG state
-	/// is updated accordingly. In case of multiple-channel images, every
-	/// channel is filled independently, which means that RNG cannot generate
-	/// samples from the multi-dimensional Gaussian distribution with
-	/// non-diagonal covariance matrix directly. To do that, the method
-	/// generates samples from multi-dimensional standard Gaussian distribution
-	/// with zero mean and identity covariation matrix, and then transforms them
-	/// using transform to get samples from the specified Gaussian distribution.
-	/// 
 	/// ## C++ default parameters
 	/// * saturate_range: false
 	#[inline]
@@ -16509,14 +9794,6 @@ pub trait RNGTrait: core::RNGTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns the next random number sampled from the Gaussian distribution
-	/// ## Parameters
-	/// * sigma: standard deviation of the distribution.
-	/// 
-	/// The method transforms the state using the MWC algorithm and returns the
-	/// next random number from the Gaussian distribution N(0,sigma) . That is,
-	/// the mean value of the returned random numbers is zero and the standard
-	/// deviation is the specified sigma .
 	#[inline]
 	fn gaussian(&mut self, sigma: f64) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -16528,17 +9805,6 @@ pub trait RNGTrait: core::RNGTraitConst {
 	
 }
 
-/// Random Number Generator
-/// 
-/// Random number generator. It encapsulates the state (currently, a 64-bit
-/// integer) and has methods to return scalar random values and to fill
-/// arrays with random values. Currently it supports uniform and Gaussian
-/// (normal) distributions. The generator uses Multiply-With-Carry
-/// algorithm, introduced by G. Marsaglia (
-/// <http://en.wikipedia.org/wiki/Multiply-with-carry> ).
-/// Gaussian-distribution random numbers are generated using the Ziggurat
-/// algorithm ( <http://en.wikipedia.org/wiki/Ziggurat_algorithm> ),
-/// introduced by G. Marsaglia and W. W. Tsang.
 pub struct RNG {
 	ptr: *mut c_void
 }
@@ -16563,13 +9829,6 @@ impl core::RNGTrait for RNG {
 }
 
 impl RNG {
-	/// constructor
-	/// 
-	/// These are the RNG constructors. The first form sets the state to some
-	/// pre-defined value, equal to 2\*\*32-1 in the current implementation. The
-	/// second form sets the state to the specified value. If you passed state=0
-	/// , the constructor uses the above default value instead to avoid the
-	/// singular random number sequence, consisting of all zeros.
 	#[inline]
 	pub fn default() -> Result<core::RNG> {
 		return_send!(via ocvrs_return);
@@ -16580,18 +9839,6 @@ impl RNG {
 		Ok(ret)
 	}
 	
-	/// constructor
-	/// 
-	/// These are the RNG constructors. The first form sets the state to some
-	/// pre-defined value, equal to 2\*\*32-1 in the current implementation. The
-	/// second form sets the state to the specified value. If you passed state=0
-	/// , the constructor uses the above default value instead to avoid the
-	/// singular random number sequence, consisting of all zeros.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * state: 64-bit value used to initialize the RNG.
 	#[inline]
 	pub fn new(state: u64) -> Result<core::RNG> {
 		return_send!(via ocvrs_return);
@@ -16604,10 +9851,6 @@ impl RNG {
 	
 }
 
-/// Mersenne Twister random number generator
-/// 
-/// Inspired by http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/MT2002/CODES/mt19937ar.c
-/// @todo document
 pub trait RNG_MT19937TraitConst {
 	fn as_raw_RNG_MT19937(&self) -> *const c_void;
 
@@ -16670,7 +9913,6 @@ pub trait RNG_MT19937Trait: core::RNG_MT19937TraitConst {
 		Ok(ret)
 	}
 	
-	/// returns uniformly distributed integer random number from [a,b) range
 	#[inline]
 	fn uniform(&mut self, a: i32, b: i32) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -16680,7 +9922,6 @@ pub trait RNG_MT19937Trait: core::RNG_MT19937TraitConst {
 		Ok(ret)
 	}
 	
-	/// returns uniformly distributed floating-point random number from [a,b) range
 	#[inline]
 	fn uniform_1(&mut self, a: f32, b: f32) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -16690,7 +9931,6 @@ pub trait RNG_MT19937Trait: core::RNG_MT19937TraitConst {
 		Ok(ret)
 	}
 	
-	/// returns uniformly distributed double-precision floating-point random number from [a,b) range
 	#[inline]
 	fn uniform_2(&mut self, a: f64, b: f64) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -16702,10 +9942,6 @@ pub trait RNG_MT19937Trait: core::RNG_MT19937TraitConst {
 	
 }
 
-/// Mersenne Twister random number generator
-/// 
-/// Inspired by http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/MT2002/CODES/mt19937ar.c
-/// @todo document
 pub struct RNG_MT19937 {
 	ptr: *mut c_void
 }
@@ -16752,29 +9988,6 @@ impl RNG_MT19937 {
 	
 }
 
-/// Template class specifying a continuous subsequence (slice) of a sequence.
-/// 
-/// The class is used to specify a row or a column span in a matrix ( Mat ) and for many other purposes.
-/// Range(a,b) is basically the same as a:b in Matlab or a..b in Python. As in Python, start is an
-/// inclusive left boundary of the range and end is an exclusive right boundary of the range. Such a
-/// half-opened interval is usually denoted as ![inline formula](https://latex.codecogs.com/png.latex?%5Bstart%2Cend%29) .
-/// 
-/// The static method Range::all() returns a special variable that means "the whole sequence" or "the
-/// whole range", just like " : " in Matlab or " ... " in Python. All the methods and functions in
-/// OpenCV that take Range support this special Range::all() value. But, of course, in case of your own
-/// custom processing, you will probably have to check and handle it explicitly:
-/// ```ignore
-///    void my_function(..., const Range& r, ....)
-///    {
-///        if(r == Range::all()) {
-///            // process all the data
-///        }
-///        else {
-///            // process [r.start, r.end)
-///        }
-///    }
-/// ```
-/// 
 pub trait RangeTraitConst {
 	fn as_raw_Range(&self) -> *const c_void;
 
@@ -16827,29 +10040,6 @@ pub trait RangeTrait: core::RangeTraitConst {
 	
 }
 
-/// Template class specifying a continuous subsequence (slice) of a sequence.
-/// 
-/// The class is used to specify a row or a column span in a matrix ( Mat ) and for many other purposes.
-/// Range(a,b) is basically the same as a:b in Matlab or a..b in Python. As in Python, start is an
-/// inclusive left boundary of the range and end is an exclusive right boundary of the range. Such a
-/// half-opened interval is usually denoted as ![inline formula](https://latex.codecogs.com/png.latex?%5Bstart%2Cend%29) .
-/// 
-/// The static method Range::all() returns a special variable that means "the whole sequence" or "the
-/// whole range", just like " : " in Matlab or " ... " in Python. All the methods and functions in
-/// OpenCV that take Range support this special Range::all() value. But, of course, in case of your own
-/// custom processing, you will probably have to check and handle it explicitly:
-/// ```ignore
-///    void my_function(..., const Range& r, ....)
-///    {
-///        if(r == Range::all()) {
-///            // process all the data
-///        }
-///        else {
-///            // process [r.start, r.end)
-///        }
-///    }
-/// ```
-/// 
 pub struct Range {
 	ptr: *mut c_void
 }
@@ -16874,7 +10064,6 @@ impl core::RangeTrait for Range {
 }
 
 impl Range {
-	/// ////////////////////////////// Range /////////////////////////////////
 	#[inline]
 	pub fn default() -> Result<core::Range> {
 		return_send!(via ocvrs_return);
@@ -16907,20 +10096,9 @@ impl Range {
 	
 }
 
-/// The class represents rotated (i.e. not up-right) rectangles on a plane.
-/// 
-/// Each rectangle is specified by the center point (mass center), length of each side (represented by
-/// #Size2f structure) and the rotation angle in degrees.
-/// 
-/// The sample below demonstrates how to use RotatedRect:
-/// [RotatedRect_demo](https://github.com/opencv/opencv/blob/4.6.0/samples/cpp/tutorial_code/snippets/core_various.cpp#L1)
-/// ![image](https://docs.opencv.org/4.6.0/rotatedrect.png)
-/// ## See also
-/// CamShift, fitEllipse, minAreaRect, CvBox2D
 pub trait RotatedRectTraitConst {
 	fn as_raw_RotatedRect(&self) -> *const c_void;
 
-	/// returns the rectangle mass center
 	#[inline]
 	fn center(&self) -> core::Point2f {
 		return_send!(via ocvrs_return);
@@ -16929,7 +10107,6 @@ pub trait RotatedRectTraitConst {
 		ret
 	}
 	
-	/// returns width and height of the rectangle
 	#[inline]
 	fn size(&self) -> core::Size2f {
 		return_send!(via ocvrs_return);
@@ -16938,16 +10115,12 @@ pub trait RotatedRectTraitConst {
 		ret
 	}
 	
-	/// returns the rotation angle. When the angle is 0, 90, 180, 270 etc., the rectangle becomes an up-right rectangle.
 	#[inline]
 	fn angle(&self) -> f32 {
 		let ret = unsafe { sys::cv_RotatedRect_getPropAngle_const(self.as_raw_RotatedRect()) };
 		ret
 	}
 	
-	/// returns 4 vertices of the rectangle
-	/// ## Parameters
-	/// * pts: The points array for storing rectangle vertices. The order is bottomLeft, topLeft, topRight, bottomRight.
 	#[inline]
 	fn points(&self, pts: &mut [core::Point2f]) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -16957,7 +10130,6 @@ pub trait RotatedRectTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns the minimal up-right integer rectangle containing the rotated rectangle
 	#[inline]
 	fn bounding_rect(&self) -> Result<core::Rect> {
 		return_send!(via ocvrs_return);
@@ -16967,7 +10139,6 @@ pub trait RotatedRectTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns the minimal (exact) floating point rectangle containing the rotated rectangle, not intended for use with images
 	#[inline]
 	fn bounding_rect2f(&self) -> Result<core::Rect_<f32>> {
 		return_send!(via ocvrs_return);
@@ -16982,21 +10153,18 @@ pub trait RotatedRectTraitConst {
 pub trait RotatedRectTrait: core::RotatedRectTraitConst {
 	fn as_raw_mut_RotatedRect(&mut self) -> *mut c_void;
 
-	/// returns the rectangle mass center
 	#[inline]
 	fn set_center(&mut self, val: core::Point2f) {
 		let ret = unsafe { sys::cv_RotatedRect_setPropCenter_Point2f(self.as_raw_mut_RotatedRect(), val.opencv_as_extern()) };
 		ret
 	}
 	
-	/// returns width and height of the rectangle
 	#[inline]
 	fn set_size(&mut self, val: core::Size2f) {
 		let ret = unsafe { sys::cv_RotatedRect_setPropSize_Size2f(self.as_raw_mut_RotatedRect(), val.opencv_as_extern()) };
 		ret
 	}
 	
-	/// returns the rotation angle. When the angle is 0, 90, 180, 270 etc., the rectangle becomes an up-right rectangle.
 	#[inline]
 	fn set_angle(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_RotatedRect_setPropAngle_float(self.as_raw_mut_RotatedRect(), val) };
@@ -17005,16 +10173,6 @@ pub trait RotatedRectTrait: core::RotatedRectTraitConst {
 	
 }
 
-/// The class represents rotated (i.e. not up-right) rectangles on a plane.
-/// 
-/// Each rectangle is specified by the center point (mass center), length of each side (represented by
-/// #Size2f structure) and the rotation angle in degrees.
-/// 
-/// The sample below demonstrates how to use RotatedRect:
-/// [RotatedRect_demo](https://github.com/opencv/opencv/blob/4.6.0/samples/cpp/tutorial_code/snippets/core_various.cpp#L1)
-/// ![image](https://docs.opencv.org/4.6.0/rotatedrect.png)
-/// ## See also
-/// CamShift, fitEllipse, minAreaRect, CvBox2D
 pub struct RotatedRect {
 	ptr: *mut c_void
 }
@@ -17039,7 +10197,6 @@ impl core::RotatedRectTrait for RotatedRect {
 }
 
 impl RotatedRect {
-	/// default constructor
 	#[inline]
 	pub fn default() -> Result<core::RotatedRect> {
 		return_send!(via ocvrs_return);
@@ -17050,12 +10207,6 @@ impl RotatedRect {
 		Ok(ret)
 	}
 	
-	/// full constructor
-	/// ## Parameters
-	/// * center: The rectangle mass center.
-	/// * size: Width and height of the rectangle.
-	/// * angle: The rotation angle in a clockwise direction. When the angle is 0, 90, 180, 270 etc.,
-	/// the rectangle becomes an up-right rectangle.
 	#[inline]
 	pub fn new(center: core::Point2f, size: core::Size2f, angle: f32) -> Result<core::RotatedRect> {
 		return_send!(via ocvrs_return);
@@ -17066,8 +10217,6 @@ impl RotatedRect {
 		Ok(ret)
 	}
 	
-	/// Any 3 end points of the RotatedRect. They must be given in order (either clockwise or
-	/// anticlockwise).
 	#[inline]
 	pub fn for_points(point1: core::Point2f, point2: core::Point2f, point3: core::Point2f) -> Result<core::RotatedRect> {
 		return_send!(via ocvrs_return);
@@ -17080,19 +10229,6 @@ impl RotatedRect {
 	
 }
 
-/// Singular Value Decomposition
-/// 
-/// Class for computing Singular Value Decomposition of a floating-point
-/// matrix. The Singular Value Decomposition is used to solve least-square
-/// problems, under-determined linear systems, invert matrices, compute
-/// condition numbers, and so on.
-/// 
-/// If you want to compute a condition number of a matrix or an absolute value of
-/// its determinant, you do not need `u` and `vt`. You can pass
-/// flags=SVD::NO_UV|... . Another flag SVD::FULL_UV indicates that full-size u
-/// and vt must be computed, which is not necessary most of the time.
-/// ## See also
-/// invert, solve, eigen, determinant
 pub trait SVDTraitConst {
 	fn as_raw_SVD(&self) -> *const c_void;
 
@@ -17117,29 +10253,6 @@ pub trait SVDTraitConst {
 		ret
 	}
 	
-	/// performs a singular value back substitution.
-	/// 
-	/// The method calculates a back substitution for the specified right-hand
-	/// side:
-	/// 
-	/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bx%7D%20%3D%20%20%5Ctexttt%7Bvt%7D%20%5ET%20%20%5Ccdot%20diag%28%20%5Ctexttt%7Bw%7D%20%29%5E%7B%2D1%7D%20%20%5Ccdot%20%5Ctexttt%7Bu%7D%20%5ET%20%20%5Ccdot%20%5Ctexttt%7Brhs%7D%20%5Csim%20%5Ctexttt%7BA%7D%20%5E%7B%2D1%7D%20%20%5Ccdot%20%5Ctexttt%7Brhs%7D)
-	/// 
-	/// Using this technique you can either get a very accurate solution of the
-	/// convenient linear system, or the best (in the least-squares terms)
-	/// pseudo-solution of an overdetermined linear system.
-	/// 
-	/// ## Parameters
-	/// * rhs: right-hand side of a linear system (u\*w\*v')\*dst = rhs to
-	/// be solved, where A has been previously decomposed.
-	/// 
-	/// * dst: found solution of the system.
-	/// 
-	/// 
-	/// Note: Explicit SVD with the further back substitution only makes sense
-	/// if you need to solve many linear systems with the same left-hand side
-	/// (for example, src ). If all you need is to solve a single system
-	/// (possibly with multiple rhs immediately available), simply call solve
-	/// add pass #DECOMP_SVD there. It does absolutely the same thing.
 	#[inline]
 	fn back_subst(&self, rhs: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 		input_array_arg!(rhs);
@@ -17176,19 +10289,6 @@ pub trait SVDTrait: core::SVDTraitConst {
 	
 }
 
-/// Singular Value Decomposition
-/// 
-/// Class for computing Singular Value Decomposition of a floating-point
-/// matrix. The Singular Value Decomposition is used to solve least-square
-/// problems, under-determined linear systems, invert matrices, compute
-/// condition numbers, and so on.
-/// 
-/// If you want to compute a condition number of a matrix or an absolute value of
-/// its determinant, you do not need `u` and `vt`. You can pass
-/// flags=SVD::NO_UV|... . Another flag SVD::FULL_UV indicates that full-size u
-/// and vt must be computed, which is not necessary most of the time.
-/// ## See also
-/// invert, solve, eigen, determinant
 pub struct SVD {
 	ptr: *mut c_void
 }
@@ -17213,9 +10313,6 @@ impl core::SVDTrait for SVD {
 }
 
 impl SVD {
-	/// the default constructor
-	/// 
-	/// initializes an empty SVD structure
 	#[inline]
 	pub fn default() -> Result<core::SVD> {
 		return_send!(via ocvrs_return);
@@ -17226,17 +10323,6 @@ impl SVD {
 		Ok(ret)
 	}
 	
-	/// the default constructor
-	/// 
-	/// initializes an empty SVD structure
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	///    initializes an empty SVD structure and then calls SVD::operator()
-	/// ## Parameters
-	/// * src: decomposed matrix. The depth has to be CV_32F or CV_64F.
-	/// * flags: operation flags (SVD::Flags)
-	/// 
 	/// ## C++ default parameters
 	/// * flags: 0
 	#[inline]
@@ -17250,25 +10336,6 @@ impl SVD {
 		Ok(ret)
 	}
 	
-	/// decomposes matrix and stores the results to user-provided matrices
-	/// 
-	/// The methods/functions perform SVD of matrix. Unlike SVD::SVD constructor
-	/// and SVD::operator(), they store the results to the user-provided
-	/// matrices:
-	/// 
-	/// ```ignore
-	/// Mat A, w, u, vt;
-	/// SVD::compute(A, w, u, vt);
-	/// ```
-	/// 
-	/// 
-	/// ## Parameters
-	/// * src: decomposed matrix. The depth has to be CV_32F or CV_64F.
-	/// * w: calculated singular values
-	/// * u: calculated left singular vectors
-	/// * vt: transposed matrix of right singular vectors
-	/// * flags: operation flags - see SVD::Flags.
-	/// 
 	/// ## C++ default parameters
 	/// * flags: 0
 	#[inline]
@@ -17284,32 +10351,6 @@ impl SVD {
 		Ok(ret)
 	}
 	
-	/// decomposes matrix and stores the results to user-provided matrices
-	/// 
-	/// The methods/functions perform SVD of matrix. Unlike SVD::SVD constructor
-	/// and SVD::operator(), they store the results to the user-provided
-	/// matrices:
-	/// 
-	/// ```ignore
-	/// Mat A, w, u, vt;
-	/// SVD::compute(A, w, u, vt);
-	/// ```
-	/// 
-	/// 
-	/// ## Parameters
-	/// * src: decomposed matrix. The depth has to be CV_32F or CV_64F.
-	/// * w: calculated singular values
-	/// * u: calculated left singular vectors
-	/// * vt: transposed matrix of right singular vectors
-	/// * flags: operation flags - see SVD::Flags.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	///    computes singular values of a matrix
-	/// * src: decomposed matrix. The depth has to be CV_32F or CV_64F.
-	/// * w: calculated singular values
-	/// * flags: operation flags - see SVD::Flags.
-	/// 
 	/// ## C++ default parameters
 	/// * flags: 0
 	#[inline]
@@ -17323,7 +10364,6 @@ impl SVD {
 		Ok(ret)
 	}
 	
-	/// performs back substitution
 	#[inline]
 	pub fn back_subst_multi(w: &dyn core::ToInputArray, u: &dyn core::ToInputArray, vt: &dyn core::ToInputArray, rhs: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 		input_array_arg!(w);
@@ -17338,16 +10378,6 @@ impl SVD {
 		Ok(ret)
 	}
 	
-	/// solves an under-determined singular linear system
-	/// 
-	/// The method finds a unit-length solution x of a singular linear system
-	/// A\*x = 0. Depending on the rank of A, there can be no solutions, a
-	/// single solution or an infinite number of solutions. In general, the
-	/// algorithm solves the following problem:
-	/// ![block formula](https://latex.codecogs.com/png.latex?dst%20%3D%20%20%5Carg%20%5Cmin%20%5F%7Bx%3A%20%20%5C%7C%20x%20%5C%7C%20%3D1%7D%20%20%5C%7C%20src%20%20%5Ccdot%20x%20%20%5C%7C)
-	/// ## Parameters
-	/// * src: left-hand-side matrix.
-	/// * dst: found solution.
 	#[inline]
 	pub fn solve_z(src: &dyn core::ToInputArray, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 		input_array_arg!(src);
@@ -17361,87 +10391,6 @@ impl SVD {
 	
 }
 
-/// The class SparseMat represents multi-dimensional sparse numerical arrays.
-/// 
-/// Such a sparse array can store elements of any type that Mat can store. *Sparse* means that only
-/// non-zero elements are stored (though, as a result of operations on a sparse matrix, some of its
-/// stored elements can actually become 0. It is up to you to detect such elements and delete them
-/// using SparseMat::erase ). The non-zero elements are stored in a hash table that grows when it is
-/// filled so that the search time is O(1) in average (regardless of whether element is there or not).
-/// Elements can be accessed using the following methods:
-/// *   Query operations (SparseMat::ptr and the higher-level SparseMat::ref, SparseMat::value and
-///    SparseMat::find), for example:
-///    ```ignore
-///        const int dims = 5;
-///        int size[5] = {10, 10, 10, 10, 10};
-///        SparseMat sparse_mat(dims, size, CV_32F);
-///        for(int i = 0; i < 1000; i++)
-///        {
-///            int idx[dims];
-///            for(int k = 0; k < dims; k++)
-///                idx[k] = rand() % size[k];
-///            sparse_mat.ref<float>(idx) += 1.f;
-///        }
-///        cout << "nnz = " << sparse_mat.nzcount() << endl;
-///    ```
-/// 
-/// *   Sparse matrix iterators. They are similar to MatIterator but different from NAryMatIterator.
-///    That is, the iteration loop is familiar to STL users:
-///    ```ignore
-///        // prints elements of a sparse floating-point matrix
-///        // and the sum of elements.
-///        SparseMatConstIterator_<float>
-///            it = sparse_mat.begin<float>(),
-///            it_end = sparse_mat.end<float>();
-///        double s = 0;
-///        int dims = sparse_mat.dims();
-///        for(; it != it_end; ++it)
-///        {
-///            // print element indices and the element value
-///            const SparseMat::Node* n = it.node();
-///            printf("(");
-///            for(int i = 0; i < dims; i++)
-///                printf("%d%s", n->idx[i], i < dims-1 ? ", " : ")");
-///            printf(": %g\n", it.value<float>());
-///            s += *it;
-///        }
-///        printf("Element sum is %g\n", s);
-///    ```
-/// 
-///    If you run this loop, you will notice that elements are not enumerated in a logical order
-///    (lexicographical, and so on). They come in the same order as they are stored in the hash table
-///    (semi-randomly). You may collect pointers to the nodes and sort them to get the proper ordering.
-///    Note, however, that pointers to the nodes may become invalid when you add more elements to the
-///    matrix. This may happen due to possible buffer reallocation.
-/// *   Combination of the above 2 methods when you need to process 2 or more sparse matrices
-///    simultaneously. For example, this is how you can compute unnormalized cross-correlation of the 2
-///    floating-point sparse matrices:
-///    ```ignore
-///        double cross_corr(const SparseMat& a, const SparseMat& b)
-///        {
-///            const SparseMat *_a = &a, *_b = &b;
-///            // if b contains less elements than a,
-///            // it is faster to iterate through b
-///            if(_a->nzcount() > _b->nzcount())
-///                std::swap(_a, _b);
-///            SparseMatConstIterator_<float> it = _a->begin<float>(),
-///                                            it_end = _a->end<float>();
-///            double ccorr = 0;
-///            for(; it != it_end; ++it)
-///            {
-///                // take the next element from the first matrix
-///                float avalue = *it;
-///                const Node* anode = it.node();
-///                // and try to find an element with the same index in the second matrix.
-///                // since the hash value depends only on the element index,
-///                // reuse the hash value stored in the node
-///                float bvalue = _b->value<float>(anode->idx,&anode->hashval);
-///                ccorr += avalue*bvalue;
-///            }
-///            return ccorr;
-///        }
-///    ```
-/// 
 pub trait SparseMatTraitConst {
 	fn as_raw_SparseMat(&self) -> *const c_void;
 
@@ -17451,7 +10400,6 @@ pub trait SparseMatTraitConst {
 		ret
 	}
 	
-	/// creates full copy of the matrix
 	#[inline]
 	#[must_use]
 	fn try_clone(&self) -> Result<core::SparseMat> {
@@ -17463,7 +10411,6 @@ pub trait SparseMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// copies all the data to the destination matrix. All the previous content of m is erased
 	#[inline]
 	fn copy_to(&self, m: &mut core::SparseMat) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -17473,7 +10420,6 @@ pub trait SparseMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// converts sparse matrix to dense matrix.
 	#[inline]
 	fn copy_to_mat(&self, m: &mut core::Mat) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -17483,8 +10429,6 @@ pub trait SparseMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// multiplies all the matrix elements by the specified scale factor alpha and converts the results to the specified data type
-	/// 
 	/// ## C++ default parameters
 	/// * alpha: 1
 	#[inline]
@@ -17496,17 +10440,6 @@ pub trait SparseMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// converts sparse matrix to dense n-dim matrix with optional type conversion and scaling.
-	/// 
-	/// ## Parameters
-	/// * m:[out] - output matrix; if it does not have a proper size or type before the operation,
-	///        it is reallocated
-	/// * rtype: - desired output matrix type or, rather, the depth since the number of channels
-	///        are the same as the input has; if rtype is negative, the output matrix will have the
-	///        same type as the input.
-	/// * alpha: - optional scale factor
-	/// * beta: - optional delta added to the scaled values
-	/// 
 	/// ## C++ default parameters
 	/// * alpha: 1
 	/// * beta: 0
@@ -17530,42 +10463,36 @@ pub trait SparseMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns the size of each element in bytes (not including the overhead - the space occupied by SparseMat::Node elements)
 	#[inline]
 	fn elem_size(&self) -> size_t {
 		let ret = unsafe { sys::cv_SparseMat_elemSize_const(self.as_raw_SparseMat()) };
 		ret
 	}
 	
-	/// returns elemSize()/channels()
 	#[inline]
 	fn elem_size1(&self) -> size_t {
 		let ret = unsafe { sys::cv_SparseMat_elemSize1_const(self.as_raw_SparseMat()) };
 		ret
 	}
 	
-	/// returns type of sparse matrix elements
 	#[inline]
 	fn typ(&self) -> i32 {
 		let ret = unsafe { sys::cv_SparseMat_type_const(self.as_raw_SparseMat()) };
 		ret
 	}
 	
-	/// returns the depth of sparse matrix elements
 	#[inline]
 	fn depth(&self) -> i32 {
 		let ret = unsafe { sys::cv_SparseMat_depth_const(self.as_raw_SparseMat()) };
 		ret
 	}
 	
-	/// returns the number of channels
 	#[inline]
 	fn channels(&self) -> i32 {
 		let ret = unsafe { sys::cv_SparseMat_channels_const(self.as_raw_SparseMat()) };
 		ret
 	}
 	
-	/// returns the array of sizes, or NULL if the matrix is not allocated
 	#[inline]
 	fn size(&self) -> Result<*const i32> {
 		return_send!(via ocvrs_return);
@@ -17575,7 +10502,6 @@ pub trait SparseMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns the size of i-th matrix dimension (or 0)
 	#[inline]
 	fn size_1(&self, i: i32) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -17585,7 +10511,6 @@ pub trait SparseMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns the matrix dimensionality
 	#[inline]
 	fn dims(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -17595,7 +10520,6 @@ pub trait SparseMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns the number of non-zero elements (=the number of hash table nodes)
 	#[inline]
 	fn nzcount(&self) -> Result<size_t> {
 		return_send!(via ocvrs_return);
@@ -17605,7 +10529,6 @@ pub trait SparseMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// computes the element hash value (1D case)
 	#[inline]
 	fn hash(&self, i0: i32) -> Result<size_t> {
 		return_send!(via ocvrs_return);
@@ -17615,7 +10538,6 @@ pub trait SparseMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// computes the element hash value (2D case)
 	#[inline]
 	fn hash_1(&self, i0: i32, i1: i32) -> Result<size_t> {
 		return_send!(via ocvrs_return);
@@ -17625,7 +10547,6 @@ pub trait SparseMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// computes the element hash value (3D case)
 	#[inline]
 	fn hash_2(&self, i0: i32, i1: i32, i2: i32) -> Result<size_t> {
 		return_send!(via ocvrs_return);
@@ -17635,7 +10556,6 @@ pub trait SparseMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// computes the element hash value (nD case)
 	#[inline]
 	fn hash_3(&self, idx: &i32) -> Result<size_t> {
 		return_send!(via ocvrs_return);
@@ -17645,7 +10565,6 @@ pub trait SparseMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns the read-only sparse matrix iterator at the matrix beginning
 	#[inline]
 	fn begin(&self) -> Result<core::SparseMatConstIterator> {
 		return_send!(via ocvrs_return);
@@ -17656,7 +10575,6 @@ pub trait SparseMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns the read-only sparse matrix iterator at the matrix end
 	#[inline]
 	fn end(&self) -> Result<core::SparseMatConstIterator> {
 		return_send!(via ocvrs_return);
@@ -17701,11 +10619,6 @@ pub trait SparseMatTrait: core::SparseMatTraitConst {
 		ret
 	}
 	
-	/// reallocates sparse matrix.
-	/// 
-	///    If the matrix already had the proper size and type,
-	///    it is simply cleared with clear(), otherwise,
-	///    the old matrix is released (using release()) and the new one is allocated.
 	#[inline]
 	fn create(&mut self, dims: i32, _sizes: &i32, _type: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -17715,7 +10628,6 @@ pub trait SparseMatTrait: core::SparseMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// sets all the sparse matrix elements to 0, which means clearing the hash table.
 	#[inline]
 	fn clear(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -17725,7 +10637,6 @@ pub trait SparseMatTrait: core::SparseMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// manually increments the reference counter to the header.
 	#[inline]
 	fn addref(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -17744,17 +10655,6 @@ pub trait SparseMatTrait: core::SparseMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// specialized variants for 1D, 2D, 3D cases and the generic_type one for n-D case.
-	///    return pointer to the matrix element.
-	///      - if the element is there (it's non-zero), the pointer to it is returned
-	///      - if it's not there and createMissing=false, NULL pointer is returned
-	///      - if it's not there and createMissing=true, then the new element
-	///        is created and initialized with 0. Pointer to it is returned
-	///      - if the optional hashval pointer is not NULL, the element hash value is
-	///        not computed, but *hashval is taken instead.
-	/// 
-	/// returns pointer to the specified element (1D case)
-	/// 
 	/// ## C++ default parameters
 	/// * hashval: 0
 	#[inline]
@@ -17766,8 +10666,6 @@ pub trait SparseMatTrait: core::SparseMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns pointer to the specified element (2D case)
-	/// 
 	/// ## C++ default parameters
 	/// * hashval: 0
 	#[inline]
@@ -17779,8 +10677,6 @@ pub trait SparseMatTrait: core::SparseMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns pointer to the specified element (3D case)
-	/// 
 	/// ## C++ default parameters
 	/// * hashval: 0
 	#[inline]
@@ -17792,8 +10688,6 @@ pub trait SparseMatTrait: core::SparseMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns pointer to the specified element (nD case)
-	/// 
 	/// ## C++ default parameters
 	/// * hashval: 0
 	#[inline]
@@ -17805,8 +10699,6 @@ pub trait SparseMatTrait: core::SparseMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// erases the specified element (2D case)
-	/// 
 	/// ## C++ default parameters
 	/// * hashval: 0
 	#[inline]
@@ -17818,8 +10710,6 @@ pub trait SparseMatTrait: core::SparseMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// erases the specified element (3D case)
-	/// 
 	/// ## C++ default parameters
 	/// * hashval: 0
 	#[inline]
@@ -17831,8 +10721,6 @@ pub trait SparseMatTrait: core::SparseMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// erases the specified element (nD case)
-	/// 
 	/// ## C++ default parameters
 	/// * hashval: 0
 	#[inline]
@@ -17844,9 +10732,6 @@ pub trait SparseMatTrait: core::SparseMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// return the sparse matrix iterator pointing to the first sparse matrix element
-	/// 
-	/// returns the sparse matrix iterator at the matrix beginning
 	#[inline]
 	fn begin_mut(&mut self) -> Result<core::SparseMatIterator> {
 		return_send!(via ocvrs_return);
@@ -17857,9 +10742,6 @@ pub trait SparseMatTrait: core::SparseMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// return the sparse matrix iterator pointing to the element following the last sparse matrix element
-	/// 
-	/// returns the sparse matrix iterator at the matrix end
 	#[inline]
 	fn end_mut(&mut self) -> Result<core::SparseMatIterator> {
 		return_send!(via ocvrs_return);
@@ -17870,7 +10752,6 @@ pub trait SparseMatTrait: core::SparseMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// /////////// some internal-use methods ///////////////
 	#[inline]
 	fn node_1(&mut self, nidx: size_t) -> Result<core::SparseMat_Node> {
 		return_send!(via ocvrs_return);
@@ -17910,87 +10791,6 @@ pub trait SparseMatTrait: core::SparseMatTraitConst {
 	
 }
 
-/// The class SparseMat represents multi-dimensional sparse numerical arrays.
-/// 
-/// Such a sparse array can store elements of any type that Mat can store. *Sparse* means that only
-/// non-zero elements are stored (though, as a result of operations on a sparse matrix, some of its
-/// stored elements can actually become 0. It is up to you to detect such elements and delete them
-/// using SparseMat::erase ). The non-zero elements are stored in a hash table that grows when it is
-/// filled so that the search time is O(1) in average (regardless of whether element is there or not).
-/// Elements can be accessed using the following methods:
-/// *   Query operations (SparseMat::ptr and the higher-level SparseMat::ref, SparseMat::value and
-///    SparseMat::find), for example:
-///    ```ignore
-///        const int dims = 5;
-///        int size[5] = {10, 10, 10, 10, 10};
-///        SparseMat sparse_mat(dims, size, CV_32F);
-///        for(int i = 0; i < 1000; i++)
-///        {
-///            int idx[dims];
-///            for(int k = 0; k < dims; k++)
-///                idx[k] = rand() % size[k];
-///            sparse_mat.ref<float>(idx) += 1.f;
-///        }
-///        cout << "nnz = " << sparse_mat.nzcount() << endl;
-///    ```
-/// 
-/// *   Sparse matrix iterators. They are similar to MatIterator but different from NAryMatIterator.
-///    That is, the iteration loop is familiar to STL users:
-///    ```ignore
-///        // prints elements of a sparse floating-point matrix
-///        // and the sum of elements.
-///        SparseMatConstIterator_<float>
-///            it = sparse_mat.begin<float>(),
-///            it_end = sparse_mat.end<float>();
-///        double s = 0;
-///        int dims = sparse_mat.dims();
-///        for(; it != it_end; ++it)
-///        {
-///            // print element indices and the element value
-///            const SparseMat::Node* n = it.node();
-///            printf("(");
-///            for(int i = 0; i < dims; i++)
-///                printf("%d%s", n->idx[i], i < dims-1 ? ", " : ")");
-///            printf(": %g\n", it.value<float>());
-///            s += *it;
-///        }
-///        printf("Element sum is %g\n", s);
-///    ```
-/// 
-///    If you run this loop, you will notice that elements are not enumerated in a logical order
-///    (lexicographical, and so on). They come in the same order as they are stored in the hash table
-///    (semi-randomly). You may collect pointers to the nodes and sort them to get the proper ordering.
-///    Note, however, that pointers to the nodes may become invalid when you add more elements to the
-///    matrix. This may happen due to possible buffer reallocation.
-/// *   Combination of the above 2 methods when you need to process 2 or more sparse matrices
-///    simultaneously. For example, this is how you can compute unnormalized cross-correlation of the 2
-///    floating-point sparse matrices:
-///    ```ignore
-///        double cross_corr(const SparseMat& a, const SparseMat& b)
-///        {
-///            const SparseMat *_a = &a, *_b = &b;
-///            // if b contains less elements than a,
-///            // it is faster to iterate through b
-///            if(_a->nzcount() > _b->nzcount())
-///                std::swap(_a, _b);
-///            SparseMatConstIterator_<float> it = _a->begin<float>(),
-///                                            it_end = _a->end<float>();
-///            double ccorr = 0;
-///            for(; it != it_end; ++it)
-///            {
-///                // take the next element from the first matrix
-///                float avalue = *it;
-///                const Node* anode = it.node();
-///                // and try to find an element with the same index in the second matrix.
-///                // since the hash value depends only on the element index,
-///                // reuse the hash value stored in the node
-///                float bvalue = _b->value<float>(anode->idx,&anode->hashval);
-///                ccorr += avalue*bvalue;
-///            }
-///            return ccorr;
-///        }
-///    ```
-/// 
 pub struct SparseMat {
 	ptr: *mut c_void
 }
@@ -18015,7 +10815,6 @@ impl core::SparseMatTrait for SparseMat {
 }
 
 impl SparseMat {
-	/// Various SparseMat constructors.
 	#[inline]
 	pub fn default() -> Result<core::SparseMat> {
 		return_send!(via ocvrs_return);
@@ -18026,14 +10825,6 @@ impl SparseMat {
 		Ok(ret)
 	}
 	
-	/// Various SparseMat constructors.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * dims: Array dimensionality.
-	/// * _sizes: Sparce matrix size on all dementions.
-	/// * _type: Sparse matrix data type.
 	#[inline]
 	pub fn new(dims: i32, _sizes: &i32, _type: i32) -> Result<core::SparseMat> {
 		return_send!(via ocvrs_return);
@@ -18044,13 +10835,6 @@ impl SparseMat {
 		Ok(ret)
 	}
 	
-	/// Various SparseMat constructors.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * m: Source matrix for copy constructor. If m is dense matrix (ocvMat) then it will be converted
-	///    to sparse representation.
 	#[inline]
 	pub fn copy(m: &core::SparseMat) -> Result<core::SparseMat> {
 		return_send!(via ocvrs_return);
@@ -18061,13 +10845,6 @@ impl SparseMat {
 		Ok(ret)
 	}
 	
-	/// Various SparseMat constructors.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * m: Source matrix for copy constructor. If m is dense matrix (ocvMat) then it will be converted
-	///    to sparse representation.
 	#[inline]
 	pub fn from_mat(m: &core::Mat) -> Result<core::SparseMat> {
 		return_send!(via ocvrs_return);
@@ -18088,7 +10865,6 @@ impl Clone for SparseMat {
 	}
 }
 
-/// the sparse matrix header
 pub trait SparseMat_HdrTraitConst {
 	fn as_raw_SparseMat_Hdr(&self) -> *const c_void;
 
@@ -18213,7 +10989,6 @@ pub trait SparseMat_HdrTrait: core::SparseMat_HdrTraitConst {
 	
 }
 
-/// the sparse matrix header
 pub struct SparseMat_Hdr {
 	ptr: *mut c_void
 }
@@ -18250,18 +11025,15 @@ impl SparseMat_Hdr {
 	
 }
 
-/// sparse matrix node - element of a hash table
 pub trait SparseMat_NodeTraitConst {
 	fn as_raw_SparseMat_Node(&self) -> *const c_void;
 
-	/// hash value
 	#[inline]
 	fn hashval(&self) -> size_t {
 		let ret = unsafe { sys::cv_SparseMat_Node_getPropHashval_const(self.as_raw_SparseMat_Node()) };
 		ret
 	}
 	
-	/// index of the next node in the same hash table entry
 	#[inline]
 	fn next(&self) -> size_t {
 		let ret = unsafe { sys::cv_SparseMat_Node_getPropNext_const(self.as_raw_SparseMat_Node()) };
@@ -18273,21 +11045,18 @@ pub trait SparseMat_NodeTraitConst {
 pub trait SparseMat_NodeTrait: core::SparseMat_NodeTraitConst {
 	fn as_raw_mut_SparseMat_Node(&mut self) -> *mut c_void;
 
-	/// hash value
 	#[inline]
 	fn set_hashval(&mut self, val: size_t) {
 		let ret = unsafe { sys::cv_SparseMat_Node_setPropHashval_size_t(self.as_raw_mut_SparseMat_Node(), val) };
 		ret
 	}
 	
-	/// index of the next node in the same hash table entry
 	#[inline]
 	fn set_next(&mut self, val: size_t) {
 		let ret = unsafe { sys::cv_SparseMat_Node_setPropNext_size_t(self.as_raw_mut_SparseMat_Node(), val) };
 		ret
 	}
 	
-	/// index of the matrix element
 	#[inline]
 	fn idx(&mut self) -> &mut [i32; 32] {
 		let ret = unsafe { sys::cv_SparseMat_Node_getPropIdx(self.as_raw_mut_SparseMat_Node()) };
@@ -18297,7 +11066,6 @@ pub trait SparseMat_NodeTrait: core::SparseMat_NodeTraitConst {
 	
 }
 
-/// sparse matrix node - element of a hash table
 pub struct SparseMat_Node {
 	ptr: *mut c_void
 }
@@ -18324,17 +11092,6 @@ impl core::SparseMat_NodeTrait for SparseMat_Node {
 impl SparseMat_Node {
 }
 
-/// Read-Only Sparse Matrix Iterator.
-/// 
-/// Here is how to use the iterator to compute the sum of floating-point sparse matrix elements:
-/// 
-/// \code
-/// SparseMatConstIterator it = m.begin(), it_end = m.end();
-/// double s = 0;
-/// CV_Assert( m.type() == CV_32F );
-/// for( ; it != it_end; ++it )
-///    s += it.value<float>();
-/// \endcode
 pub trait SparseMatConstIteratorTraitConst {
 	fn as_raw_SparseMatConstIterator(&self) -> *const c_void;
 
@@ -18351,7 +11108,6 @@ pub trait SparseMatConstIteratorTraitConst {
 		ret
 	}
 	
-	/// returns the current node of the sparse matrix. it.node->idx is the current element index
 	#[inline]
 	fn node(&self) -> Result<core::SparseMat_Node> {
 		return_send!(via ocvrs_return);
@@ -18385,7 +11141,6 @@ pub trait SparseMatConstIteratorTrait: core::SparseMatConstIteratorTraitConst {
 		ret
 	}
 	
-	/// moves iterator to the previous element
 	#[inline]
 	#[cfg(not(target_os = "windows"))]
 	fn decr(&mut self) -> Result<core::SparseMatConstIterator> {
@@ -18397,7 +11152,6 @@ pub trait SparseMatConstIteratorTrait: core::SparseMatConstIteratorTraitConst {
 		Ok(ret)
 	}
 	
-	/// moves iterator to the next element
 	#[inline]
 	fn incr(&mut self) -> Result<core::SparseMatConstIterator> {
 		return_send!(via ocvrs_return);
@@ -18408,7 +11162,6 @@ pub trait SparseMatConstIteratorTrait: core::SparseMatConstIteratorTraitConst {
 		Ok(ret)
 	}
 	
-	/// moves iterator to the element after the last element
 	#[inline]
 	fn seek_end(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -18420,17 +11173,6 @@ pub trait SparseMatConstIteratorTrait: core::SparseMatConstIteratorTraitConst {
 	
 }
 
-/// Read-Only Sparse Matrix Iterator.
-/// 
-/// Here is how to use the iterator to compute the sum of floating-point sparse matrix elements:
-/// 
-/// \code
-/// SparseMatConstIterator it = m.begin(), it_end = m.end();
-/// double s = 0;
-/// CV_Assert( m.type() == CV_32F );
-/// for( ; it != it_end; ++it )
-///    s += it.value<float>();
-/// \endcode
 pub struct SparseMatConstIterator {
 	ptr: *mut c_void
 }
@@ -18455,7 +11197,6 @@ impl core::SparseMatConstIteratorTrait for SparseMatConstIterator {
 }
 
 impl SparseMatConstIterator {
-	/// the default constructor
 	#[inline]
 	pub fn default() -> Result<core::SparseMatConstIterator> {
 		return_send!(via ocvrs_return);
@@ -18466,7 +11207,6 @@ impl SparseMatConstIterator {
 		Ok(ret)
 	}
 	
-	/// the full constructor setting the iterator to the first sparse matrix element
 	#[inline]
 	pub fn new(_m: &core::SparseMat) -> Result<core::SparseMatConstIterator> {
 		return_send!(via ocvrs_return);
@@ -18477,7 +11217,6 @@ impl SparseMatConstIterator {
 		Ok(ret)
 	}
 	
-	/// the copy constructor
 	#[inline]
 	pub fn copy(it: &core::SparseMatConstIterator) -> Result<core::SparseMatConstIterator> {
 		return_send!(via ocvrs_return);
@@ -18490,14 +11229,9 @@ impl SparseMatConstIterator {
 	
 }
 
-/// Read-write Sparse Matrix Iterator
-/// 
-/// The class is similar to cv::SparseMatConstIterator,
-/// but can be used for in-place modification of the matrix elements.
 pub trait SparseMatIteratorTraitConst: core::SparseMatConstIteratorTraitConst {
 	fn as_raw_SparseMatIterator(&self) -> *const c_void;
 
-	/// returns pointer to the current sparse matrix node. it.node->idx is the index of the current element (do not modify it!)
 	#[inline]
 	fn node(&self) -> Result<core::SparseMat_Node> {
 		return_send!(via ocvrs_return);
@@ -18513,7 +11247,6 @@ pub trait SparseMatIteratorTraitConst: core::SparseMatConstIteratorTraitConst {
 pub trait SparseMatIteratorTrait: core::SparseMatConstIteratorTrait + core::SparseMatIteratorTraitConst {
 	fn as_raw_mut_SparseMatIterator(&mut self) -> *mut c_void;
 
-	/// moves iterator to the next element
 	#[inline]
 	fn incr(&mut self) -> Result<core::SparseMatIterator> {
 		return_send!(via ocvrs_return);
@@ -18526,10 +11259,6 @@ pub trait SparseMatIteratorTrait: core::SparseMatConstIteratorTrait + core::Spar
 	
 }
 
-/// Read-write Sparse Matrix Iterator
-/// 
-/// The class is similar to cv::SparseMatConstIterator,
-/// but can be used for in-place modification of the matrix elements.
 pub struct SparseMatIterator {
 	ptr: *mut c_void
 }
@@ -18562,7 +11291,6 @@ impl core::SparseMatIteratorTrait for SparseMatIterator {
 }
 
 impl SparseMatIterator {
-	/// the default constructor
 	#[inline]
 	pub fn default() -> Result<core::SparseMatIterator> {
 		return_send!(via ocvrs_return);
@@ -18573,7 +11301,6 @@ impl SparseMatIterator {
 		Ok(ret)
 	}
 	
-	/// the full constructor setting the iterator to the first sparse matrix element
 	#[inline]
 	pub fn new(_m: &mut core::SparseMat) -> Result<core::SparseMatIterator> {
 		return_send!(via ocvrs_return);
@@ -18584,7 +11311,6 @@ impl SparseMatIterator {
 		Ok(ret)
 	}
 	
-	/// the copy constructor
 	#[inline]
 	pub fn copy(it: &core::SparseMatIterator) -> Result<core::SparseMatIterator> {
 		return_send!(via ocvrs_return);
@@ -18599,11 +11325,6 @@ impl SparseMatIterator {
 
 boxed_cast_base! { SparseMatIterator, core::SparseMatConstIterator, cv_SparseMatIterator_to_SparseMatConstIterator }
 
-/// TLS container base implementation
-/// 
-/// Don't use directly.
-/// ## See also
-/// TLSData, TLSDataAccumulator templates
 pub trait TLSDataContainerConst {
 	fn as_raw_TLSDataContainer(&self) -> *const c_void;
 
@@ -18623,18 +11344,11 @@ pub trait TLSDataContainer: core::TLSDataContainerConst {
 	
 }
 
-/// The class defining termination criteria for iterative algorithms.
-/// 
-/// You can initialize it by default constructor and then override any parameters, or the structure may
-/// be fully initialized using the advanced variant of the constructor.
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub struct TermCriteria {
-	/// the type of termination criteria: COUNT, EPS or COUNT + EPS
 	pub typ: i32,
-	/// the maximum number of iterations/elements
 	pub max_count: i32,
-	/// the desired accuracy
 	pub epsilon: f64,
 }
 
@@ -18650,7 +11364,6 @@ impl TermCriteria {
 		Ok(ret)
 	}
 	
-	/// default constructor
 	#[inline]
 	pub fn default() -> Result<core::TermCriteria> {
 		return_send!(via ocvrs_return);
@@ -18660,10 +11373,6 @@ impl TermCriteria {
 		Ok(ret)
 	}
 	
-	/// ## Parameters
-	/// * type: The type of termination criteria, one of TermCriteria::Type
-	/// * maxCount: The maximum number of iterations or elements to compute.
-	/// * epsilon: The desired accuracy or change in parameters at which the iterative algorithm stops.
 	#[inline]
 	pub fn new(typ: i32, max_count: i32, epsilon: f64) -> Result<core::TermCriteria> {
 		return_send!(via ocvrs_return);
@@ -18675,20 +11384,9 @@ impl TermCriteria {
 	
 }
 
-/// a Class to measure passing time.
-/// 
-/// The class computes passing time by counting the number of ticks per second. That is, the following code computes the
-/// execution time in seconds:
-/// [TickMeter_total](https://github.com/opencv/opencv/blob/4.6.0/samples/cpp/tutorial_code/snippets/core_various.cpp#L1)
-/// 
-/// It is also possible to compute the average time over multiple runs:
-/// [TickMeter_average](https://github.com/opencv/opencv/blob/4.6.0/samples/cpp/tutorial_code/snippets/core_various.cpp#L1)
-/// ## See also
-/// getTickCount, getTickFrequency
 pub trait TickMeterTraitConst {
 	fn as_raw_TickMeter(&self) -> *const c_void;
 
-	/// returns counted ticks.
 	#[inline]
 	fn get_time_ticks(&self) -> Result<i64> {
 		return_send!(via ocvrs_return);
@@ -18698,7 +11396,6 @@ pub trait TickMeterTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns passed time in microseconds.
 	#[inline]
 	fn get_time_micro(&self) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -18708,7 +11405,6 @@ pub trait TickMeterTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns passed time in milliseconds.
 	#[inline]
 	fn get_time_milli(&self) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -18718,7 +11414,6 @@ pub trait TickMeterTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns passed time in seconds.
 	#[inline]
 	fn get_time_sec(&self) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -18728,7 +11423,6 @@ pub trait TickMeterTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns internal counter value.
 	#[inline]
 	fn get_counter(&self) -> Result<i64> {
 		return_send!(via ocvrs_return);
@@ -18738,7 +11432,6 @@ pub trait TickMeterTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns average FPS (frames per second) value.
 	#[inline]
 	fn get_fps(&self) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -18748,7 +11441,6 @@ pub trait TickMeterTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns average time in seconds
 	#[inline]
 	fn get_avg_time_sec(&self) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -18758,7 +11450,6 @@ pub trait TickMeterTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns average time in milliseconds
 	#[inline]
 	fn get_avg_time_milli(&self) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -18773,7 +11464,6 @@ pub trait TickMeterTraitConst {
 pub trait TickMeterTrait: core::TickMeterTraitConst {
 	fn as_raw_mut_TickMeter(&mut self) -> *mut c_void;
 
-	/// starts counting ticks.
 	#[inline]
 	fn start(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -18783,7 +11473,6 @@ pub trait TickMeterTrait: core::TickMeterTraitConst {
 		Ok(ret)
 	}
 	
-	/// stops counting ticks.
 	#[inline]
 	fn stop(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -18793,7 +11482,6 @@ pub trait TickMeterTrait: core::TickMeterTraitConst {
 		Ok(ret)
 	}
 	
-	/// resets internal values.
 	#[inline]
 	fn reset(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -18805,16 +11493,6 @@ pub trait TickMeterTrait: core::TickMeterTraitConst {
 	
 }
 
-/// a Class to measure passing time.
-/// 
-/// The class computes passing time by counting the number of ticks per second. That is, the following code computes the
-/// execution time in seconds:
-/// [TickMeter_total](https://github.com/opencv/opencv/blob/4.6.0/samples/cpp/tutorial_code/snippets/core_various.cpp#L1)
-/// 
-/// It is also possible to compute the average time over multiple runs:
-/// [TickMeter_average](https://github.com/opencv/opencv/blob/4.6.0/samples/cpp/tutorial_code/snippets/core_various.cpp#L1)
-/// ## See also
-/// getTickCount, getTickFrequency
 pub struct TickMeter {
 	ptr: *mut c_void
 }
@@ -18839,7 +11517,6 @@ impl core::TickMeterTrait for TickMeter {
 }
 
 impl TickMeter {
-	/// the default constructor
 	#[inline]
 	pub fn default() -> Result<core::TickMeter> {
 		return_send!(via ocvrs_return);
@@ -18852,43 +11529,33 @@ impl TickMeter {
 	
 }
 
-/// @todo document
 pub trait UMatTraitConst {
 	fn as_raw_UMat(&self) -> *const c_void;
 
-	/// ! includes several bit-fields:
-	/// - the magic signature
-	/// - continuity flag
-	/// - depth
-	/// - number of channels
 	#[inline]
 	fn flags(&self) -> i32 {
 		let ret = unsafe { sys::cv_UMat_getPropFlags_const(self.as_raw_UMat()) };
 		ret
 	}
 	
-	/// the matrix dimensionality, >= 2
 	#[inline]
 	fn dims(&self) -> i32 {
 		let ret = unsafe { sys::cv_UMat_getPropDims_const(self.as_raw_UMat()) };
 		ret
 	}
 	
-	/// number of rows in the matrix; -1 when the matrix has more than 2 dimensions
 	#[inline]
 	fn rows(&self) -> i32 {
 		let ret = unsafe { sys::cv_UMat_getPropRows_const(self.as_raw_UMat()) };
 		ret
 	}
 	
-	/// number of columns in the matrix; -1 when the matrix has more than 2 dimensions
 	#[inline]
 	fn cols(&self) -> i32 {
 		let ret = unsafe { sys::cv_UMat_getPropCols_const(self.as_raw_UMat()) };
 		ret
 	}
 	
-	/// usage flags for allocator; recommend do not set directly, instead set during construct/create/getUMat
 	#[inline]
 	fn usage_flags(&self) -> core::UMatUsageFlags {
 		return_send!(via ocvrs_return);
@@ -18897,14 +11564,12 @@ pub trait UMatTraitConst {
 		ret
 	}
 	
-	/// offset of the submatrix (or 0)
 	#[inline]
 	fn offset(&self) -> size_t {
 		let ret = unsafe { sys::cv_UMat_getPropOffset_const(self.as_raw_UMat()) };
 		ret
 	}
 	
-	/// dimensional size of the matrix; accessible in various formats
 	#[inline]
 	fn mat_size(&self) -> core::MatSize {
 		let ret = unsafe { sys::cv_UMat_getPropSize_const(self.as_raw_UMat()) };
@@ -18912,7 +11577,6 @@ pub trait UMatTraitConst {
 		ret
 	}
 	
-	/// number of bytes each matrix element/row/plane/dimension occupies
 	#[inline]
 	fn mat_step(&self) -> core::MatStep {
 		let ret = unsafe { sys::cv_UMat_getPropStep_const(self.as_raw_UMat()) };
@@ -18930,7 +11594,6 @@ pub trait UMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns a new matrix header for the specified row
 	#[inline]
 	fn row(&self, y: i32) -> Result<core::UMat> {
 		return_send!(via ocvrs_return);
@@ -18941,7 +11604,6 @@ pub trait UMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns a new matrix header for the specified column
 	#[inline]
 	fn col(&self, x: i32) -> Result<core::UMat> {
 		return_send!(via ocvrs_return);
@@ -18952,7 +11614,6 @@ pub trait UMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// ... for the specified row span
 	#[inline]
 	fn row_bounds(&self, startrow: i32, endrow: i32) -> Result<core::UMat> {
 		return_send!(via ocvrs_return);
@@ -18973,7 +11634,6 @@ pub trait UMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// ... for the specified column span
 	#[inline]
 	fn col_bounds(&self, startcol: i32, endcol: i32) -> Result<core::UMat> {
 		return_send!(via ocvrs_return);
@@ -18994,11 +11654,6 @@ pub trait UMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// ... for the specified diagonal
-	/// (d=0 - the main diagonal,
-	///  >0 - a diagonal from the upper half,
-	///  <0 - a diagonal from the lower half)
-	/// 
 	/// ## C++ default parameters
 	/// * d: 0
 	#[inline]
@@ -19011,7 +11666,6 @@ pub trait UMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns deep copy of the matrix, i.e. the data is copied
 	#[inline]
 	#[must_use]
 	fn try_clone(&self) -> Result<core::UMat> {
@@ -19023,7 +11677,6 @@ pub trait UMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// copies the matrix content to "m".
 	#[inline]
 	fn copy_to(&self, m: &mut dyn core::ToOutputArray) -> Result<()> {
 		output_array_arg!(m);
@@ -19034,7 +11687,6 @@ pub trait UMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// copies those matrix elements to "m" that are marked with non-zero mask elements.
 	#[inline]
 	fn copy_to_masked(&self, m: &mut dyn core::ToOutputArray, mask: &dyn core::ToInputArray) -> Result<()> {
 		output_array_arg!(m);
@@ -19046,8 +11698,6 @@ pub trait UMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// converts matrix to another datatype with optional scaling. See cvConvertScale.
-	/// 
 	/// ## C++ default parameters
 	/// * alpha: 1
 	/// * beta: 0
@@ -19072,8 +11722,6 @@ pub trait UMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// creates alternative matrix header for the same data, with different
-	/// 
 	/// ## C++ default parameters
 	/// * rows: 0
 	#[inline]
@@ -19096,7 +11744,6 @@ pub trait UMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// matrix transposition by means of matrix expressions
 	#[inline]
 	fn t(&self) -> Result<core::UMat> {
 		return_send!(via ocvrs_return);
@@ -19107,8 +11754,6 @@ pub trait UMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// matrix inversion by means of matrix expressions
-	/// 
 	/// ## C++ default parameters
 	/// * method: DECOMP_LU
 	#[inline]
@@ -19121,8 +11766,6 @@ pub trait UMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// per-element matrix multiplication by means of matrix expressions
-	/// 
 	/// ## C++ default parameters
 	/// * scale: 1
 	#[inline]
@@ -19136,7 +11779,6 @@ pub trait UMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// computes dot-product
 	#[inline]
 	fn dot(&self, m: &dyn core::ToInputArray) -> Result<f64> {
 		input_array_arg!(m);
@@ -19147,7 +11789,6 @@ pub trait UMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// locates matrix header within a parent matrix. See below
 	#[inline]
 	fn locate_roi(&self, whole_size: &mut core::Size, ofs: &mut core::Point) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -19157,21 +11798,18 @@ pub trait UMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns true iff the matrix data is continuous
 	#[inline]
 	fn is_continuous(&self) -> bool {
 		let ret = unsafe { sys::cv_UMat_isContinuous_const(self.as_raw_UMat()) };
 		ret
 	}
 	
-	/// returns true if the matrix is a submatrix of another matrix
 	#[inline]
 	fn is_submatrix(&self) -> bool {
 		let ret = unsafe { sys::cv_UMat_isSubmatrix_const(self.as_raw_UMat()) };
 		ret
 	}
 	
-	/// returns element size in bytes,
 	#[inline]
 	fn elem_size(&self) -> Result<size_t> {
 		return_send!(via ocvrs_return);
@@ -19181,36 +11819,30 @@ pub trait UMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns the size of element channel in bytes.
 	#[inline]
 	fn elem_size1(&self) -> size_t {
 		let ret = unsafe { sys::cv_UMat_elemSize1_const(self.as_raw_UMat()) };
 		ret
 	}
 	
-	/// returns element type, similar to CV_MAT_TYPE(cvmat->type)
 	#[inline]
 	fn typ(&self) -> i32 {
 		let ret = unsafe { sys::cv_UMat_type_const(self.as_raw_UMat()) };
 		ret
 	}
 	
-	/// returns element type, similar to CV_MAT_DEPTH(cvmat->type)
 	#[inline]
 	fn depth(&self) -> i32 {
 		let ret = unsafe { sys::cv_UMat_depth_const(self.as_raw_UMat()) };
 		ret
 	}
 	
-	/// returns element type, similar to CV_MAT_CN(cvmat->type)
 	#[inline]
 	fn channels(&self) -> i32 {
 		let ret = unsafe { sys::cv_UMat_channels_const(self.as_raw_UMat()) };
 		ret
 	}
 	
-	/// returns step/elemSize1()
-	/// 
 	/// ## C++ default parameters
 	/// * i: 0
 	#[inline]
@@ -19222,22 +11854,18 @@ pub trait UMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns true if matrix data is NULL
 	#[inline]
 	fn empty(&self) -> bool {
 		let ret = unsafe { sys::cv_UMat_empty_const(self.as_raw_UMat()) };
 		ret
 	}
 	
-	/// returns the total number of matrix elements
 	#[inline]
 	fn total(&self) -> size_t {
 		let ret = unsafe { sys::cv_UMat_total_const(self.as_raw_UMat()) };
 		ret
 	}
 	
-	/// returns N if the matrix is 1-channel (N x ptdim) or ptdim-channel (1 x N) or (N x 1); negative number otherwise
-	/// 
 	/// ## C++ default parameters
 	/// * depth: -1
 	/// * require_continuous: true
@@ -19250,9 +11878,6 @@ pub trait UMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// ! Returns the OpenCL buffer handle on which UMat operates on.
-	/// The UMat instance should be kept alive during the use of the handle to prevent the buffer to be
-	/// returned to the OpenCV buffer pool.
 	#[inline]
 	fn handle(&self, access_flags: core::AccessFlag) -> Result<*mut c_void> {
 		return_send!(via ocvrs_return);
@@ -19276,46 +11901,36 @@ pub trait UMatTraitConst {
 pub trait UMatTrait: core::UMatTraitConst {
 	fn as_raw_mut_UMat(&mut self) -> *mut c_void;
 
-	/// ! includes several bit-fields:
-	/// - the magic signature
-	/// - continuity flag
-	/// - depth
-	/// - number of channels
 	#[inline]
 	fn set_flags(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_UMat_setPropFlags_int(self.as_raw_mut_UMat(), val) };
 		ret
 	}
 	
-	/// the matrix dimensionality, >= 2
 	#[inline]
 	fn set_dims(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_UMat_setPropDims_int(self.as_raw_mut_UMat(), val) };
 		ret
 	}
 	
-	/// number of rows in the matrix; -1 when the matrix has more than 2 dimensions
 	#[inline]
 	fn set_rows(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_UMat_setPropRows_int(self.as_raw_mut_UMat(), val) };
 		ret
 	}
 	
-	/// number of columns in the matrix; -1 when the matrix has more than 2 dimensions
 	#[inline]
 	fn set_cols(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_UMat_setPropCols_int(self.as_raw_mut_UMat(), val) };
 		ret
 	}
 	
-	/// usage flags for allocator; recommend do not set directly, instead set during construct/create/getUMat
 	#[inline]
 	fn set_usage_flags(&mut self, val: core::UMatUsageFlags) {
 		let ret = unsafe { sys::cv_UMat_setPropUsageFlags_UMatUsageFlags(self.as_raw_mut_UMat(), val) };
 		ret
 	}
 	
-	/// black-box container of UMat data
 	#[inline]
 	fn u(&mut self) -> core::UMatData {
 		let ret = unsafe { sys::cv_UMat_getPropU(self.as_raw_mut_UMat()) };
@@ -19323,22 +11938,18 @@ pub trait UMatTrait: core::UMatTraitConst {
 		ret
 	}
 	
-	/// black-box container of UMat data
 	#[inline]
 	fn set_u(&mut self, val: &mut core::UMatData) {
 		let ret = unsafe { sys::cv_UMat_setPropU_UMatDataX(self.as_raw_mut_UMat(), val.as_raw_mut_UMatData()) };
 		ret
 	}
 	
-	/// offset of the submatrix (or 0)
 	#[inline]
 	fn set_offset(&mut self, val: size_t) {
 		let ret = unsafe { sys::cv_UMat_setPropOffset_size_t(self.as_raw_mut_UMat(), val) };
 		ret
 	}
 	
-	/// sets some of the matrix elements to s, according to the mask
-	/// 
 	/// ## C++ default parameters
 	/// * mask: noArray()
 	#[inline]
@@ -19353,8 +11964,6 @@ pub trait UMatTrait: core::UMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// allocates new matrix data unless the matrix already has specified size and type.
-	/// 
 	/// ## C++ default parameters
 	/// * usage_flags: USAGE_DEFAULT
 	#[inline]
@@ -19399,7 +12008,6 @@ pub trait UMatTrait: core::UMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// increases the reference counter; use with care to avoid memleaks
 	#[inline]
 	fn addref(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -19409,7 +12017,6 @@ pub trait UMatTrait: core::UMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// decreases reference counter;
 	#[inline]
 	fn release(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -19419,7 +12026,6 @@ pub trait UMatTrait: core::UMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// deallocates the matrix data
 	#[inline]
 	fn deallocate(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -19429,7 +12035,6 @@ pub trait UMatTrait: core::UMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// moves/resizes the current matrix ROI inside the parent matrix.
 	#[inline]
 	fn adjust_roi(&mut self, dtop: i32, dbottom: i32, dleft: i32, dright: i32) -> Result<core::UMat> {
 		return_send!(via ocvrs_return);
@@ -19440,7 +12045,6 @@ pub trait UMatTrait: core::UMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// internal use method: updates the continuity flag
 	#[inline]
 	fn update_continuity_flag(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -19452,7 +12056,6 @@ pub trait UMatTrait: core::UMatTraitConst {
 	
 }
 
-/// @todo document
 pub struct UMat {
 	ptr: *mut c_void
 }
@@ -19477,8 +12080,6 @@ impl core::UMatTrait for UMat {
 }
 
 impl UMat {
-	/// default constructor
-	/// 
 	/// ## C++ default parameters
 	/// * usage_flags: USAGE_DEFAULT
 	#[inline]
@@ -19488,8 +12089,6 @@ impl UMat {
 		ret
 	}
 	
-	/// constructs 2D matrix of the specified size and type
-	/// 
 	/// ## C++ default parameters
 	/// * usage_flags: USAGE_DEFAULT
 	#[inline]
@@ -19514,8 +12113,6 @@ impl UMat {
 		Ok(ret)
 	}
 	
-	/// constructs 2D matrix and fills it with the specified value _s.
-	/// 
 	/// ## C++ default parameters
 	/// * usage_flags: USAGE_DEFAULT
 	#[inline]
@@ -19540,8 +12137,6 @@ impl UMat {
 		Ok(ret)
 	}
 	
-	/// constructs n-dimensional matrix
-	/// 
 	/// ## C++ default parameters
 	/// * usage_flags: USAGE_DEFAULT
 	#[inline]
@@ -19566,7 +12161,6 @@ impl UMat {
 		Ok(ret)
 	}
 	
-	/// copy constructor
 	#[inline]
 	pub fn copy(m: &core::UMat) -> Result<core::UMat> {
 		return_send!(via ocvrs_return);
@@ -19577,8 +12171,6 @@ impl UMat {
 		Ok(ret)
 	}
 	
-	/// creates a matrix header for a part of the bigger matrix
-	/// 
 	/// ## C++ default parameters
 	/// * col_range: Range::all()
 	#[inline]
@@ -19611,7 +12203,6 @@ impl UMat {
 		Ok(ret)
 	}
 	
-	/// constructs a square diagonal matrix which main diagonal is vector "d"
 	#[inline]
 	#[must_use]
 	pub fn diag(d: &core::UMat, usage_flags: core::UMatUsageFlags) -> Result<core::UMat> {
@@ -19634,7 +12225,6 @@ impl UMat {
 		Ok(ret)
 	}
 	
-	/// Matlab-style matrix initialization
 	#[inline]
 	#[must_use]
 	pub fn zeros(rows: i32, cols: i32, typ: i32, usage_flags: core::UMatUsageFlags) -> Result<core::UMat> {
@@ -20101,92 +12691,6 @@ impl core::UMatDataTrait for UMatData {
 impl UMatData {
 }
 
-/// This is the proxy class for passing read-only input arrays into OpenCV functions.
-/// 
-/// It is defined as:
-/// ```ignore
-///    typedef const _InputArray& InputArray;
-/// ```
-/// 
-/// where _InputArray is a class that can be constructed from `Mat`, `Mat_<T>`, `Matx<T, m, n>`,
-/// `std::vector<T>`, `std::vector<std::vector<T> >`, `std::vector<Mat>`, `std::vector<Mat_<T> >`,
-/// `UMat`, `std::vector<UMat>` or `double`. It can also be constructed from a matrix expression.
-/// 
-/// Since this is mostly implementation-level class, and its interface may change in future versions, we
-/// do not describe it in details. There are a few key things, though, that should be kept in mind:
-/// 
-/// *   When you see in the reference manual or in OpenCV source code a function that takes
-///    InputArray, it means that you can actually pass `Mat`, `Matx`, `vector<T>` etc. (see above the
-///    complete list).
-/// *   Optional input arguments: If some of the input arrays may be empty, pass cv::noArray() (or
-///    simply cv::Mat() as you probably did before).
-/// *   The class is designed solely for passing parameters. That is, normally you *should not*
-///    declare class members, local and global variables of this type.
-/// *   If you want to design your own function or a class method that can operate of arrays of
-///    multiple types, you can use InputArray (or OutputArray) for the respective parameters. Inside
-///    a function you should use _InputArray::getMat() method to construct a matrix header for the
-///    array (without copying data). _InputArray::kind() can be used to distinguish Mat from
-///    `vector<>` etc., but normally it is not needed.
-/// 
-/// Here is how you can use a function that takes InputArray :
-/// ```ignore
-///    std::vector<Point2f> vec;
-///    // points or a circle
-///    for( int i = 0; i < 30; i++ )
-///        vec.push_back(Point2f((float)(100 + 30*cos(i*CV_PI*2/5)),
-///                               (float)(100 - 30*sin(i*CV_PI*2/5))));
-///    cv::transform(vec, vec, cv::Matx23f(0.707, -0.707, 10, 0.707, 0.707, 20));
-/// ```
-/// 
-/// That is, we form an STL vector containing points, and apply in-place affine transformation to the
-/// vector using the 2x3 matrix created inline as `Matx<float, 2, 3>` instance.
-/// 
-/// Here is how such a function can be implemented (for simplicity, we implement a very specific case of
-/// it, according to the assertion statement inside) :
-/// ```ignore
-///    void myAffineTransform(InputArray _src, OutputArray _dst, InputArray _m)
-///    {
-///        // get Mat headers for input arrays. This is O(1) operation,
-///        // unless _src and/or _m are matrix expressions.
-///        Mat src = _src.getMat(), m = _m.getMat();
-///        CV_Assert( src.type() == CV_32FC2 && m.type() == CV_32F && m.size() == Size(3, 2) );
-/// 
-///        // [re]create the output array so that it has the proper size and type.
-///        // In case of Mat it calls Mat::create, in case of STL vector it calls vector::resize.
-///        _dst.create(src.size(), src.type());
-///        Mat dst = _dst.getMat();
-/// 
-///        for( int i = 0; i < src.rows; i++ )
-///            for( int j = 0; j < src.cols; j++ )
-///            {
-///                Point2f pt = src.at<Point2f>(i, j);
-///                dst.at<Point2f>(i, j) = Point2f(m.at<float>(0, 0)*pt.x +
-///                                                 m.at<float>(0, 1)*pt.y +
-///                                                 m.at<float>(0, 2),
-///                                                 m.at<float>(1, 0)*pt.x +
-///                                                 m.at<float>(1, 1)*pt.y +
-///                                                 m.at<float>(1, 2));
-///            }
-///    }
-/// ```
-/// 
-/// There is another related type, InputArrayOfArrays, which is currently defined as a synonym for
-/// InputArray:
-/// ```ignore
-///    typedef InputArray InputArrayOfArrays;
-/// ```
-/// 
-/// It denotes function arguments that are either vectors of vectors or vectors of matrices. A separate
-/// synonym is needed to generate Python/Java etc. wrappers properly. At the function implementation
-/// level their use is similar, but _InputArray::getMat(idx) should be used to get header for the
-/// idx-th component of the outer vector and _InputArray::size().area() should be used to find the
-/// number of components (vectors/matrices) of the outer vector.
-/// 
-/// In general, type support is limited to cv::Mat types. Other types are forbidden.
-/// But in some cases we need to support passing of custom non-general Mat types, like arrays of cv::KeyPoint, cv::DMatch, etc.
-/// This data is not intended to be interpreted as an image data, or processed somehow like regular cv::Mat.
-/// To pass such custom type use rawIn() / rawOut() / rawInOut() wrappers.
-/// Custom type is wrapped as Mat-compatible `CV_8UC<N>` values (N = sizeof(T), N <= CV_CN_MAX).
 pub trait _InputArrayTraitConst {
 	fn as_raw__InputArray(&self) -> *const c_void;
 
@@ -20571,92 +13075,6 @@ pub trait _InputArrayTrait: core::_InputArrayTraitConst {
 
 }
 
-/// This is the proxy class for passing read-only input arrays into OpenCV functions.
-/// 
-/// It is defined as:
-/// ```ignore
-///    typedef const _InputArray& InputArray;
-/// ```
-/// 
-/// where _InputArray is a class that can be constructed from `Mat`, `Mat_<T>`, `Matx<T, m, n>`,
-/// `std::vector<T>`, `std::vector<std::vector<T> >`, `std::vector<Mat>`, `std::vector<Mat_<T> >`,
-/// `UMat`, `std::vector<UMat>` or `double`. It can also be constructed from a matrix expression.
-/// 
-/// Since this is mostly implementation-level class, and its interface may change in future versions, we
-/// do not describe it in details. There are a few key things, though, that should be kept in mind:
-/// 
-/// *   When you see in the reference manual or in OpenCV source code a function that takes
-///    InputArray, it means that you can actually pass `Mat`, `Matx`, `vector<T>` etc. (see above the
-///    complete list).
-/// *   Optional input arguments: If some of the input arrays may be empty, pass cv::noArray() (or
-///    simply cv::Mat() as you probably did before).
-/// *   The class is designed solely for passing parameters. That is, normally you *should not*
-///    declare class members, local and global variables of this type.
-/// *   If you want to design your own function or a class method that can operate of arrays of
-///    multiple types, you can use InputArray (or OutputArray) for the respective parameters. Inside
-///    a function you should use _InputArray::getMat() method to construct a matrix header for the
-///    array (without copying data). _InputArray::kind() can be used to distinguish Mat from
-///    `vector<>` etc., but normally it is not needed.
-/// 
-/// Here is how you can use a function that takes InputArray :
-/// ```ignore
-///    std::vector<Point2f> vec;
-///    // points or a circle
-///    for( int i = 0; i < 30; i++ )
-///        vec.push_back(Point2f((float)(100 + 30*cos(i*CV_PI*2/5)),
-///                               (float)(100 - 30*sin(i*CV_PI*2/5))));
-///    cv::transform(vec, vec, cv::Matx23f(0.707, -0.707, 10, 0.707, 0.707, 20));
-/// ```
-/// 
-/// That is, we form an STL vector containing points, and apply in-place affine transformation to the
-/// vector using the 2x3 matrix created inline as `Matx<float, 2, 3>` instance.
-/// 
-/// Here is how such a function can be implemented (for simplicity, we implement a very specific case of
-/// it, according to the assertion statement inside) :
-/// ```ignore
-///    void myAffineTransform(InputArray _src, OutputArray _dst, InputArray _m)
-///    {
-///        // get Mat headers for input arrays. This is O(1) operation,
-///        // unless _src and/or _m are matrix expressions.
-///        Mat src = _src.getMat(), m = _m.getMat();
-///        CV_Assert( src.type() == CV_32FC2 && m.type() == CV_32F && m.size() == Size(3, 2) );
-/// 
-///        // [re]create the output array so that it has the proper size and type.
-///        // In case of Mat it calls Mat::create, in case of STL vector it calls vector::resize.
-///        _dst.create(src.size(), src.type());
-///        Mat dst = _dst.getMat();
-/// 
-///        for( int i = 0; i < src.rows; i++ )
-///            for( int j = 0; j < src.cols; j++ )
-///            {
-///                Point2f pt = src.at<Point2f>(i, j);
-///                dst.at<Point2f>(i, j) = Point2f(m.at<float>(0, 0)*pt.x +
-///                                                 m.at<float>(0, 1)*pt.y +
-///                                                 m.at<float>(0, 2),
-///                                                 m.at<float>(1, 0)*pt.x +
-///                                                 m.at<float>(1, 1)*pt.y +
-///                                                 m.at<float>(1, 2));
-///            }
-///    }
-/// ```
-/// 
-/// There is another related type, InputArrayOfArrays, which is currently defined as a synonym for
-/// InputArray:
-/// ```ignore
-///    typedef InputArray InputArrayOfArrays;
-/// ```
-/// 
-/// It denotes function arguments that are either vectors of vectors or vectors of matrices. A separate
-/// synonym is needed to generate Python/Java etc. wrappers properly. At the function implementation
-/// level their use is similar, but _InputArray::getMat(idx) should be used to get header for the
-/// idx-th component of the outer vector and _InputArray::size().area() should be used to find the
-/// number of components (vectors/matrices) of the outer vector.
-/// 
-/// In general, type support is limited to cv::Mat types. Other types are forbidden.
-/// But in some cases we need to support passing of custom non-general Mat types, like arrays of cv::KeyPoint, cv::DMatch, etc.
-/// This data is not intended to be interpreted as an image data, or processed somehow like regular cv::Mat.
-/// To pass such custom type use rawIn() / rawOut() / rawInOut() wrappers.
-/// Custom type is wrapped as Mat-compatible `CV_8UC<N>` values (N = sizeof(T), N <= CV_CN_MAX).
 pub struct _InputArray {
 	ptr: *mut c_void
 }
@@ -20863,7 +13281,6 @@ impl core::_InputOutputArrayTrait for _InputOutputArray {
 }
 
 impl _InputOutputArray {
-	/// ////////////////////////////////////////////////////////////////////////////////////////
 	#[inline]
 	pub fn default() -> Result<core::_InputOutputArray> {
 		return_send!(via ocvrs_return);
@@ -21040,31 +13457,6 @@ boxed_cast_base! { _InputOutputArray, core::_InputArray, cv__InputOutputArray_to
 
 boxed_cast_base! { _InputOutputArray, core::_OutputArray, cv__InputOutputArray_to__OutputArray }
 
-/// This type is very similar to InputArray except that it is used for input/output and output function
-/// parameters.
-/// 
-/// Just like with InputArray, OpenCV users should not care about OutputArray, they just pass `Mat`,
-/// `vector<T>` etc. to the functions. The same limitation as for `InputArray`: *Do not explicitly
-/// create OutputArray instances* applies here too.
-/// 
-/// If you want to make your function polymorphic (i.e. accept different arrays as output parameters),
-/// it is also not very difficult. Take the sample above as the reference. Note that
-/// _OutputArray::create() needs to be called before _OutputArray::getMat(). This way you guarantee
-/// that the output array is properly allocated.
-/// 
-/// Optional output parameters. If you do not need certain output array to be computed and returned to
-/// you, pass cv::noArray(), just like you would in the case of optional input array. At the
-/// implementation level, use _OutputArray::needed() to check if certain output array needs to be
-/// computed or not.
-/// 
-/// There are several synonyms for OutputArray that are used to assist automatic Python/Java/... wrapper
-/// generators:
-/// ```ignore
-///    typedef OutputArray OutputArrayOfArrays;
-///    typedef OutputArray InputOutputArray;
-///    typedef OutputArray InputOutputArrayOfArrays;
-/// ```
-/// 
 pub trait _OutputArrayTraitConst: core::_InputArrayTraitConst {
 	fn as_raw__OutputArray(&self) -> *const c_void;
 
@@ -21300,31 +13692,6 @@ pub trait _OutputArrayTrait: core::_InputArrayTrait + core::_OutputArrayTraitCon
 
 }
 
-/// This type is very similar to InputArray except that it is used for input/output and output function
-/// parameters.
-/// 
-/// Just like with InputArray, OpenCV users should not care about OutputArray, they just pass `Mat`,
-/// `vector<T>` etc. to the functions. The same limitation as for `InputArray`: *Do not explicitly
-/// create OutputArray instances* applies here too.
-/// 
-/// If you want to make your function polymorphic (i.e. accept different arrays as output parameters),
-/// it is also not very difficult. Take the sample above as the reference. Note that
-/// _OutputArray::create() needs to be called before _OutputArray::getMat(). This way you guarantee
-/// that the output array is properly allocated.
-/// 
-/// Optional output parameters. If you do not need certain output array to be computed and returned to
-/// you, pass cv::noArray(), just like you would in the case of optional input array. At the
-/// implementation level, use _OutputArray::needed() to check if certain output array needs to be
-/// computed or not.
-/// 
-/// There are several synonyms for OutputArray that are used to assist automatic Python/Java/... wrapper
-/// generators:
-/// ```ignore
-///    typedef OutputArray OutputArrayOfArrays;
-///    typedef OutputArray InputOutputArray;
-///    typedef OutputArray InputOutputArrayOfArrays;
-/// ```
-/// 
 pub struct _OutputArray {
 	ptr: *mut c_void
 }
@@ -21357,7 +13724,6 @@ impl core::_OutputArrayTrait for _OutputArray {
 }
 
 impl _OutputArray {
-	/// /////////////////////////////////////////////////////////////////////////////////////
 	#[inline]
 	pub fn default() -> Result<core::_OutputArray> {
 		return_send!(via ocvrs_return);
@@ -21532,133 +13898,9 @@ impl _OutputArray {
 
 boxed_cast_base! { _OutputArray, core::_InputArray, cv__OutputArray_to__InputArray }
 
-/// BufferPool for use with CUDA streams
-/// 
-/// BufferPool utilizes Stream's allocator to create new buffers for GpuMat's. It is
-/// only useful when enabled with #setBufferPoolUsage.
-/// 
-/// ```ignore
-///    setBufferPoolUsage(true);
-/// ```
-/// 
-/// 
-/// 
-/// Note: #setBufferPoolUsage must be called \em before any Stream declaration.
-/// 
-/// Users may specify custom allocator for Stream and may implement their own stream based
-/// functions utilizing the same underlying GPU memory management.
-/// 
-/// If custom allocator is not specified, BufferPool utilizes StackAllocator by
-/// default. StackAllocator allocates a chunk of GPU device memory beforehand,
-/// and when GpuMat is declared later on, it is given the pre-allocated memory.
-/// This kind of strategy reduces the number of calls for memory allocating APIs
-/// such as cudaMalloc or cudaMallocPitch.
-/// 
-/// Below is an example that utilizes BufferPool with StackAllocator:
-/// 
-/// ```ignore
-///    #include <opencv2/opencv.hpp>
-/// 
-///    using namespace cv;
-///    using namespace cv::cuda
-/// 
-///    int main()
-///    {
-///        setBufferPoolUsage(true);                               // Tell OpenCV that we are going to utilize BufferPool
-///        setBufferPoolConfig(getDevice(), 1024 * 1024 * 64, 2);  // Allocate 64 MB, 2 stacks (default is 10 MB, 5 stacks)
-/// 
-///        Stream stream1, stream2;                                // Each stream uses 1 stack
-///        BufferPool pool1(stream1), pool2(stream2);
-/// 
-///        GpuMat d_src1 = pool1.getBuffer(4096, 4096, CV_8UC1);   // 16MB
-///        GpuMat d_dst1 = pool1.getBuffer(4096, 4096, CV_8UC3);   // 48MB, pool1 is now full
-/// 
-///        GpuMat d_src2 = pool2.getBuffer(1024, 1024, CV_8UC1);   // 1MB
-///        GpuMat d_dst2 = pool2.getBuffer(1024, 1024, CV_8UC3);   // 3MB
-/// 
-///        cvtColor(d_src1, d_dst1, CV_GRAY2BGR, 0, stream1);
-///        cvtColor(d_src2, d_dst2, CV_GRAY2BGR, 0, stream2);
-///    }
-/// ```
-/// 
-/// 
-/// If we allocate another GpuMat on pool1 in the above example, it will be carried out by
-/// the DefaultAllocator since the stack for pool1 is full.
-/// 
-/// ```ignore
-///    GpuMat d_add1 = pool1.getBuffer(1024, 1024, CV_8UC1);   // Stack for pool1 is full, memory is allocated with DefaultAllocator
-/// ```
-/// 
-/// 
-/// If a third stream is declared in the above example, allocating with #getBuffer
-/// within that stream will also be carried out by the DefaultAllocator because we've run out of
-/// stacks.
-/// 
-/// ```ignore
-///    Stream stream3;                                         // Only 2 stacks were allocated, we've run out of stacks
-///    BufferPool pool3(stream3);
-///    GpuMat d_src3 = pool3.getBuffer(1024, 1024, CV_8UC1);   // Memory is allocated with DefaultAllocator
-/// ```
-/// 
-/// 
-/// @warning When utilizing StackAllocator, deallocation order is important.
-/// 
-/// Just like a stack, deallocation must be done in LIFO order. Below is an example of
-/// erroneous usage that violates LIFO rule. If OpenCV is compiled in Debug mode, this
-/// sample code will emit CV_Assert error.
-/// 
-/// ```ignore
-///    int main()
-///    {
-///        setBufferPoolUsage(true);                               // Tell OpenCV that we are going to utilize BufferPool
-///        Stream stream;                                          // A default size (10 MB) stack is allocated to this stream
-///        BufferPool pool(stream);
-/// 
-///        GpuMat mat1 = pool.getBuffer(1024, 1024, CV_8UC1);      // Allocate mat1 (1MB)
-///        GpuMat mat2 = pool.getBuffer(1024, 1024, CV_8UC1);      // Allocate mat2 (1MB)
-/// 
-///        mat1.release();                                         // erroneous usage : mat2 must be deallocated before mat1
-///    }
-/// ```
-/// 
-/// 
-/// Since C++ local variables are destroyed in the reverse order of construction,
-/// the code sample below satisfies the LIFO rule. Local GpuMat's are deallocated
-/// and the corresponding memory is automatically returned to the pool for later usage.
-/// 
-/// ```ignore
-///    int main()
-///    {
-///        setBufferPoolUsage(true);                               // Tell OpenCV that we are going to utilize BufferPool
-///        setBufferPoolConfig(getDevice(), 1024 * 1024 * 64, 2);  // Allocate 64 MB, 2 stacks (default is 10 MB, 5 stacks)
-/// 
-///        Stream stream1, stream2;                                // Each stream uses 1 stack
-///        BufferPool pool1(stream1), pool2(stream2);
-/// 
-///        for (int i = 0; i < 10; i++)
-///        {
-///            GpuMat d_src1 = pool1.getBuffer(4096, 4096, CV_8UC1);   // 16MB
-///            GpuMat d_dst1 = pool1.getBuffer(4096, 4096, CV_8UC3);   // 48MB, pool1 is now full
-/// 
-///            GpuMat d_src2 = pool2.getBuffer(1024, 1024, CV_8UC1);   // 1MB
-///            GpuMat d_dst2 = pool2.getBuffer(1024, 1024, CV_8UC3);   // 3MB
-/// 
-///            d_src1.setTo(Scalar(i), stream1);
-///            d_src2.setTo(Scalar(i), stream2);
-/// 
-///            cvtColor(d_src1, d_dst1, CV_GRAY2BGR, 0, stream1);
-///            cvtColor(d_src2, d_dst2, CV_GRAY2BGR, 0, stream2);
-///                                                                     // The order of destruction of the local variables is:
-///                                                                     //   d_dst2 => d_src2 => d_dst1 => d_src1
-///                                                                     // LIFO rule is satisfied, this code runs without error
-///        }
-///    }
-/// ```
-/// 
 pub trait BufferPoolTraitConst {
 	fn as_raw_BufferPool(&self) -> *const c_void;
 
-	/// Returns the allocator associated with the stream.
 	#[inline]
 	fn get_allocator(&self) -> Result<core::Ptr<dyn core::GpuMat_Allocator>> {
 		return_send!(via ocvrs_return);
@@ -21674,7 +13916,6 @@ pub trait BufferPoolTraitConst {
 pub trait BufferPoolTrait: core::BufferPoolTraitConst {
 	fn as_raw_mut_BufferPool(&mut self) -> *mut c_void;
 
-	/// Allocates a new GpuMat of given size and type.
 	#[inline]
 	fn get_buffer(&mut self, rows: i32, cols: i32, typ: i32) -> Result<core::GpuMat> {
 		return_send!(via ocvrs_return);
@@ -21685,7 +13926,6 @@ pub trait BufferPoolTrait: core::BufferPoolTraitConst {
 		Ok(ret)
 	}
 	
-	/// Allocates a new GpuMat of given size and type.
 	#[inline]
 	fn get_buffer_1(&mut self, size: core::Size, typ: i32) -> Result<core::GpuMat> {
 		return_send!(via ocvrs_return);
@@ -21698,129 +13938,6 @@ pub trait BufferPoolTrait: core::BufferPoolTraitConst {
 	
 }
 
-/// BufferPool for use with CUDA streams
-/// 
-/// BufferPool utilizes Stream's allocator to create new buffers for GpuMat's. It is
-/// only useful when enabled with #setBufferPoolUsage.
-/// 
-/// ```ignore
-///    setBufferPoolUsage(true);
-/// ```
-/// 
-/// 
-/// 
-/// Note: #setBufferPoolUsage must be called \em before any Stream declaration.
-/// 
-/// Users may specify custom allocator for Stream and may implement their own stream based
-/// functions utilizing the same underlying GPU memory management.
-/// 
-/// If custom allocator is not specified, BufferPool utilizes StackAllocator by
-/// default. StackAllocator allocates a chunk of GPU device memory beforehand,
-/// and when GpuMat is declared later on, it is given the pre-allocated memory.
-/// This kind of strategy reduces the number of calls for memory allocating APIs
-/// such as cudaMalloc or cudaMallocPitch.
-/// 
-/// Below is an example that utilizes BufferPool with StackAllocator:
-/// 
-/// ```ignore
-///    #include <opencv2/opencv.hpp>
-/// 
-///    using namespace cv;
-///    using namespace cv::cuda
-/// 
-///    int main()
-///    {
-///        setBufferPoolUsage(true);                               // Tell OpenCV that we are going to utilize BufferPool
-///        setBufferPoolConfig(getDevice(), 1024 * 1024 * 64, 2);  // Allocate 64 MB, 2 stacks (default is 10 MB, 5 stacks)
-/// 
-///        Stream stream1, stream2;                                // Each stream uses 1 stack
-///        BufferPool pool1(stream1), pool2(stream2);
-/// 
-///        GpuMat d_src1 = pool1.getBuffer(4096, 4096, CV_8UC1);   // 16MB
-///        GpuMat d_dst1 = pool1.getBuffer(4096, 4096, CV_8UC3);   // 48MB, pool1 is now full
-/// 
-///        GpuMat d_src2 = pool2.getBuffer(1024, 1024, CV_8UC1);   // 1MB
-///        GpuMat d_dst2 = pool2.getBuffer(1024, 1024, CV_8UC3);   // 3MB
-/// 
-///        cvtColor(d_src1, d_dst1, CV_GRAY2BGR, 0, stream1);
-///        cvtColor(d_src2, d_dst2, CV_GRAY2BGR, 0, stream2);
-///    }
-/// ```
-/// 
-/// 
-/// If we allocate another GpuMat on pool1 in the above example, it will be carried out by
-/// the DefaultAllocator since the stack for pool1 is full.
-/// 
-/// ```ignore
-///    GpuMat d_add1 = pool1.getBuffer(1024, 1024, CV_8UC1);   // Stack for pool1 is full, memory is allocated with DefaultAllocator
-/// ```
-/// 
-/// 
-/// If a third stream is declared in the above example, allocating with #getBuffer
-/// within that stream will also be carried out by the DefaultAllocator because we've run out of
-/// stacks.
-/// 
-/// ```ignore
-///    Stream stream3;                                         // Only 2 stacks were allocated, we've run out of stacks
-///    BufferPool pool3(stream3);
-///    GpuMat d_src3 = pool3.getBuffer(1024, 1024, CV_8UC1);   // Memory is allocated with DefaultAllocator
-/// ```
-/// 
-/// 
-/// @warning When utilizing StackAllocator, deallocation order is important.
-/// 
-/// Just like a stack, deallocation must be done in LIFO order. Below is an example of
-/// erroneous usage that violates LIFO rule. If OpenCV is compiled in Debug mode, this
-/// sample code will emit CV_Assert error.
-/// 
-/// ```ignore
-///    int main()
-///    {
-///        setBufferPoolUsage(true);                               // Tell OpenCV that we are going to utilize BufferPool
-///        Stream stream;                                          // A default size (10 MB) stack is allocated to this stream
-///        BufferPool pool(stream);
-/// 
-///        GpuMat mat1 = pool.getBuffer(1024, 1024, CV_8UC1);      // Allocate mat1 (1MB)
-///        GpuMat mat2 = pool.getBuffer(1024, 1024, CV_8UC1);      // Allocate mat2 (1MB)
-/// 
-///        mat1.release();                                         // erroneous usage : mat2 must be deallocated before mat1
-///    }
-/// ```
-/// 
-/// 
-/// Since C++ local variables are destroyed in the reverse order of construction,
-/// the code sample below satisfies the LIFO rule. Local GpuMat's are deallocated
-/// and the corresponding memory is automatically returned to the pool for later usage.
-/// 
-/// ```ignore
-///    int main()
-///    {
-///        setBufferPoolUsage(true);                               // Tell OpenCV that we are going to utilize BufferPool
-///        setBufferPoolConfig(getDevice(), 1024 * 1024 * 64, 2);  // Allocate 64 MB, 2 stacks (default is 10 MB, 5 stacks)
-/// 
-///        Stream stream1, stream2;                                // Each stream uses 1 stack
-///        BufferPool pool1(stream1), pool2(stream2);
-/// 
-///        for (int i = 0; i < 10; i++)
-///        {
-///            GpuMat d_src1 = pool1.getBuffer(4096, 4096, CV_8UC1);   // 16MB
-///            GpuMat d_dst1 = pool1.getBuffer(4096, 4096, CV_8UC3);   // 48MB, pool1 is now full
-/// 
-///            GpuMat d_src2 = pool2.getBuffer(1024, 1024, CV_8UC1);   // 1MB
-///            GpuMat d_dst2 = pool2.getBuffer(1024, 1024, CV_8UC3);   // 3MB
-/// 
-///            d_src1.setTo(Scalar(i), stream1);
-///            d_src2.setTo(Scalar(i), stream2);
-/// 
-///            cvtColor(d_src1, d_dst1, CV_GRAY2BGR, 0, stream1);
-///            cvtColor(d_src2, d_dst2, CV_GRAY2BGR, 0, stream2);
-///                                                                     // The order of destruction of the local variables is:
-///                                                                     //   d_dst2 => d_src2 => d_dst1 => d_src1
-///                                                                     // LIFO rule is satisfied, this code runs without error
-///        }
-///    }
-/// ```
-/// 
 pub struct BufferPool {
 	ptr: *mut c_void
 }
@@ -21845,7 +13962,6 @@ impl core::BufferPoolTrait for BufferPool {
 }
 
 impl BufferPool {
-	/// Gets the BufferPool for the given stream.
 	#[inline]
 	pub fn new(stream: &mut core::Stream) -> Result<core::BufferPool> {
 		return_send!(via ocvrs_return);
@@ -21858,11 +13974,9 @@ impl BufferPool {
 	
 }
 
-/// Class providing functionality for querying the specified GPU properties.
 pub trait DeviceInfoTraitConst {
 	fn as_raw_DeviceInfo(&self) -> *const c_void;
 
-	/// Returns system index of the CUDA device starting with 0.
 	#[inline]
 	fn device_id(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -21872,7 +13986,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// ASCII string identifying device
 	#[inline]
 	fn name(&self) -> Result<String> {
 		return_send!(via ocvrs_return);
@@ -21883,7 +13996,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// global memory available on device in bytes
 	#[inline]
 	fn total_global_mem(&self) -> Result<size_t> {
 		return_send!(via ocvrs_return);
@@ -21893,7 +14005,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// shared memory available per block in bytes
 	#[inline]
 	fn shared_mem_per_block(&self) -> Result<size_t> {
 		return_send!(via ocvrs_return);
@@ -21903,7 +14014,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// 32-bit registers available per block
 	#[inline]
 	fn regs_per_block(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -21913,7 +14023,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// warp size in threads
 	#[inline]
 	fn warp_size(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -21923,7 +14032,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// maximum pitch in bytes allowed by memory copies
 	#[inline]
 	fn mem_pitch(&self) -> Result<size_t> {
 		return_send!(via ocvrs_return);
@@ -21933,7 +14041,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// maximum number of threads per block
 	#[inline]
 	fn max_threads_per_block(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -21943,7 +14050,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// maximum size of each dimension of a block
 	#[inline]
 	fn max_threads_dim(&self) -> Result<core::Vec3i> {
 		return_send!(via ocvrs_return);
@@ -21953,7 +14059,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// maximum size of each dimension of a grid
 	#[inline]
 	fn max_grid_size(&self) -> Result<core::Vec3i> {
 		return_send!(via ocvrs_return);
@@ -21963,7 +14068,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// clock frequency in kilohertz
 	#[inline]
 	fn clock_rate(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -21973,7 +14077,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// constant memory available on device in bytes
 	#[inline]
 	fn total_const_mem(&self) -> Result<size_t> {
 		return_send!(via ocvrs_return);
@@ -21983,7 +14086,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// major compute capability
 	#[inline]
 	fn major_version(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -21993,7 +14095,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// minor compute capability
 	#[inline]
 	fn minor_version(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -22003,7 +14104,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// alignment requirement for textures
 	#[inline]
 	fn texture_alignment(&self) -> Result<size_t> {
 		return_send!(via ocvrs_return);
@@ -22013,7 +14113,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// pitch alignment requirement for texture references bound to pitched memory
 	#[inline]
 	fn texture_pitch_alignment(&self) -> Result<size_t> {
 		return_send!(via ocvrs_return);
@@ -22023,7 +14122,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// number of multiprocessors on device
 	#[inline]
 	fn multi_processor_count(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -22033,7 +14131,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// specified whether there is a run time limit on kernels
 	#[inline]
 	fn kernel_exec_timeout_enabled(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -22043,7 +14140,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// device is integrated as opposed to discrete
 	#[inline]
 	fn integrated(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -22053,7 +14149,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// device can map host memory with cudaHostAlloc/cudaHostGetDevicePointer
 	#[inline]
 	fn can_map_host_memory(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -22063,7 +14158,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// compute mode
 	#[inline]
 	fn compute_mode(&self) -> Result<core::DeviceInfo_ComputeMode> {
 		return_send!(via ocvrs_return);
@@ -22073,7 +14167,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// maximum 1D texture size
 	#[inline]
 	fn max_texture1_d(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -22083,7 +14176,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// maximum 1D mipmapped texture size
 	#[inline]
 	fn max_texture1_d_mipmap(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -22093,7 +14185,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// maximum size for 1D textures bound to linear memory
 	#[inline]
 	fn max_texture1_d_linear(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -22103,7 +14194,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// maximum 2D texture dimensions
 	#[inline]
 	fn max_texture_2d(&self) -> Result<core::Vec2i> {
 		return_send!(via ocvrs_return);
@@ -22113,7 +14203,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// maximum 2D mipmapped texture dimensions
 	#[inline]
 	fn max_texture2_d_mipmap(&self) -> Result<core::Vec2i> {
 		return_send!(via ocvrs_return);
@@ -22123,7 +14212,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// maximum dimensions (width, height, pitch) for 2D textures bound to pitched memory
 	#[inline]
 	fn max_texture2_d_linear(&self) -> Result<core::Vec3i> {
 		return_send!(via ocvrs_return);
@@ -22133,7 +14221,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// maximum 2D texture dimensions if texture gather operations have to be performed
 	#[inline]
 	fn max_texture2_d_gather(&self) -> Result<core::Vec2i> {
 		return_send!(via ocvrs_return);
@@ -22143,7 +14230,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// maximum 3D texture dimensions
 	#[inline]
 	fn max_texture_3d(&self) -> Result<core::Vec3i> {
 		return_send!(via ocvrs_return);
@@ -22153,7 +14239,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// maximum Cubemap texture dimensions
 	#[inline]
 	fn max_texture_cubemap(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -22163,7 +14248,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// maximum 1D layered texture dimensions
 	#[inline]
 	fn max_texture1_d_layered(&self) -> Result<core::Vec2i> {
 		return_send!(via ocvrs_return);
@@ -22173,7 +14257,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// maximum 2D layered texture dimensions
 	#[inline]
 	fn max_texture2_d_layered(&self) -> Result<core::Vec3i> {
 		return_send!(via ocvrs_return);
@@ -22183,7 +14266,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// maximum Cubemap layered texture dimensions
 	#[inline]
 	fn max_texture_cubemap_layered(&self) -> Result<core::Vec2i> {
 		return_send!(via ocvrs_return);
@@ -22193,7 +14275,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// maximum 1D surface size
 	#[inline]
 	fn max_surface1_d(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -22203,7 +14284,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// maximum 2D surface dimensions
 	#[inline]
 	fn max_surface_2d(&self) -> Result<core::Vec2i> {
 		return_send!(via ocvrs_return);
@@ -22213,7 +14293,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// maximum 3D surface dimensions
 	#[inline]
 	fn max_surface_3d(&self) -> Result<core::Vec3i> {
 		return_send!(via ocvrs_return);
@@ -22223,7 +14302,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// maximum 1D layered surface dimensions
 	#[inline]
 	fn max_surface1_d_layered(&self) -> Result<core::Vec2i> {
 		return_send!(via ocvrs_return);
@@ -22233,7 +14311,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// maximum 2D layered surface dimensions
 	#[inline]
 	fn max_surface2_d_layered(&self) -> Result<core::Vec3i> {
 		return_send!(via ocvrs_return);
@@ -22243,7 +14320,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// maximum Cubemap surface dimensions
 	#[inline]
 	fn max_surface_cubemap(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -22253,7 +14329,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// maximum Cubemap layered surface dimensions
 	#[inline]
 	fn max_surface_cubemap_layered(&self) -> Result<core::Vec2i> {
 		return_send!(via ocvrs_return);
@@ -22263,7 +14338,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// alignment requirements for surfaces
 	#[inline]
 	fn surface_alignment(&self) -> Result<size_t> {
 		return_send!(via ocvrs_return);
@@ -22273,7 +14347,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// device can possibly execute multiple kernels concurrently
 	#[inline]
 	fn concurrent_kernels(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -22283,7 +14356,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// device has ECC support enabled
 	#[inline]
 	fn ecc_enabled(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -22293,7 +14365,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// PCI bus ID of the device
 	#[inline]
 	fn pci_bus_id(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -22303,7 +14374,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// PCI device ID of the device
 	#[inline]
 	fn pci_device_id(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -22313,7 +14383,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// PCI domain ID of the device
 	#[inline]
 	fn pci_domain_id(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -22323,7 +14392,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// true if device is a Tesla device using TCC driver, false otherwise
 	#[inline]
 	fn tcc_driver(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -22333,7 +14401,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// number of asynchronous engines
 	#[inline]
 	fn async_engine_count(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -22343,7 +14410,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// device shares a unified address space with the host
 	#[inline]
 	fn unified_addressing(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -22353,7 +14419,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// peak memory clock frequency in kilohertz
 	#[inline]
 	fn memory_clock_rate(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -22363,7 +14428,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// global memory bus width in bits
 	#[inline]
 	fn memory_bus_width(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -22373,7 +14437,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// size of L2 cache in bytes
 	#[inline]
 	fn l2_cache_size(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -22383,7 +14446,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// maximum resident threads per multiprocessor
 	#[inline]
 	fn max_threads_per_multi_processor(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -22393,7 +14455,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// gets free and total device memory
 	#[inline]
 	fn query_memory(&self, total_memory: &mut size_t, free_memory: &mut size_t) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -22421,12 +14482,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// Provides information on CUDA feature support.
-	/// 
-	/// ## Parameters
-	/// * feature_set: Features to be checked. See cuda::FeatureSet.
-	/// 
-	/// This function returns true if the device has the specified CUDA feature. Otherwise, it returns false
 	#[inline]
 	fn supports(&self, feature_set: core::FeatureSet) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -22436,10 +14491,6 @@ pub trait DeviceInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// Checks the CUDA module and device compatibility.
-	/// 
-	/// This function returns true if the CUDA module can be run on the specified device. Otherwise, it
-	/// returns false .
 	#[inline]
 	fn is_compatible(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -22456,7 +14507,6 @@ pub trait DeviceInfoTrait: core::DeviceInfoTraitConst {
 
 }
 
-/// Class providing functionality for querying the specified GPU properties.
 pub struct DeviceInfo {
 	ptr: *mut c_void
 }
@@ -22481,7 +14531,6 @@ impl core::DeviceInfoTrait for DeviceInfo {
 }
 
 impl DeviceInfo {
-	/// creates DeviceInfo object for the current GPU
 	#[inline]
 	pub fn default() -> Result<core::DeviceInfo> {
 		return_send!(via ocvrs_return);
@@ -22492,13 +14541,6 @@ impl DeviceInfo {
 		Ok(ret)
 	}
 	
-	/// The constructors.
-	/// 
-	/// ## Parameters
-	/// * device_id: System index of the CUDA device starting with 0.
-	/// 
-	/// Constructs the DeviceInfo object for the specified device. If device_id parameter is missed, it
-	/// constructs an object for the current device.
 	#[inline]
 	pub fn new(device_id: i32) -> Result<core::DeviceInfo> {
 		return_send!(via ocvrs_return);
@@ -22514,7 +14556,6 @@ impl DeviceInfo {
 pub trait EventTraitConst {
 	fn as_raw_Event(&self) -> *const c_void;
 
-	/// queries an event's status
 	#[inline]
 	fn query_if_complete(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -22529,8 +14570,6 @@ pub trait EventTraitConst {
 pub trait EventTrait: core::EventTraitConst {
 	fn as_raw_mut_Event(&mut self) -> *mut c_void;
 
-	/// records an event
-	/// 
 	/// ## C++ default parameters
 	/// * stream: Stream::Null()
 	#[inline]
@@ -22542,7 +14581,6 @@ pub trait EventTrait: core::EventTraitConst {
 		Ok(ret)
 	}
 	
-	/// waits for an event to complete
 	#[inline]
 	fn wait_for_completion(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -22590,7 +14628,6 @@ impl Event {
 		Ok(ret)
 	}
 	
-	/// computes the elapsed time between events
 	#[inline]
 	pub fn elapsed_time(start: &core::Event, end: &core::Event) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -22672,67 +14709,27 @@ impl GpuData {
 	
 }
 
-/// Base storage class for GPU memory with reference counting.
-/// 
-/// Its interface matches the Mat interface with the following limitations:
-/// 
-/// *   no arbitrary dimensions support (only 2D)
-/// *   no functions that return references to their data (because references on GPU are not valid for
-///    CPU)
-/// *   no expression templates technique support
-/// 
-/// Beware that the latter limitation may lead to overloaded matrix operators that cause memory
-/// allocations. The GpuMat class is convertible to cuda::PtrStepSz and cuda::PtrStep so it can be
-/// passed directly to the kernel.
-/// 
-/// 
-/// Note: In contrast with Mat, in most cases GpuMat::isContinuous() == false . This means that rows are
-/// aligned to a size depending on the hardware. Single-row GpuMat is always a continuous matrix.
-/// 
-/// 
-/// Note: You are not recommended to leave static or global GpuMat variables allocated, that is, to rely
-/// on its destructor. The destruction order of such variables and CUDA context is undefined. GPU memory
-/// release function returns error if the CUDA context has been destroyed before.
-/// 
-/// Some member functions are described as a "Blocking Call" while some are described as a
-/// "Non-Blocking Call". Blocking functions are synchronous to host. It is guaranteed that the GPU
-/// operation is finished when the function returns. However, non-blocking functions are asynchronous to
-/// host. Those functions may return even if the GPU operation is not finished.
-/// 
-/// Compared to their blocking counterpart, non-blocking functions accept Stream as an additional
-/// argument. If a non-default stream is passed, the GPU operation may overlap with operations in other
-/// streams.
-/// ## See also
-/// Mat
 pub trait GpuMatTraitConst {
 	fn as_raw_GpuMat(&self) -> *const c_void;
 
-	/// ! includes several bit-fields:
-	/// - the magic signature
-	/// - continuity flag
-	/// - depth
-	/// - number of channels
 	#[inline]
 	fn flags(&self) -> i32 {
 		let ret = unsafe { sys::cv_cuda_GpuMat_getPropFlags_const(self.as_raw_GpuMat()) };
 		ret
 	}
 	
-	/// the number of rows and columns
 	#[inline]
 	fn rows(&self) -> i32 {
 		let ret = unsafe { sys::cv_cuda_GpuMat_getPropRows_const(self.as_raw_GpuMat()) };
 		ret
 	}
 	
-	/// the number of rows and columns
 	#[inline]
 	fn cols(&self) -> i32 {
 		let ret = unsafe { sys::cv_cuda_GpuMat_getPropCols_const(self.as_raw_GpuMat()) };
 		ret
 	}
 	
-	/// a distance between successive rows in bytes; includes the gap if any
 	#[inline]
 	fn step(&self) -> size_t {
 		let ret = unsafe { sys::cv_cuda_GpuMat_getPropStep_const(self.as_raw_GpuMat()) };
@@ -22745,10 +14742,6 @@ pub trait GpuMatTraitConst {
 		ret
 	}
 	
-	/// Performs data download from GpuMat (Blocking call)
-	/// 
-	/// This function copies data from device memory to host memory. As being a blocking call, it is
-	/// guaranteed that the copy operation is finished when this function returns.
 	#[inline]
 	fn download(&self, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 		output_array_arg!(dst);
@@ -22759,13 +14752,6 @@ pub trait GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Performs data download from GpuMat (Non-Blocking call)
-	/// 
-	/// This function copies data from device memory to host memory. As being a non-blocking call, this
-	/// function may return even if the copy operation is not finished.
-	/// 
-	/// The copy operation may be overlapped with operations in other non-default streams if \p stream is
-	/// not the default stream and \p dst is HostMem allocated with HostMem::PAGE_LOCKED option.
 	#[inline]
 	fn download_async(&self, dst: &mut dyn core::ToOutputArray, stream: &mut core::Stream) -> Result<()> {
 		output_array_arg!(dst);
@@ -22776,7 +14762,6 @@ pub trait GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns deep copy of the GpuMat, i.e. the data is copied
 	#[inline]
 	fn try_clone(&self) -> Result<core::GpuMat> {
 		return_send!(via ocvrs_return);
@@ -22787,7 +14772,6 @@ pub trait GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// copies the GpuMat content to device memory (Blocking call)
 	#[inline]
 	fn copy_to(&self, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 		output_array_arg!(dst);
@@ -22798,7 +14782,6 @@ pub trait GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// copies the GpuMat content to device memory (Non-Blocking call)
 	#[inline]
 	fn copy_to_1(&self, dst: &mut dyn core::ToOutputArray, stream: &mut core::Stream) -> Result<()> {
 		output_array_arg!(dst);
@@ -22809,7 +14792,6 @@ pub trait GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// copies those GpuMat elements to "m" that are marked with non-zero mask elements (Blocking call)
 	#[inline]
 	fn copy_to_2(&self, dst: &mut dyn core::ToOutputArray, mask: &dyn core::ToInputArray) -> Result<()> {
 		output_array_arg!(dst);
@@ -22821,7 +14803,6 @@ pub trait GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// copies those GpuMat elements to "m" that are marked with non-zero mask elements (Non-Blocking call)
 	#[inline]
 	fn copy_to_3(&self, dst: &mut dyn core::ToOutputArray, mask: &dyn core::ToInputArray, stream: &mut core::Stream) -> Result<()> {
 		output_array_arg!(dst);
@@ -22833,7 +14814,6 @@ pub trait GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// converts GpuMat to another datatype (Blocking call)
 	#[inline]
 	fn convert_to(&self, dst: &mut dyn core::ToOutputArray, rtype: i32) -> Result<()> {
 		output_array_arg!(dst);
@@ -22844,7 +14824,6 @@ pub trait GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// converts GpuMat to another datatype (Non-Blocking call)
 	#[inline]
 	fn convert_to_1(&self, dst: &mut dyn core::ToOutputArray, rtype: i32, stream: &mut core::Stream) -> Result<()> {
 		output_array_arg!(dst);
@@ -22855,8 +14834,6 @@ pub trait GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// converts GpuMat to another datatype with scaling (Blocking call)
-	/// 
 	/// ## C++ default parameters
 	/// * beta: 0.0
 	#[inline]
@@ -22869,7 +14846,6 @@ pub trait GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// converts GpuMat to another datatype with scaling (Non-Blocking call)
 	#[inline]
 	fn convert_to_3(&self, dst: &mut dyn core::ToOutputArray, rtype: i32, alpha: f64, stream: &mut core::Stream) -> Result<()> {
 		output_array_arg!(dst);
@@ -22880,7 +14856,6 @@ pub trait GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// converts GpuMat to another datatype with scaling (Non-Blocking call)
 	#[inline]
 	fn convert_to_4(&self, dst: &mut dyn core::ToOutputArray, rtype: i32, alpha: f64, beta: f64, stream: &mut core::Stream) -> Result<()> {
 		output_array_arg!(dst);
@@ -22913,7 +14888,6 @@ pub trait GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns a new GpuMat header for the specified row
 	#[inline]
 	fn row(&self, y: i32) -> Result<core::GpuMat> {
 		return_send!(via ocvrs_return);
@@ -22924,7 +14898,6 @@ pub trait GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns a new GpuMat header for the specified column
 	#[inline]
 	fn col(&self, x: i32) -> Result<core::GpuMat> {
 		return_send!(via ocvrs_return);
@@ -22935,7 +14908,6 @@ pub trait GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// ... for the specified row span
 	#[inline]
 	fn row_range(&self, startrow: i32, endrow: i32) -> Result<core::GpuMat> {
 		return_send!(via ocvrs_return);
@@ -22956,7 +14928,6 @@ pub trait GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// ... for the specified column span
 	#[inline]
 	fn col_range(&self, startcol: i32, endcol: i32) -> Result<core::GpuMat> {
 		return_send!(via ocvrs_return);
@@ -22977,9 +14948,6 @@ pub trait GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// creates alternative GpuMat header for the same data, with different
-	/// number of channels and/or different number of rows
-	/// 
 	/// ## C++ default parameters
 	/// * rows: 0
 	#[inline]
@@ -22992,7 +14960,6 @@ pub trait GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// locates GpuMat header within a parent GpuMat
 	#[inline]
 	fn locate_roi(&self, whole_size: &mut core::Size, ofs: &mut core::Point) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -23002,8 +14969,6 @@ pub trait GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns true iff the GpuMat data is continuous
-	/// (i.e. when there are no gaps between successive rows)
 	#[inline]
 	fn is_continuous(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -23013,7 +14978,6 @@ pub trait GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns element size in bytes
 	#[inline]
 	fn elem_size(&self) -> Result<size_t> {
 		return_send!(via ocvrs_return);
@@ -23023,7 +14987,6 @@ pub trait GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns the size of element channel in bytes
 	#[inline]
 	fn elem_size1(&self) -> Result<size_t> {
 		return_send!(via ocvrs_return);
@@ -23033,7 +14996,6 @@ pub trait GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns element type
 	#[inline]
 	fn typ(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -23043,7 +15005,6 @@ pub trait GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns element type
 	#[inline]
 	fn depth(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -23053,7 +15014,6 @@ pub trait GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns number of channels
 	#[inline]
 	fn channels(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -23063,7 +15023,6 @@ pub trait GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns step/elemSize1()
 	#[inline]
 	fn step1(&self) -> Result<size_t> {
 		return_send!(via ocvrs_return);
@@ -23073,7 +15032,6 @@ pub trait GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns GpuMat size : width == number of columns, height == number of rows
 	#[inline]
 	fn size(&self) -> Result<core::Size> {
 		return_send!(via ocvrs_return);
@@ -23083,7 +15041,6 @@ pub trait GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns true if GpuMat data is NULL
 	#[inline]
 	fn empty(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -23107,83 +15064,66 @@ pub trait GpuMatTraitConst {
 pub trait GpuMatTrait: core::GpuMatTraitConst {
 	fn as_raw_mut_GpuMat(&mut self) -> *mut c_void;
 
-	/// ! includes several bit-fields:
-	/// - the magic signature
-	/// - continuity flag
-	/// - depth
-	/// - number of channels
 	#[inline]
 	fn set_flags(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_cuda_GpuMat_setPropFlags_int(self.as_raw_mut_GpuMat(), val) };
 		ret
 	}
 	
-	/// the number of rows and columns
 	#[inline]
 	fn set_rows(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_cuda_GpuMat_setPropRows_int(self.as_raw_mut_GpuMat(), val) };
 		ret
 	}
 	
-	/// the number of rows and columns
 	#[inline]
 	fn set_cols(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_cuda_GpuMat_setPropCols_int(self.as_raw_mut_GpuMat(), val) };
 		ret
 	}
 	
-	/// a distance between successive rows in bytes; includes the gap if any
 	#[inline]
 	fn set_step(&mut self, val: size_t) {
 		let ret = unsafe { sys::cv_cuda_GpuMat_setPropStep_size_t(self.as_raw_mut_GpuMat(), val) };
 		ret
 	}
 	
-	/// pointer to the data
 	#[inline]
 	fn data(&mut self) -> *mut u8 {
 		let ret = unsafe { sys::cv_cuda_GpuMat_getPropData(self.as_raw_mut_GpuMat()) };
 		ret
 	}
 	
-	/// pointer to the data
 	#[inline]
 	unsafe fn set_data(&mut self, val: *mut u8) {
 		let ret = { sys::cv_cuda_GpuMat_setPropData_unsigned_charX(self.as_raw_mut_GpuMat(), val) };
 		ret
 	}
 	
-	/// pointer to the reference counter;
-	/// when GpuMat points to user-allocated data, the pointer is NULL
 	#[inline]
 	fn refcount(&mut self) -> *mut i32 {
 		let ret = unsafe { sys::cv_cuda_GpuMat_getPropRefcount(self.as_raw_mut_GpuMat()) };
 		ret
 	}
 	
-	/// pointer to the reference counter;
-	/// when GpuMat points to user-allocated data, the pointer is NULL
 	#[inline]
 	unsafe fn set_refcount(&mut self, val: *mut i32) {
 		let ret = { sys::cv_cuda_GpuMat_setPropRefcount_intX(self.as_raw_mut_GpuMat(), val) };
 		ret
 	}
 	
-	/// helper fields used in locateROI and adjustROI
 	#[inline]
 	fn datastart(&mut self) -> *mut u8 {
 		let ret = unsafe { sys::cv_cuda_GpuMat_getPropDatastart(self.as_raw_mut_GpuMat()) };
 		ret
 	}
 	
-	/// helper fields used in locateROI and adjustROI
 	#[inline]
 	unsafe fn set_datastart(&mut self, val: *mut u8) {
 		let ret = { sys::cv_cuda_GpuMat_setPropDatastart_unsigned_charX(self.as_raw_mut_GpuMat(), val) };
 		ret
 	}
 	
-	/// allocator
 	#[inline]
 	fn allocator(&mut self) -> types::AbstractRefMut<dyn core::GpuMat_Allocator> {
 		let ret = unsafe { sys::cv_cuda_GpuMat_getPropAllocator(self.as_raw_mut_GpuMat()) };
@@ -23191,14 +15131,12 @@ pub trait GpuMatTrait: core::GpuMatTraitConst {
 		ret
 	}
 	
-	/// allocator
 	#[inline]
 	unsafe fn set_allocator(&mut self, val: &mut dyn core::GpuMat_Allocator) {
 		let ret = { sys::cv_cuda_GpuMat_setPropAllocator_AllocatorX(self.as_raw_mut_GpuMat(), val.as_raw_mut_GpuMat_Allocator()) };
 		ret
 	}
 	
-	/// allocates new GpuMat data unless the GpuMat already has specified size and type
 	#[inline]
 	fn create(&mut self, rows: i32, cols: i32, typ: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -23217,7 +15155,6 @@ pub trait GpuMatTrait: core::GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// decreases reference counter, deallocate the data when reference counter reaches 0
 	#[inline]
 	fn release(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -23227,7 +15164,6 @@ pub trait GpuMatTrait: core::GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// swaps with other smart pointer
 	#[inline]
 	fn swap(&mut self, mat: &mut core::GpuMat) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -23237,10 +15173,6 @@ pub trait GpuMatTrait: core::GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Performs data upload to GpuMat (Blocking call)
-	/// 
-	/// This function copies data from host memory to device memory. As being a blocking call, it is
-	/// guaranteed that the copy operation is finished when this function returns.
 	#[inline]
 	fn upload(&mut self, arr: &dyn core::ToInputArray) -> Result<()> {
 		input_array_arg!(arr);
@@ -23251,13 +15183,6 @@ pub trait GpuMatTrait: core::GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// Performs data upload to GpuMat (Non-Blocking call)
-	/// 
-	/// This function copies data from host memory to device memory. As being a non-blocking call, this
-	/// function may return even if the copy operation is not finished.
-	/// 
-	/// The copy operation may be overlapped with operations in other non-default streams if \p stream is
-	/// not the default stream and \p dst is HostMem allocated with HostMem::PAGE_LOCKED option.
 	#[inline]
 	fn upload_async(&mut self, arr: &dyn core::ToInputArray, stream: &mut core::Stream) -> Result<()> {
 		input_array_arg!(arr);
@@ -23268,7 +15193,6 @@ pub trait GpuMatTrait: core::GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// sets some of the GpuMat elements to s (Blocking call)
 	#[inline]
 	fn set_to(&mut self, s: core::Scalar) -> Result<core::GpuMat> {
 		return_send!(via ocvrs_return);
@@ -23279,7 +15203,6 @@ pub trait GpuMatTrait: core::GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// sets some of the GpuMat elements to s (Non-Blocking call)
 	#[inline]
 	fn set_to_1(&mut self, s: core::Scalar, stream: &mut core::Stream) -> Result<core::GpuMat> {
 		return_send!(via ocvrs_return);
@@ -23290,7 +15213,6 @@ pub trait GpuMatTrait: core::GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// sets some of the GpuMat elements to s, according to the mask (Blocking call)
 	#[inline]
 	fn set_to_2(&mut self, s: core::Scalar, mask: &dyn core::ToInputArray) -> Result<core::GpuMat> {
 		input_array_arg!(mask);
@@ -23302,7 +15224,6 @@ pub trait GpuMatTrait: core::GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// sets some of the GpuMat elements to s, according to the mask (Non-Blocking call)
 	#[inline]
 	fn set_to_3(&mut self, s: core::Scalar, mask: &dyn core::ToInputArray, stream: &mut core::Stream) -> Result<core::GpuMat> {
 		input_array_arg!(mask);
@@ -23314,8 +15235,6 @@ pub trait GpuMatTrait: core::GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns pointer to y-th row
-	/// 
 	/// ## C++ default parameters
 	/// * y: 0
 	#[inline]
@@ -23327,7 +15246,6 @@ pub trait GpuMatTrait: core::GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// moves/resizes the current GpuMat ROI inside the parent GpuMat
 	#[inline]
 	fn adjust_roi(&mut self, dtop: i32, dbottom: i32, dleft: i32, dright: i32) -> Result<core::GpuMat> {
 		return_send!(via ocvrs_return);
@@ -23338,7 +15256,6 @@ pub trait GpuMatTrait: core::GpuMatTraitConst {
 		Ok(ret)
 	}
 	
-	/// internal use method: updates the continuity flag
 	#[inline]
 	fn update_continuity_flag(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -23350,38 +15267,6 @@ pub trait GpuMatTrait: core::GpuMatTraitConst {
 	
 }
 
-/// Base storage class for GPU memory with reference counting.
-/// 
-/// Its interface matches the Mat interface with the following limitations:
-/// 
-/// *   no arbitrary dimensions support (only 2D)
-/// *   no functions that return references to their data (because references on GPU are not valid for
-///    CPU)
-/// *   no expression templates technique support
-/// 
-/// Beware that the latter limitation may lead to overloaded matrix operators that cause memory
-/// allocations. The GpuMat class is convertible to cuda::PtrStepSz and cuda::PtrStep so it can be
-/// passed directly to the kernel.
-/// 
-/// 
-/// Note: In contrast with Mat, in most cases GpuMat::isContinuous() == false . This means that rows are
-/// aligned to a size depending on the hardware. Single-row GpuMat is always a continuous matrix.
-/// 
-/// 
-/// Note: You are not recommended to leave static or global GpuMat variables allocated, that is, to rely
-/// on its destructor. The destruction order of such variables and CUDA context is undefined. GPU memory
-/// release function returns error if the CUDA context has been destroyed before.
-/// 
-/// Some member functions are described as a "Blocking Call" while some are described as a
-/// "Non-Blocking Call". Blocking functions are synchronous to host. It is guaranteed that the GPU
-/// operation is finished when the function returns. However, non-blocking functions are asynchronous to
-/// host. Those functions may return even if the GPU operation is not finished.
-/// 
-/// Compared to their blocking counterpart, non-blocking functions accept Stream as an additional
-/// argument. If a non-default stream is passed, the GPU operation may overlap with operations in other
-/// streams.
-/// ## See also
-/// Mat
 pub struct GpuMat {
 	ptr: *mut c_void
 }
@@ -23406,7 +15291,6 @@ impl core::GpuMatTrait for GpuMat {
 }
 
 impl GpuMat {
-	/// default allocator
 	#[inline]
 	pub fn default_allocator() -> Result<types::AbstractRefMut<'static, dyn core::GpuMat_Allocator>> {
 		return_send!(via ocvrs_return);
@@ -23426,8 +15310,6 @@ impl GpuMat {
 		Ok(ret)
 	}
 	
-	/// default constructor
-	/// 
 	/// ## C++ default parameters
 	/// * allocator: GpuMat::defaultAllocator()
 	#[inline]
@@ -23440,8 +15322,6 @@ impl GpuMat {
 		Ok(ret)
 	}
 	
-	/// constructs GpuMat of the specified size and type
-	/// 
 	/// ## C++ default parameters
 	/// * allocator: GpuMat::defaultAllocator()
 	#[inline]
@@ -23466,8 +15346,6 @@ impl GpuMat {
 		Ok(ret)
 	}
 	
-	/// constructs GpuMat and fills it with the specified value _s
-	/// 
 	/// ## C++ default parameters
 	/// * allocator: GpuMat::defaultAllocator()
 	#[inline]
@@ -23492,7 +15370,6 @@ impl GpuMat {
 		Ok(ret)
 	}
 	
-	/// copy constructor
 	#[inline]
 	pub fn copy(m: &core::GpuMat) -> Result<core::GpuMat> {
 		return_send!(via ocvrs_return);
@@ -23503,8 +15380,6 @@ impl GpuMat {
 		Ok(ret)
 	}
 	
-	/// constructor for GpuMat headers pointing to user-allocated data
-	/// 
 	/// ## C++ default parameters
 	/// * step: Mat::AUTO_STEP
 	#[inline]
@@ -23529,7 +15404,6 @@ impl GpuMat {
 		Ok(ret)
 	}
 	
-	/// creates a GpuMat header for a part of the bigger matrix
 	#[inline]
 	pub fn rowscols(m: &core::GpuMat, mut row_range: core::Range, mut col_range: core::Range) -> Result<core::GpuMat> {
 		return_send!(via ocvrs_return);
@@ -23550,8 +15424,6 @@ impl GpuMat {
 		Ok(ret)
 	}
 	
-	/// builds GpuMat from host memory (Blocking call)
-	/// 
 	/// ## C++ default parameters
 	/// * allocator: GpuMat::defaultAllocator()
 	#[inline]
@@ -23606,25 +15478,18 @@ pub trait GpuMat_Allocator: core::GpuMat_AllocatorConst {
 pub trait GpuMatNDTraitConst {
 	fn as_raw_GpuMatND(&self) -> *const c_void;
 
-	/// ! includes several bit-fields:
-	/// - the magic signature
-	/// - continuity flag
-	/// - depth
-	/// - number of channels
 	#[inline]
 	fn flags(&self) -> i32 {
 		let ret = unsafe { sys::cv_cuda_GpuMatND_getPropFlags_const(self.as_raw_GpuMatND()) };
 		ret
 	}
 	
-	/// matrix dimensionality
 	#[inline]
 	fn dims(&self) -> i32 {
 		let ret = unsafe { sys::cv_cuda_GpuMatND_getPropDims_const(self.as_raw_GpuMatND()) };
 		ret
 	}
 	
-	/// shape of this array
 	#[inline]
 	fn size(&self) -> core::Vector<i32> {
 		let ret = unsafe { sys::cv_cuda_GpuMatND_getPropSize_const(self.as_raw_GpuMatND()) };
@@ -23632,8 +15497,6 @@ pub trait GpuMatNDTraitConst {
 		ret
 	}
 	
-	/// ! step values
-	/// Their semantics is identical to the semantics of step for Mat.
 	#[inline]
 	fn step(&self) -> core::Vector<size_t> {
 		let ret = unsafe { sys::cv_cuda_GpuMatND_getPropStep_const(self.as_raw_GpuMatND()) };
@@ -23641,10 +15504,6 @@ pub trait GpuMatNDTraitConst {
 		ret
 	}
 	
-	/// Creates a full copy of the array and the underlying data.
-	/// The method creates a full copy of the array. It mimics the behavior of Mat::clone(), i.e.
-	/// the original step is not taken into account. So, the array copy is a continuous array
-	/// occupying total()\*elemSize() bytes.
 	#[inline]
 	fn try_clone(&self) -> Result<core::GpuMatND> {
 		return_send!(via ocvrs_return);
@@ -23655,14 +15514,6 @@ pub trait GpuMatNDTraitConst {
 		Ok(ret)
 	}
 	
-	/// Creates a full copy of the array and the underlying data.
-	/// The method creates a full copy of the array. It mimics the behavior of Mat::clone(), i.e.
-	/// the original step is not taken into account. So, the array copy is a continuous array
-	/// occupying total()\*elemSize() bytes.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	///    This overload is non-blocking, so it may return even if the copy operation is not finished.
 	#[inline]
 	fn clone_1(&self, stream: &mut core::Stream) -> Result<core::GpuMatND> {
 		return_send!(via ocvrs_return);
@@ -23673,12 +15524,6 @@ pub trait GpuMatNDTraitConst {
 		Ok(ret)
 	}
 	
-	/// Creates a GpuMat header for a 2D plane part of an n-dim matrix.
-	/// 
-	/// Note: The returned GpuMat is constructed with the constructor for user-allocated data.
-	/// That is, It does not perform reference counting.
-	/// 
-	/// Note: This function does not increment this GpuMatND's reference counter.
 	#[inline]
 	fn create_gpu_mat_header(&self, mut idx: core::GpuMatND_IndexArray, mut row_range: core::Range, mut col_range: core::Range) -> Result<core::GpuMat> {
 		return_send!(via ocvrs_return);
@@ -23689,21 +15534,6 @@ pub trait GpuMatNDTraitConst {
 		Ok(ret)
 	}
 	
-	/// Creates a GpuMat header for a 2D plane part of an n-dim matrix.
-	/// 
-	/// Note: The returned GpuMat is constructed with the constructor for user-allocated data.
-	/// That is, It does not perform reference counting.
-	/// 
-	/// Note: This function does not increment this GpuMatND's reference counter.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	///    Creates a GpuMat header if this GpuMatND is effectively 2D.
-	///     
-	/// Note: The returned GpuMat is constructed with the constructor for user-allocated data.
-	///    That is, It does not perform reference counting.
-	///     
-	/// Note: This function does not increment this GpuMatND's reference counter.
 	#[inline]
 	fn create_gpu_mat_header_1(&self) -> Result<core::GpuMat> {
 		return_send!(via ocvrs_return);
@@ -23714,10 +15544,6 @@ pub trait GpuMatNDTraitConst {
 		Ok(ret)
 	}
 	
-	/// Extracts a 2D plane part of an n-dim matrix if this GpuMatND is effectively 2D.
-	/// It differs from createGpuMatHeader() in that it clones a part of this GpuMatND.
-	/// 
-	/// Note: This operator does not increment this GpuMatND's reference counter;
 	#[inline]
 	fn to_gpu_mat(&self) -> Result<core::GpuMat> {
 		return_send!(via ocvrs_return);
@@ -23748,8 +15574,6 @@ pub trait GpuMatNDTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns true iff the GpuMatND data is continuous
-	/// (i.e. when there are no gaps between successive rows)
 	#[inline]
 	fn is_continuous(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -23759,7 +15583,6 @@ pub trait GpuMatNDTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns true if the matrix is a sub-matrix of another matrix
 	#[inline]
 	fn is_submatrix(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -23769,7 +15592,6 @@ pub trait GpuMatNDTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns element size in bytes
 	#[inline]
 	fn elem_size(&self) -> Result<size_t> {
 		return_send!(via ocvrs_return);
@@ -23779,7 +15601,6 @@ pub trait GpuMatNDTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns the size of element channel in bytes
 	#[inline]
 	fn elem_size1(&self) -> Result<size_t> {
 		return_send!(via ocvrs_return);
@@ -23789,7 +15610,6 @@ pub trait GpuMatNDTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns true if data is null
 	#[inline]
 	fn empty(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -23799,7 +15619,6 @@ pub trait GpuMatNDTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns true if not empty and points to external(user-allocated) gpu memory
 	#[inline]
 	fn external(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -23809,7 +15628,6 @@ pub trait GpuMatNDTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns pointer to the first byte of the GPU memory
 	#[inline]
 	fn get_device_ptr(&self) -> Result<*mut u8> {
 		return_send!(via ocvrs_return);
@@ -23819,7 +15637,6 @@ pub trait GpuMatNDTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns the total number of array elements
 	#[inline]
 	fn total(&self) -> Result<size_t> {
 		return_send!(via ocvrs_return);
@@ -23829,7 +15646,6 @@ pub trait GpuMatNDTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns the size of underlying memory in bytes
 	#[inline]
 	fn total_mem_size(&self) -> Result<size_t> {
 		return_send!(via ocvrs_return);
@@ -23839,7 +15655,6 @@ pub trait GpuMatNDTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns element type
 	#[inline]
 	fn typ(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -23854,45 +15669,30 @@ pub trait GpuMatNDTraitConst {
 pub trait GpuMatNDTrait: core::GpuMatNDTraitConst {
 	fn as_raw_mut_GpuMatND(&mut self) -> *mut c_void;
 
-	/// ! includes several bit-fields:
-	/// - the magic signature
-	/// - continuity flag
-	/// - depth
-	/// - number of channels
 	#[inline]
 	fn set_flags(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_cuda_GpuMatND_setPropFlags_int(self.as_raw_mut_GpuMatND(), val) };
 		ret
 	}
 	
-	/// matrix dimensionality
 	#[inline]
 	fn set_dims(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_cuda_GpuMatND_setPropDims_int(self.as_raw_mut_GpuMatND(), val) };
 		ret
 	}
 	
-	/// shape of this array
 	#[inline]
 	fn set_size(&mut self, mut val: core::GpuMatND_SizeArray) {
 		let ret = unsafe { sys::cv_cuda_GpuMatND_setPropSize_SizeArray(self.as_raw_mut_GpuMatND(), val.as_raw_mut_VectorOfi32()) };
 		ret
 	}
 	
-	/// ! step values
-	/// Their semantics is identical to the semantics of step for Mat.
 	#[inline]
 	fn set_step(&mut self, mut val: core::GpuMatND_StepArray) {
 		let ret = unsafe { sys::cv_cuda_GpuMatND_setPropStep_StepArray(self.as_raw_mut_GpuMatND(), val.as_raw_mut_VectorOfsize_t()) };
 		ret
 	}
 	
-	/// Allocates GPU memory.
-	/// Suppose there is some GPU memory already allocated. In that case, this method may choose to reuse that
-	/// GPU memory under the specific condition: it must be of the same size and type, not externally allocated,
-	/// the GPU memory is continuous(i.e., isContinuous() is true), and is not a sub-matrix of another GpuMatND
-	/// (i.e., isSubmatrix() is false). In other words, this method guarantees that the GPU memory allocated by
-	/// this method is always continuous and is not a sub-region of another GpuMatND.
 	#[inline]
 	fn create(&mut self, mut size: core::GpuMatND_SizeArray, typ: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -23963,7 +15763,6 @@ impl core::GpuMatNDTrait for GpuMatND {
 }
 
 impl GpuMatND {
-	/// default constructor
 	#[inline]
 	pub fn default() -> Result<core::GpuMatND> {
 		return_send!(via ocvrs_return);
@@ -23974,14 +15773,6 @@ impl GpuMatND {
 		Ok(ret)
 	}
 	
-	/// default constructor
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * size: Array of integers specifying an n-dimensional array shape.
-	/// * type: Array type. Use CV_8UC1, ..., CV_16FC4 to create 1-4 channel matrices, or
-	///    CV_8UC(n), ..., CV_64FC(n) to create multi-channel (up to CV_CN_MAX channels) matrices.
 	#[inline]
 	pub fn new(mut size: core::GpuMatND_SizeArray, typ: i32) -> Result<core::GpuMatND> {
 		return_send!(via ocvrs_return);
@@ -23992,22 +15783,6 @@ impl GpuMatND {
 		Ok(ret)
 	}
 	
-	/// default constructor
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * size: Array of integers specifying an n-dimensional array shape.
-	/// * type: Array type. Use CV_8UC1, ..., CV_16FC4 to create 1-4 channel matrices, or
-	///    CV_8UC(n), ..., CV_64FC(n) to create multi-channel (up to CV_CN_MAX channels) matrices.
-	/// * data: Pointer to the user data. Matrix constructors that take data and step parameters do not
-	///    allocate matrix data. Instead, they just initialize the matrix header that points to the specified
-	///    data, which means that no data is copied. This operation is very efficient and can be used to
-	///    process external data using OpenCV functions. The external data is not automatically deallocated, so
-	///    you should take care of it.
-	/// * step: Array of _size.size()-1 steps in case of a multi-dimensional array (the last step is always
-	///    set to the element size). If not specified, the matrix is assumed to be continuous.
-	/// 
 	/// ## C++ default parameters
 	/// * step: StepArray()
 	#[inline]
@@ -24044,21 +15819,6 @@ impl Clone for GpuMatND {
 	}
 }
 
-/// Class with reference counting wrapping special memory type allocation functions from CUDA.
-/// 
-/// Its interface is also Mat-like but with additional memory type parameters.
-/// 
-/// *   **PAGE_LOCKED** sets a page locked memory type used commonly for fast and asynchronous
-///    uploading/downloading data from/to GPU.
-/// *   **SHARED** specifies a zero copy memory allocation that enables mapping the host memory to GPU
-///    address space, if supported.
-/// *   **WRITE_COMBINED** sets the write combined buffer that is not cached by CPU. Such buffers are
-///    used to supply GPU with data when GPU only reads it. The advantage is a better CPU cache
-///    utilization.
-/// 
-/// 
-/// Note: Allocation size of such memory types is usually limited. For more details, see *CUDA 2.2
-/// Pinned Memory APIs* document or *CUDA C Programming Guide*.
 pub trait HostMemTraitConst {
 	fn as_raw_HostMem(&self) -> *const c_void;
 
@@ -24100,7 +15860,6 @@ pub trait HostMemTraitConst {
 		ret
 	}
 	
-	/// returns deep copy of the matrix, i.e. the data is copied
 	#[inline]
 	fn try_clone(&self) -> Result<core::HostMem> {
 		return_send!(via ocvrs_return);
@@ -24111,9 +15870,6 @@ pub trait HostMemTraitConst {
 		Ok(ret)
 	}
 	
-	/// creates alternative HostMem header for the same data, with different
-	/// number of channels and/or different number of rows
-	/// 
 	/// ## C++ default parameters
 	/// * rows: 0
 	#[inline]
@@ -24126,7 +15882,6 @@ pub trait HostMemTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns matrix header with disabled reference counting for HostMem data.
 	#[inline]
 	fn create_mat_header(&self) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -24137,12 +15892,6 @@ pub trait HostMemTraitConst {
 		Ok(ret)
 	}
 	
-	/// Maps CPU memory to GPU address space and creates the cuda::GpuMat header without reference counting
-	/// for it.
-	/// 
-	/// This can be done only if memory was allocated with the SHARED flag and if it is supported by the
-	/// hardware. Laptops often share video and CPU memory, so address spaces can be mapped, which
-	/// eliminates an extra copy.
 	#[inline]
 	fn create_gpu_mat_header(&self) -> Result<core::GpuMat> {
 		return_send!(via ocvrs_return);
@@ -24305,7 +16054,6 @@ pub trait HostMemTrait: core::HostMemTraitConst {
 		ret
 	}
 	
-	/// swaps with other smart pointer
 	#[inline]
 	fn swap(&mut self, b: &mut core::HostMem) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -24315,7 +16063,6 @@ pub trait HostMemTrait: core::HostMemTraitConst {
 		Ok(ret)
 	}
 	
-	/// allocates new matrix data unless the matrix already has specified size and type.
 	#[inline]
 	fn create(&mut self, rows: i32, cols: i32, typ: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -24334,7 +16081,6 @@ pub trait HostMemTrait: core::HostMemTraitConst {
 		Ok(ret)
 	}
 	
-	/// decrements reference counter and released memory if needed.
 	#[inline]
 	fn release(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -24346,21 +16092,6 @@ pub trait HostMemTrait: core::HostMemTraitConst {
 	
 }
 
-/// Class with reference counting wrapping special memory type allocation functions from CUDA.
-/// 
-/// Its interface is also Mat-like but with additional memory type parameters.
-/// 
-/// *   **PAGE_LOCKED** sets a page locked memory type used commonly for fast and asynchronous
-///    uploading/downloading data from/to GPU.
-/// *   **SHARED** specifies a zero copy memory allocation that enables mapping the host memory to GPU
-///    address space, if supported.
-/// *   **WRITE_COMBINED** sets the write combined buffer that is not cached by CPU. Such buffers are
-///    used to supply GPU with data when GPU only reads it. The advantage is a better CPU cache
-///    utilization.
-/// 
-/// 
-/// Note: Allocation size of such memory types is usually limited. For more details, see *CUDA 2.2
-/// Pinned Memory APIs* document or *CUDA C Programming Guide*.
 pub struct HostMem {
 	ptr: *mut c_void
 }
@@ -24431,8 +16162,6 @@ impl HostMem {
 		Ok(ret)
 	}
 	
-	/// creates from host memory with coping data
-	/// 
 	/// ## C++ default parameters
 	/// * alloc_type: HostMem::AllocType::PAGE_LOCKED
 	#[inline]
@@ -24456,40 +16185,9 @@ impl Clone for HostMem {
 	}
 }
 
-/// This class encapsulates a queue of asynchronous calls.
-/// 
-/// 
-/// Note: Currently, you may face problems if an operation is enqueued twice with different data. Some
-/// functions use the constant GPU memory, and next call may update the memory before the previous one
-/// has been finished. But calling different operations asynchronously is safe because each operation
-/// has its own constant buffer. Memory copy/upload/download/set operations to the buffers you hold are
-/// also safe.
-/// 
-/// 
-/// Note: The Stream class is not thread-safe. Please use different Stream objects for different CPU threads.
-/// 
-/// ```ignore
-/// void thread1()
-/// {
-///    cv::cuda::Stream stream1;
-///    cv::cuda::func1(..., stream1);
-/// }
-/// 
-/// void thread2()
-/// {
-///    cv::cuda::Stream stream2;
-///    cv::cuda::func2(..., stream2);
-/// }
-/// ```
-/// 
-/// 
-/// 
-/// Note: By default all CUDA routines are launched in Stream::Null() object, if the stream is not specified by user.
-/// In multi-threading environment the stream objects must be passed explicitly (see previous note).
 pub trait StreamTraitConst {
 	fn as_raw_Stream(&self) -> *const c_void;
 
-	/// Returns true if the current stream queue is finished. Otherwise, it returns false.
 	#[inline]
 	fn query_if_complete(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -24499,7 +16197,6 @@ pub trait StreamTraitConst {
 		Ok(ret)
 	}
 	
-	/// return Pointer to CUDA stream
 	#[inline]
 	fn cuda_ptr(&self) -> Result<*mut c_void> {
 		return_send!(via ocvrs_return);
@@ -24514,7 +16211,6 @@ pub trait StreamTraitConst {
 pub trait StreamTrait: core::StreamTraitConst {
 	fn as_raw_mut_Stream(&mut self) -> *mut c_void;
 
-	/// Blocks the current CPU thread until all operations in the stream are complete.
 	#[inline]
 	fn wait_for_completion(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -24524,7 +16220,6 @@ pub trait StreamTrait: core::StreamTraitConst {
 		Ok(ret)
 	}
 	
-	/// Makes a compute stream wait on an event.
 	#[inline]
 	fn wait_event(&mut self, event: &core::Event) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -24534,14 +16229,6 @@ pub trait StreamTrait: core::StreamTraitConst {
 		Ok(ret)
 	}
 	
-	/// Adds a callback to be called on the host after all currently enqueued items in the stream have
-	/// completed.
-	/// 
-	/// 
-	/// Note: Callbacks must not make any CUDA API calls. Callbacks must not perform any synchronization
-	/// that may depend on outstanding device work or other callbacks that are not mandated to run earlier.
-	/// Callbacks without a mandated order (in independent streams) execute in undefined order and may be
-	/// serialized.
 	#[inline]
 	fn enqueue_host_callback(&mut self, callback: core::Stream_StreamCallback) -> Result<()> {
 		callback_arg!(callback_trampoline(status: i32, user_data: *mut c_void) -> () => user_data in callbacks => callback(status: i32) -> ());
@@ -24555,36 +16242,6 @@ pub trait StreamTrait: core::StreamTraitConst {
 	
 }
 
-/// This class encapsulates a queue of asynchronous calls.
-/// 
-/// 
-/// Note: Currently, you may face problems if an operation is enqueued twice with different data. Some
-/// functions use the constant GPU memory, and next call may update the memory before the previous one
-/// has been finished. But calling different operations asynchronously is safe because each operation
-/// has its own constant buffer. Memory copy/upload/download/set operations to the buffers you hold are
-/// also safe.
-/// 
-/// 
-/// Note: The Stream class is not thread-safe. Please use different Stream objects for different CPU threads.
-/// 
-/// ```ignore
-/// void thread1()
-/// {
-///    cv::cuda::Stream stream1;
-///    cv::cuda::func1(..., stream1);
-/// }
-/// 
-/// void thread2()
-/// {
-///    cv::cuda::Stream stream2;
-///    cv::cuda::func2(..., stream2);
-/// }
-/// ```
-/// 
-/// 
-/// 
-/// Note: By default all CUDA routines are launched in Stream::Null() object, if the stream is not specified by user.
-/// In multi-threading environment the stream objects must be passed explicitly (see previous note).
 pub struct Stream {
 	ptr: *mut c_void
 }
@@ -24609,7 +16266,6 @@ impl core::StreamTrait for Stream {
 }
 
 impl Stream {
-	/// creates a new asynchronous stream
 	#[inline]
 	pub fn default() -> Result<core::Stream> {
 		return_send!(via ocvrs_return);
@@ -24620,7 +16276,6 @@ impl Stream {
 		Ok(ret)
 	}
 	
-	/// creates a new asynchronous stream with custom allocator
 	#[inline]
 	pub fn new(allocator: &core::Ptr<dyn core::GpuMat_Allocator>) -> Result<core::Stream> {
 		return_send!(via ocvrs_return);
@@ -24631,17 +16286,6 @@ impl Stream {
 		Ok(ret)
 	}
 	
-	/// creates a new Stream using the cudaFlags argument to determine the behaviors of the stream
-	/// 
-	/// 
-	/// Note: The cudaFlags parameter is passed to the underlying api cudaStreamCreateWithFlags() and
-	/// supports the same parameter values.
-	/// ```ignore
-	///    // creates an OpenCV cuda::Stream that manages an asynchronous, non-blocking,
-	///    // non-default CUDA stream
-	///    cv::cuda::Stream cvStream(cudaStreamNonBlocking);
-	/// ```
-	/// 
 	#[inline]
 	pub fn new_1(cuda_flags: size_t) -> Result<core::Stream> {
 		return_send!(via ocvrs_return);
@@ -24652,7 +16296,6 @@ impl Stream {
 		Ok(ret)
 	}
 	
-	/// return Stream object for default CUDA stream
 	#[inline]
 	pub fn null() -> Result<core::Stream> {
 		return_send!(via ocvrs_return);
@@ -24665,11 +16308,6 @@ impl Stream {
 	
 }
 
-/// Class providing a set of static methods to check what NVIDIA\* card architecture the CUDA module was
-/// built for.
-/// 
-/// According to the CUDA C Programming Guide Version 3.2: "PTX code produced for some specific compute
-/// capability can always be compiled to binary code of greater or equal compute capability".
 pub trait TargetArchsTraitConst {
 	fn as_raw_TargetArchs(&self) -> *const c_void;
 
@@ -24680,11 +16318,6 @@ pub trait TargetArchsTrait: core::TargetArchsTraitConst {
 
 }
 
-/// Class providing a set of static methods to check what NVIDIA\* card architecture the CUDA module was
-/// built for.
-/// 
-/// According to the CUDA C Programming Guide Version 3.2: "PTX code produced for some specific compute
-/// capability can always be compiled to binary code of greater or equal compute capability".
 pub struct TargetArchs {
 	ptr: *mut c_void
 }
@@ -24709,10 +16342,6 @@ impl core::TargetArchsTrait for TargetArchs {
 }
 
 impl TargetArchs {
-	/// The following method checks whether the module was built with the support of the given feature:
-	/// 
-	/// ## Parameters
-	/// * feature_set: Features to be checked. See :ocvcuda::FeatureSet.
 	#[inline]
 	pub fn built_with(feature_set: core::FeatureSet) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -24722,12 +16351,6 @@ impl TargetArchs {
 		Ok(ret)
 	}
 	
-	/// There is a set of methods to check whether the module contains intermediate (PTX) or binary CUDA
-	/// code for the given architecture(s):
-	/// 
-	/// ## Parameters
-	/// * major: Major compute capability version.
-	/// * minor: Minor compute capability version.
 	#[inline]
 	pub fn has(major: i32, minor: i32) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -25179,8 +16802,6 @@ pub trait ContextTraitConst {
 		Ok(ret)
 	}
 	
-	/// ## Returns
-	/// cl_context value
 	#[inline]
 	fn ptr(&self) -> Result<*mut c_void> {
 		return_send!(via ocvrs_return);
@@ -25190,11 +16811,6 @@ pub trait ContextTraitConst {
 		Ok(ret)
 	}
 	
-	/// Get OpenCL context property specified on context creation
-	/// ## Parameters
-	/// * propertyId: Property id (CL_CONTEXT_* as defined in cl_context_properties type)
-	/// ## Returns
-	/// Property value if property was specified on clCreateContext, or NULL if context created without the property
 	#[inline]
 	fn get_opencl_context_property(&self, property_id: i32) -> Result<*mut c_void> {
 		return_send!(via ocvrs_return);
@@ -25227,7 +16843,6 @@ pub trait ContextTraitConst {
 pub trait ContextTrait: core::ContextTraitConst {
 	fn as_raw_mut_Context(&mut self) -> *mut c_void;
 
-	/// @deprecated
 	#[inline]
 	fn create(&mut self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -25237,7 +16852,6 @@ pub trait ContextTrait: core::ContextTraitConst {
 		Ok(ret)
 	}
 	
-	/// @deprecated
 	#[inline]
 	fn create_with_type(&mut self, dtype: i32) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -25359,8 +16973,6 @@ impl Context {
 		Ok(ret)
 	}
 	
-	/// ## Parameters
-	/// * context: OpenCL handle (cl_context). clRetainContext() is called on success
 	#[inline]
 	pub unsafe fn from_handle(context: *mut c_void) -> Result<core::Context> {
 		return_send!(via ocvrs_return);
@@ -25746,7 +17358,6 @@ pub trait DeviceTraitConst {
 		Ok(ret)
 	}
 	
-	/// deprecated, use isExtensionSupported() method (probably with "cl_khr_subgroups" value)
 	#[inline]
 	fn intel_subgroups_support(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -26209,13 +17820,6 @@ impl Device {
 		Ok(ret)
 	}
 	
-	/// ## Parameters
-	/// * d: OpenCL handle (cl_device_id). clRetainDevice() is called on success.
-	/// 
-	/// 
-	/// Note: Ownership of the passed device is passed to OpenCV on success.
-	/// The caller should additionally call `clRetainDevice` on it if it intends
-	/// to continue using the device.
 	#[inline]
 	pub unsafe fn from_handle(d: *mut c_void) -> Result<core::Device> {
 		return_send!(via ocvrs_return);
@@ -26286,12 +17890,6 @@ impl Image2D {
 		ret
 	}
 	
-	/// ## Parameters
-	/// * src: UMat object from which to get image properties and data
-	/// * norm: flag to enable the use of normalized channel data types
-	/// * alias: flag indicating that the image should alias the src UMat. If true, changes to the
-	///    image or src will be reflected in both objects.
-	/// 
 	/// ## C++ default parameters
 	/// * norm: false
 	/// * alias: false
@@ -26322,8 +17920,6 @@ impl Image2D {
 		ret
 	}
 	
-	/// Indicates if creating an aliased image should succeed.
-	/// Depends on the underlying platform and the dimensions of the UMat.
 	#[inline]
 	pub fn can_create_alias(u: &core::UMat) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -26333,7 +17929,6 @@ impl Image2D {
 		Ok(ret)
 	}
 	
-	/// Indicates if the image format is supported.
 	#[inline]
 	pub fn is_format_supported(depth: i32, cn: i32, norm: bool) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -26476,21 +18071,6 @@ pub trait KernelTrait: core::KernelTraitConst {
 		Ok(ret)
 	}
 	
-	/// Run the OpenCL kernel (globalsize value may be adjusted)
-	/// 
-	/// ## Parameters
-	/// * dims: the work problem dimensions. It is the length of globalsize and localsize. It can be either 1, 2 or 3.
-	/// * globalsize: work items for each dimension. It is not the final globalsize passed to
-	///   OpenCL. Each dimension will be adjusted to the nearest integer divisible by the corresponding
-	///   value in localsize. If localsize is NULL, it will still be adjusted depending on dims. The
-	///   adjusted values are greater than or equal to the original values.
-	/// * localsize: work-group size for each dimension.
-	/// * sync: specify whether to wait for OpenCL computation to finish before return.
-	/// * q: command queue
-	/// 
-	/// 
-	/// Note: Use run_() if your kernel code doesn't support adjusted globalsize.
-	/// 
 	/// ## C++ default parameters
 	/// * q: Queue()
 	#[inline]
@@ -26502,15 +18082,6 @@ pub trait KernelTrait: core::KernelTraitConst {
 		Ok(ret)
 	}
 	
-	/// Run the OpenCL kernel
-	/// 
-	/// ## Parameters
-	/// * dims: the work problem dimensions. It is the length of globalsize and localsize. It can be either 1, 2 or 3.
-	/// * globalsize: work items for each dimension. This value is passed to OpenCL without changes.
-	/// * localsize: work-group size for each dimension.
-	/// * sync: specify whether to wait for OpenCL computation to finish before return.
-	/// * q: command queue
-	/// 
 	/// ## C++ default parameters
 	/// * q: Queue()
 	#[inline]
@@ -26533,12 +18104,6 @@ pub trait KernelTrait: core::KernelTraitConst {
 		Ok(ret)
 	}
 	
-	/// Similar to synchronized run_() call with returning of kernel execution time
-	/// 
-	/// Separate OpenCL command queue may be used (with CL_QUEUE_PROFILING_ENABLE)
-	/// ## Returns
-	/// Execution time in nanoseconds or negative number on error
-	/// 
 	/// ## C++ default parameters
 	/// * q: Queue()
 	#[inline]
@@ -26902,7 +18467,6 @@ impl Default for KernelArg {
 pub trait OpenCLExecutionContextTraitConst {
 	fn as_raw_OpenCLExecutionContext(&self) -> *const c_void;
 
-	/// Get associated ocl::Context
 	#[inline]
 	fn get_context(&self) -> Result<core::Context> {
 		return_send!(via ocvrs_return);
@@ -26913,7 +18477,6 @@ pub trait OpenCLExecutionContextTraitConst {
 		Ok(ret)
 	}
 	
-	/// Get the single default associated ocl::Device
 	#[inline]
 	fn get_device(&self) -> Result<core::Device> {
 		return_send!(via ocvrs_return);
@@ -26924,8 +18487,6 @@ pub trait OpenCLExecutionContextTraitConst {
 		Ok(ret)
 	}
 	
-	/// Get the single ocl::Queue that is associated with the ocl::Context and
-	/// the single default ocl::Device
 	#[inline]
 	fn get_queue(&self) -> Result<core::Queue> {
 		return_send!(via ocvrs_return);
@@ -26945,12 +18506,6 @@ pub trait OpenCLExecutionContextTraitConst {
 		Ok(ret)
 	}
 	
-	/// Bind this OpenCL execution context to current thread.
-	/// 
-	/// Context can't be empty.
-	/// 
-	/// 
-	/// Note: clFinish is not called for queue of previous execution context
 	#[inline]
 	fn bind(&self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -26960,10 +18515,6 @@ pub trait OpenCLExecutionContextTraitConst {
 		Ok(ret)
 	}
 	
-	/// Creates new execution context with same OpenCV context and device
-	/// 
-	/// ## Parameters
-	/// * q: OpenCL queue
 	#[inline]
 	fn clone_with_new_queue(&self, q: &core::Queue) -> Result<core::OpenCLExecutionContext> {
 		return_send!(via ocvrs_return);
@@ -26974,12 +18525,6 @@ pub trait OpenCLExecutionContextTraitConst {
 		Ok(ret)
 	}
 	
-	/// Creates new execution context with same OpenCV context and device
-	/// 
-	/// ## Parameters
-	/// * q: OpenCL queue
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn clone_with_new_queue_1(&self) -> Result<core::OpenCLExecutionContext> {
 		return_send!(via ocvrs_return);
@@ -27069,11 +18614,6 @@ impl OpenCLExecutionContext {
 		ret
 	}
 	
-	/// Get OpenCL execution context of current thread.
-	/// 
-	/// Initialize OpenCL execution context if it is empty
-	/// - create new
-	/// - reuse context of the main thread (threadID = 0)
 	#[inline]
 	pub fn get_current() -> Result<core::OpenCLExecutionContext> {
 		return_send!(via ocvrs_return);
@@ -27084,7 +18624,6 @@ impl OpenCLExecutionContext {
 		Ok(ret)
 	}
 	
-	/// Get OpenCL execution context of current thread (can be empty)
 	#[inline]
 	pub fn get_current_ref() -> Result<core::OpenCLExecutionContext> {
 		return_send!(via ocvrs_return);
@@ -27095,21 +18634,6 @@ impl OpenCLExecutionContext {
 		Ok(ret)
 	}
 	
-	/// Creates OpenCL execution context
-	/// OpenCV will check if available OpenCL platform has platformName name,
-	/// then assign context to OpenCV.
-	/// The deviceID device will be used as target device and a new command queue will be created.
-	/// 
-	/// 
-	/// Note: On success, ownership of one reference of the context and device is taken.
-	/// The caller should additionally call `clRetainContext` and/or `clRetainDevice`
-	/// to increase the reference count if it wishes to continue using them.
-	/// 
-	/// ## Parameters
-	/// * platformName: name of OpenCL platform to attach, this string is used to check if platform is available to OpenCV at runtime
-	/// * platformID: ID of platform attached context was created for (cl_platform_id)
-	/// * context: OpenCL context to be attached to OpenCV (cl_context)
-	/// * deviceID: OpenCL device (cl_device_id)
 	#[inline]
 	pub unsafe fn create(platform_name: &str, platform_id: *mut c_void, context: *mut c_void, device_id: *mut c_void) -> Result<core::OpenCLExecutionContext> {
 		extern_container_arg!(platform_name);
@@ -27121,12 +18645,6 @@ impl OpenCLExecutionContext {
 		Ok(ret)
 	}
 	
-	/// Creates OpenCL execution context
-	/// 
-	/// ## Parameters
-	/// * context: non-empty OpenCL context
-	/// * device: non-empty OpenCL device (must be a part of context)
-	/// * queue: non-empty OpenCL queue for provided context and device
 	#[inline]
 	pub fn create_1(context: &core::Context, device: &core::Device, queue: &core::Queue) -> Result<core::OpenCLExecutionContext> {
 		return_send!(via ocvrs_return);
@@ -27137,14 +18655,6 @@ impl OpenCLExecutionContext {
 		Ok(ret)
 	}
 	
-	/// Creates OpenCL execution context
-	/// 
-	/// ## Parameters
-	/// * context: non-empty OpenCL context
-	/// * device: non-empty OpenCL device (must be a part of context)
-	/// * queue: non-empty OpenCL queue for provided context and device
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	pub fn create_2(context: &core::Context, device: &core::Device) -> Result<core::OpenCLExecutionContext> {
 		return_send!(via ocvrs_return);
@@ -27165,7 +18675,6 @@ impl Default for OpenCLExecutionContext {
 	}
 }
 
-/// @deprecated
 pub trait PlatformTraitConst {
 	fn as_raw_Platform(&self) -> *const c_void;
 
@@ -27194,7 +18703,6 @@ pub trait PlatformTrait: core::PlatformTraitConst {
 
 }
 
-/// @deprecated
 pub struct Platform {
 	ptr: *mut c_void
 }
@@ -27243,7 +18751,6 @@ impl Platform {
 		ret
 	}
 	
-	/// @deprecated
 	#[inline]
 	pub fn get_default() -> Result<core::Platform> {
 		return_send!(via ocvrs_return);
@@ -27287,7 +18794,6 @@ pub trait PlatformInfoTraitConst {
 		Ok(ret)
 	}
 	
-	/// See CL_PLATFORM_VERSION
 	#[inline]
 	fn version(&self) -> Result<String> {
 		return_send!(via ocvrs_return);
@@ -27381,8 +18887,6 @@ impl PlatformInfo {
 		ret
 	}
 	
-	/// ## Parameters
-	/// * id: pointer cl_platform_id (cl_platform_id*)
 	#[inline]
 	pub unsafe fn new(id: *mut c_void) -> Result<core::PlatformInfo> {
 		return_send!(via ocvrs_return);
@@ -27432,14 +18936,6 @@ pub trait ProgramTraitConst {
 		Ok(ret)
 	}
 	
-	/// Query device-specific program binary.
-	/// 
-	/// Returns RAW OpenCL executable binary without additional attachments.
-	/// ## See also
-	/// ProgramSource::fromBinary
-	/// 
-	/// ## Parameters
-	/// * binary:[out] output buffer
 	#[inline]
 	fn get_binary(&self, binary: &mut core::Vector<i8>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -27712,22 +19208,6 @@ impl ProgramSource {
 		ret
 	}
 	
-	/// Describe OpenCL program binary.
-	/// Do not call clCreateProgramWithBinary() and/or clBuildProgram().
-	/// 
-	/// Caller should guarantee binary buffer lifetime greater than ProgramSource object (and any of its copies).
-	/// 
-	/// This kind of binary is not portable between platforms in general - it is specific to OpenCL vendor / device / driver version.
-	/// 
-	/// ## Parameters
-	/// * module: name of program owner module
-	/// * name: unique name of program (module+name is used as key for OpenCL program caching)
-	/// * binary: buffer address. See buffer lifetime requirement in description.
-	/// * size: buffer size
-	/// * buildOptions: additional program-related build options passed to clBuildProgram()
-	/// ## Returns
-	/// created ProgramSource object
-	/// 
 	/// ## C++ default parameters
 	/// * build_options: cv::String()
 	#[inline]
@@ -27743,29 +19223,6 @@ impl ProgramSource {
 		Ok(ret)
 	}
 	
-	/// Describe OpenCL program in SPIR format.
-	/// Do not call clCreateProgramWithBinary() and/or clBuildProgram().
-	/// 
-	/// Supports SPIR 1.2 by default (pass '-spir-std=X.Y' in buildOptions to override this behavior)
-	/// 
-	/// Caller should guarantee binary buffer lifetime greater than ProgramSource object (and any of its copies).
-	/// 
-	/// Programs in this format are portable between OpenCL implementations with 'khr_spir' extension:
-	/// https://www.khronos.org/registry/OpenCL/sdk/2.0/docs/man/xhtml/cl_khr_spir.html
-	/// (but they are not portable between different platforms: 32-bit / 64-bit)
-	/// 
-	/// Note: these programs can't support vendor specific extensions, like 'cl_intel_subgroups'.
-	/// 
-	/// ## Parameters
-	/// * module: name of program owner module
-	/// * name: unique name of program (module+name is used as key for OpenCL program caching)
-	/// * binary: buffer address. See buffer lifetime requirement in description.
-	/// * size: buffer size
-	/// * buildOptions: additional program-related build options passed to clBuildProgram()
-	///        (these options are added automatically: '-x spir' and '-spir-std=1.2')
-	/// ## Returns
-	/// created ProgramSource object.
-	/// 
 	/// ## C++ default parameters
 	/// * build_options: cv::String()
 	#[inline]
@@ -27803,7 +19260,6 @@ pub trait QueueTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns OpenCL command queue with enable profiling mode support
 	#[inline]
 	fn get_profiling_queue(&self) -> Result<core::Queue> {
 		return_send!(via ocvrs_return);
@@ -28004,13 +19460,9 @@ impl Timer {
 	
 }
 
-/// Wrapper for OpenGL Client-Side Vertex arrays.
-/// 
-/// ogl::Arrays stores vertex data in ogl::Buffer objects.
 pub trait ArraysTraitConst {
 	fn as_raw_Arrays(&self) -> *const c_void;
 
-	/// Binds all vertex arrays.
 	#[inline]
 	fn bind(&self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -28020,7 +19472,6 @@ pub trait ArraysTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns the vertex count.
 	#[inline]
 	fn size(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -28044,9 +19495,6 @@ pub trait ArraysTraitConst {
 pub trait ArraysTrait: core::ArraysTraitConst {
 	fn as_raw_mut_Arrays(&mut self) -> *mut c_void;
 
-	/// Sets an array of vertex coordinates.
-	/// ## Parameters
-	/// * vertex: array with vertex coordinates, can be both host and device memory.
 	#[inline]
 	fn set_vertex_array(&mut self, vertex: &dyn core::ToInputArray) -> Result<()> {
 		input_array_arg!(vertex);
@@ -28057,7 +19505,6 @@ pub trait ArraysTrait: core::ArraysTraitConst {
 		Ok(ret)
 	}
 	
-	/// Resets vertex coordinates.
 	#[inline]
 	fn reset_vertex_array(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -28067,9 +19514,6 @@ pub trait ArraysTrait: core::ArraysTraitConst {
 		Ok(ret)
 	}
 	
-	/// Sets an array of vertex colors.
-	/// ## Parameters
-	/// * color: array with vertex colors, can be both host and device memory.
 	#[inline]
 	fn set_color_array(&mut self, color: &dyn core::ToInputArray) -> Result<()> {
 		input_array_arg!(color);
@@ -28080,7 +19524,6 @@ pub trait ArraysTrait: core::ArraysTraitConst {
 		Ok(ret)
 	}
 	
-	/// Resets vertex colors.
 	#[inline]
 	fn reset_color_array(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -28090,9 +19533,6 @@ pub trait ArraysTrait: core::ArraysTraitConst {
 		Ok(ret)
 	}
 	
-	/// Sets an array of vertex normals.
-	/// ## Parameters
-	/// * normal: array with vertex normals, can be both host and device memory.
 	#[inline]
 	fn set_normal_array(&mut self, normal: &dyn core::ToInputArray) -> Result<()> {
 		input_array_arg!(normal);
@@ -28103,7 +19543,6 @@ pub trait ArraysTrait: core::ArraysTraitConst {
 		Ok(ret)
 	}
 	
-	/// Resets vertex normals.
 	#[inline]
 	fn reset_normal_array(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -28113,9 +19552,6 @@ pub trait ArraysTrait: core::ArraysTraitConst {
 		Ok(ret)
 	}
 	
-	/// Sets an array of vertex texture coordinates.
-	/// ## Parameters
-	/// * texCoord: array with vertex texture coordinates, can be both host and device memory.
 	#[inline]
 	fn set_tex_coord_array(&mut self, tex_coord: &dyn core::ToInputArray) -> Result<()> {
 		input_array_arg!(tex_coord);
@@ -28126,7 +19562,6 @@ pub trait ArraysTrait: core::ArraysTraitConst {
 		Ok(ret)
 	}
 	
-	/// Resets vertex texture coordinates.
 	#[inline]
 	fn reset_tex_coord_array(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -28136,7 +19571,6 @@ pub trait ArraysTrait: core::ArraysTraitConst {
 		Ok(ret)
 	}
 	
-	/// Releases all inner buffers.
 	#[inline]
 	fn release(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -28146,9 +19580,6 @@ pub trait ArraysTrait: core::ArraysTraitConst {
 		Ok(ret)
 	}
 	
-	/// Sets auto release mode all inner buffers.
-	/// ## Parameters
-	/// * flag: Auto release mode.
 	#[inline]
 	fn set_auto_release(&mut self, flag: bool) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -28160,9 +19591,6 @@ pub trait ArraysTrait: core::ArraysTraitConst {
 	
 }
 
-/// Wrapper for OpenGL Client-Side Vertex arrays.
-/// 
-/// ogl::Arrays stores vertex data in ogl::Buffer objects.
 pub struct Arrays {
 	ptr: *mut c_void
 }
@@ -28187,7 +19615,6 @@ impl core::ArraysTrait for Arrays {
 }
 
 impl Arrays {
-	/// Default constructor
 	#[inline]
 	pub fn default() -> Result<core::Arrays> {
 		return_send!(via ocvrs_return);
@@ -28200,23 +19627,9 @@ impl Arrays {
 	
 }
 
-/// Smart pointer for OpenGL buffer object with reference counting.
-/// 
-/// Buffer Objects are OpenGL objects that store an array of unformatted memory allocated by the OpenGL
-/// context. These can be used to store vertex data, pixel data retrieved from images or the
-/// framebuffer, and a variety of other things.
-/// 
-/// ogl::Buffer has interface similar with Mat interface and represents 2D array memory.
-/// 
-/// ogl::Buffer supports memory transfers between host and device and also can be mapped to CUDA memory.
 pub trait BufferTraitConst {
 	fn as_raw_Buffer(&self) -> *const c_void;
 
-	/// Copies from OpenGL buffer to host/device memory or another OpenGL buffer object.
-	/// 
-	/// ## Parameters
-	/// * arr: Destination array (host or device memory, can be Mat , cuda::GpuMat , std::vector or
-	/// ogl::Buffer ).
 	#[inline]
 	fn copy_to(&self, arr: &mut dyn core::ToOutputArray) -> Result<()> {
 		output_array_arg!(arr);
@@ -28227,13 +19640,6 @@ pub trait BufferTraitConst {
 		Ok(ret)
 	}
 	
-	/// Copies from OpenGL buffer to host/device memory or another OpenGL buffer object.
-	/// 
-	/// ## Parameters
-	/// * arr: Destination array (host or device memory, can be Mat , cuda::GpuMat , std::vector or
-	/// ogl::Buffer ).
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn copy_to_1(&self, arr: &mut dyn core::ToOutputArray, stream: &mut core::Stream) -> Result<()> {
 		output_array_arg!(arr);
@@ -28244,12 +19650,6 @@ pub trait BufferTraitConst {
 		Ok(ret)
 	}
 	
-	/// Creates a full copy of the buffer object and the underlying data.
-	/// 
-	/// ## Parameters
-	/// * target: Buffer usage for destination buffer.
-	/// * autoRelease: Auto release mode for destination buffer.
-	/// 
 	/// ## C++ default parameters
 	/// * target: ARRAY_BUFFER
 	/// * auto_release: false
@@ -28263,10 +19663,6 @@ pub trait BufferTraitConst {
 		Ok(ret)
 	}
 	
-	/// Binds OpenGL buffer to the specified buffer binding point.
-	/// 
-	/// ## Parameters
-	/// * target: Binding point. See cv::ogl::Buffer::Target .
 	#[inline]
 	fn bind(&self, target: core::Buffer_Target) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -28357,7 +19753,6 @@ pub trait BufferTraitConst {
 		Ok(ret)
 	}
 	
-	/// get OpenGL opject id
 	#[inline]
 	fn buf_id(&self) -> Result<u32> {
 		return_send!(via ocvrs_return);
@@ -28372,15 +19767,6 @@ pub trait BufferTraitConst {
 pub trait BufferTrait: core::BufferTraitConst {
 	fn as_raw_mut_Buffer(&mut self) -> *mut c_void;
 
-	/// Allocates memory for ogl::Buffer object.
-	/// 
-	/// ## Parameters
-	/// * arows: Number of rows in a 2D array.
-	/// * acols: Number of columns in a 2D array.
-	/// * atype: Array type ( CV_8UC1, ..., CV_64FC4 ). See Mat for details.
-	/// * target: Buffer usage. See cv::ogl::Buffer::Target .
-	/// * autoRelease: Auto release mode (if true, release will be called in object's destructor).
-	/// 
 	/// ## C++ default parameters
 	/// * target: ARRAY_BUFFER
 	/// * auto_release: false
@@ -28393,22 +19779,6 @@ pub trait BufferTrait: core::BufferTraitConst {
 		Ok(ret)
 	}
 	
-	/// Allocates memory for ogl::Buffer object.
-	/// 
-	/// ## Parameters
-	/// * arows: Number of rows in a 2D array.
-	/// * acols: Number of columns in a 2D array.
-	/// * atype: Array type ( CV_8UC1, ..., CV_64FC4 ). See Mat for details.
-	/// * target: Buffer usage. See cv::ogl::Buffer::Target .
-	/// * autoRelease: Auto release mode (if true, release will be called in object's destructor).
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * asize: 2D array size.
-	/// * atype: Array type ( CV_8UC1, ..., CV_64FC4 ). See Mat for details.
-	/// * target: Buffer usage. See cv::ogl::Buffer::Target .
-	/// * autoRelease: Auto release mode (if true, release will be called in object's destructor).
-	/// 
 	/// ## C++ default parameters
 	/// * target: ARRAY_BUFFER
 	/// * auto_release: false
@@ -28421,9 +19791,6 @@ pub trait BufferTrait: core::BufferTraitConst {
 		Ok(ret)
 	}
 	
-	/// Decrements the reference counter and destroys the buffer object if needed.
-	/// 
-	/// The function will call setAutoRelease(true) .
 	#[inline]
 	fn release(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -28433,15 +19800,6 @@ pub trait BufferTrait: core::BufferTraitConst {
 		Ok(ret)
 	}
 	
-	/// Sets auto release mode.
-	/// 
-	/// The lifetime of the OpenGL object is tied to the lifetime of the context. If OpenGL context was
-	/// bound to a window it could be released at any time (user can close a window). If object's destructor
-	/// is called after destruction of the context it will cause an error. Thus ogl::Buffer doesn't destroy
-	/// OpenGL object in destructor by default (all OpenGL resources will be released with OpenGL context).
-	/// This function can force ogl::Buffer destructor to destroy OpenGL object.
-	/// ## Parameters
-	/// * flag: Auto release mode (if true, release will be called in object's destructor).
 	#[inline]
 	fn set_auto_release(&mut self, flag: bool) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -28451,12 +19809,6 @@ pub trait BufferTrait: core::BufferTraitConst {
 		Ok(ret)
 	}
 	
-	/// Copies from host/device memory to OpenGL buffer.
-	/// ## Parameters
-	/// * arr: Input array (host or device memory, it can be Mat , cuda::GpuMat or std::vector ).
-	/// * target: Buffer usage. See cv::ogl::Buffer::Target .
-	/// * autoRelease: Auto release mode (if true, release will be called in object's destructor).
-	/// 
 	/// ## C++ default parameters
 	/// * target: ARRAY_BUFFER
 	/// * auto_release: false
@@ -28470,14 +19822,6 @@ pub trait BufferTrait: core::BufferTraitConst {
 		Ok(ret)
 	}
 	
-	/// Copies from host/device memory to OpenGL buffer.
-	/// ## Parameters
-	/// * arr: Input array (host or device memory, it can be Mat , cuda::GpuMat or std::vector ).
-	/// * target: Buffer usage. See cv::ogl::Buffer::Target .
-	/// * autoRelease: Auto release mode (if true, release will be called in object's destructor).
-	/// 
-	/// ## Overloaded parameters
-	/// 
 	/// ## C++ default parameters
 	/// * target: ARRAY_BUFFER
 	/// * auto_release: false
@@ -28491,21 +19835,6 @@ pub trait BufferTrait: core::BufferTraitConst {
 		Ok(ret)
 	}
 	
-	/// Maps OpenGL buffer to host memory.
-	/// 
-	/// mapHost maps to the client's address space the entire data store of the buffer object. The data can
-	/// then be directly read and/or written relative to the returned pointer, depending on the specified
-	/// access policy.
-	/// 
-	/// A mapped data store must be unmapped with ogl::Buffer::unmapHost before its buffer object is used.
-	/// 
-	/// This operation can lead to memory transfers between host and device.
-	/// 
-	/// Only one buffer object can be mapped at a time.
-	/// ## Parameters
-	/// * access: Access policy, indicating whether it will be possible to read from, write to, or both
-	/// read from and write to the buffer object's mapped data store. The symbolic constant must be
-	/// ogl::Buffer::READ_ONLY , ogl::Buffer::WRITE_ONLY or ogl::Buffer::READ_WRITE .
 	#[inline]
 	fn map_host(&mut self, access: core::Buffer_Access) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -28516,7 +19845,6 @@ pub trait BufferTrait: core::BufferTraitConst {
 		Ok(ret)
 	}
 	
-	/// Unmaps OpenGL buffer.
 	#[inline]
 	fn unmap_host(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -28526,7 +19854,6 @@ pub trait BufferTrait: core::BufferTraitConst {
 		Ok(ret)
 	}
 	
-	/// map to device memory (blocking)
 	#[inline]
 	fn map_device(&mut self) -> Result<core::GpuMat> {
 		return_send!(via ocvrs_return);
@@ -28546,11 +19873,6 @@ pub trait BufferTrait: core::BufferTraitConst {
 		Ok(ret)
 	}
 	
-	/// Maps OpenGL buffer to CUDA device memory.
-	/// 
-	/// This operation doesn't copy data. Several buffer objects can be mapped to CUDA memory at a time.
-	/// 
-	/// A mapped data store must be unmapped with ogl::Buffer::unmapDevice before its buffer object is used.
 	#[inline]
 	fn map_device_1(&mut self, stream: &mut core::Stream) -> Result<core::GpuMat> {
 		return_send!(via ocvrs_return);
@@ -28561,7 +19883,6 @@ pub trait BufferTrait: core::BufferTraitConst {
 		Ok(ret)
 	}
 	
-	/// Unmaps OpenGL buffer.
 	#[inline]
 	fn unmap_device_1(&mut self, stream: &mut core::Stream) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -28573,15 +19894,6 @@ pub trait BufferTrait: core::BufferTraitConst {
 	
 }
 
-/// Smart pointer for OpenGL buffer object with reference counting.
-/// 
-/// Buffer Objects are OpenGL objects that store an array of unformatted memory allocated by the OpenGL
-/// context. These can be used to store vertex data, pixel data retrieved from images or the
-/// framebuffer, and a variety of other things.
-/// 
-/// ogl::Buffer has interface similar with Mat interface and represents 2D array memory.
-/// 
-/// ogl::Buffer supports memory transfers between host and device and also can be mapped to CUDA memory.
 pub struct Buffer {
 	ptr: *mut c_void
 }
@@ -28606,10 +19918,6 @@ impl core::BufferTrait for Buffer {
 }
 
 impl Buffer {
-	/// The constructors.
-	/// 
-	/// Creates empty ogl::Buffer object, creates ogl::Buffer object from existed buffer ( abufId
-	/// parameter), allocates memory for ogl::Buffer object or copies from host/device memory.
 	#[inline]
 	pub fn default() -> Result<core::Buffer> {
 		return_send!(via ocvrs_return);
@@ -28620,20 +19928,6 @@ impl Buffer {
 		Ok(ret)
 	}
 	
-	/// The constructors.
-	/// 
-	/// Creates empty ogl::Buffer object, creates ogl::Buffer object from existed buffer ( abufId
-	/// parameter), allocates memory for ogl::Buffer object or copies from host/device memory.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * arows: Number of rows in a 2D array.
-	/// * acols: Number of columns in a 2D array.
-	/// * atype: Array type ( CV_8UC1, ..., CV_64FC4 ). See Mat for details.
-	/// * abufId: Buffer object name.
-	/// * autoRelease: Auto release mode (if true, release will be called in object's destructor).
-	/// 
 	/// ## C++ default parameters
 	/// * auto_release: false
 	#[inline]
@@ -28646,19 +19940,6 @@ impl Buffer {
 		Ok(ret)
 	}
 	
-	/// The constructors.
-	/// 
-	/// Creates empty ogl::Buffer object, creates ogl::Buffer object from existed buffer ( abufId
-	/// parameter), allocates memory for ogl::Buffer object or copies from host/device memory.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * asize: 2D array size.
-	/// * atype: Array type ( CV_8UC1, ..., CV_64FC4 ). See Mat for details.
-	/// * abufId: Buffer object name.
-	/// * autoRelease: Auto release mode (if true, release will be called in object's destructor).
-	/// 
 	/// ## C++ default parameters
 	/// * auto_release: false
 	#[inline]
@@ -28671,20 +19952,6 @@ impl Buffer {
 		Ok(ret)
 	}
 	
-	/// The constructors.
-	/// 
-	/// Creates empty ogl::Buffer object, creates ogl::Buffer object from existed buffer ( abufId
-	/// parameter), allocates memory for ogl::Buffer object or copies from host/device memory.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * arows: Number of rows in a 2D array.
-	/// * acols: Number of columns in a 2D array.
-	/// * atype: Array type ( CV_8UC1, ..., CV_64FC4 ). See Mat for details.
-	/// * target: Buffer usage. See cv::ogl::Buffer::Target .
-	/// * autoRelease: Auto release mode (if true, release will be called in object's destructor).
-	/// 
 	/// ## C++ default parameters
 	/// * target: ARRAY_BUFFER
 	/// * auto_release: false
@@ -28698,19 +19965,6 @@ impl Buffer {
 		Ok(ret)
 	}
 	
-	/// The constructors.
-	/// 
-	/// Creates empty ogl::Buffer object, creates ogl::Buffer object from existed buffer ( abufId
-	/// parameter), allocates memory for ogl::Buffer object or copies from host/device memory.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * asize: 2D array size.
-	/// * atype: Array type ( CV_8UC1, ..., CV_64FC4 ). See Mat for details.
-	/// * target: Buffer usage. See cv::ogl::Buffer::Target .
-	/// * autoRelease: Auto release mode (if true, release will be called in object's destructor).
-	/// 
 	/// ## C++ default parameters
 	/// * target: ARRAY_BUFFER
 	/// * auto_release: false
@@ -28724,18 +19978,6 @@ impl Buffer {
 		Ok(ret)
 	}
 	
-	/// The constructors.
-	/// 
-	/// Creates empty ogl::Buffer object, creates ogl::Buffer object from existed buffer ( abufId
-	/// parameter), allocates memory for ogl::Buffer object or copies from host/device memory.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * arr: Input array (host or device memory, it can be Mat , cuda::GpuMat or std::vector ).
-	/// * target: Buffer usage. See cv::ogl::Buffer::Target .
-	/// * autoRelease: Auto release mode (if true, release will be called in object's destructor).
-	/// 
 	/// ## C++ default parameters
 	/// * target: ARRAY_BUFFER
 	/// * auto_release: false
@@ -28750,10 +19992,6 @@ impl Buffer {
 		Ok(ret)
 	}
 	
-	/// Unbind any buffers from the specified binding point.
-	/// 
-	/// ## Parameters
-	/// * target: Binding point. See cv::ogl::Buffer::Target .
 	#[inline]
 	pub fn unbind(target: core::Buffer_Target) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -28765,18 +20003,9 @@ impl Buffer {
 	
 }
 
-/// Smart pointer for OpenGL 2D texture memory with reference counting.
 pub trait Texture2DTraitConst {
 	fn as_raw_Texture2D(&self) -> *const c_void;
 
-	/// Copies from OpenGL texture to host/device memory or another OpenGL texture object.
-	/// 
-	/// ## Parameters
-	/// * arr: Destination array (host or device memory, can be Mat , cuda::GpuMat , ogl::Buffer or
-	/// ogl::Texture2D ).
-	/// * ddepth: Destination depth.
-	/// * autoRelease: Auto release mode for destination buffer (if arr is OpenGL buffer or texture).
-	/// 
 	/// ## C++ default parameters
 	/// * ddepth: CV_32F
 	/// * auto_release: false
@@ -28790,7 +20019,6 @@ pub trait Texture2DTraitConst {
 		Ok(ret)
 	}
 	
-	/// Binds texture to current active texture unit for GL_TEXTURE_2D target.
 	#[inline]
 	fn bind(&self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -28845,7 +20073,6 @@ pub trait Texture2DTraitConst {
 		Ok(ret)
 	}
 	
-	/// get OpenGL opject id
 	#[inline]
 	fn tex_id(&self) -> Result<u32> {
 		return_send!(via ocvrs_return);
@@ -28860,14 +20087,6 @@ pub trait Texture2DTraitConst {
 pub trait Texture2DTrait: core::Texture2DTraitConst {
 	fn as_raw_mut_Texture2D(&mut self) -> *mut c_void;
 
-	/// Allocates memory for ogl::Texture2D object.
-	/// 
-	/// ## Parameters
-	/// * arows: Number of rows.
-	/// * acols: Number of columns.
-	/// * aformat: Image format. See cv::ogl::Texture2D::Format .
-	/// * autoRelease: Auto release mode (if true, release will be called in object's destructor).
-	/// 
 	/// ## C++ default parameters
 	/// * auto_release: false
 	#[inline]
@@ -28879,20 +20098,6 @@ pub trait Texture2DTrait: core::Texture2DTraitConst {
 		Ok(ret)
 	}
 	
-	/// Allocates memory for ogl::Texture2D object.
-	/// 
-	/// ## Parameters
-	/// * arows: Number of rows.
-	/// * acols: Number of columns.
-	/// * aformat: Image format. See cv::ogl::Texture2D::Format .
-	/// * autoRelease: Auto release mode (if true, release will be called in object's destructor).
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * asize: 2D array size.
-	/// * aformat: Image format. See cv::ogl::Texture2D::Format .
-	/// * autoRelease: Auto release mode (if true, release will be called in object's destructor).
-	/// 
 	/// ## C++ default parameters
 	/// * auto_release: false
 	#[inline]
@@ -28904,9 +20109,6 @@ pub trait Texture2DTrait: core::Texture2DTraitConst {
 		Ok(ret)
 	}
 	
-	/// Decrements the reference counter and destroys the texture object if needed.
-	/// 
-	/// The function will call setAutoRelease(true) .
 	#[inline]
 	fn release(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -28916,16 +20118,6 @@ pub trait Texture2DTrait: core::Texture2DTraitConst {
 		Ok(ret)
 	}
 	
-	/// Sets auto release mode.
-	/// 
-	/// ## Parameters
-	/// * flag: Auto release mode (if true, release will be called in object's destructor).
-	/// 
-	/// The lifetime of the OpenGL object is tied to the lifetime of the context. If OpenGL context was
-	/// bound to a window it could be released at any time (user can close a window). If object's destructor
-	/// is called after destruction of the context it will cause an error. Thus ogl::Texture2D doesn't
-	/// destroy OpenGL object in destructor by default (all OpenGL resources will be released with OpenGL
-	/// context). This function can force ogl::Texture2D destructor to destroy OpenGL object.
 	#[inline]
 	fn set_auto_release(&mut self, flag: bool) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -28935,12 +20127,6 @@ pub trait Texture2DTrait: core::Texture2DTraitConst {
 		Ok(ret)
 	}
 	
-	/// Copies from host/device memory to OpenGL texture.
-	/// 
-	/// ## Parameters
-	/// * arr: Input array (host or device memory, it can be Mat , cuda::GpuMat or ogl::Buffer ).
-	/// * autoRelease: Auto release mode (if true, release will be called in object's destructor).
-	/// 
 	/// ## C++ default parameters
 	/// * auto_release: false
 	#[inline]
@@ -28955,7 +20141,6 @@ pub trait Texture2DTrait: core::Texture2DTraitConst {
 	
 }
 
-/// Smart pointer for OpenGL 2D texture memory with reference counting.
 pub struct Texture2D {
 	ptr: *mut c_void
 }
@@ -28980,10 +20165,6 @@ impl core::Texture2DTrait for Texture2D {
 }
 
 impl Texture2D {
-	/// The constructors.
-	/// 
-	/// Creates empty ogl::Texture2D object, allocates memory for ogl::Texture2D object or copies from
-	/// host/device memory.
 	#[inline]
 	pub fn default() -> Result<core::Texture2D> {
 		return_send!(via ocvrs_return);
@@ -28994,13 +20175,6 @@ impl Texture2D {
 		Ok(ret)
 	}
 	
-	/// The constructors.
-	/// 
-	/// Creates empty ogl::Texture2D object, allocates memory for ogl::Texture2D object or copies from
-	/// host/device memory.
-	/// 
-	/// ## Overloaded parameters
-	/// 
 	/// ## C++ default parameters
 	/// * auto_release: false
 	#[inline]
@@ -29013,13 +20187,6 @@ impl Texture2D {
 		Ok(ret)
 	}
 	
-	/// The constructors.
-	/// 
-	/// Creates empty ogl::Texture2D object, allocates memory for ogl::Texture2D object or copies from
-	/// host/device memory.
-	/// 
-	/// ## Overloaded parameters
-	/// 
 	/// ## C++ default parameters
 	/// * auto_release: false
 	#[inline]
@@ -29032,19 +20199,6 @@ impl Texture2D {
 		Ok(ret)
 	}
 	
-	/// The constructors.
-	/// 
-	/// Creates empty ogl::Texture2D object, allocates memory for ogl::Texture2D object or copies from
-	/// host/device memory.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * arows: Number of rows.
-	/// * acols: Number of columns.
-	/// * aformat: Image format. See cv::ogl::Texture2D::Format .
-	/// * autoRelease: Auto release mode (if true, release will be called in object's destructor).
-	/// 
 	/// ## C++ default parameters
 	/// * auto_release: false
 	#[inline]
@@ -29057,18 +20211,6 @@ impl Texture2D {
 		Ok(ret)
 	}
 	
-	/// The constructors.
-	/// 
-	/// Creates empty ogl::Texture2D object, allocates memory for ogl::Texture2D object or copies from
-	/// host/device memory.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * asize: 2D array size.
-	/// * aformat: Image format. See cv::ogl::Texture2D::Format .
-	/// * autoRelease: Auto release mode (if true, release will be called in object's destructor).
-	/// 
 	/// ## C++ default parameters
 	/// * auto_release: false
 	#[inline]
@@ -29081,17 +20223,6 @@ impl Texture2D {
 		Ok(ret)
 	}
 	
-	/// The constructors.
-	/// 
-	/// Creates empty ogl::Texture2D object, allocates memory for ogl::Texture2D object or copies from
-	/// host/device memory.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// ## Parameters
-	/// * arr: Input array (host or device memory, it can be Mat , cuda::GpuMat or ogl::Buffer ).
-	/// * autoRelease: Auto release mode (if true, release will be called in object's destructor).
-	/// 
 	/// ## C++ default parameters
 	/// * auto_release: false
 	#[inline]

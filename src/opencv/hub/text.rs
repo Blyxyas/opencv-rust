@@ -65,26 +65,7 @@ pub mod prelude {
 
 pub const ERFILTER_NM_IHSGrad: i32 = 1;
 pub const ERFILTER_NM_RGBLGrad: i32 = 0;
-/// Text grouping method proposed in [Gomez13](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Gomez13) [Gomez14](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Gomez14) for grouping arbitrary oriented text. Regions
-/// are agglomerated by Single Linkage Clustering in a weighted feature space that combines proximity
-/// (x,y coordinates) and similarity measures (color, size, gradient magnitude, stroke width, etc.).
-/// SLC provides a dendrogram where each node represents a text group hypothesis. Then the algorithm
-/// finds the branches corresponding to text groups by traversing this dendrogram with a stopping rule
-/// that combines the output of a rotation invariant text group classifier and a probabilistic measure
-/// for hierarchical clustering validity assessment.
-/// 
-/// 
-/// Note: This mode is not supported due NFA code removal ( https://github.com/opencv/opencv_contrib/issues/2235 )
 pub const ERGROUPING_ORIENTATION_ANY: i32 = 1;
-/// Exhaustive Search algorithm proposed in [Neumann11](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Neumann11) for grouping horizontally aligned text.
-/// The algorithm models a verification function for all the possible ER sequences. The
-/// verification fuction for ER pairs consists in a set of threshold-based pairwise rules which
-/// compare measurements of two regions (height ratio, centroid angle, and region distance). The
-/// verification function for ER triplets creates a word text line estimate using Least
-/// Median-Squares fitting for a given triplet and then verifies that the estimate is valid (based
-/// on thresholds created during training). Verification functions for sequences larger than 3 are
-/// approximated by verifying that the text line parameters of all (sub)sequences of length 3 are
-/// consistent.
 pub const ERGROUPING_ORIENTATION_HORIZ: i32 = 0;
 pub const OCR_CNN_CLASSIFIER: i32 = 1;
 pub const OCR_DECODER_VITERBI: i32 = 0;
@@ -123,36 +104,15 @@ pub enum decoder_mode {
 
 opencv_type_enum! { crate::text::decoder_mode }
 
-/// text::erGrouping operation modes
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum erGrouping_Modes {
-	/// Exhaustive Search algorithm proposed in [Neumann11](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Neumann11) for grouping horizontally aligned text.
-	/// The algorithm models a verification function for all the possible ER sequences. The
-	/// verification fuction for ER pairs consists in a set of threshold-based pairwise rules which
-	/// compare measurements of two regions (height ratio, centroid angle, and region distance). The
-	/// verification function for ER triplets creates a word text line estimate using Least
-	/// Median-Squares fitting for a given triplet and then verifies that the estimate is valid (based
-	/// on thresholds created during training). Verification functions for sequences larger than 3 are
-	/// approximated by verifying that the text line parameters of all (sub)sequences of length 3 are
-	/// consistent.
 	ERGROUPING_ORIENTATION_HORIZ = 0,
-	/// Text grouping method proposed in [Gomez13](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Gomez13) [Gomez14](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Gomez14) for grouping arbitrary oriented text. Regions
-	/// are agglomerated by Single Linkage Clustering in a weighted feature space that combines proximity
-	/// (x,y coordinates) and similarity measures (color, size, gradient magnitude, stroke width, etc.).
-	/// SLC provides a dendrogram where each node represents a text group hypothesis. Then the algorithm
-	/// finds the branches corresponding to text groups by traversing this dendrogram with a stopping rule
-	/// that combines the output of a rotation invariant text group classifier and a probabilistic measure
-	/// for hierarchical clustering validity assessment.
-	/// 
-	/// 
-	/// Note: This mode is not supported due NFA code removal ( https://github.com/opencv/opencv_contrib/issues/2235 )
 	ERGROUPING_ORIENTATION_ANY = 1,
 }
 
 opencv_type_enum! { crate::text::erGrouping_Modes }
 
-/// Tesseract.OcrEngineMode Enumeration
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum ocr_engine_mode {
@@ -164,7 +124,6 @@ pub enum ocr_engine_mode {
 
 opencv_type_enum! { crate::text::ocr_engine_mode }
 
-/// Tesseract.PageSegMode Enumeration
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum page_seg_mode {
@@ -183,22 +142,6 @@ pub enum page_seg_mode {
 
 opencv_type_enum! { crate::text::page_seg_mode }
 
-/// Converts MSER contours (vector\<Point\>) to ERStat regions.
-/// 
-/// ## Parameters
-/// * image: Source image CV_8UC1 from which the MSERs where extracted.
-/// 
-/// * contours: Input vector with all the contours (vector\<Point\>).
-/// 
-/// * regions: Output where the ERStat regions are stored.
-/// 
-/// It takes as input the contours provided by the OpenCV MSER feature detector and returns as output
-/// two vectors of ERStats. This is because MSER() output contains both MSER+ and MSER- regions in a
-/// single vector\<Point\>, the function separates them in two different vectors (this is as if the
-/// ERStats where extracted from two different channels).
-/// 
-/// An example of MSERsToERStats in use can be found in the text detection webcam_demo:
-/// <https://github.com/opencv/opencv_contrib/blob/master/modules/text/samples/webcam_demo.cpp>
 #[inline]
 pub fn mse_rs_to_er_stats(image: &dyn core::ToInputArray, contours: &mut core::Vector<core::Vector<core::Point>>, regions: &mut core::Vector<core::Vector<crate::text::ERStat>>) -> Result<()> {
 	input_array_arg!(image);
@@ -209,21 +152,6 @@ pub fn mse_rs_to_er_stats(image: &dyn core::ToInputArray, contours: &mut core::V
 	Ok(ret)
 }
 
-/// Compute the different channels to be processed independently in the N&M algorithm [Neumann12](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Neumann12).
-/// 
-/// ## Parameters
-/// * _src: Source image. Must be RGB CV_8UC3.
-/// 
-/// * _channels: Output vector\<Mat\> where computed channels are stored.
-/// 
-/// * _mode: Mode of operation. Currently the only available options are:
-/// **ERFILTER_NM_RGBLGrad** (used by default) and **ERFILTER_NM_IHSGrad**.
-/// 
-/// In N&M algorithm, the combination of intensity (I), hue (H), saturation (S), and gradient magnitude
-/// channels (Grad) are used in order to obtain high localization recall. This implementation also
-/// provides an alternative combination of red (R), green (G), blue (B), lightness (L), and gradient
-/// magnitude (Grad).
-/// 
 /// ## C++ default parameters
 /// * _mode: ERFILTER_NM_RGBLGrad
 #[inline]
@@ -237,27 +165,6 @@ pub fn compute_nm_channels(_src: &dyn core::ToInputArray, _channels: &mut dyn co
 	Ok(ret)
 }
 
-/// Create an Extremal Region Filter for the 1st stage classifier of N&M algorithm [Neumann12](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Neumann12).
-/// 
-/// ## Parameters
-/// * cb: :   Callback with the classifier. Default classifier can be implicitly load with function
-/// loadClassifierNM1, e.g. from file in samples/cpp/trained_classifierNM1.xml
-/// * thresholdDelta: :   Threshold step in subsequent thresholds when extracting the component tree
-/// * minArea: :   The minimum area (% of image size) allowed for retreived ER's
-/// * maxArea: :   The maximum area (% of image size) allowed for retreived ER's
-/// * minProbability: :   The minimum probability P(er|character) allowed for retreived ER's
-/// * nonMaxSuppression: :   Whenever non-maximum suppression is done over the branch probabilities
-/// * minProbabilityDiff: :   The minimum probability difference between local maxima and local minima ERs
-/// 
-/// The component tree of the image is extracted by a threshold increased step by step from 0 to 255,
-/// incrementally computable descriptors (aspect_ratio, compactness, number of holes, and number of
-/// horizontal crossings) are computed for each ER and used as features for a classifier which estimates
-/// the class-conditional probability P(er|character). The value of P(er|character) is tracked using the
-/// inclusion relation of ER across all thresholds and only the ERs which correspond to local maximum of
-/// the probability P(er|character) are selected (if the local maximum of the probability is above a
-/// global limit pmin and the difference between local maximum and local minimum is greater than
-/// minProbabilityDiff).
-/// 
 /// ## C++ default parameters
 /// * threshold_delta: 1
 /// * min_area: (float)0.00025
@@ -275,32 +182,6 @@ pub fn create_er_filter_nm1(cb: &core::Ptr<dyn crate::text::ERFilter_Callback>, 
 	Ok(ret)
 }
 
-/// Reads an Extremal Region Filter for the 1st stage classifier of N&M algorithm
-///    from the provided path e.g. /path/to/cpp/trained_classifierNM1.xml
-/// 
-/// Create an Extremal Region Filter for the 1st stage classifier of N&M algorithm [Neumann12](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Neumann12).
-/// 
-/// ## Parameters
-/// * cb: :   Callback with the classifier. Default classifier can be implicitly load with function
-/// loadClassifierNM1, e.g. from file in samples/cpp/trained_classifierNM1.xml
-/// * thresholdDelta: :   Threshold step in subsequent thresholds when extracting the component tree
-/// * minArea: :   The minimum area (% of image size) allowed for retreived ER's
-/// * maxArea: :   The maximum area (% of image size) allowed for retreived ER's
-/// * minProbability: :   The minimum probability P(er|character) allowed for retreived ER's
-/// * nonMaxSuppression: :   Whenever non-maximum suppression is done over the branch probabilities
-/// * minProbabilityDiff: :   The minimum probability difference between local maxima and local minima ERs
-/// 
-/// The component tree of the image is extracted by a threshold increased step by step from 0 to 255,
-/// incrementally computable descriptors (aspect_ratio, compactness, number of holes, and number of
-/// horizontal crossings) are computed for each ER and used as features for a classifier which estimates
-/// the class-conditional probability P(er|character). The value of P(er|character) is tracked using the
-/// inclusion relation of ER across all thresholds and only the ERs which correspond to local maximum of
-/// the probability P(er|character) are selected (if the local maximum of the probability is above a
-/// global limit pmin and the difference between local maximum and local minimum is greater than
-/// minProbabilityDiff).
-/// 
-/// ## Overloaded parameters
-/// 
 /// ## C++ default parameters
 /// * threshold_delta: 1
 /// * min_area: (float)0.00025
@@ -319,18 +200,6 @@ pub fn create_er_filter_nm1_from_file(filename: &str, threshold_delta: i32, min_
 	Ok(ret)
 }
 
-/// Create an Extremal Region Filter for the 2nd stage classifier of N&M algorithm [Neumann12](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Neumann12).
-/// 
-/// ## Parameters
-/// * cb: :   Callback with the classifier. Default classifier can be implicitly load with function
-/// loadClassifierNM2, e.g. from file in samples/cpp/trained_classifierNM2.xml
-/// * minProbability: :   The minimum probability P(er|character) allowed for retreived ER's
-/// 
-/// In the second stage, the ERs that passed the first stage are classified into character and
-/// non-character classes using more informative but also more computationally expensive features. The
-/// classifier uses all the features calculated in the first stage and the following additional
-/// features: hole area ratio, convex hull ratio, and number of outer inflexion points.
-/// 
 /// ## C++ default parameters
 /// * min_probability: (float)0.3
 #[inline]
@@ -343,23 +212,6 @@ pub fn create_er_filter_nm2(cb: &core::Ptr<dyn crate::text::ERFilter_Callback>, 
 	Ok(ret)
 }
 
-/// Reads an Extremal Region Filter for the 2nd stage classifier of N&M algorithm
-///    from the provided path e.g. /path/to/cpp/trained_classifierNM2.xml
-/// 
-/// Create an Extremal Region Filter for the 2nd stage classifier of N&M algorithm [Neumann12](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Neumann12).
-/// 
-/// ## Parameters
-/// * cb: :   Callback with the classifier. Default classifier can be implicitly load with function
-/// loadClassifierNM2, e.g. from file in samples/cpp/trained_classifierNM2.xml
-/// * minProbability: :   The minimum probability P(er|character) allowed for retreived ER's
-/// 
-/// In the second stage, the ERs that passed the first stage are classified into character and
-/// non-character classes using more informative but also more computationally expensive features. The
-/// classifier uses all the features calculated in the first stage and the following additional
-/// features: hole area ratio, convex hull ratio, and number of outer inflexion points.
-/// 
-/// ## Overloaded parameters
-/// 
 /// ## C++ default parameters
 /// * min_probability: (float)0.3
 #[inline]
@@ -384,20 +236,6 @@ pub fn create_ocrhmm_transitions_table_1(vocabulary: &str, lexicon: &mut core::V
 	Ok(ret)
 }
 
-/// Utility function to create a tailored language model transitions table from a given list of words (lexicon).
-/// 
-/// ## Parameters
-/// * vocabulary: The language vocabulary (chars when ASCII English text).
-/// 
-/// * lexicon: The list of words that are expected to be found in a particular image.
-/// 
-/// * transition_probabilities_table: Output table with transition probabilities between character pairs. cols == rows == vocabulary.size().
-/// 
-/// The function calculate frequency statistics of character pairs from the given lexicon and fills the output transition_probabilities_table with them. The transition_probabilities_table can be used as input in the OCRHMMDecoder::create() and OCRBeamSearchDecoder::create() methods.
-/// 
-/// Note:
-///    *   (C++) An alternative would be to load the default generic language transition table provided in the text module samples folder (created from ispell 42869 english words list) :
-///            <https://github.com/opencv/opencv_contrib/blob/master/modules/text/samples/OCRHMM_transitions_table.xml>
 #[inline]
 pub fn create_ocrhmm_transitions_table(vocabulary: &mut String, lexicon: &mut core::Vector<String>, transition_probabilities_table: &mut dyn core::ToOutputArray) -> Result<()> {
 	string_arg_output_send!(via vocabulary_via);
@@ -410,17 +248,6 @@ pub fn create_ocrhmm_transitions_table(vocabulary: &mut String, lexicon: &mut co
 	Ok(ret)
 }
 
-/// Extracts text regions from image.
-/// 
-/// ## Parameters
-/// * image: Source image where text blocks needs to be extracted from.  Should be CV_8UC3 (color).
-/// * er_filter1: Extremal Region Filter for the 1st stage classifier of N&M algorithm [Neumann12](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Neumann12)
-/// * er_filter2: Extremal Region Filter for the 2nd stage classifier of N&M algorithm [Neumann12](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Neumann12)
-/// * groups_rects: Output list of rectangle blocks with text
-/// * method: Grouping method (see text::erGrouping_Modes). Can be one of ERGROUPING_ORIENTATION_HORIZ, ERGROUPING_ORIENTATION_ANY.
-/// * filename: The XML or YAML file with the classifier model (e.g. samples/trained_classifier_erGrouping.xml). Only to use when grouping method is ERGROUPING_ORIENTATION_ANY.
-/// * minProbability: The minimum probability for accepting a group. Only to use when grouping method is ERGROUPING_ORIENTATION_ANY.
-/// 
 /// ## C++ default parameters
 /// * method: ERGROUPING_ORIENTATION_HORIZ
 /// * filename: String()
@@ -446,14 +273,6 @@ pub fn detect_regions(image: &dyn core::ToInputArray, er_filter1: &core::Ptr<dyn
 	Ok(ret)
 }
 
-/// Applies the Stroke Width Transform operator followed by filtering of connected components of similar Stroke Widths to return letter candidates. It also chain them by proximity and size, saving the result in chainBBs.
-/// ## Parameters
-/// * input: the input image with 3 channels.
-/// * result: a vector of resulting bounding boxes where probability of finding text is high
-/// * dark_on_light: a boolean value signifying whether the text is darker or lighter than the background, it is observed to reverse the gradient obtained from Scharr operator, and significantly affect the result.
-/// * draw: an optional Mat of type CV_8UC3 which visualises the detected letters using bounding boxes.
-/// * chainBBs: an optional parameter which chains the letter candidates according to heuristics in the paper and returns all possible regions where text is likely to occur.
-/// 
 /// ## C++ default parameters
 /// * draw: noArray()
 /// * chain_b_bs: noArray()
@@ -469,30 +288,6 @@ pub fn detect_text_swt(input: &dyn core::ToInputArray, result: &mut core::Vector
 	Ok(ret)
 }
 
-/// Find groups of Extremal Regions that are organized as text blocks.
-/// 
-/// ## Parameters
-/// * img: Original RGB or Greyscale image from wich the regions were extracted.
-/// 
-/// * channels: Vector of single channel images CV_8UC1 from wich the regions were extracted.
-/// 
-/// * regions: Vector of ER's retrieved from the ERFilter algorithm from each channel.
-/// 
-/// * groups: The output of the algorithm is stored in this parameter as set of lists of indexes to
-/// provided regions.
-/// 
-/// * groups_rects: The output of the algorithm are stored in this parameter as list of rectangles.
-/// 
-/// * method: Grouping method (see text::erGrouping_Modes). Can be one of ERGROUPING_ORIENTATION_HORIZ,
-/// ERGROUPING_ORIENTATION_ANY.
-/// 
-/// * filename: The XML or YAML file with the classifier model (e.g.
-/// samples/trained_classifier_erGrouping.xml). Only to use when grouping method is
-/// ERGROUPING_ORIENTATION_ANY.
-/// 
-/// * minProbablity: The minimum probability for accepting a group. Only to use when grouping
-/// method is ERGROUPING_ORIENTATION_ANY.
-/// 
 /// ## C++ default parameters
 /// * method: ERGROUPING_ORIENTATION_HORIZ
 /// * filename: std::string()
@@ -525,12 +320,6 @@ pub fn er_grouping_1(image: &dyn core::ToInputArray, channel: &dyn core::ToInput
 	Ok(ret)
 }
 
-/// Allow to implicitly load the default classifier when creating an ERFilter object.
-/// 
-/// ## Parameters
-/// * filename: The XML or YAML file with the classifier model (e.g. trained_classifierNM1.xml)
-/// 
-/// returns a pointer to ERFilter::Callback.
 #[inline]
 pub fn load_classifier_nm1(filename: &str) -> Result<core::Ptr<dyn crate::text::ERFilter_Callback>> {
 	extern_container_arg!(filename);
@@ -542,12 +331,6 @@ pub fn load_classifier_nm1(filename: &str) -> Result<core::Ptr<dyn crate::text::
 	Ok(ret)
 }
 
-/// Allow to implicitly load the default classifier when creating an ERFilter object.
-/// 
-/// ## Parameters
-/// * filename: The XML or YAML file with the classifier model (e.g. trained_classifierNM2.xml)
-/// 
-/// returns a pointer to ERFilter::Callback.
 #[inline]
 pub fn load_classifier_nm2(filename: &str) -> Result<core::Ptr<dyn crate::text::ERFilter_Callback>> {
 	extern_container_arg!(filename);
@@ -559,15 +342,6 @@ pub fn load_classifier_nm2(filename: &str) -> Result<core::Ptr<dyn crate::text::
 	Ok(ret)
 }
 
-/// Allow to implicitly load the default character classifier when creating an OCRBeamSearchDecoder object.
-/// 
-/// ## Parameters
-/// * filename: The XML or YAML file with the classifier model (e.g. OCRBeamSearch_CNN_model_data.xml.gz)
-/// 
-/// The CNN default classifier is based in the scene text recognition method proposed by Adam Coates &
-/// Andrew NG in [Coates11a]. The character classifier consists in a Single Layer Convolutional Neural Network and
-/// a linear classifier. It is applied to the input image in a sliding window fashion, providing a set of recognitions
-/// at each window location.
 #[inline]
 pub fn load_ocr_beam_search_classifier_cnn(filename: &str) -> Result<core::Ptr<crate::text::OCRBeamSearchDecoder_ClassifierCallback>> {
 	extern_container_arg!(filename);
@@ -579,19 +353,6 @@ pub fn load_ocr_beam_search_classifier_cnn(filename: &str) -> Result<core::Ptr<c
 	Ok(ret)
 }
 
-/// Allow to implicitly load the default character classifier when creating an OCRHMMDecoder object.
-/// 
-/// ## Parameters
-/// * filename: The XML or YAML file with the classifier model (e.g. OCRBeamSearch_CNN_model_data.xml.gz)
-/// 
-/// The CNN default classifier is based in the scene text recognition method proposed by Adam Coates &
-/// Andrew NG in [Coates11a]. The character classifier consists in a Single Layer Convolutional Neural Network and
-/// a linear classifier. It is applied to the input image in a sliding window fashion, providing a set of recognitions
-/// at each window location.
-/// 
-/// 
-/// **Deprecated**: use loadOCRHMMClassifier instead
-#[deprecated = "use loadOCRHMMClassifier instead"]
 #[inline]
 pub fn load_ocrhmm_classifier_cnn(filename: &str) -> Result<core::Ptr<crate::text::OCRHMMDecoder_ClassifierCallback>> {
 	extern_container_arg!(filename);
@@ -603,21 +364,6 @@ pub fn load_ocrhmm_classifier_cnn(filename: &str) -> Result<core::Ptr<crate::tex
 	Ok(ret)
 }
 
-/// Allow to implicitly load the default character classifier when creating an OCRHMMDecoder object.
-/// 
-/// ## Parameters
-/// * filename: The XML or YAML file with the classifier model (e.g. OCRHMM_knn_model_data.xml)
-/// 
-/// The KNN default classifier is based in the scene text recognition method proposed by Lukás Neumann &
-/// Jiri Matas in [Neumann11b]. Basically, the region (contour) in the input image is normalized to a
-/// fixed size, while retaining the centroid and aspect ratio, in order to extract a feature vector
-/// based on gradient orientations along the chain-code of its perimeter. Then, the region is classified
-/// using a KNN model trained with synthetic data of rendered characters with different standard font
-/// types.
-/// 
-/// 
-/// **Deprecated**: loadOCRHMMClassifier instead
-#[deprecated = "loadOCRHMMClassifier instead"]
 #[inline]
 pub fn load_ocrhmm_classifier_nm(filename: &str) -> Result<core::Ptr<crate::text::OCRHMMDecoder_ClassifierCallback>> {
 	extern_container_arg!(filename);
@@ -629,12 +375,6 @@ pub fn load_ocrhmm_classifier_nm(filename: &str) -> Result<core::Ptr<crate::text
 	Ok(ret)
 }
 
-/// Allow to implicitly load the default character classifier when creating an OCRHMMDecoder object.
-/// 
-/// ## Parameters
-/// * filename: The XML or YAML file with the classifier model (e.g. OCRBeamSearch_CNN_model_data.xml.gz)
-/// 
-/// * classifier: Can be one of classifier_type enum values.
 #[inline]
 pub fn load_ocrhmm_classifier(filename: &str, classifier: i32) -> Result<core::Ptr<crate::text::OCRHMMDecoder_ClassifierCallback>> {
 	extern_container_arg!(filename);
@@ -688,9 +428,6 @@ pub trait BaseOCR: crate::text::BaseOCRConst {
 	
 }
 
-/// Base class for 1st and 2nd stages of Neumann and Matas scene text detection algorithm [Neumann12](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Neumann12). :
-/// 
-/// Extracts the component tree (if needed) and filter the extremal regions (ER's) by using a given classifier.
 pub trait ERFilterConst: core::AlgorithmTraitConst {
 	fn as_raw_ERFilter(&self) -> *const c_void;
 
@@ -708,19 +445,6 @@ pub trait ERFilterConst: core::AlgorithmTraitConst {
 pub trait ERFilter: core::AlgorithmTrait + crate::text::ERFilterConst {
 	fn as_raw_mut_ERFilter(&mut self) -> *mut c_void;
 
-	/// The key method of ERFilter algorithm.
-	/// 
-	/// Takes image on input and returns the selected regions in a vector of ERStat only distinctive
-	/// ERs which correspond to characters are selected by a sequential classifier
-	/// 
-	/// ## Parameters
-	/// * image: Single channel image CV_8UC1
-	/// 
-	/// * regions: Output for the 1st stage and Input/Output for the 2nd. The selected Extremal Regions
-	/// are stored here.
-	/// 
-	/// Extracts the component tree (if needed) and filter the extremal regions (ER's) by using a given
-	/// classifier.
 	#[inline]
 	fn run(&mut self, image: &dyn core::ToInputArray, regions: &mut core::Vector<crate::text::ERStat>) -> Result<()> {
 		input_array_arg!(image);
@@ -731,7 +455,6 @@ pub trait ERFilter: core::AlgorithmTrait + crate::text::ERFilterConst {
 		Ok(ret)
 	}
 	
-	/// set/get methods to set the algorithm properties,
 	#[inline]
 	fn set_callback(&mut self, cb: &core::Ptr<dyn crate::text::ERFilter_Callback>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -797,10 +520,6 @@ pub trait ERFilter: core::AlgorithmTrait + crate::text::ERFilterConst {
 	
 }
 
-/// Callback with the classifier is made a class.
-/// 
-/// By doing it we hide SVM, Boost etc. Developers can provide their own classifiers to the
-/// ERFilter algorithm.
 pub trait ERFilter_CallbackConst {
 	fn as_raw_ERFilter_Callback(&self) -> *const c_void;
 
@@ -809,10 +528,6 @@ pub trait ERFilter_CallbackConst {
 pub trait ERFilter_Callback: crate::text::ERFilter_CallbackConst {
 	fn as_raw_mut_ERFilter_Callback(&mut self) -> *mut c_void;
 
-	/// The classifier must return probability measure for the region.
-	/// 
-	/// ## Parameters
-	/// * stat: :   The region to be classified
 	#[inline]
 	fn eval(&mut self, stat: &crate::text::ERStat) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -824,15 +539,9 @@ pub trait ERFilter_Callback: crate::text::ERFilter_CallbackConst {
 	
 }
 
-/// The ERStat structure represents a class-specific Extremal Region (ER).
-/// 
-/// An ER is a 4-connected set of pixels with all its grey-level values smaller than the values in its
-/// outer boundary. A class-specific ER is selected (using a classifier) from all the ER's in the
-/// component tree of the image. :
 pub trait ERStatTraitConst {
 	fn as_raw_ERStat(&self) -> *const c_void;
 
-	/// seed point and the threshold (max grey-level value)
 	#[inline]
 	fn pixel(&self) -> i32 {
 		let ret = unsafe { sys::cv_text_ERStat_getPropPixel_const(self.as_raw_ERStat()) };
@@ -845,7 +554,6 @@ pub trait ERStatTraitConst {
 		ret
 	}
 	
-	/// incrementally computable features
 	#[inline]
 	fn area(&self) -> i32 {
 		let ret = unsafe { sys::cv_text_ERStat_getPropArea_const(self.as_raw_ERStat()) };
@@ -858,7 +566,6 @@ pub trait ERStatTraitConst {
 		ret
 	}
 	
-	/// Euler's number
 	#[inline]
 	fn euler(&self) -> i32 {
 		let ret = unsafe { sys::cv_text_ERStat_getPropEuler_const(self.as_raw_ERStat()) };
@@ -873,14 +580,12 @@ pub trait ERStatTraitConst {
 		ret
 	}
 	
-	/// median of the crossings at three different height levels
 	#[inline]
 	fn med_crossings(&self) -> f32 {
 		let ret = unsafe { sys::cv_text_ERStat_getPropMed_crossings_const(self.as_raw_ERStat()) };
 		ret
 	}
 	
-	/// 2nd stage features
 	#[inline]
 	fn hole_area_ratio(&self) -> f32 {
 		let ret = unsafe { sys::cv_text_ERStat_getPropHole_area_ratio_const(self.as_raw_ERStat()) };
@@ -899,14 +604,12 @@ pub trait ERStatTraitConst {
 		ret
 	}
 	
-	/// probability that the ER belongs to the class we are looking for
 	#[inline]
 	fn probability(&self) -> f64 {
 		let ret = unsafe { sys::cv_text_ERStat_getPropProbability_const(self.as_raw_ERStat()) };
 		ret
 	}
 	
-	/// whenever the regions is a local maxima of the probability
 	#[inline]
 	fn local_maxima(&self) -> bool {
 		let ret = unsafe { sys::cv_text_ERStat_getPropLocal_maxima_const(self.as_raw_ERStat()) };
@@ -918,7 +621,6 @@ pub trait ERStatTraitConst {
 pub trait ERStatTrait: crate::text::ERStatTraitConst {
 	fn as_raw_mut_ERStat(&mut self) -> *mut c_void;
 
-	/// seed point and the threshold (max grey-level value)
 	#[inline]
 	fn set_pixel(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_text_ERStat_setPropPixel_int(self.as_raw_mut_ERStat(), val) };
@@ -931,7 +633,6 @@ pub trait ERStatTrait: crate::text::ERStatTraitConst {
 		ret
 	}
 	
-	/// incrementally computable features
 	#[inline]
 	fn set_area(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_text_ERStat_setPropArea_int(self.as_raw_mut_ERStat(), val) };
@@ -944,7 +645,6 @@ pub trait ERStatTrait: crate::text::ERStatTraitConst {
 		ret
 	}
 	
-	/// Euler's number
 	#[inline]
 	fn set_euler(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_text_ERStat_setPropEuler_int(self.as_raw_mut_ERStat(), val) };
@@ -957,7 +657,6 @@ pub trait ERStatTrait: crate::text::ERStatTraitConst {
 		ret
 	}
 	
-	/// order 1 raw moments to derive the centroid
 	#[inline]
 	fn raw_moments(&mut self) -> &mut [f64; 2] {
 		let ret = unsafe { sys::cv_text_ERStat_getPropRaw_moments(self.as_raw_mut_ERStat()) };
@@ -965,7 +664,6 @@ pub trait ERStatTrait: crate::text::ERStatTraitConst {
 		ret
 	}
 	
-	/// order 2 central moments to construct the covariance matrix
 	#[inline]
 	fn central_moments(&mut self) -> &mut [f64; 3] {
 		let ret = unsafe { sys::cv_text_ERStat_getPropCentral_moments(self.as_raw_mut_ERStat()) };
@@ -973,14 +671,12 @@ pub trait ERStatTrait: crate::text::ERStatTraitConst {
 		ret
 	}
 	
-	/// median of the crossings at three different height levels
 	#[inline]
 	fn set_med_crossings(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_text_ERStat_setPropMed_crossings_float(self.as_raw_mut_ERStat(), val) };
 		ret
 	}
 	
-	/// 2nd stage features
 	#[inline]
 	fn set_hole_area_ratio(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_text_ERStat_setPropHole_area_ratio_float(self.as_raw_mut_ERStat(), val) };
@@ -999,14 +695,12 @@ pub trait ERStatTrait: crate::text::ERStatTraitConst {
 		ret
 	}
 	
-	/// probability that the ER belongs to the class we are looking for
 	#[inline]
 	fn set_probability(&mut self, val: f64) {
 		let ret = unsafe { sys::cv_text_ERStat_setPropProbability_double(self.as_raw_mut_ERStat(), val) };
 		ret
 	}
 	
-	/// pointers preserving the tree structure of the component tree
 	#[inline]
 	fn parent(&mut self) -> crate::text::ERStat {
 		let ret = unsafe { sys::cv_text_ERStat_getPropParent(self.as_raw_mut_ERStat()) };
@@ -1014,7 +708,6 @@ pub trait ERStatTrait: crate::text::ERStatTraitConst {
 		ret
 	}
 	
-	/// pointers preserving the tree structure of the component tree
 	#[inline]
 	fn set_parent(&mut self, val: &mut crate::text::ERStat) {
 		let ret = unsafe { sys::cv_text_ERStat_setPropParent_ERStatX(self.as_raw_mut_ERStat(), val.as_raw_mut_ERStat()) };
@@ -1060,7 +753,6 @@ pub trait ERStatTrait: crate::text::ERStatTraitConst {
 		ret
 	}
 	
-	/// whenever the regions is a local maxima of the probability
 	#[inline]
 	fn set_local_maxima(&mut self, val: bool) {
 		let ret = unsafe { sys::cv_text_ERStat_setPropLocal_maxima_bool(self.as_raw_mut_ERStat(), val) };
@@ -1095,11 +787,6 @@ pub trait ERStatTrait: crate::text::ERStatTraitConst {
 	
 }
 
-/// The ERStat structure represents a class-specific Extremal Region (ER).
-/// 
-/// An ER is a 4-connected set of pixels with all its grey-level values smaller than the values in its
-/// outer boundary. A class-specific ER is selected (using a classifier) from all the ER's in the
-/// component tree of the image. :
 pub struct ERStat {
 	ptr: *mut c_void
 }
@@ -1124,8 +811,6 @@ impl crate::text::ERStatTrait for ERStat {
 }
 
 impl ERStat {
-	/// Constructor
-	/// 
 	/// ## C++ default parameters
 	/// * level: 256
 	/// * pixel: 0
@@ -1143,13 +828,6 @@ impl ERStat {
 	
 }
 
-/// OCRBeamSearchDecoder class provides an interface for OCR using Beam Search algorithm.
-/// 
-/// 
-/// Note:
-///    *   (C++) An example on using OCRBeamSearchDecoder recognition combined with scene text detection can
-///        be found at the demo sample:
-///        <https://github.com/opencv/opencv_contrib/blob/master/modules/text/samples/word_recognition.cpp>
 pub trait OCRBeamSearchDecoderTraitConst: crate::text::BaseOCRConst {
 	fn as_raw_OCRBeamSearchDecoder(&self) -> *const c_void;
 
@@ -1158,28 +836,6 @@ pub trait OCRBeamSearchDecoderTraitConst: crate::text::BaseOCRConst {
 pub trait OCRBeamSearchDecoderTrait: crate::text::BaseOCR + crate::text::OCRBeamSearchDecoderTraitConst {
 	fn as_raw_mut_OCRBeamSearchDecoder(&mut self) -> *mut c_void;
 
-	/// Recognize text using Beam Search.
-	/// 
-	/// Takes image on input and returns recognized text in the output_text parameter. Optionally
-	/// provides also the Rects for individual text elements found (e.g. words), and the list of those
-	/// text elements with their confidence values.
-	/// 
-	/// ## Parameters
-	/// * image: Input binary image CV_8UC1 with a single text line (or word).
-	/// 
-	/// * output_text: Output text. Most likely character sequence found by the HMM decoder.
-	/// 
-	/// * component_rects: If provided the method will output a list of Rects for the individual
-	/// text elements found (e.g. words).
-	/// 
-	/// * component_texts: If provided the method will output a list of text strings for the
-	/// recognition of individual text elements found (e.g. words).
-	/// 
-	/// * component_confidences: If provided the method will output a list of confidence values
-	/// for the recognition of individual text elements found (e.g. words).
-	/// 
-	/// * component_level: Only OCR_LEVEL_WORD is supported.
-	/// 
 	/// ## C++ default parameters
 	/// * component_rects: NULL
 	/// * component_texts: NULL
@@ -1241,13 +897,6 @@ pub trait OCRBeamSearchDecoderTrait: crate::text::BaseOCR + crate::text::OCRBeam
 	
 }
 
-/// OCRBeamSearchDecoder class provides an interface for OCR using Beam Search algorithm.
-/// 
-/// 
-/// Note:
-///    *   (C++) An example on using OCRBeamSearchDecoder recognition combined with scene text detection can
-///        be found at the demo sample:
-///        <https://github.com/opencv/opencv_contrib/blob/master/modules/text/samples/word_recognition.cpp>
 pub struct OCRBeamSearchDecoder {
 	ptr: *mut c_void
 }
@@ -1280,25 +929,6 @@ impl crate::text::OCRBeamSearchDecoderTrait for OCRBeamSearchDecoder {
 }
 
 impl OCRBeamSearchDecoder {
-	/// Creates an instance of the OCRBeamSearchDecoder class. Initializes HMMDecoder.
-	/// 
-	/// ## Parameters
-	/// * classifier: The character classifier with built in feature extractor.
-	/// 
-	/// * vocabulary: The language vocabulary (chars when ASCII English text). vocabulary.size()
-	/// must be equal to the number of classes of the classifier.
-	/// 
-	/// * transition_probabilities_table: Table with transition probabilities between character
-	/// pairs. cols == rows == vocabulary.size().
-	/// 
-	/// * emission_probabilities_table: Table with observation emission probabilities. cols ==
-	/// rows == vocabulary.size().
-	/// 
-	/// * mode: HMM Decoding algorithm. Only OCR_DECODER_VITERBI is available for the moment
-	/// (<http://en.wikipedia.org/wiki/Viterbi_algorithm>).
-	/// 
-	/// * beam_size: Size of the beam in Beam Search algorithm.
-	/// 
 	/// ## C++ default parameters
 	/// * mode: OCR_DECODER_VITERBI
 	/// * beam_size: 500
@@ -1315,29 +945,6 @@ impl OCRBeamSearchDecoder {
 		Ok(ret)
 	}
 	
-	/// Creates an instance of the OCRBeamSearchDecoder class. Initializes HMMDecoder from the specified path.
-	/// 
-	///    Creates an instance of the OCRBeamSearchDecoder class. Initializes HMMDecoder.
-	/// 
-	/// ## Parameters
-	/// * classifier: The character classifier with built in feature extractor.
-	/// 
-	/// * vocabulary: The language vocabulary (chars when ASCII English text). vocabulary.size()
-	/// must be equal to the number of classes of the classifier.
-	/// 
-	/// * transition_probabilities_table: Table with transition probabilities between character
-	/// pairs. cols == rows == vocabulary.size().
-	/// 
-	/// * emission_probabilities_table: Table with observation emission probabilities. cols ==
-	/// rows == vocabulary.size().
-	/// 
-	/// * mode: HMM Decoding algorithm. Only OCR_DECODER_VITERBI is available for the moment
-	/// (<http://en.wikipedia.org/wiki/Viterbi_algorithm>).
-	/// 
-	/// * beam_size: Size of the beam in Beam Search algorithm.
-	/// 
-	/// ## Overloaded parameters
-	/// 
 	/// ## C++ default parameters
 	/// * mode: OCR_DECODER_VITERBI
 	/// * beam_size: 500
@@ -1357,14 +964,6 @@ impl OCRBeamSearchDecoder {
 	
 }
 
-/// Callback with the character classifier is made a class.
-/// 
-/// This way it hides the feature extractor and the classifier itself, so developers can write
-/// their own OCR code.
-/// 
-/// The default character classifier and feature extractor can be loaded using the utility function
-/// loadOCRBeamSearchClassifierCNN with all its parameters provided in
-/// <https://github.com/opencv/opencv_contrib/blob/master/modules/text/samples/OCRBeamSearch_CNN_model_data.xml.gz>.
 pub trait OCRBeamSearchDecoder_ClassifierCallbackTraitConst {
 	fn as_raw_OCRBeamSearchDecoder_ClassifierCallback(&self) -> *const c_void;
 
@@ -1373,14 +972,6 @@ pub trait OCRBeamSearchDecoder_ClassifierCallbackTraitConst {
 pub trait OCRBeamSearchDecoder_ClassifierCallbackTrait: crate::text::OCRBeamSearchDecoder_ClassifierCallbackTraitConst {
 	fn as_raw_mut_OCRBeamSearchDecoder_ClassifierCallback(&mut self) -> *mut c_void;
 
-	/// The character classifier must return a (ranked list of) class(es) id('s)
-	/// 
-	/// ## Parameters
-	/// * image: Input image CV_8UC1 or CV_8UC3 with a single letter.
-	/// * recognition_probabilities: For each of the N characters found the classifier returns a list with
-	/// class probabilities for each class.
-	/// * oversegmentation: The classifier returns a list of N+1 character locations' x-coordinates,
-	/// including 0 as start-sequence location.
 	#[inline]
 	fn eval(&mut self, image: &dyn core::ToInputArray, recognition_probabilities: &mut core::Vector<core::Vector<f64>>, oversegmentation: &mut core::Vector<i32>) -> Result<()> {
 		input_array_arg!(image);
@@ -1411,14 +1002,6 @@ pub trait OCRBeamSearchDecoder_ClassifierCallbackTrait: crate::text::OCRBeamSear
 	
 }
 
-/// Callback with the character classifier is made a class.
-/// 
-/// This way it hides the feature extractor and the classifier itself, so developers can write
-/// their own OCR code.
-/// 
-/// The default character classifier and feature extractor can be loaded using the utility function
-/// loadOCRBeamSearchClassifierCNN with all its parameters provided in
-/// <https://github.com/opencv/opencv_contrib/blob/master/modules/text/samples/OCRBeamSearch_CNN_model_data.xml.gz>.
 pub struct OCRBeamSearchDecoder_ClassifierCallback {
 	ptr: *mut c_void
 }
@@ -1445,13 +1028,6 @@ impl crate::text::OCRBeamSearchDecoder_ClassifierCallbackTrait for OCRBeamSearch
 impl OCRBeamSearchDecoder_ClassifierCallback {
 }
 
-/// OCRHMMDecoder class provides an interface for OCR using Hidden Markov Models.
-/// 
-/// 
-/// Note:
-///    *   (C++) An example on using OCRHMMDecoder recognition combined with scene text detection can
-///        be found at the webcam_demo sample:
-///        <https://github.com/opencv/opencv_contrib/blob/master/modules/text/samples/webcam_demo.cpp>
 pub trait OCRHMMDecoderTraitConst: crate::text::BaseOCRConst {
 	fn as_raw_OCRHMMDecoder(&self) -> *const c_void;
 
@@ -1460,28 +1036,6 @@ pub trait OCRHMMDecoderTraitConst: crate::text::BaseOCRConst {
 pub trait OCRHMMDecoderTrait: crate::text::BaseOCR + crate::text::OCRHMMDecoderTraitConst {
 	fn as_raw_mut_OCRHMMDecoder(&mut self) -> *mut c_void;
 
-	/// Recognize text using HMM.
-	/// 
-	/// Takes binary image on input and returns recognized text in the output_text parameter. Optionally
-	/// provides also the Rects for individual text elements found (e.g. words), and the list of those
-	/// text elements with their confidence values.
-	/// 
-	/// ## Parameters
-	/// * image: Input binary image CV_8UC1 with a single text line (or word).
-	/// 
-	/// * output_text: Output text. Most likely character sequence found by the HMM decoder.
-	/// 
-	/// * component_rects: If provided the method will output a list of Rects for the individual
-	/// text elements found (e.g. words).
-	/// 
-	/// * component_texts: If provided the method will output a list of text strings for the
-	/// recognition of individual text elements found (e.g. words).
-	/// 
-	/// * component_confidences: If provided the method will output a list of confidence values
-	/// for the recognition of individual text elements found (e.g. words).
-	/// 
-	/// * component_level: Only OCR_LEVEL_WORD is supported.
-	/// 
 	/// ## C++ default parameters
 	/// * component_rects: NULL
 	/// * component_texts: NULL
@@ -1498,30 +1052,6 @@ pub trait OCRHMMDecoderTrait: crate::text::BaseOCR + crate::text::OCRHMMDecoderT
 		Ok(ret)
 	}
 	
-	/// Recognize text using HMM.
-	/// 
-	/// Takes an image and a mask (where each connected component corresponds to a segmented character)
-	/// on input and returns recognized text in the output_text parameter. Optionally
-	/// provides also the Rects for individual text elements found (e.g. words), and the list of those
-	/// text elements with their confidence values.
-	/// 
-	/// ## Parameters
-	/// * image: Input image CV_8UC1 or CV_8UC3 with a single text line (or word).
-	/// * mask: Input binary image CV_8UC1 same size as input image. Each connected component in mask corresponds to a segmented character in the input image.
-	/// 
-	/// * output_text: Output text. Most likely character sequence found by the HMM decoder.
-	/// 
-	/// * component_rects: If provided the method will output a list of Rects for the individual
-	/// text elements found (e.g. words).
-	/// 
-	/// * component_texts: If provided the method will output a list of text strings for the
-	/// recognition of individual text elements found (e.g. words).
-	/// 
-	/// * component_confidences: If provided the method will output a list of confidence values
-	/// for the recognition of individual text elements found (e.g. words).
-	/// 
-	/// * component_level: Only OCR_LEVEL_WORD is supported.
-	/// 
 	/// ## C++ default parameters
 	/// * component_rects: NULL
 	/// * component_texts: NULL
@@ -1567,13 +1097,6 @@ pub trait OCRHMMDecoderTrait: crate::text::BaseOCR + crate::text::OCRHMMDecoderT
 	
 }
 
-/// OCRHMMDecoder class provides an interface for OCR using Hidden Markov Models.
-/// 
-/// 
-/// Note:
-///    *   (C++) An example on using OCRHMMDecoder recognition combined with scene text detection can
-///        be found at the webcam_demo sample:
-///        <https://github.com/opencv/opencv_contrib/blob/master/modules/text/samples/webcam_demo.cpp>
 pub struct OCRHMMDecoder {
 	ptr: *mut c_void
 }
@@ -1606,23 +1129,6 @@ impl crate::text::OCRHMMDecoderTrait for OCRHMMDecoder {
 }
 
 impl OCRHMMDecoder {
-	/// Creates an instance of the OCRHMMDecoder class. Initializes HMMDecoder.
-	/// 
-	/// ## Parameters
-	/// * classifier: The character classifier with built in feature extractor.
-	/// 
-	/// * vocabulary: The language vocabulary (chars when ascii english text). vocabulary.size()
-	/// must be equal to the number of classes of the classifier.
-	/// 
-	/// * transition_probabilities_table: Table with transition probabilities between character
-	/// pairs. cols == rows == vocabulary.size().
-	/// 
-	/// * emission_probabilities_table: Table with observation emission probabilities. cols ==
-	/// rows == vocabulary.size().
-	/// 
-	/// * mode: HMM Decoding algorithm. Only OCR_DECODER_VITERBI is available for the moment
-	/// (<http://en.wikipedia.org/wiki/Viterbi_algorithm>).
-	/// 
 	/// ## C++ default parameters
 	/// * mode: OCR_DECODER_VITERBI
 	#[inline]
@@ -1638,27 +1144,6 @@ impl OCRHMMDecoder {
 		Ok(ret)
 	}
 	
-	/// Creates an instance of the OCRHMMDecoder class. Loads and initializes HMMDecoder from the specified path
-	/// 
-	///      Creates an instance of the OCRHMMDecoder class. Initializes HMMDecoder.
-	/// 
-	/// ## Parameters
-	/// * classifier: The character classifier with built in feature extractor.
-	/// 
-	/// * vocabulary: The language vocabulary (chars when ascii english text). vocabulary.size()
-	/// must be equal to the number of classes of the classifier.
-	/// 
-	/// * transition_probabilities_table: Table with transition probabilities between character
-	/// pairs. cols == rows == vocabulary.size().
-	/// 
-	/// * emission_probabilities_table: Table with observation emission probabilities. cols ==
-	/// rows == vocabulary.size().
-	/// 
-	/// * mode: HMM Decoding algorithm. Only OCR_DECODER_VITERBI is available for the moment
-	/// (<http://en.wikipedia.org/wiki/Viterbi_algorithm>).
-	/// 
-	/// ## Overloaded parameters
-	/// 
 	/// ## C++ default parameters
 	/// * mode: OCR_DECODER_VITERBI
 	/// * classifier: OCR_KNN_CLASSIFIER
@@ -1678,14 +1163,6 @@ impl OCRHMMDecoder {
 	
 }
 
-/// Callback with the character classifier is made a class.
-/// 
-/// This way it hides the feature extractor and the classifier itself, so developers can write
-/// their own OCR code.
-/// 
-/// The default character classifier and feature extractor can be loaded using the utility function
-/// loadOCRHMMClassifierNM and KNN model provided in
-/// <https://github.com/opencv/opencv_contrib/blob/master/modules/text/samples/OCRHMM_knn_model_data.xml.gz>.
 pub trait OCRHMMDecoder_ClassifierCallbackTraitConst {
 	fn as_raw_OCRHMMDecoder_ClassifierCallback(&self) -> *const c_void;
 
@@ -1694,14 +1171,6 @@ pub trait OCRHMMDecoder_ClassifierCallbackTraitConst {
 pub trait OCRHMMDecoder_ClassifierCallbackTrait: crate::text::OCRHMMDecoder_ClassifierCallbackTraitConst {
 	fn as_raw_mut_OCRHMMDecoder_ClassifierCallback(&mut self) -> *mut c_void;
 
-	/// The character classifier must return a (ranked list of) class(es) id('s)
-	/// 
-	/// ## Parameters
-	/// * image: Input image CV_8UC1 or CV_8UC3 with a single letter.
-	/// * out_class: The classifier returns the character class categorical label, or list of
-	/// class labels, to which the input image corresponds.
-	/// * out_confidence: The classifier returns the probability of the input image
-	/// corresponding to each classes in out_class.
 	#[inline]
 	fn eval(&mut self, image: &dyn core::ToInputArray, out_class: &mut core::Vector<i32>, out_confidence: &mut core::Vector<f64>) -> Result<()> {
 		input_array_arg!(image);
@@ -1714,14 +1183,6 @@ pub trait OCRHMMDecoder_ClassifierCallbackTrait: crate::text::OCRHMMDecoder_Clas
 	
 }
 
-/// Callback with the character classifier is made a class.
-/// 
-/// This way it hides the feature extractor and the classifier itself, so developers can write
-/// their own OCR code.
-/// 
-/// The default character classifier and feature extractor can be loaded using the utility function
-/// loadOCRHMMClassifierNM and KNN model provided in
-/// <https://github.com/opencv/opencv_contrib/blob/master/modules/text/samples/OCRHMM_knn_model_data.xml.gz>.
 pub struct OCRHMMDecoder_ClassifierCallback {
 	ptr: *mut c_void
 }
@@ -1748,13 +1209,6 @@ impl crate::text::OCRHMMDecoder_ClassifierCallbackTrait for OCRHMMDecoder_Classi
 impl OCRHMMDecoder_ClassifierCallback {
 }
 
-/// OCRHolisticWordRecognizer class provides the functionallity of segmented wordspotting.
-/// Given a predefined vocabulary , a DictNet is employed to select the most probable
-/// word given an input image.
-/// 
-/// DictNet is described in detail in:
-/// Max Jaderberg et al.: Reading Text in the Wild with Convolutional Neural Networks, IJCV 2015
-/// http://arxiv.org/abs/1412.1842
 pub trait OCRHolisticWordRecognizerConst: crate::text::BaseOCRConst {
 	fn as_raw_OCRHolisticWordRecognizer(&self) -> *const c_void;
 
@@ -1779,30 +1233,6 @@ pub trait OCRHolisticWordRecognizer: crate::text::BaseOCR + crate::text::OCRHoli
 		Ok(ret)
 	}
 	
-	/// Recognize text using a segmentation based word-spotting/classifier cnn.
-	/// 
-	/// Takes image on input and returns recognized text in the output_text parameter. Optionally
-	/// provides also the Rects for individual text elements found (e.g. words), and the list of those
-	/// text elements with their confidence values.
-	/// 
-	/// ## Parameters
-	/// * image: Input image CV_8UC1 or CV_8UC3
-	/// 
-	/// * mask: is totally ignored and is only available for compatibillity reasons
-	/// 
-	/// * output_text: Output text of the the word spoting, always one that exists in the dictionary.
-	/// 
-	/// * component_rects: Not applicable for word spotting can be be NULL if not, a single elemnt will
-	///    be put in the vector.
-	/// 
-	/// * component_texts: Not applicable for word spotting can be be NULL if not, a single elemnt will
-	///    be put in the vector.
-	/// 
-	/// * component_confidences: Not applicable for word spotting can be be NULL if not, a single elemnt will
-	///    be put in the vector.
-	/// 
-	/// * component_level: must be OCR_LEVEL_WORD.
-	/// 
 	/// ## C++ default parameters
 	/// * component_rects: NULL
 	/// * component_texts: NULL
@@ -1822,7 +1252,6 @@ pub trait OCRHolisticWordRecognizer: crate::text::BaseOCR + crate::text::OCRHoli
 }
 
 impl dyn OCRHolisticWordRecognizer + '_ {
-	/// Creates an instance of the OCRHolisticWordRecognizer class.
 	#[inline]
 	pub fn create(arch_filename: &str, weights_filename: &str, words_filename: &str) -> Result<core::Ptr<dyn crate::text::OCRHolisticWordRecognizer>> {
 		extern_container_arg!(arch_filename);
@@ -1837,18 +1266,6 @@ impl dyn OCRHolisticWordRecognizer + '_ {
 	}
 	
 }
-/// OCRTesseract class provides an interface with the tesseract-ocr API (v3.02.02) in C++.
-/// 
-/// Notice that it is compiled only when tesseract-ocr is correctly installed.
-/// 
-/// 
-/// Note:
-///    *   (C++) An example of OCRTesseract recognition combined with scene text detection can be found
-///        at the end_to_end_recognition demo:
-///        <https://github.com/opencv/opencv_contrib/blob/master/modules/text/samples/end_to_end_recognition.cpp>
-///    *   (C++) Another example of OCRTesseract recognition combined with scene text detection can be
-///        found at the webcam_demo:
-///        <https://github.com/opencv/opencv_contrib/blob/master/modules/text/samples/webcam_demo.cpp>
 pub trait OCRTesseractConst: crate::text::BaseOCRConst {
 	fn as_raw_OCRTesseract(&self) -> *const c_void;
 
@@ -1857,23 +1274,6 @@ pub trait OCRTesseractConst: crate::text::BaseOCRConst {
 pub trait OCRTesseract: crate::text::BaseOCR + crate::text::OCRTesseractConst {
 	fn as_raw_mut_OCRTesseract(&mut self) -> *mut c_void;
 
-	/// Recognize text using the tesseract-ocr API.
-	/// 
-	/// Takes image on input and returns recognized text in the output_text parameter. Optionally
-	/// provides also the Rects for individual text elements found (e.g. words), and the list of those
-	/// text elements with their confidence values.
-	/// 
-	/// ## Parameters
-	/// * image: Input image CV_8UC1 or CV_8UC3
-	/// * output_text: Output text of the tesseract-ocr.
-	/// * component_rects: If provided the method will output a list of Rects for the individual
-	/// text elements found (e.g. words or text lines).
-	/// * component_texts: If provided the method will output a list of text strings for the
-	/// recognition of individual text elements found (e.g. words or text lines).
-	/// * component_confidences: If provided the method will output a list of confidence values
-	/// for the recognition of individual text elements found (e.g. words or text lines).
-	/// * component_level: OCR_LEVEL_WORD (by default), or OCR_LEVEL_TEXTLINE.
-	/// 
 	/// ## C++ default parameters
 	/// * component_rects: NULL
 	/// * component_texts: NULL
@@ -1946,21 +1346,6 @@ pub trait OCRTesseract: crate::text::BaseOCR + crate::text::OCRTesseractConst {
 }
 
 impl dyn OCRTesseract + '_ {
-	/// Creates an instance of the OCRTesseract class. Initializes Tesseract.
-	/// 
-	/// ## Parameters
-	/// * datapath: the name of the parent directory of tessdata ended with "/", or NULL to use the
-	/// system's default directory.
-	/// * language: an ISO 639-3 code or NULL will default to "eng".
-	/// * char_whitelist: specifies the list of characters used for recognition. NULL defaults to
-	/// "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".
-	/// * oem: tesseract-ocr offers different OCR Engine Modes (OEM), by default
-	/// tesseract::OEM_DEFAULT is used. See the tesseract-ocr API documentation for other possible
-	/// values.
-	/// * psmode: tesseract-ocr offers different Page Segmentation Modes (PSM) tesseract::PSM_AUTO
-	/// (fully automatic layout analysis) is used. See the tesseract-ocr API documentation for other
-	/// possible values.
-	/// 
 	/// ## C++ default parameters
 	/// * datapath: NULL
 	/// * language: NULL
@@ -1981,7 +1366,6 @@ impl dyn OCRTesseract + '_ {
 	}
 	
 }
-/// An abstract class providing interface for text detection algorithms
 pub trait TextDetectorConst {
 	fn as_raw_TextDetector(&self) -> *const c_void;
 
@@ -1990,12 +1374,6 @@ pub trait TextDetectorConst {
 pub trait TextDetector: crate::text::TextDetectorConst {
 	fn as_raw_mut_TextDetector(&mut self) -> *mut c_void;
 
-	/// Method that provides a quick and simple interface to detect text inside an image
-	/// 
-	/// ## Parameters
-	/// * inputImage: an image to process
-	/// * Bbox: a vector of Rect that will store the detected word bounding box
-	/// * confidence: a vector of float that will be updated with the confidence the classifier has for the selected bounding box
 	#[inline]
 	fn detect(&mut self, input_image: &dyn core::ToInputArray, bbox: &mut core::Vector<core::Rect>, confidence: &mut core::Vector<f32>) -> Result<()> {
 		input_array_arg!(input_image);
@@ -2008,12 +1386,6 @@ pub trait TextDetector: crate::text::TextDetectorConst {
 	
 }
 
-/// TextDetectorCNN class provides the functionallity of text bounding box detection.
-/// This class is representing to find bounding boxes of text words given an input image.
-/// This class uses OpenCV dnn module to load pre-trained model described in [LiaoSBWL17](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_LiaoSBWL17).
-/// The original repository with the modified SSD Caffe version: https://github.com/MhLiao/TextBoxes.
-/// Model can be downloaded from [DropBox](https://www.dropbox.com/s/g8pjzv2de9gty8g/TextBoxes_icdar13.caffemodel?dl=0).
-/// Modified .prototxt file with the model description can be found in `opencv_contrib/modules/text/samples/textbox.prototxt`.
 pub trait TextDetectorCNNConst: crate::text::TextDetectorConst {
 	fn as_raw_TextDetectorCNN(&self) -> *const c_void;
 
@@ -2022,12 +1394,6 @@ pub trait TextDetectorCNNConst: crate::text::TextDetectorConst {
 pub trait TextDetectorCNN: crate::text::TextDetector + crate::text::TextDetectorCNNConst {
 	fn as_raw_mut_TextDetectorCNN(&mut self) -> *mut c_void;
 
-	/// This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
-	/// 
-	/// ## Parameters
-	/// * inputImage: an image expected to be a CV_U8C3 of any size
-	/// * Bbox: a vector of Rect that will store the detected word bounding box
-	/// * confidence: a vector of float that will be updated with the confidence the classifier has for the selected bounding box
 	#[inline]
 	fn detect(&mut self, input_image: &dyn core::ToInputArray, bbox: &mut core::Vector<core::Rect>, confidence: &mut core::Vector<f32>) -> Result<()> {
 		input_array_arg!(input_image);
@@ -2041,13 +1407,6 @@ pub trait TextDetectorCNN: crate::text::TextDetector + crate::text::TextDetector
 }
 
 impl dyn TextDetectorCNN + '_ {
-	/// Creates an instance of the TextDetectorCNN class using the provided parameters.
-	/// 
-	/// ## Parameters
-	/// * modelArchFilename: the relative or absolute path to the prototxt file describing the classifiers architecture.
-	/// * modelWeightsFilename: the relative or absolute path to the file containing the pretrained weights of the model in caffe-binary form.
-	/// * detectionSizes: a list of sizes for multiscale detection. The values`[(300,300),(700,500),(700,300),(700,700),(1600,1600)]` are
-	/// recommended in [LiaoSBWL17](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_LiaoSBWL17) to achieve the best quality.
 	#[inline]
 	pub fn create_with_sizes(model_arch_filename: &str, model_weights_filename: &str, mut detection_sizes: core::Vector<core::Size>) -> Result<core::Ptr<dyn crate::text::TextDetectorCNN>> {
 		extern_container_arg!(model_arch_filename);
@@ -2060,15 +1419,6 @@ impl dyn TextDetectorCNN + '_ {
 		Ok(ret)
 	}
 	
-	/// Creates an instance of the TextDetectorCNN class using the provided parameters.
-	/// 
-	/// ## Parameters
-	/// * modelArchFilename: the relative or absolute path to the prototxt file describing the classifiers architecture.
-	/// * modelWeightsFilename: the relative or absolute path to the file containing the pretrained weights of the model in caffe-binary form.
-	/// * detectionSizes: a list of sizes for multiscale detection. The values`[(300,300),(700,500),(700,300),(700,700),(1600,1600)]` are
-	/// recommended in [LiaoSBWL17](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_LiaoSBWL17) to achieve the best quality.
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	pub fn create(model_arch_filename: &str, model_weights_filename: &str) -> Result<core::Ptr<dyn crate::text::TextDetectorCNN>> {
 		extern_container_arg!(model_arch_filename);

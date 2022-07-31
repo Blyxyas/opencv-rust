@@ -31,33 +31,19 @@ pub mod prelude {
 	pub use { super::PCAPriorTraitConst, super::PCAPriorTrait, super::OpticalFlowPCAFlowTraitConst, super::OpticalFlowPCAFlowTrait, super::GPCPatchDescriptorTraitConst, super::GPCPatchDescriptorTrait, super::GPCPatchSampleTraitConst, super::GPCPatchSampleTrait, super::GPCTrainingSamplesTraitConst, super::GPCTrainingSamplesTrait, super::GPCTreeTraitConst, super::GPCTreeTrait, super::GPCDetailsTraitConst, super::GPCDetailsTrait, super::RLOFOpticalFlowParameterTraitConst, super::RLOFOpticalFlowParameterTrait, super::DenseRLOFOpticalFlowConst, super::DenseRLOFOpticalFlow, super::SparseRLOFOpticalFlowConst, super::SparseRLOFOpticalFlow, super::DualTVL1OpticalFlowConst, super::DualTVL1OpticalFlow };
 }
 
-/// Better quality but slow
 pub const GPC_DESCRIPTOR_DCT: i32 = 0;
-/// Worse quality but much faster
 pub const GPC_DESCRIPTOR_WHT: i32 = 1;
-/// <  Edge-preserving interpolation using ximgproc::EdgeAwareInterpolator, see [Revaud2015](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Revaud2015),Geistert2016.
 pub const INTERP_EPIC: i32 = 1;
-/// <  Fast geodesic interpolation, see [Geistert2016](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Geistert2016)
 pub const INTERP_GEO: i32 = 0;
-/// <  SLIC based robust interpolation using ximgproc::RICInterpolator, see [Hu2017](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Hu2017).
 pub const INTERP_RIC: i32 = 2;
-/// <  Apply a adaptive support region obtained by cross-based segmentation
-/// as described in [Senst2014](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2014)
 pub const SR_CROSS: i32 = 1;
-/// <  Apply a constant support region
 pub const SR_FIXED: i32 = 0;
-/// < Apply optimized iterative refinement based bilinear equation solutions
-/// as described in [Senst2013](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2013)
 pub const ST_BILINEAR: i32 = 1;
-/// < Apply standard iterative refinement
 pub const ST_STANDART: i32 = 0;
-/// Descriptor types for the Global Patch Collider.
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum GPCDescType {
-	/// Better quality but slow
 	GPC_DESCRIPTOR_DCT = 0,
-	/// Worse quality but much faster
 	GPC_DESCRIPTOR_WHT = 1,
 }
 
@@ -66,11 +52,8 @@ opencv_type_enum! { crate::optflow::GPCDescType }
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum InterpolationType {
-	/// <  Fast geodesic interpolation, see [Geistert2016](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Geistert2016)
 	INTERP_GEO = 0,
-	/// <  Edge-preserving interpolation using ximgproc::EdgeAwareInterpolator, see [Revaud2015](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Revaud2015),Geistert2016.
 	INTERP_EPIC = 1,
-	/// <  SLIC based robust interpolation using ximgproc::RICInterpolator, see [Hu2017](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Hu2017).
 	INTERP_RIC = 2,
 }
 
@@ -79,10 +62,7 @@ opencv_type_enum! { crate::optflow::InterpolationType }
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum SolverType {
-	/// < Apply standard iterative refinement
 	ST_STANDART = 0,
-	/// < Apply optimized iterative refinement based bilinear equation solutions
-	/// as described in [Senst2013](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2013)
 	ST_BILINEAR = 1,
 }
 
@@ -91,29 +71,12 @@ opencv_type_enum! { crate::optflow::SolverType }
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum SupportRegionType {
-	/// <  Apply a constant support region
 	SR_FIXED = 0,
-	/// <  Apply a adaptive support region obtained by cross-based segmentation
-	/// as described in [Senst2014](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2014)
 	SR_CROSS = 1,
 }
 
 opencv_type_enum! { crate::optflow::SupportRegionType }
 
-/// Calculates a global motion orientation in a selected region.
-/// 
-/// ## Parameters
-/// * orientation: Motion gradient orientation image calculated by the function calcMotionGradient
-/// * mask: Mask image. It may be a conjunction of a valid gradient mask, also calculated by
-/// calcMotionGradient , and the mask of a region whose direction needs to be calculated.
-/// * mhi: Motion history image calculated by updateMotionHistory .
-/// * timestamp: Timestamp passed to updateMotionHistory .
-/// * duration: Maximum duration of a motion track in milliseconds, passed to updateMotionHistory
-/// 
-/// The function calculates an average motion direction in the selected region and returns the angle
-/// between 0 degrees and 360 degrees. The average direction is computed from the weighted orientation
-/// histogram, where a recent motion has a larger weight and the motion occurred in the past has a
-/// smaller weight, as recorded in mhi .
 #[inline]
 pub fn calc_global_orientation(orientation: &dyn core::ToInputArray, mask: &dyn core::ToInputArray, mhi: &dyn core::ToInputArray, timestamp: f64, duration: f64) -> Result<f64> {
 	input_array_arg!(orientation);
@@ -126,36 +89,6 @@ pub fn calc_global_orientation(orientation: &dyn core::ToInputArray, mask: &dyn 
 	Ok(ret)
 }
 
-/// Calculates a gradient orientation of a motion history image.
-/// 
-/// ## Parameters
-/// * mhi: Motion history single-channel floating-point image.
-/// * mask: Output mask image that has the type CV_8UC1 and the same size as mhi . Its non-zero
-/// elements mark pixels where the motion gradient data is correct.
-/// * orientation: Output motion gradient orientation image that has the same type and the same
-/// size as mhi . Each pixel of the image is a motion orientation, from 0 to 360 degrees.
-/// * delta1: Minimal (or maximal) allowed difference between mhi values within a pixel
-/// neighborhood.
-/// * delta2: Maximal (or minimal) allowed difference between mhi values within a pixel
-/// neighborhood. That is, the function finds the minimum ( ![inline formula](https://latex.codecogs.com/png.latex?m%28x%2Cy%29) ) and maximum ( ![inline formula](https://latex.codecogs.com/png.latex?M%28x%2Cy%29) ) mhi
-/// values over ![inline formula](https://latex.codecogs.com/png.latex?3%20%5Ctimes%203) neighborhood of each pixel and marks the motion orientation at ![inline formula](https://latex.codecogs.com/png.latex?%28x%2C%20y%29)
-/// as valid only if
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Cmin%20%28%20%5Ctexttt%7Bdelta1%7D%20%20%2C%20%20%5Ctexttt%7Bdelta2%7D%20%20%29%20%20%5Cle%20%20M%28x%2Cy%29%2Dm%28x%2Cy%29%20%20%5Cle%20%20%20%5Cmax%20%28%20%5Ctexttt%7Bdelta1%7D%20%20%2C%20%5Ctexttt%7Bdelta2%7D%20%29%2E)
-/// * apertureSize: Aperture size of the Sobel operator.
-/// 
-/// The function calculates a gradient orientation at each pixel ![inline formula](https://latex.codecogs.com/png.latex?%28x%2C%20y%29) as:
-/// 
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Borientation%7D%20%28x%2Cy%29%3D%20%5Carctan%7B%5Cfrac%7Bd%5Ctexttt%7Bmhi%7D%2Fdy%7D%7Bd%5Ctexttt%7Bmhi%7D%2Fdx%7D%7D)
-/// 
-/// In fact, fastAtan2 and phase are used so that the computed angle is measured in degrees and covers
-/// the full range 0..360. Also, the mask is filled to indicate pixels where the computed angle is
-/// valid.
-/// 
-/// 
-/// Note:
-///    *   (Python) An example on how to perform a motion template technique can be found at
-///        opencv_source_code/samples/python2/motempl.py
-/// 
 /// ## C++ default parameters
 /// * aperture_size: 3
 #[inline]
@@ -170,21 +103,6 @@ pub fn calc_motion_gradient(mhi: &dyn core::ToInputArray, mask: &mut dyn core::T
 	Ok(ret)
 }
 
-/// Splits a motion history image into a few parts corresponding to separate independent motions (for
-/// example, left hand, right hand).
-/// 
-/// ## Parameters
-/// * mhi: Motion history image.
-/// * segmask: Image where the found mask should be stored, single-channel, 32-bit floating-point.
-/// * boundingRects: Vector containing ROIs of motion connected components.
-/// * timestamp: Current time in milliseconds or other units.
-/// * segThresh: Segmentation threshold that is recommended to be equal to the interval between
-/// motion history "steps" or greater.
-/// 
-/// The function finds all of the motion segments and marks them in segmask with individual values
-/// (1,2,...). It also computes a vector with ROIs of motion connected components. After that the motion
-/// direction for every component can be calculated with calcGlobalOrientation using the extracted mask
-/// of the particular component.
 #[inline]
 pub fn segment_motion(mhi: &dyn core::ToInputArray, segmask: &mut dyn core::ToOutputArray, bounding_rects: &mut core::Vector<core::Rect>, timestamp: f64, seg_thresh: f64) -> Result<()> {
 	input_array_arg!(mhi);
@@ -196,24 +114,6 @@ pub fn segment_motion(mhi: &dyn core::ToInputArray, segmask: &mut dyn core::ToOu
 	Ok(ret)
 }
 
-/// Updates the motion history image by a moving silhouette.
-/// 
-/// ## Parameters
-/// * silhouette: Silhouette mask that has non-zero pixels where the motion occurs.
-/// * mhi: Motion history image that is updated by the function (single-channel, 32-bit
-/// floating-point).
-/// * timestamp: Current time in milliseconds or other units.
-/// * duration: Maximal duration of the motion track in the same units as timestamp .
-/// 
-/// The function updates the motion history image as follows:
-/// 
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bmhi%7D%20%28x%2Cy%29%3D%20%5Cforkthree%7B%5Ctexttt%7Btimestamp%7D%7D%7Bif%20%5C%28%5Ctexttt%7Bsilhouette%7D%28x%2Cy%29%20%5Cne%200%5C%29%7D%7B0%7D%7Bif%20%5C%28%5Ctexttt%7Bsilhouette%7D%28x%2Cy%29%20%3D%200%5C%29%20and%20%5C%28%5Ctexttt%7Bmhi%7D%20%3C%20%28%5Ctexttt%7Btimestamp%7D%20%2D%20%5Ctexttt%7Bduration%7D%29%5C%29%7D%7B%5Ctexttt%7Bmhi%7D%28x%2Cy%29%7D%7Botherwise%7D)
-/// 
-/// That is, MHI pixels where the motion occurs are set to the current timestamp , while the pixels
-/// where the motion happened last time a long time ago are cleared.
-/// 
-/// The function, together with calcMotionGradient and calcGlobalOrientation , implements a motion
-/// templates technique described in [Davis97](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Davis97) and [Bradski00](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Bradski00) .
 #[inline]
 pub fn update_motion_history(silhouette: &dyn core::ToInputArray, mhi: &mut dyn core::ToInputOutputArray, timestamp: f64, duration: f64) -> Result<()> {
 	input_array_arg!(silhouette);
@@ -225,64 +125,6 @@ pub fn update_motion_history(silhouette: &dyn core::ToInputArray, mhi: &mut dyn 
 	Ok(ret)
 }
 
-/// Fast dense optical flow computation based on robust local optical flow (RLOF) algorithms and sparse-to-dense interpolation scheme.
-/// 
-/// The RLOF is a fast local optical flow approach described in [Senst2012](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2012) [Senst2013](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2013) [Senst2014](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2014)
-/// and [Senst2016](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2016) similar to the pyramidal iterative Lucas-Kanade method as
-/// proposed by [Bouguet00](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Bouguet00). More details and experiments can be found in the following thesis [Senst2019](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2019).
-/// The implementation is derived from optflow::calcOpticalFlowPyrLK().
-/// 
-/// The sparse-to-dense interpolation scheme allows for fast computation of dense optical flow using RLOF (see [Geistert2016](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Geistert2016)).
-/// For this scheme the following steps are applied:
-/// -# motion vector seeded at a regular sampled grid are computed. The sparsity of this grid can be configured with setGridStep
-/// -# (optinally) errornous motion vectors are filter based on the forward backward confidence. The threshold can be configured
-/// with setForwardBackward. The filter is only applied if the threshold >0 but than the runtime is doubled due to the estimation
-/// of the backward flow.
-/// -# Vector field interpolation is applied to the motion vector set to obtain a dense vector field.
-/// 
-/// ## Parameters
-/// * I0: first 8-bit input image. If The cross-based RLOF is used (by selecting optflow::RLOFOpticalFlowParameter::supportRegionType
-/// = SupportRegionType::SR_CROSS) image has to be a 8-bit 3 channel image.
-/// * I1: second 8-bit input image. If The cross-based RLOF is used (by selecting optflow::RLOFOpticalFlowParameter::supportRegionType
-/// = SupportRegionType::SR_CROSS) image has to be a 8-bit 3 channel image.
-/// * flow: computed flow image that has the same size as I0 and type CV_32FC2.
-/// * rlofParam: see optflow::RLOFOpticalFlowParameter
-/// * forwardBackwardThreshold: Threshold for the forward backward confidence check.
-/// For each grid point ![inline formula](https://latex.codecogs.com/png.latex?%20%5Cmathbf%7Bx%7D%20) a motion vector ![inline formula](https://latex.codecogs.com/png.latex?%20d%5F%7BI0%2CI1%7D%28%5Cmathbf%7Bx%7D%29%20) is computed.
-/// If the forward backward error ![block formula](https://latex.codecogs.com/png.latex?%20EP%5F%7BFB%7D%20%3D%20%7C%7C%20d%5F%7BI0%2CI1%7D%20%2B%20d%5F%7BI1%2CI0%7D%20%7C%7C%20)
-/// is larger than threshold given by this function then the motion vector will not be used by the following
-/// vector field interpolation. ![inline formula](https://latex.codecogs.com/png.latex?%20d%5F%7BI1%2CI0%7D%20) denotes the backward flow. Note, the forward backward test
-///    will only be applied if the threshold > 0. This may results into a doubled runtime for the motion estimation.
-/// * gridStep: Size of the grid to spawn the motion vectors. For each grid point a motion vector is computed.
-/// Some motion vectors will be removed due to the forwatd backward threshold (if set >0). The rest will be the
-/// base of the vector field interpolation.
-/// * interp_type: interpolation method used to compute the dense optical flow. Two interpolation algorithms are
-/// supported:
-/// - **INTERP_GEO** applies the fast geodesic interpolation, see [Geistert2016](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Geistert2016).
-/// - **INTERP_EPIC_RESIDUAL** applies the edge-preserving interpolation, see [Revaud2015](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Revaud2015),Geistert2016.
-/// * epicK: see ximgproc::EdgeAwareInterpolator sets the respective parameter.
-/// * epicSigma: see ximgproc::EdgeAwareInterpolator sets the respective parameter.
-/// * epicLambda: see ximgproc::EdgeAwareInterpolator sets the respective parameter.
-/// * ricSPSize: see ximgproc::RICInterpolator sets the respective parameter.
-/// * ricSLICType: see ximgproc::RICInterpolator sets the respective parameter.
-/// * use_post_proc: enables ximgproc::fastGlobalSmootherFilter() parameter.
-/// * fgsLambda: sets the respective ximgproc::fastGlobalSmootherFilter() parameter.
-/// * fgsSigma: sets the respective ximgproc::fastGlobalSmootherFilter() parameter.
-/// * use_variational_refinement: enables VariationalRefinement
-/// 
-/// Parameters have been described in [Senst2012](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2012), [Senst2013](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2013), [Senst2014](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2014), [Senst2016](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2016).
-/// For the RLOF configuration see optflow::RLOFOpticalFlowParameter for further details.
-/// 
-/// Note: If the grid size is set to (1,1) and the forward backward threshold <= 0 that the dense optical flow field is purely
-/// computed with the RLOF.
-/// 
-/// 
-/// Note: SIMD parallelization is only available when compiling with SSE4.1.
-/// 
-/// Note: Note that in output, if no correspondences are found between \a I0 and \a I1, the \a flow is set to 0.
-/// ## See also
-/// optflow::DenseRLOFOpticalFlow, optflow::RLOFOpticalFlowParameter
-/// 
 /// ## C++ default parameters
 /// * rlof_param: Ptr<RLOFOpticalFlowParameter>()
 /// * forward_backward_threshold: 0
@@ -389,36 +231,6 @@ pub fn calc_optical_flow_sf_1(from: &dyn core::ToInputArray, to: &dyn core::ToIn
 	Ok(ret)
 }
 
-/// Calculates fast optical flow for a sparse feature set using the robust local optical flow (RLOF) similar
-/// to optflow::calcOpticalFlowPyrLK().
-/// 
-/// The RLOF is a fast local optical flow approach described in [Senst2012](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2012) [Senst2013](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2013) [Senst2014](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2014)
-/// and [Senst2016](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2016) similar to the pyramidal iterative Lucas-Kanade method as
-/// proposed by [Bouguet00](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Bouguet00). More details and experiments can be found in the following thesis [Senst2019](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2019).
-/// The implementation is derived from optflow::calcOpticalFlowPyrLK().
-/// 
-/// ## Parameters
-/// * prevImg: first 8-bit input image. If The cross-based RLOF is used (by selecting optflow::RLOFOpticalFlowParameter::supportRegionType
-/// = SupportRegionType::SR_CROSS) image has to be a 8-bit 3 channel image.
-/// * nextImg: second 8-bit input image. If The cross-based RLOF is used (by selecting optflow::RLOFOpticalFlowParameter::supportRegionType
-/// = SupportRegionType::SR_CROSS) image has to be a 8-bit 3 channel image.
-/// * prevPts: vector of 2D points for which the flow needs to be found; point coordinates must be single-precision
-/// floating-point numbers.
-/// * nextPts: output vector of 2D points (with single-precision floating-point coordinates) containing the calculated
-/// new positions of input features in the second image; when optflow::RLOFOpticalFlowParameter::useInitialFlow variable is true  the vector must
-/// have the same size as in the input and contain the initialization point correspondences.
-/// * status: output status vector (of unsigned chars); each element of the vector is set to 1 if the flow for the
-/// corresponding features has passed the forward backward check.
-/// * err: output vector of errors; each element of the vector is set to the forward backward error for the corresponding feature.
-/// * rlofParam: see optflow::RLOFOpticalFlowParameter
-/// * forwardBackwardThreshold: Threshold for the forward backward confidence check. If forewardBackwardThreshold <=0 the forward
-/// 
-/// 
-/// Note: SIMD parallelization is only available when compiling with SSE4.1.
-/// 
-/// Parameters have been described in [Senst2012](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2012), [Senst2013](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2013), [Senst2014](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2014) and [Senst2016](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2016).
-/// For the RLOF configuration see optflow::RLOFOpticalFlowParameter for further details.
-/// 
 /// ## C++ default parameters
 /// * rlof_param: Ptr<RLOFOpticalFlowParameter>()
 /// * forward_backward_threshold: 0
@@ -509,7 +321,6 @@ pub fn create_opt_flow_deep_flow() -> Result<core::Ptr<dyn crate::video::DenseOp
 	Ok(ret)
 }
 
-/// Additional interface to the Dense RLOF algorithm - optflow::calcOpticalFlowDenseRLOF()
 #[inline]
 pub fn create_opt_flow_dense_rlof() -> Result<core::Ptr<dyn crate::video::DenseOpticalFlow>> {
 	return_send!(via ocvrs_return);
@@ -542,7 +353,6 @@ pub fn create_opt_flow_farneback() -> Result<core::Ptr<dyn crate::video::DenseOp
 	Ok(ret)
 }
 
-/// Creates an instance of PCAFlow
 #[inline]
 pub fn create_opt_flow_pca_flow() -> Result<core::Ptr<dyn crate::video::DenseOpticalFlow>> {
 	return_send!(via ocvrs_return);
@@ -564,7 +374,6 @@ pub fn create_opt_flow_simple_flow() -> Result<core::Ptr<dyn crate::video::Dense
 	Ok(ret)
 }
 
-/// Additional interface to the Sparse RLOF algorithm - optflow::calcOpticalFlowSparseRLOF()
 #[inline]
 pub fn create_opt_flow_sparse_rlof() -> Result<core::Ptr<dyn crate::video::SparseOpticalFlow>> {
 	return_send!(via ocvrs_return);
@@ -605,40 +414,9 @@ pub fn write(fs: &mut core::FileStorage, name: &str, node: crate::optflow::GPCTr
 	Ok(ret)
 }
 
-/// Fast dense optical flow computation based on robust local optical flow (RLOF) algorithms and sparse-to-dense interpolation
-/// scheme.
-/// 
-/// The RLOF is a fast local optical flow approach described in [Senst2012](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2012) [Senst2013](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2013) [Senst2014](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2014)
-/// and [Senst2016](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2016) similar to the pyramidal iterative Lucas-Kanade method as
-/// proposed by [Bouguet00](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Bouguet00). More details and experiments can be found in the following thesis [Senst2019](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2019).
-/// The implementation is derived from optflow::calcOpticalFlowPyrLK().
-/// 
-/// The sparse-to-dense interpolation scheme allows for fast computation of dense optical flow using RLOF (see [Geistert2016](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Geistert2016)).
-/// For this scheme the following steps are applied:
-/// -# motion vector seeded at a regular sampled grid are computed. The sparsity of this grid can be configured with setGridStep
-/// -# (optinally) errornous motion vectors are filter based on the forward backward confidence. The threshold can be configured
-/// with setForwardBackward. The filter is only applied if the threshold >0 but than the runtime is doubled due to the estimation
-/// of the backward flow.
-/// -# Vector field interpolation is applied to the motion vector set to obtain a dense vector field.
-/// 
-/// For the RLOF configuration see optflow::RLOFOpticalFlowParameter for further details.
-/// Parameters have been described in [Senst2012](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2012) [Senst2013](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2013) [Senst2014](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2014) and [Senst2016](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2016).
-/// 
-/// 
-/// Note: If the grid size is set to (1,1) and the forward backward threshold <= 0 than pixelwise dense optical flow field is
-/// computed by RLOF without using interpolation.
-/// 
-/// 
-/// Note: Note that in output, if no correspondences are found between \a I0 and \a I1, the \a flow is set to 0.
-/// ## See also
-/// optflow::calcOpticalFlowDenseRLOF(), optflow::RLOFOpticalFlowParameter
 pub trait DenseRLOFOpticalFlowConst: crate::video::DenseOpticalFlowConst {
 	fn as_raw_DenseRLOFOpticalFlow(&self) -> *const c_void;
 
-	/// Configuration of the RLOF alogrithm.
-	/// ## See also
-	/// optflow::RLOFOpticalFlowParameter, getRLOFOpticalFlowParameter
-	///    optflow::RLOFOpticalFlowParameter, setRLOFOpticalFlowParameter
 	#[inline]
 	fn get_rlof_optical_flow_parameter(&self) -> Result<core::Ptr<crate::optflow::RLOFOpticalFlowParameter>> {
 		return_send!(via ocvrs_return);
@@ -649,15 +427,6 @@ pub trait DenseRLOFOpticalFlowConst: crate::video::DenseOpticalFlowConst {
 		Ok(ret)
 	}
 	
-	/// Threshold for the forward backward confidence check
-	/// For each grid point ![inline formula](https://latex.codecogs.com/png.latex?%20%5Cmathbf%7Bx%7D%20) a motion vector ![inline formula](https://latex.codecogs.com/png.latex?%20d%5F%7BI0%2CI1%7D%28%5Cmathbf%7Bx%7D%29%20) is computed.
-	///      *     If the forward backward error ![block formula](https://latex.codecogs.com/png.latex?%20EP%5F%7BFB%7D%20%3D%20%7C%7C%20d%5F%7BI0%2CI1%7D%20%2B%20d%5F%7BI1%2CI0%7D%20%7C%7C%20)
-	///      *     is larger than threshold given by this function then the motion vector will not be used by the following
-	///      *    vector field interpolation. ![inline formula](https://latex.codecogs.com/png.latex?%20d%5F%7BI1%2CI0%7D%20) denotes the backward flow. Note, the forward backward test
-	///      *    will only be applied if the threshold > 0. This may results into a doubled runtime for the motion estimation.
-	///      *    getForwardBackward, setGridStep
-	/// ## See also
-	/// setForwardBackward
 	#[inline]
 	fn get_forward_backward(&self) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -667,10 +436,6 @@ pub trait DenseRLOFOpticalFlowConst: crate::video::DenseOpticalFlowConst {
 		Ok(ret)
 	}
 	
-	/// Size of the grid to spawn the motion vectors.
-	/// For each grid point a motion vector is computed. Some motion vectors will be removed due to the forwatd backward
-	///      *  threshold (if set >0). The rest will be the base of the vector field interpolation.
-	///      *    see also: getForwardBackward, setGridStep
 	#[inline]
 	fn get_grid_step(&self) -> Result<core::Size> {
 		return_send!(via ocvrs_return);
@@ -680,12 +445,6 @@ pub trait DenseRLOFOpticalFlowConst: crate::video::DenseOpticalFlowConst {
 		Ok(ret)
 	}
 	
-	/// Interpolation used to compute the dense optical flow.
-	/// Two interpolation algorithms are supported
-	///      * - **INTERP_GEO** applies the fast geodesic interpolation, see [Geistert2016](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Geistert2016).
-	///      * - **INTERP_EPIC_RESIDUAL** applies the edge-preserving interpolation, see [Revaud2015](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Revaud2015),Geistert2016.
-	///      * see also: ximgproc::EdgeAwareInterpolator, getInterpolation
-	///      *    see also: ximgproc::EdgeAwareInterpolator, setInterpolation
 	#[inline]
 	fn get_interpolation(&self) -> Result<crate::optflow::InterpolationType> {
 		return_send!(via ocvrs_return);
@@ -695,10 +454,6 @@ pub trait DenseRLOFOpticalFlowConst: crate::video::DenseOpticalFlowConst {
 		Ok(ret)
 	}
 	
-	/// see ximgproc::EdgeAwareInterpolator() K value.
-	/// K is a number of nearest-neighbor matches considered, when fitting a locally affine
-	///      *    model. Usually it should be around 128. However, lower values would make the interpolation noticeably faster.
-	///      *    see also: ximgproc::EdgeAwareInterpolator,  setEPICK
 	#[inline]
 	fn get_epick(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -708,11 +463,6 @@ pub trait DenseRLOFOpticalFlowConst: crate::video::DenseOpticalFlowConst {
 		Ok(ret)
 	}
 	
-	/// see ximgproc::EdgeAwareInterpolator() sigma value.
-	/// Sigma is a parameter defining how fast the weights decrease in the locally-weighted affine
-	///      *  fitting. Higher values can help preserve fine details, lower values can help to get rid of noise in the
-	///      *  output flow.
-	///      *    see also: ximgproc::EdgeAwareInterpolator, setEPICSigma
 	#[inline]
 	fn get_epic_sigma(&self) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -722,10 +472,6 @@ pub trait DenseRLOFOpticalFlowConst: crate::video::DenseOpticalFlowConst {
 		Ok(ret)
 	}
 	
-	/// see ximgproc::EdgeAwareInterpolator() lambda value.
-	/// Lambda is a parameter defining the weight of the edge-aware term in geodesic distance,
-	///      *    should be in the range of 0 to 1000.
-	///      *    see also: ximgproc::EdgeAwareInterpolator, setEPICSigma
 	#[inline]
 	fn get_epic_lambda(&self) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -735,9 +481,6 @@ pub trait DenseRLOFOpticalFlowConst: crate::video::DenseOpticalFlowConst {
 		Ok(ret)
 	}
 	
-	/// see ximgproc::EdgeAwareInterpolator().
-	/// Sets the respective fastGlobalSmootherFilter() parameter.
-	///      *    see also: ximgproc::EdgeAwareInterpolator, setFgsLambda
 	#[inline]
 	fn get_fgs_lambda(&self) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -747,9 +490,6 @@ pub trait DenseRLOFOpticalFlowConst: crate::video::DenseOpticalFlowConst {
 		Ok(ret)
 	}
 	
-	/// see ximgproc::EdgeAwareInterpolator().
-	/// Sets the respective fastGlobalSmootherFilter() parameter.
-	///      *    see also: ximgproc::EdgeAwareInterpolator, ximgproc::fastGlobalSmootherFilter, setFgsSigma
 	#[inline]
 	fn get_fgs_sigma(&self) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -759,10 +499,6 @@ pub trait DenseRLOFOpticalFlowConst: crate::video::DenseOpticalFlowConst {
 		Ok(ret)
 	}
 	
-	/// enables ximgproc::fastGlobalSmootherFilter
-	/// 
-	/// * see also: getUsePostProc
-	///      *    see also: ximgproc::fastGlobalSmootherFilter, setUsePostProc
 	#[inline]
 	fn get_use_post_proc(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -772,10 +508,6 @@ pub trait DenseRLOFOpticalFlowConst: crate::video::DenseOpticalFlowConst {
 		Ok(ret)
 	}
 	
-	/// enables VariationalRefinement
-	/// 
-	/// * see also: getUseVariationalRefinement
-	///      *    see also: ximgproc::fastGlobalSmootherFilter, setUsePostProc
 	#[inline]
 	fn get_use_variational_refinement(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -785,10 +517,6 @@ pub trait DenseRLOFOpticalFlowConst: crate::video::DenseOpticalFlowConst {
 		Ok(ret)
 	}
 	
-	/// Parameter to tune the approximate size of the superpixel used for oversegmentation.
-	/// 
-	/// * see also: cv::ximgproc::createSuperpixelSLIC, cv::ximgproc::RICInterpolator
-	///    *    see also: setRICSPSize
 	#[inline]
 	fn get_ricsp_size(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -798,13 +526,6 @@ pub trait DenseRLOFOpticalFlowConst: crate::video::DenseOpticalFlowConst {
 		Ok(ret)
 	}
 	
-	/// Parameter to choose superpixel algorithm variant to use:
-	/// - cv::ximgproc::SLICType SLIC segments image using a desired region_size (value: 100)
-	/// - cv::ximgproc::SLICType SLICO will optimize using adaptive compactness factor (value: 101)
-	/// - cv::ximgproc::SLICType MSLIC will optimize using manifold methods resulting in more content-sensitive superpixels (value: 102).
-	/// ## See also
-	/// cv::ximgproc::createSuperpixelSLIC, cv::ximgproc::RICInterpolator
-	///      *    setRICSLICType
 	#[inline]
 	fn get_ricslic_type(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -819,9 +540,6 @@ pub trait DenseRLOFOpticalFlowConst: crate::video::DenseOpticalFlowConst {
 pub trait DenseRLOFOpticalFlow: crate::optflow::DenseRLOFOpticalFlowConst + crate::video::DenseOpticalFlow {
 	fn as_raw_mut_DenseRLOFOpticalFlow(&mut self) -> *mut c_void;
 
-	/// Configuration of the RLOF alogrithm.
-	/// ## See also
-	/// optflow::RLOFOpticalFlowParameter, getRLOFOpticalFlowParameter
 	#[inline]
 	fn set_rlof_optical_flow_parameter(&mut self, mut val: core::Ptr<crate::optflow::RLOFOpticalFlowParameter>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -831,13 +549,6 @@ pub trait DenseRLOFOpticalFlow: crate::optflow::DenseRLOFOpticalFlowConst + crat
 		Ok(ret)
 	}
 	
-	/// Threshold for the forward backward confidence check
-	/// For each grid point ![inline formula](https://latex.codecogs.com/png.latex?%20%5Cmathbf%7Bx%7D%20) a motion vector ![inline formula](https://latex.codecogs.com/png.latex?%20d%5F%7BI0%2CI1%7D%28%5Cmathbf%7Bx%7D%29%20) is computed.
-	///      *     If the forward backward error ![block formula](https://latex.codecogs.com/png.latex?%20EP%5F%7BFB%7D%20%3D%20%7C%7C%20d%5F%7BI0%2CI1%7D%20%2B%20d%5F%7BI1%2CI0%7D%20%7C%7C%20)
-	///      *     is larger than threshold given by this function then the motion vector will not be used by the following
-	///      *    vector field interpolation. ![inline formula](https://latex.codecogs.com/png.latex?%20d%5F%7BI1%2CI0%7D%20) denotes the backward flow. Note, the forward backward test
-	///      *    will only be applied if the threshold > 0. This may results into a doubled runtime for the motion estimation.
-	///      *    see also: getForwardBackward, setGridStep
 	#[inline]
 	fn set_forward_backward(&mut self, val: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -847,11 +558,6 @@ pub trait DenseRLOFOpticalFlow: crate::optflow::DenseRLOFOpticalFlowConst + crat
 		Ok(ret)
 	}
 	
-	/// Size of the grid to spawn the motion vectors.
-	/// For each grid point a motion vector is computed. Some motion vectors will be removed due to the forwatd backward
-	///      *  threshold (if set >0). The rest will be the base of the vector field interpolation.
-	///      *    see also: getForwardBackward, setGridStep
-	///      *    see also: getGridStep
 	#[inline]
 	fn set_grid_step(&mut self, val: core::Size) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -861,11 +567,6 @@ pub trait DenseRLOFOpticalFlow: crate::optflow::DenseRLOFOpticalFlowConst + crat
 		Ok(ret)
 	}
 	
-	/// Interpolation used to compute the dense optical flow.
-	/// Two interpolation algorithms are supported
-	///      * - **INTERP_GEO** applies the fast geodesic interpolation, see [Geistert2016](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Geistert2016).
-	///      * - **INTERP_EPIC_RESIDUAL** applies the edge-preserving interpolation, see [Revaud2015](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Revaud2015),Geistert2016.
-	///      * see also: ximgproc::EdgeAwareInterpolator, getInterpolation
 	#[inline]
 	fn set_interpolation(&mut self, val: crate::optflow::InterpolationType) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -875,11 +576,6 @@ pub trait DenseRLOFOpticalFlow: crate::optflow::DenseRLOFOpticalFlowConst + crat
 		Ok(ret)
 	}
 	
-	/// see ximgproc::EdgeAwareInterpolator() K value.
-	/// K is a number of nearest-neighbor matches considered, when fitting a locally affine
-	///      *    model. Usually it should be around 128. However, lower values would make the interpolation noticeably faster.
-	///      *    see also: ximgproc::EdgeAwareInterpolator,  setEPICK
-	///      *    see also: ximgproc::EdgeAwareInterpolator, getEPICK
 	#[inline]
 	fn set_epick(&mut self, val: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -889,12 +585,6 @@ pub trait DenseRLOFOpticalFlow: crate::optflow::DenseRLOFOpticalFlowConst + crat
 		Ok(ret)
 	}
 	
-	/// see ximgproc::EdgeAwareInterpolator() sigma value.
-	/// Sigma is a parameter defining how fast the weights decrease in the locally-weighted affine
-	///      *  fitting. Higher values can help preserve fine details, lower values can help to get rid of noise in the
-	///      *  output flow.
-	///      *    see also: ximgproc::EdgeAwareInterpolator, setEPICSigma
-	///      *  see also: ximgproc::EdgeAwareInterpolator, getEPICSigma
 	#[inline]
 	fn set_epic_sigma(&mut self, val: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -904,11 +594,6 @@ pub trait DenseRLOFOpticalFlow: crate::optflow::DenseRLOFOpticalFlowConst + crat
 		Ok(ret)
 	}
 	
-	/// see ximgproc::EdgeAwareInterpolator() lambda value.
-	/// Lambda is a parameter defining the weight of the edge-aware term in geodesic distance,
-	///      *    should be in the range of 0 to 1000.
-	///      *    see also: ximgproc::EdgeAwareInterpolator, setEPICSigma
-	///      *    see also: ximgproc::EdgeAwareInterpolator, getEPICLambda
 	#[inline]
 	fn set_epic_lambda(&mut self, val: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -918,10 +603,6 @@ pub trait DenseRLOFOpticalFlow: crate::optflow::DenseRLOFOpticalFlowConst + crat
 		Ok(ret)
 	}
 	
-	/// see ximgproc::EdgeAwareInterpolator().
-	/// Sets the respective fastGlobalSmootherFilter() parameter.
-	///      *    see also: ximgproc::EdgeAwareInterpolator, setFgsLambda
-	///      *    see also: ximgproc::EdgeAwareInterpolator, ximgproc::fastGlobalSmootherFilter, getFgsLambda
 	#[inline]
 	fn set_fgs_lambda(&mut self, val: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -931,10 +612,6 @@ pub trait DenseRLOFOpticalFlow: crate::optflow::DenseRLOFOpticalFlowConst + crat
 		Ok(ret)
 	}
 	
-	/// see ximgproc::EdgeAwareInterpolator().
-	/// Sets the respective fastGlobalSmootherFilter() parameter.
-	///      *    see also: ximgproc::EdgeAwareInterpolator, ximgproc::fastGlobalSmootherFilter, setFgsSigma
-	///      *    see also: ximgproc::EdgeAwareInterpolator, ximgproc::fastGlobalSmootherFilter, getFgsSigma
 	#[inline]
 	fn set_fgs_sigma(&mut self, val: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -944,9 +621,6 @@ pub trait DenseRLOFOpticalFlow: crate::optflow::DenseRLOFOpticalFlowConst + crat
 		Ok(ret)
 	}
 	
-	/// enables ximgproc::fastGlobalSmootherFilter
-	/// 
-	/// * see also: getUsePostProc
 	#[inline]
 	fn set_use_post_proc(&mut self, val: bool) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -956,9 +630,6 @@ pub trait DenseRLOFOpticalFlow: crate::optflow::DenseRLOFOpticalFlowConst + crat
 		Ok(ret)
 	}
 	
-	/// enables VariationalRefinement
-	/// 
-	/// * see also: getUseVariationalRefinement
 	#[inline]
 	fn set_use_variational_refinement(&mut self, val: bool) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -968,9 +639,6 @@ pub trait DenseRLOFOpticalFlow: crate::optflow::DenseRLOFOpticalFlowConst + crat
 		Ok(ret)
 	}
 	
-	/// Parameter to tune the approximate size of the superpixel used for oversegmentation.
-	/// 
-	/// * see also: cv::ximgproc::createSuperpixelSLIC, cv::ximgproc::RICInterpolator
 	#[inline]
 	fn set_ricsp_size(&mut self, val: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -980,12 +648,6 @@ pub trait DenseRLOFOpticalFlow: crate::optflow::DenseRLOFOpticalFlowConst + crat
 		Ok(ret)
 	}
 	
-	/// Parameter to choose superpixel algorithm variant to use:
-	/// - cv::ximgproc::SLICType SLIC segments image using a desired region_size (value: 100)
-	/// - cv::ximgproc::SLICType SLICO will optimize using adaptive compactness factor (value: 101)
-	/// - cv::ximgproc::SLICType MSLIC will optimize using manifold methods resulting in more content-sensitive superpixels (value: 102).
-	/// ## See also
-	/// cv::ximgproc::createSuperpixelSLIC, cv::ximgproc::RICInterpolator
 	#[inline]
 	fn set_ricslic_type(&mut self, val: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -998,23 +660,6 @@ pub trait DenseRLOFOpticalFlow: crate::optflow::DenseRLOFOpticalFlowConst + crat
 }
 
 impl dyn DenseRLOFOpticalFlow + '_ {
-	/// Creates instance of optflow::DenseRLOFOpticalFlow
-	/// 
-	/// ## Parameters
-	/// * rlofParam: see optflow::RLOFOpticalFlowParameter
-	/// * forwardBackwardThreshold: see setForwardBackward
-	/// * gridStep: see setGridStep
-	/// * interp_type: see setInterpolation
-	/// * epicK: see setEPICK
-	/// * epicSigma: see setEPICSigma
-	/// * epicLambda: see setEPICLambda
-	/// * ricSPSize: see setRICSPSize
-	/// * ricSLICType: see setRICSLICType
-	/// * use_post_proc: see setUsePostProc
-	/// * fgsLambda: see setFgsLambda
-	/// * fgsSigma: see setFgsSigma
-	/// * use_variational_refinement: see setUseVariationalRefinement
-	/// 
 	/// ## C++ default parameters
 	/// * rlof_param: Ptr<RLOFOpticalFlowParameter>()
 	/// * forward_backward_threshold: 1.f
@@ -1460,11 +1105,9 @@ impl GPCDetails {
 	
 }
 
-/// Class encapsulating matching parameters.
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub struct GPCMatchingParams {
-	/// Whether to use OpenCL to speed up the matching.
 	pub use_opencl: bool,
 }
 
@@ -1568,7 +1211,6 @@ impl crate::optflow::GPCPatchDescriptorTrait for GPCPatchDescriptor {
 }
 
 impl GPCPatchDescriptor {
-	/// number of features in a patch descriptor
 	pub const nFeatures: u32 = 18;
 }
 
@@ -1656,17 +1298,12 @@ impl crate::optflow::GPCPatchSampleTrait for GPCPatchSample {
 impl GPCPatchSample {
 }
 
-/// Class encapsulating training parameters.
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub struct GPCTrainingParams {
-	/// Maximum tree depth to stop partitioning.
 	pub max_tree_depth: u32,
-	/// Minimum number of samples in the node to stop partitioning.
 	pub min_number_of_samples: i32,
-	/// Type of descriptors to use.
 	pub descriptor_type: i32,
-	/// Print progress to stdout.
 	pub print_progress: bool,
 }
 
@@ -1698,7 +1335,6 @@ impl GPCTrainingParams {
 	
 }
 
-/// Class encapsulating training samples.
 pub trait GPCTrainingSamplesTraitConst {
 	fn as_raw_GPCTrainingSamples(&self) -> *const c_void;
 
@@ -1727,7 +1363,6 @@ pub trait GPCTrainingSamplesTrait: crate::optflow::GPCTrainingSamplesTraitConst 
 
 }
 
-/// Class encapsulating training samples.
 pub struct GPCTrainingSamples {
 	ptr: *mut c_void
 }
@@ -1752,8 +1387,6 @@ impl crate::optflow::GPCTrainingSamplesTrait for GPCTrainingSamples {
 }
 
 impl GPCTrainingSamples {
-	/// This function can be used to extract samples from a pair of images and a ground truth flow.
-	/// Sizes of all the provided vectors must be equal.
 	#[inline]
 	pub fn create(images_from: &core::Vector<String>, images_to: &core::Vector<String>, gt: &core::Vector<String>, descriptor_type: i32) -> Result<core::Ptr<crate::optflow::GPCTrainingSamples>> {
 		return_send!(via ocvrs_return);
@@ -1779,7 +1412,6 @@ impl GPCTrainingSamples {
 	
 }
 
-/// Class for individual tree.
 pub trait GPCTreeTraitConst: core::AlgorithmTraitConst {
 	fn as_raw_GPCTree(&self) -> *const c_void;
 
@@ -1846,7 +1478,6 @@ pub trait GPCTreeTrait: core::AlgorithmTrait + crate::optflow::GPCTreeTraitConst
 	
 }
 
-/// Class for individual tree.
 pub struct GPCTree {
 	ptr: *mut c_void
 }
@@ -1896,9 +1527,7 @@ boxed_cast_base! { GPCTree, core::Algorithm, cv_GPCTree_to_Algorithm }
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub struct GPCTree_Node {
-	/// Hyperplane coefficients
 	pub coef: core::VecN<f64, 18>,
-	/// Bias term of the hyperplane
 	pub rhs: f64,
 	pub left: u32,
 	pub right: u32,
@@ -1918,7 +1547,6 @@ impl GPCTree_Node {
 	
 }
 
-/// PCAFlow algorithm.
 pub trait OpticalFlowPCAFlowTraitConst: crate::video::DenseOpticalFlowConst {
 	fn as_raw_OpticalFlowPCAFlow(&self) -> *const c_void;
 
@@ -1950,7 +1578,6 @@ pub trait OpticalFlowPCAFlowTrait: crate::optflow::OpticalFlowPCAFlowTraitConst 
 	
 }
 
-/// PCAFlow algorithm.
 pub struct OpticalFlowPCAFlow {
 	ptr: *mut c_void
 }
@@ -1991,16 +1618,6 @@ impl crate::optflow::OpticalFlowPCAFlowTrait for OpticalFlowPCAFlow {
 }
 
 impl OpticalFlowPCAFlow {
-	/// Creates an instance of PCAFlow algorithm.
-	/// ## Parameters
-	/// * _prior: Learned prior or no prior (default). see also: cv::optflow::PCAPrior
-	/// * _basisSize: Number of basis vectors.
-	/// * _sparseRate: Controls density of sparse matches.
-	/// * _retainedCornersFraction: Retained corners fraction.
-	/// * _occlusionsThreshold: Occlusion threshold.
-	/// * _dampingFactor: Regularization term for solving least-squares. It is not related to the prior regularization.
-	/// * _claheClip: Clip parameter for CLAHE.
-	/// 
 	/// ## C++ default parameters
 	/// * _prior: Ptr<constPCAPrior>()
 	/// * _basis_size: Size(18,14)
@@ -2023,10 +1640,6 @@ impl OpticalFlowPCAFlow {
 
 boxed_cast_base! { OpticalFlowPCAFlow, core::Algorithm, cv_OpticalFlowPCAFlow_to_Algorithm }
 
-/// 
-/// This class can be used for imposing a learned prior on the resulting optical flow.
-/// Solution will be regularized according to this prior.
-/// You need to generate appropriate prior file with "learn_prior.py" script beforehand.
 pub trait PCAPriorTraitConst {
 	fn as_raw_PCAPrior(&self) -> *const c_void;
 
@@ -2064,10 +1677,6 @@ pub trait PCAPriorTrait: crate::optflow::PCAPriorTraitConst {
 
 }
 
-/// 
-/// This class can be used for imposing a learned prior on the resulting optical flow.
-/// Solution will be regularized according to this prior.
-/// You need to generate appropriate prior file with "learn_prior.py" script beforehand.
 pub struct PCAPrior {
 	ptr: *mut c_void
 }
@@ -2105,32 +1714,6 @@ impl PCAPrior {
 	
 }
 
-/// This is used store and set up the parameters of the robust local optical flow (RLOF) algoritm.
-/// 
-/// The RLOF is a fast local optical flow approach described in [Senst2012](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2012) [Senst2013](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2013) [Senst2014](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2014)
-/// and [Senst2016](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2016) similar to the pyramidal iterative Lucas-Kanade method as
-/// proposed by [Bouguet00](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Bouguet00). More details and experiments can be found in the following thesis [Senst2019](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2019).
-/// The implementation is derived from optflow::calcOpticalFlowPyrLK().
-/// This RLOF implementation can be seen as an improved pyramidal iterative Lucas-Kanade and includes
-/// a set of improving modules. The main improvements in respect to the pyramidal iterative Lucas-Kanade
-/// are:
-///  - A more robust redecending M-estimator framework (see [Senst2012](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2012)) to improve the accuracy at
-///    motion boundaries and appearing and disappearing pixels.
-///  - an adaptive support region strategies to improve the accuracy at motion boundaries to reduce the
-///    corona effect, i.e oversmoothing of the PLK at motion/object boundaries. The cross-based segementation
-///    strategy (SR_CROSS) proposed in [Senst2014](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2014) uses a simple segmenation approach to obtain the optimal
-///    shape of the support region.
-///  - To deal with illumination changes (outdoor sequences and shadow) the intensity constancy assumption
-///    based optical flow equation has been adopt with the Gennert and Negahdaripour illumination model
-///    (see [Senst2016](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2016)). This model can be switched on/off with the useIlluminationModel variable.
-///  - By using a global motion prior initialization (see [Senst2016](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2016)) of the iterative refinement
-///    the accuracy could be significantly improved for large displacements. This initialization can be
-///    switched on and of with useGlobalMotionPrior variable.
-/// 
-/// The RLOF can be computed with the SparseOpticalFlow class or function interface to track a set of features
-/// or with the DenseOpticalFlow class or function interface to compute dense optical flow.
-/// ## See also
-/// optflow::DenseRLOFOpticalFlow, optflow::calcOpticalFlowDenseRLOF(), optflow::SparseRLOFOpticalFlow, optflow::calcOpticalFlowSparseRLOF()
 pub trait RLOFOpticalFlowParameterTraitConst {
 	fn as_raw_RLOFOpticalFlowParameter(&self) -> *const c_void;
 
@@ -2437,12 +2020,6 @@ pub trait RLOFOpticalFlowParameterTrait: crate::optflow::RLOFOpticalFlowParamete
 		ret
 	}
 	
-	/// Enable M-estimator or disable and use least-square estimator.
-	/// Enables M-estimator by setting sigma parameters to (3.2, 7.0). Disabling M-estimator can reduce
-	///      *  runtime, while enabling can improve the accuracy.
-	/// ## Parameters
-	/// * val: If true M-estimator is used. If false least-square estimator is used.
-	///      *    see also: setNormSigma0, setNormSigma1
 	#[inline]
 	fn set_use_m_estimator(&mut self, val: bool) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2580,32 +2157,6 @@ pub trait RLOFOpticalFlowParameterTrait: crate::optflow::RLOFOpticalFlowParamete
 	
 }
 
-/// This is used store and set up the parameters of the robust local optical flow (RLOF) algoritm.
-/// 
-/// The RLOF is a fast local optical flow approach described in [Senst2012](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2012) [Senst2013](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2013) [Senst2014](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2014)
-/// and [Senst2016](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2016) similar to the pyramidal iterative Lucas-Kanade method as
-/// proposed by [Bouguet00](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Bouguet00). More details and experiments can be found in the following thesis [Senst2019](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2019).
-/// The implementation is derived from optflow::calcOpticalFlowPyrLK().
-/// This RLOF implementation can be seen as an improved pyramidal iterative Lucas-Kanade and includes
-/// a set of improving modules. The main improvements in respect to the pyramidal iterative Lucas-Kanade
-/// are:
-///  - A more robust redecending M-estimator framework (see [Senst2012](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2012)) to improve the accuracy at
-///    motion boundaries and appearing and disappearing pixels.
-///  - an adaptive support region strategies to improve the accuracy at motion boundaries to reduce the
-///    corona effect, i.e oversmoothing of the PLK at motion/object boundaries. The cross-based segementation
-///    strategy (SR_CROSS) proposed in [Senst2014](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2014) uses a simple segmenation approach to obtain the optimal
-///    shape of the support region.
-///  - To deal with illumination changes (outdoor sequences and shadow) the intensity constancy assumption
-///    based optical flow equation has been adopt with the Gennert and Negahdaripour illumination model
-///    (see [Senst2016](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2016)). This model can be switched on/off with the useIlluminationModel variable.
-///  - By using a global motion prior initialization (see [Senst2016](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2016)) of the iterative refinement
-///    the accuracy could be significantly improved for large displacements. This initialization can be
-///    switched on and of with useGlobalMotionPrior variable.
-/// 
-/// The RLOF can be computed with the SparseOpticalFlow class or function interface to track a set of features
-/// or with the DenseOpticalFlow class or function interface to compute dense optical flow.
-/// ## See also
-/// optflow::DenseRLOFOpticalFlow, optflow::calcOpticalFlowDenseRLOF(), optflow::SparseRLOFOpticalFlow, optflow::calcOpticalFlowSparseRLOF()
 pub struct RLOFOpticalFlowParameter {
 	ptr: *mut c_void
 }
@@ -2640,7 +2191,6 @@ impl RLOFOpticalFlowParameter {
 		Ok(ret)
 	}
 	
-	/// Creates instance of optflow::RLOFOpticalFlowParameter
 	#[inline]
 	pub fn create() -> Result<core::Ptr<crate::optflow::RLOFOpticalFlowParameter>> {
 		return_send!(via ocvrs_return);
@@ -2653,26 +2203,9 @@ impl RLOFOpticalFlowParameter {
 	
 }
 
-/// Class used for calculation sparse optical flow and feature tracking with robust local optical flow (RLOF) algorithms.
-/// 
-/// The RLOF is a fast local optical flow approach described in [Senst2012](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2012) [Senst2013](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2013) [Senst2014](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2014)
-/// and [Senst2016](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2016) similar to the pyramidal iterative Lucas-Kanade method as
-/// proposed by [Bouguet00](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Bouguet00). More details and experiments can be found in the following thesis [Senst2019](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2019).
-/// The implementation is derived from optflow::calcOpticalFlowPyrLK().
-/// 
-/// For the RLOF configuration see optflow::RLOFOpticalFlowParameter for further details.
-/// Parameters have been described in [Senst2012](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2012), [Senst2013](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2013), [Senst2014](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2014) and [Senst2016](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Senst2016).
-/// 
-/// 
-/// Note: SIMD parallelization is only available when compiling with SSE4.1.
-/// ## See also
-/// optflow::calcOpticalFlowSparseRLOF(), optflow::RLOFOpticalFlowParameter
 pub trait SparseRLOFOpticalFlowConst: crate::video::SparseOpticalFlowConst {
 	fn as_raw_SparseRLOFOpticalFlow(&self) -> *const c_void;
 
-	/// @copydoc DenseRLOFOpticalFlow::setRLOFOpticalFlowParameter
-	/// ## See also
-	/// setRLOFOpticalFlowParameter
 	#[inline]
 	fn get_rlof_optical_flow_parameter(&self) -> Result<core::Ptr<crate::optflow::RLOFOpticalFlowParameter>> {
 		return_send!(via ocvrs_return);
@@ -2683,14 +2216,6 @@ pub trait SparseRLOFOpticalFlowConst: crate::video::SparseOpticalFlowConst {
 		Ok(ret)
 	}
 	
-	/// Threshold for the forward backward confidence check
-	/// For each feature point a motion vector ![inline formula](https://latex.codecogs.com/png.latex?%20d%5F%7BI0%2CI1%7D%28%5Cmathbf%7Bx%7D%29%20) is computed.
-	///      *     If the forward backward error ![block formula](https://latex.codecogs.com/png.latex?%20EP%5F%7BFB%7D%20%3D%20%7C%7C%20d%5F%7BI0%2CI1%7D%20%2B%20d%5F%7BI1%2CI0%7D%20%7C%7C%20)
-	///      *     is larger than threshold given by this function then the status  will not be used by the following
-	///      *    vector field interpolation. ![inline formula](https://latex.codecogs.com/png.latex?%20d%5F%7BI1%2CI0%7D%20) denotes the backward flow. Note, the forward backward test
-	///      *    will only be applied if the threshold > 0. This may results into a doubled runtime for the motion estimation.
-	///      *    see also: setForwardBackward
-	///      *    see also: setForwardBackward
 	#[inline]
 	fn get_forward_backward(&self) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -2705,7 +2230,6 @@ pub trait SparseRLOFOpticalFlowConst: crate::video::SparseOpticalFlowConst {
 pub trait SparseRLOFOpticalFlow: crate::optflow::SparseRLOFOpticalFlowConst + crate::video::SparseOpticalFlow {
 	fn as_raw_mut_SparseRLOFOpticalFlow(&mut self) -> *mut c_void;
 
-	/// @copydoc DenseRLOFOpticalFlow::setRLOFOpticalFlowParameter
 	#[inline]
 	fn set_rlof_optical_flow_parameter(&mut self, mut val: core::Ptr<crate::optflow::RLOFOpticalFlowParameter>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2715,13 +2239,6 @@ pub trait SparseRLOFOpticalFlow: crate::optflow::SparseRLOFOpticalFlowConst + cr
 		Ok(ret)
 	}
 	
-	/// Threshold for the forward backward confidence check
-	/// For each feature point a motion vector ![inline formula](https://latex.codecogs.com/png.latex?%20d%5F%7BI0%2CI1%7D%28%5Cmathbf%7Bx%7D%29%20) is computed.
-	///      *     If the forward backward error ![block formula](https://latex.codecogs.com/png.latex?%20EP%5F%7BFB%7D%20%3D%20%7C%7C%20d%5F%7BI0%2CI1%7D%20%2B%20d%5F%7BI1%2CI0%7D%20%7C%7C%20)
-	///      *     is larger than threshold given by this function then the status  will not be used by the following
-	///      *    vector field interpolation. ![inline formula](https://latex.codecogs.com/png.latex?%20d%5F%7BI1%2CI0%7D%20) denotes the backward flow. Note, the forward backward test
-	///      *    will only be applied if the threshold > 0. This may results into a doubled runtime for the motion estimation.
-	///      *    see also: setForwardBackward
 	#[inline]
 	fn set_forward_backward(&mut self, val: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2734,12 +2251,6 @@ pub trait SparseRLOFOpticalFlow: crate::optflow::SparseRLOFOpticalFlowConst + cr
 }
 
 impl dyn SparseRLOFOpticalFlow + '_ {
-	/// Creates instance of SparseRLOFOpticalFlow
-	/// 
-	/// ## Parameters
-	/// * rlofParam: see setRLOFOpticalFlowParameter
-	/// * forwardBackwardThreshold: see setForwardBackward
-	/// 
 	/// ## C++ default parameters
 	/// * rlof_param: Ptr<RLOFOpticalFlowParameter>()
 	/// * forward_backward_threshold: 1.f

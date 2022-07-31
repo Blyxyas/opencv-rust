@@ -49,7 +49,7 @@
 //!    # Image Blenders
 use crate::{mod_prelude::*, core, sys, types};
 pub mod prelude {
-	pub use { super::Detail_RotationWarperConst, super::Detail_RotationWarper, super::Detail_ProjectorBaseTraitConst, super::Detail_ProjectorBaseTrait, super::Detail_PlaneProjectorTraitConst, super::Detail_PlaneProjectorTrait, super::Detail_PlaneWarperTraitConst, super::Detail_PlaneWarperTrait, super::Detail_AffineWarperTraitConst, super::Detail_AffineWarperTrait, super::Detail_SphericalWarperTraitConst, super::Detail_SphericalWarperTrait, super::Detail_CylindricalProjectorTraitConst, super::Detail_CylindricalProjectorTrait, super::Detail_CylindricalWarperTraitConst, super::Detail_CylindricalWarperTrait, super::Detail_FisheyeProjectorTraitConst, super::Detail_FisheyeProjectorTrait, super::Detail_FisheyeWarperTraitConst, super::Detail_FisheyeWarperTrait, super::Detail_StereographicProjectorTraitConst, super::Detail_StereographicProjectorTrait, super::Detail_StereographicWarperTraitConst, super::Detail_StereographicWarperTrait, super::Detail_CompressedRectilinearProjectorTraitConst, super::Detail_CompressedRectilinearProjectorTrait, super::Detail_CompressedRectilinearWarperTraitConst, super::Detail_CompressedRectilinearWarperTrait, super::Detail_CompressedRectilinearPortraitProjectorTraitConst, super::Detail_CompressedRectilinearPortraitProjectorTrait, super::Detail_CompressedRectilinearPortraitWarperTraitConst, super::Detail_CompressedRectilinearPortraitWarperTrait, super::Detail_PaniniProjectorTraitConst, super::Detail_PaniniProjectorTrait, super::Detail_PaniniWarperTraitConst, super::Detail_PaniniWarperTrait, super::Detail_PaniniPortraitProjectorTraitConst, super::Detail_PaniniPortraitProjectorTrait, super::Detail_PaniniPortraitWarperTraitConst, super::Detail_PaniniPortraitWarperTrait, super::Detail_MercatorProjectorTraitConst, super::Detail_MercatorProjectorTrait, super::Detail_MercatorWarperTraitConst, super::Detail_MercatorWarperTrait, super::Detail_TransverseMercatorProjectorTraitConst, super::Detail_TransverseMercatorProjectorTrait, super::Detail_TransverseMercatorWarperTraitConst, super::Detail_TransverseMercatorWarperTrait, super::Detail_PlaneWarperGpuTraitConst, super::Detail_PlaneWarperGpuTrait, super::Detail_SphericalWarperGpuTraitConst, super::Detail_SphericalWarperGpuTrait, super::Detail_CylindricalWarperGpuTraitConst, super::Detail_CylindricalWarperGpuTrait, super::Detail_SphericalPortraitProjectorTraitConst, super::Detail_SphericalPortraitProjectorTrait, super::Detail_SphericalPortraitWarperTraitConst, super::Detail_SphericalPortraitWarperTrait, super::Detail_CylindricalPortraitProjectorTraitConst, super::Detail_CylindricalPortraitProjectorTrait, super::Detail_CylindricalPortraitWarperTraitConst, super::Detail_CylindricalPortraitWarperTrait, super::Detail_PlanePortraitProjectorTraitConst, super::Detail_PlanePortraitProjectorTrait, super::Detail_PlanePortraitWarperTraitConst, super::Detail_PlanePortraitWarperTrait, super::PyRotationWarperTraitConst, super::PyRotationWarperTrait, super::WarperCreatorConst, super::WarperCreator, super::PlaneWarperTraitConst, super::PlaneWarperTrait, super::AffineWarperTraitConst, super::AffineWarperTrait, super::CylindricalWarperTraitConst, super::CylindricalWarperTrait, super::SphericalWarperTraitConst, super::SphericalWarperTrait, super::FisheyeWarperTraitConst, super::FisheyeWarperTrait, super::StereographicWarperTraitConst, super::StereographicWarperTrait, super::CompressedRectilinearWarperTraitConst, super::CompressedRectilinearWarperTrait, super::CompressedRectilinearPortraitWarperTraitConst, super::CompressedRectilinearPortraitWarperTrait, super::PaniniWarperTraitConst, super::PaniniWarperTrait, super::PaniniPortraitWarperTraitConst, super::PaniniPortraitWarperTrait, super::MercatorWarperTraitConst, super::MercatorWarperTrait, super::TransverseMercatorWarperTraitConst, super::TransverseMercatorWarperTrait, super::PlaneWarperGpuTraitConst, super::PlaneWarperGpuTrait, super::CylindricalWarperGpuTraitConst, super::CylindricalWarperGpuTrait, super::SphericalWarperGpuTraitConst, super::SphericalWarperGpuTrait, super::Detail_ImageFeaturesTraitConst, super::Detail_ImageFeaturesTrait, super::Detail_MatchesInfoTraitConst, super::Detail_MatchesInfoTrait, super::Detail_FeaturesMatcherConst, super::Detail_FeaturesMatcher, super::Detail_BestOf2NearestMatcherTraitConst, super::Detail_BestOf2NearestMatcherTrait, super::Detail_BestOf2NearestRangeMatcherTraitConst, super::Detail_BestOf2NearestRangeMatcherTrait, super::Detail_AffineBestOf2NearestMatcherTraitConst, super::Detail_AffineBestOf2NearestMatcherTrait, super::Detail_DisjointSetsTraitConst, super::Detail_DisjointSetsTrait, super::Detail_GraphEdgeTraitConst, super::Detail_GraphEdgeTrait, super::Detail_GraphTraitConst, super::Detail_GraphTrait, super::Detail_CameraParamsTraitConst, super::Detail_CameraParamsTrait, super::Detail_EstimatorConst, super::Detail_Estimator, super::Detail_HomographyBasedEstimatorTraitConst, super::Detail_HomographyBasedEstimatorTrait, super::Detail_AffineBasedEstimatorTraitConst, super::Detail_AffineBasedEstimatorTrait, super::Detail_BundleAdjusterBaseConst, super::Detail_BundleAdjusterBase, super::Detail_NoBundleAdjusterTraitConst, super::Detail_NoBundleAdjusterTrait, super::Detail_BundleAdjusterReprojTraitConst, super::Detail_BundleAdjusterReprojTrait, super::Detail_BundleAdjusterRayTraitConst, super::Detail_BundleAdjusterRayTrait, super::Detail_BundleAdjusterAffineTraitConst, super::Detail_BundleAdjusterAffineTrait, super::Detail_BundleAdjusterAffinePartialTraitConst, super::Detail_BundleAdjusterAffinePartialTrait, super::Detail_ExposureCompensatorConst, super::Detail_ExposureCompensator, super::Detail_NoExposureCompensatorTraitConst, super::Detail_NoExposureCompensatorTrait, super::Detail_GainCompensatorTraitConst, super::Detail_GainCompensatorTrait, super::Detail_ChannelsCompensatorTraitConst, super::Detail_ChannelsCompensatorTrait, super::Detail_BlocksCompensatorConst, super::Detail_BlocksCompensator, super::Detail_BlocksGainCompensatorTraitConst, super::Detail_BlocksGainCompensatorTrait, super::Detail_BlocksChannelsCompensatorTraitConst, super::Detail_BlocksChannelsCompensatorTrait, super::Detail_SeamFinderConst, super::Detail_SeamFinder, super::Detail_NoSeamFinderTraitConst, super::Detail_NoSeamFinderTrait, super::Detail_PairwiseSeamFinderConst, super::Detail_PairwiseSeamFinder, super::Detail_VoronoiSeamFinderTraitConst, super::Detail_VoronoiSeamFinderTrait, super::Detail_DpSeamFinderTraitConst, super::Detail_DpSeamFinderTrait, super::Detail_GraphCutSeamFinderBaseTraitConst, super::Detail_GraphCutSeamFinderBaseTrait, super::Detail_GraphCutSeamFinderTraitConst, super::Detail_GraphCutSeamFinderTrait, super::Detail_GraphCutSeamFinderGpuTraitConst, super::Detail_GraphCutSeamFinderGpuTrait, super::Detail_BlenderTraitConst, super::Detail_BlenderTrait, super::Detail_FeatherBlenderTraitConst, super::Detail_FeatherBlenderTrait, super::Detail_MultiBandBlenderTraitConst, super::Detail_MultiBandBlenderTrait, super::StitcherTraitConst, super::StitcherTrait };
+	pub use { super::Detail_RotationWarperConst, super::Detail_RotationWarper, super::Detail_ProjectorBaseTraitConst, super::Detail_ProjectorBaseTrait, super::Detail_PlaneProjectorTraitConst, super::Detail_PlaneProjectorTrait, super::Detail_PlaneWarperTraitConst, super::Detail_PlaneWarperTrait, super::Detail_AffineWarperTraitConst, super::Detail_AffineWarperTrait, super::Detail_SphericalWarperTraitConst, super::Detail_SphericalWarperTrait, super::Detail_CylindricalProjectorTraitConst, super::Detail_CylindricalProjectorTrait, super::Detail_CylindricalWarperTraitConst, super::Detail_CylindricalWarperTrait, super::Detail_FisheyeProjectorTraitConst, super::Detail_FisheyeProjectorTrait, super::Detail_FisheyeWarperTraitConst, super::Detail_FisheyeWarperTrait, super::Detail_StereographicProjectorTraitConst, super::Detail_StereographicProjectorTrait, super::Detail_StereographicWarperTraitConst, super::Detail_StereographicWarperTrait, super::Detail_CompressedRectilinearProjectorTraitConst, super::Detail_CompressedRectilinearProjectorTrait, super::Detail_CompressedRectilinearWarperTraitConst, super::Detail_CompressedRectilinearWarperTrait, super::Detail_CompressedRectilinearPortraitProjectorTraitConst, super::Detail_CompressedRectilinearPortraitProjectorTrait, super::Detail_CompressedRectilinearPortraitWarperTraitConst, super::Detail_CompressedRectilinearPortraitWarperTrait, super::Detail_PaniniProjectorTraitConst, super::Detail_PaniniProjectorTrait, super::Detail_PaniniWarperTraitConst, super::Detail_PaniniWarperTrait, super::Detail_PaniniPortraitProjectorTraitConst, super::Detail_PaniniPortraitProjectorTrait, super::Detail_PaniniPortraitWarperTraitConst, super::Detail_PaniniPortraitWarperTrait, super::Detail_MercatorProjectorTraitConst, super::Detail_MercatorProjectorTrait, super::Detail_MercatorWarperTraitConst, super::Detail_MercatorWarperTrait, super::Detail_TransverseMercatorProjectorTraitConst, super::Detail_TransverseMercatorProjectorTrait, super::Detail_TransverseMercatorWarperTraitConst, super::Detail_TransverseMercatorWarperTrait, super::Detail_PlaneWarperGpuTraitConst, super::Detail_PlaneWarperGpuTrait, super::Detail_SphericalWarperGpuTraitConst, super::Detail_SphericalWarperGpuTrait, super::Detail_CylindricalWarperGpuTraitConst, super::Detail_CylindricalWarperGpuTrait, super::Detail_SphericalPortraitProjectorTraitConst, super::Detail_SphericalPortraitProjectorTrait, super::Detail_SphericalPortraitWarperTraitConst, super::Detail_SphericalPortraitWarperTrait, super::Detail_CylindricalPortraitProjectorTraitConst, super::Detail_CylindricalPortraitProjectorTrait, super::Detail_CylindricalPortraitWarperTraitConst, super::Detail_CylindricalPortraitWarperTrait, super::Detail_PlanePortraitProjectorTraitConst, super::Detail_PlanePortraitProjectorTrait, super::Detail_PlanePortraitWarperTraitConst, super::Detail_PlanePortraitWarperTrait, super::PyRotationWarperTraitConst, super::PyRotationWarperTrait, super::WarperCreatorConst, super::WarperCreator, super::PlaneWarperTraitConst, super::PlaneWarperTrait, super::AffineWarperTraitConst, super::AffineWarperTrait, super::CylindricalWarperTraitConst, super::CylindricalWarperTrait, super::SphericalWarperTraitConst, super::SphericalWarperTrait, super::FisheyeWarperTraitConst, super::FisheyeWarperTrait, super::StereographicWarperTraitConst, super::StereographicWarperTrait, super::CompressedRectilinearWarperTraitConst, super::CompressedRectilinearWarperTrait, super::CompressedRectilinearPortraitWarperTraitConst, super::CompressedRectilinearPortraitWarperTrait, super::PaniniWarperTraitConst, super::PaniniWarperTrait, super::PaniniPortraitWarperTraitConst, super::PaniniPortraitWarperTrait, super::MercatorWarperTraitConst, super::MercatorWarperTrait, super::TransverseMercatorWarperTraitConst, super::TransverseMercatorWarperTrait, super::Detail_ImageFeaturesTraitConst, super::Detail_ImageFeaturesTrait, super::Detail_MatchesInfoTraitConst, super::Detail_MatchesInfoTrait, super::Detail_FeaturesMatcherConst, super::Detail_FeaturesMatcher, super::Detail_BestOf2NearestMatcherTraitConst, super::Detail_BestOf2NearestMatcherTrait, super::Detail_BestOf2NearestRangeMatcherTraitConst, super::Detail_BestOf2NearestRangeMatcherTrait, super::Detail_AffineBestOf2NearestMatcherTraitConst, super::Detail_AffineBestOf2NearestMatcherTrait, super::Detail_DisjointSetsTraitConst, super::Detail_DisjointSetsTrait, super::Detail_GraphEdgeTraitConst, super::Detail_GraphEdgeTrait, super::Detail_GraphTraitConst, super::Detail_GraphTrait, super::Detail_CameraParamsTraitConst, super::Detail_CameraParamsTrait, super::Detail_EstimatorConst, super::Detail_Estimator, super::Detail_HomographyBasedEstimatorTraitConst, super::Detail_HomographyBasedEstimatorTrait, super::Detail_AffineBasedEstimatorTraitConst, super::Detail_AffineBasedEstimatorTrait, super::Detail_BundleAdjusterBaseConst, super::Detail_BundleAdjusterBase, super::Detail_NoBundleAdjusterTraitConst, super::Detail_NoBundleAdjusterTrait, super::Detail_BundleAdjusterReprojTraitConst, super::Detail_BundleAdjusterReprojTrait, super::Detail_BundleAdjusterRayTraitConst, super::Detail_BundleAdjusterRayTrait, super::Detail_BundleAdjusterAffineTraitConst, super::Detail_BundleAdjusterAffineTrait, super::Detail_BundleAdjusterAffinePartialTraitConst, super::Detail_BundleAdjusterAffinePartialTrait, super::Detail_ExposureCompensatorConst, super::Detail_ExposureCompensator, super::Detail_NoExposureCompensatorTraitConst, super::Detail_NoExposureCompensatorTrait, super::Detail_GainCompensatorTraitConst, super::Detail_GainCompensatorTrait, super::Detail_ChannelsCompensatorTraitConst, super::Detail_ChannelsCompensatorTrait, super::Detail_BlocksCompensatorConst, super::Detail_BlocksCompensator, super::Detail_BlocksGainCompensatorTraitConst, super::Detail_BlocksGainCompensatorTrait, super::Detail_BlocksChannelsCompensatorTraitConst, super::Detail_BlocksChannelsCompensatorTrait, super::Detail_SeamFinderConst, super::Detail_SeamFinder, super::Detail_NoSeamFinderTraitConst, super::Detail_NoSeamFinderTrait, super::Detail_PairwiseSeamFinderConst, super::Detail_PairwiseSeamFinder, super::Detail_VoronoiSeamFinderTraitConst, super::Detail_VoronoiSeamFinderTrait, super::Detail_DpSeamFinderTraitConst, super::Detail_DpSeamFinderTrait, super::Detail_GraphCutSeamFinderBaseTraitConst, super::Detail_GraphCutSeamFinderBaseTrait, super::Detail_GraphCutSeamFinderTraitConst, super::Detail_GraphCutSeamFinderTrait, super::Detail_BlenderTraitConst, super::Detail_BlenderTrait, super::Detail_FeatherBlenderTraitConst, super::Detail_FeatherBlenderTrait, super::Detail_MultiBandBlenderTraitConst, super::Detail_MultiBandBlenderTrait, super::StitcherTraitConst, super::StitcherTrait };
 }
 
 pub const Detail_Blender_FEATHER: i32 = 1;
@@ -97,15 +97,7 @@ opencv_type_enum! { crate::stitching::Detail_WaveCorrectKind }
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum Stitcher_Mode {
-	/// Mode for creating photo panoramas. Expects images under perspective
-	/// transformation and projects resulting pano to sphere.
-	/// ## See also
-	/// detail::BestOf2NearestMatcher SphericalWarper
 	PANORAMA = 0,
-	/// Mode for composing scans. Expects images under affine transformation does
-	/// not compensate exposure by default.
-	/// ## See also
-	/// detail::AffineBestOf2NearestMatcher AffineWarper
 	SCANS = 1,
 }
 
@@ -122,13 +114,6 @@ pub enum Stitcher_Status {
 
 opencv_type_enum! { crate::stitching::Stitcher_Status }
 
-/// Tries to detect the wave correction kind depending
-/// on whether a panorama spans horizontally or vertically
-/// 
-/// ## Parameters
-/// * rmats: Camera rotation matrices.
-/// ## Returns
-/// The correction kind to use for this panorama
 #[inline]
 pub fn auto_detect_wave_correct_kind(rmats: &core::Vector<core::Mat>) -> Result<crate::stitching::Detail_WaveCorrectKind> {
 	return_send!(via ocvrs_return);
@@ -138,14 +123,6 @@ pub fn auto_detect_wave_correct_kind(rmats: &core::Vector<core::Mat>) -> Result<
 	Ok(ret)
 }
 
-/// 
-/// 
-/// ## Parameters
-/// * featuresFinder: 
-/// * image: 
-/// * features: 
-/// * mask: 
-/// 
 /// ## C++ default parameters
 /// * mask: noArray()
 #[inline]
@@ -159,14 +136,6 @@ pub fn compute_image_features2(features_finder: &core::Ptr<crate::features2d::Fe
 	Ok(ret)
 }
 
-/// 
-/// 
-/// ## Parameters
-/// * featuresFinder: 
-/// * images: 
-/// * features: 
-/// * masks: 
-/// 
 /// ## C++ default parameters
 /// * masks: noArray()
 #[inline]
@@ -230,7 +199,6 @@ pub fn leave_biggest_component(features: &mut core::Vector<crate::stitching::Det
 	Ok(ret)
 }
 
-/// ///////////////////////////////////////////////////////////////////////////
 #[inline]
 pub fn matches_graph_as_string(pathes: &mut core::Vector<String>, pairwise_matches: &mut core::Vector<crate::stitching::Detail_MatchesInfo>, conf_threshold: f32) -> Result<String> {
 	return_send!(via ocvrs_return);
@@ -241,7 +209,6 @@ pub fn matches_graph_as_string(pathes: &mut core::Vector<String>, pairwise_match
 	Ok(ret)
 }
 
-/// ///////////////////////////////////////////////////////////////////////////
 #[inline]
 pub fn normalize_using_weight_map(weight: &dyn core::ToInputArray, src: &mut dyn core::ToInputOutputArray) -> Result<()> {
 	input_array_arg!(weight);
@@ -253,7 +220,6 @@ pub fn normalize_using_weight_map(weight: &dyn core::ToInputArray, src: &mut dyn
 	Ok(ret)
 }
 
-/// ///////////////////////////////////////////////////////////////////////////
 #[inline]
 pub fn overlap_roi(tl1: core::Point, tl2: core::Point, sz1: core::Size, sz2: core::Size, roi: &mut core::Rect) -> Result<bool> {
 	return_send!(via ocvrs_return);
@@ -335,11 +301,6 @@ pub fn stitching_log_level() -> Result<i32> {
 	Ok(ret)
 }
 
-/// Tries to make panorama more horizontal (or vertical).
-/// 
-/// ## Parameters
-/// * rmats: Camera rotation matrices.
-/// * kind: Correction kind, see detail::WaveCorrectKind.
 #[inline]
 pub fn wave_correct(rmats: &mut core::Vector<core::Mat>, kind: crate::stitching::Detail_WaveCorrectKind) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -349,9 +310,6 @@ pub fn wave_correct(rmats: &mut core::Vector<core::Mat>, kind: crate::stitching:
 	Ok(ret)
 }
 
-/// Affine warper factory class.
-/// ## See also
-/// detail::AffineWarper
 pub trait AffineWarperTraitConst: crate::stitching::WarperCreatorConst {
 	fn as_raw_AffineWarper(&self) -> *const c_void;
 
@@ -372,9 +330,6 @@ pub trait AffineWarperTrait: crate::stitching::AffineWarperTraitConst + crate::s
 
 }
 
-/// Affine warper factory class.
-/// ## See also
-/// detail::AffineWarper
 pub struct AffineWarper {
 	ptr: *mut c_void
 }
@@ -543,9 +498,6 @@ impl CompressedRectilinearWarper {
 	
 }
 
-/// Cylindrical warper factory class.
-/// ## See also
-/// detail::CylindricalWarper
 pub trait CylindricalWarperTraitConst: crate::stitching::WarperCreatorConst {
 	fn as_raw_CylindricalWarper(&self) -> *const c_void;
 
@@ -566,9 +518,6 @@ pub trait CylindricalWarperTrait: crate::stitching::CylindricalWarperTraitConst 
 
 }
 
-/// Cylindrical warper factory class.
-/// ## See also
-/// detail::CylindricalWarper
 pub struct CylindricalWarper {
 	ptr: *mut c_void
 }
@@ -601,60 +550,6 @@ impl crate::stitching::CylindricalWarperTrait for CylindricalWarper {
 }
 
 impl CylindricalWarper {
-}
-
-pub trait CylindricalWarperGpuTraitConst: crate::stitching::WarperCreatorConst {
-	fn as_raw_CylindricalWarperGpu(&self) -> *const c_void;
-
-	#[inline]
-	fn create(&self, scale: f32) -> Result<core::Ptr<dyn crate::stitching::Detail_RotationWarper>> {
-		return_send!(via ocvrs_return);
-		unsafe { sys::cv_CylindricalWarperGpu_create_const_float(self.as_raw_CylindricalWarperGpu(), scale, ocvrs_return.as_mut_ptr()) };
-		return_receive!(unsafe ocvrs_return => ret);
-		let ret = ret.into_result()?;
-		let ret = unsafe { core::Ptr::<dyn crate::stitching::Detail_RotationWarper>::opencv_from_extern(ret) };
-		Ok(ret)
-	}
-	
-}
-
-pub trait CylindricalWarperGpuTrait: crate::stitching::CylindricalWarperGpuTraitConst + crate::stitching::WarperCreator {
-	fn as_raw_mut_CylindricalWarperGpu(&mut self) -> *mut c_void;
-
-}
-
-pub struct CylindricalWarperGpu {
-	ptr: *mut c_void
-}
-
-opencv_type_boxed! { CylindricalWarperGpu }
-
-impl Drop for CylindricalWarperGpu {
-	fn drop(&mut self) {
-		extern "C" { fn cv_CylindricalWarperGpu_delete(instance: *mut c_void); }
-		unsafe { cv_CylindricalWarperGpu_delete(self.as_raw_mut_CylindricalWarperGpu()) };
-	}
-}
-
-unsafe impl Send for CylindricalWarperGpu {}
-
-impl crate::stitching::WarperCreatorConst for CylindricalWarperGpu {
-	#[inline] fn as_raw_WarperCreator(&self) -> *const c_void { self.as_raw() }
-}
-
-impl crate::stitching::WarperCreator for CylindricalWarperGpu {
-	#[inline] fn as_raw_mut_WarperCreator(&mut self) -> *mut c_void { self.as_raw_mut() }
-}
-
-impl crate::stitching::CylindricalWarperGpuTraitConst for CylindricalWarperGpu {
-	#[inline] fn as_raw_CylindricalWarperGpu(&self) -> *const c_void { self.as_raw() }
-}
-
-impl crate::stitching::CylindricalWarperGpuTrait for CylindricalWarperGpu {
-	#[inline] fn as_raw_mut_CylindricalWarperGpu(&mut self) -> *mut c_void { self.as_raw_mut() }
-}
-
-impl CylindricalWarperGpu {
 }
 
 pub trait FisheyeWarperTraitConst: crate::stitching::WarperCreatorConst {
@@ -899,9 +794,6 @@ impl PaniniWarper {
 	
 }
 
-/// Plane warper factory class.
-/// ## See also
-/// detail::PlaneWarper
 pub trait PlaneWarperTraitConst: crate::stitching::WarperCreatorConst {
 	fn as_raw_PlaneWarper(&self) -> *const c_void;
 
@@ -922,9 +814,6 @@ pub trait PlaneWarperTrait: crate::stitching::PlaneWarperTraitConst + crate::sti
 
 }
 
-/// Plane warper factory class.
-/// ## See also
-/// detail::PlaneWarper
 pub struct PlaneWarper {
 	ptr: *mut c_void
 }
@@ -959,60 +848,6 @@ impl crate::stitching::PlaneWarperTrait for PlaneWarper {
 impl PlaneWarper {
 }
 
-pub trait PlaneWarperGpuTraitConst: crate::stitching::WarperCreatorConst {
-	fn as_raw_PlaneWarperGpu(&self) -> *const c_void;
-
-	#[inline]
-	fn create(&self, scale: f32) -> Result<core::Ptr<dyn crate::stitching::Detail_RotationWarper>> {
-		return_send!(via ocvrs_return);
-		unsafe { sys::cv_PlaneWarperGpu_create_const_float(self.as_raw_PlaneWarperGpu(), scale, ocvrs_return.as_mut_ptr()) };
-		return_receive!(unsafe ocvrs_return => ret);
-		let ret = ret.into_result()?;
-		let ret = unsafe { core::Ptr::<dyn crate::stitching::Detail_RotationWarper>::opencv_from_extern(ret) };
-		Ok(ret)
-	}
-	
-}
-
-pub trait PlaneWarperGpuTrait: crate::stitching::PlaneWarperGpuTraitConst + crate::stitching::WarperCreator {
-	fn as_raw_mut_PlaneWarperGpu(&mut self) -> *mut c_void;
-
-}
-
-pub struct PlaneWarperGpu {
-	ptr: *mut c_void
-}
-
-opencv_type_boxed! { PlaneWarperGpu }
-
-impl Drop for PlaneWarperGpu {
-	fn drop(&mut self) {
-		extern "C" { fn cv_PlaneWarperGpu_delete(instance: *mut c_void); }
-		unsafe { cv_PlaneWarperGpu_delete(self.as_raw_mut_PlaneWarperGpu()) };
-	}
-}
-
-unsafe impl Send for PlaneWarperGpu {}
-
-impl crate::stitching::WarperCreatorConst for PlaneWarperGpu {
-	#[inline] fn as_raw_WarperCreator(&self) -> *const c_void { self.as_raw() }
-}
-
-impl crate::stitching::WarperCreator for PlaneWarperGpu {
-	#[inline] fn as_raw_mut_WarperCreator(&mut self) -> *mut c_void { self.as_raw_mut() }
-}
-
-impl crate::stitching::PlaneWarperGpuTraitConst for PlaneWarperGpu {
-	#[inline] fn as_raw_PlaneWarperGpu(&self) -> *const c_void { self.as_raw() }
-}
-
-impl crate::stitching::PlaneWarperGpuTrait for PlaneWarperGpu {
-	#[inline] fn as_raw_mut_PlaneWarperGpu(&mut self) -> *mut c_void { self.as_raw_mut() }
-}
-
-impl PlaneWarperGpu {
-}
-
 pub trait PyRotationWarperTraitConst {
 	fn as_raw_PyRotationWarper(&self) -> *const c_void;
 
@@ -1030,14 +865,6 @@ pub trait PyRotationWarperTraitConst {
 pub trait PyRotationWarperTrait: crate::stitching::PyRotationWarperTraitConst {
 	fn as_raw_mut_PyRotationWarper(&mut self) -> *mut c_void;
 
-	/// Projects the image point.
-	/// 
-	/// ## Parameters
-	/// * pt: Source point
-	/// * K: Camera intrinsic parameters
-	/// * R: Camera rotation matrix
-	/// ## Returns
-	/// Projected point
 	#[inline]
 	fn warp_point(&mut self, pt: core::Point2f, k: &dyn core::ToInputArray, r: &dyn core::ToInputArray) -> Result<core::Point2f> {
 		input_array_arg!(k);
@@ -1060,16 +887,6 @@ pub trait PyRotationWarperTrait: crate::stitching::PyRotationWarperTraitConst {
 		Ok(ret)
 	}
 	
-	/// Builds the projection maps according to the given camera data.
-	/// 
-	/// ## Parameters
-	/// * src_size: Source image size
-	/// * K: Camera intrinsic parameters
-	/// * R: Camera rotation matrix
-	/// * xmap: Projection map for the x axis
-	/// * ymap: Projection map for the y axis
-	/// ## Returns
-	/// Projected image minimum bounding box
 	#[inline]
 	fn build_maps(&mut self, src_size: core::Size, k: &dyn core::ToInputArray, r: &dyn core::ToInputArray, xmap: &mut dyn core::ToOutputArray, ymap: &mut dyn core::ToOutputArray) -> Result<core::Rect> {
 		input_array_arg!(k);
@@ -1083,17 +900,6 @@ pub trait PyRotationWarperTrait: crate::stitching::PyRotationWarperTraitConst {
 		Ok(ret)
 	}
 	
-	/// Projects the image.
-	/// 
-	/// ## Parameters
-	/// * src: Source image
-	/// * K: Camera intrinsic parameters
-	/// * R: Camera rotation matrix
-	/// * interp_mode: Interpolation mode
-	/// * border_mode: Border extrapolation mode
-	/// * dst: Projected image
-	/// ## Returns
-	/// Project image top-left corner
 	#[inline]
 	fn warp(&mut self, src: &dyn core::ToInputArray, k: &dyn core::ToInputArray, r: &dyn core::ToInputArray, interp_mode: i32, border_mode: i32, dst: &mut dyn core::ToOutputArray) -> Result<core::Point> {
 		input_array_arg!(src);
@@ -1107,16 +913,6 @@ pub trait PyRotationWarperTrait: crate::stitching::PyRotationWarperTraitConst {
 		Ok(ret)
 	}
 	
-	/// Projects the image backward.
-	/// 
-	/// ## Parameters
-	/// * src: Projected image
-	/// * K: Camera intrinsic parameters
-	/// * R: Camera rotation matrix
-	/// * interp_mode: Interpolation mode
-	/// * border_mode: Border extrapolation mode
-	/// * dst_size: Backward-projected image size
-	/// * dst: Backward-projected image
 	#[inline]
 	fn warp_backward(&mut self, src: &dyn core::ToInputArray, k: &dyn core::ToInputArray, r: &dyn core::ToInputArray, interp_mode: i32, border_mode: i32, dst_size: core::Size, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 		input_array_arg!(src);
@@ -1130,12 +926,6 @@ pub trait PyRotationWarperTrait: crate::stitching::PyRotationWarperTraitConst {
 		Ok(ret)
 	}
 	
-	/// ## Parameters
-	/// * src_size: Source image bounding box
-	/// * K: Camera intrinsic parameters
-	/// * R: Camera rotation matrix
-	/// ## Returns
-	/// Projected image minimum bounding box
 	#[inline]
 	fn warp_roi(&mut self, src_size: core::Size, k: &dyn core::ToInputArray, r: &dyn core::ToInputArray) -> Result<core::Rect> {
 		input_array_arg!(k);
@@ -1205,7 +995,6 @@ impl PyRotationWarper {
 	
 }
 
-/// Spherical warper factory class
 pub trait SphericalWarperTraitConst: crate::stitching::WarperCreatorConst {
 	fn as_raw_SphericalWarper(&self) -> *const c_void;
 
@@ -1226,7 +1015,6 @@ pub trait SphericalWarperTrait: crate::stitching::SphericalWarperTraitConst + cr
 
 }
 
-/// Spherical warper factory class
 pub struct SphericalWarper {
 	ptr: *mut c_void
 }
@@ -1259,60 +1047,6 @@ impl crate::stitching::SphericalWarperTrait for SphericalWarper {
 }
 
 impl SphericalWarper {
-}
-
-pub trait SphericalWarperGpuTraitConst: crate::stitching::WarperCreatorConst {
-	fn as_raw_SphericalWarperGpu(&self) -> *const c_void;
-
-	#[inline]
-	fn create(&self, scale: f32) -> Result<core::Ptr<dyn crate::stitching::Detail_RotationWarper>> {
-		return_send!(via ocvrs_return);
-		unsafe { sys::cv_SphericalWarperGpu_create_const_float(self.as_raw_SphericalWarperGpu(), scale, ocvrs_return.as_mut_ptr()) };
-		return_receive!(unsafe ocvrs_return => ret);
-		let ret = ret.into_result()?;
-		let ret = unsafe { core::Ptr::<dyn crate::stitching::Detail_RotationWarper>::opencv_from_extern(ret) };
-		Ok(ret)
-	}
-	
-}
-
-pub trait SphericalWarperGpuTrait: crate::stitching::SphericalWarperGpuTraitConst + crate::stitching::WarperCreator {
-	fn as_raw_mut_SphericalWarperGpu(&mut self) -> *mut c_void;
-
-}
-
-pub struct SphericalWarperGpu {
-	ptr: *mut c_void
-}
-
-opencv_type_boxed! { SphericalWarperGpu }
-
-impl Drop for SphericalWarperGpu {
-	fn drop(&mut self) {
-		extern "C" { fn cv_SphericalWarperGpu_delete(instance: *mut c_void); }
-		unsafe { cv_SphericalWarperGpu_delete(self.as_raw_mut_SphericalWarperGpu()) };
-	}
-}
-
-unsafe impl Send for SphericalWarperGpu {}
-
-impl crate::stitching::WarperCreatorConst for SphericalWarperGpu {
-	#[inline] fn as_raw_WarperCreator(&self) -> *const c_void { self.as_raw() }
-}
-
-impl crate::stitching::WarperCreator for SphericalWarperGpu {
-	#[inline] fn as_raw_mut_WarperCreator(&mut self) -> *mut c_void { self.as_raw_mut() }
-}
-
-impl crate::stitching::SphericalWarperGpuTraitConst for SphericalWarperGpu {
-	#[inline] fn as_raw_SphericalWarperGpu(&self) -> *const c_void { self.as_raw() }
-}
-
-impl crate::stitching::SphericalWarperGpuTrait for SphericalWarperGpu {
-	#[inline] fn as_raw_mut_SphericalWarperGpu(&mut self) -> *mut c_void { self.as_raw_mut() }
-}
-
-impl SphericalWarperGpu {
 }
 
 pub trait StereographicWarperTraitConst: crate::stitching::WarperCreatorConst {
@@ -1369,20 +1103,6 @@ impl crate::stitching::StereographicWarperTrait for StereographicWarper {
 impl StereographicWarper {
 }
 
-/// High level image stitcher.
-/// 
-/// It's possible to use this class without being aware of the entire stitching pipeline. However, to
-/// be able to achieve higher stitching stability and quality of the final images at least being
-/// familiar with the theory is recommended.
-/// 
-/// 
-/// Note:
-/// *   A basic example on image stitching can be found at
-///    opencv_source_code/samples/cpp/stitching.cpp
-/// *   A basic example on image stitching in Python can be found at
-///    opencv_source_code/samples/python/stitching.py
-/// *   A detailed example on image stitching can be found at
-///    opencv_source_code/samples/cpp/stitching_detailed.cpp
 pub trait StitcherTraitConst {
 	fn as_raw_Stitcher(&self) -> *const c_void;
 
@@ -1807,18 +1527,6 @@ pub trait StitcherTrait: crate::stitching::StitcherTraitConst {
 		Ok(ret)
 	}
 	
-	/// These functions try to match the given images and to estimate rotations of each camera.
-	/// 
-	/// 
-	/// Note: Use the functions only if you're aware of the stitching pipeline, otherwise use
-	/// Stitcher::stitch.
-	/// 
-	/// ## Parameters
-	/// * images: Input images.
-	/// * masks: Masks for each input image specifying where to look for keypoints (optional).
-	/// ## Returns
-	/// Status code.
-	/// 
 	/// ## C++ default parameters
 	/// * masks: noArray()
 	#[inline]
@@ -1832,15 +1540,6 @@ pub trait StitcherTrait: crate::stitching::StitcherTraitConst {
 		Ok(ret)
 	}
 	
-	/// These function restors camera rotation and camera intrinsics of each camera
-	/// that can be got with @ref Stitcher::cameras call
-	/// 
-	/// ## Parameters
-	/// * images: Input images.
-	/// * cameras: Estimated rotation of cameras for each of the input images.
-	/// * component: Indices (0-based) of images constituting the final panorama (optional).
-	/// ## Returns
-	/// Status code.
 	#[inline]
 	fn set_transform(&mut self, images: &dyn core::ToInputArray, cameras: &core::Vector<crate::stitching::Detail_CameraParams>, component: &core::Vector<i32>) -> Result<crate::stitching::Stitcher_Status> {
 		input_array_arg!(images);
@@ -1851,17 +1550,6 @@ pub trait StitcherTrait: crate::stitching::StitcherTraitConst {
 		Ok(ret)
 	}
 	
-	/// These function restors camera rotation and camera intrinsics of each camera
-	/// that can be got with @ref Stitcher::cameras call
-	/// 
-	/// ## Parameters
-	/// * images: Input images.
-	/// * cameras: Estimated rotation of cameras for each of the input images.
-	/// * component: Indices (0-based) of images constituting the final panorama (optional).
-	/// ## Returns
-	/// Status code.
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn set_transform_1(&mut self, images: &dyn core::ToInputArray, cameras: &core::Vector<crate::stitching::Detail_CameraParams>) -> Result<crate::stitching::Stitcher_Status> {
 		input_array_arg!(images);
@@ -1872,21 +1560,6 @@ pub trait StitcherTrait: crate::stitching::StitcherTraitConst {
 		Ok(ret)
 	}
 	
-	/// These functions try to compose the given images (or images stored internally from the other function
-	/// calls) into the final pano under the assumption that the image transformations were estimated
-	/// before.
-	/// 
-	/// 
-	/// Note: Use the functions only if you're aware of the stitching pipeline, otherwise use
-	/// Stitcher::stitch.
-	/// 
-	/// ## Parameters
-	/// * images: Input images.
-	/// * pano: Final pano.
-	/// ## Returns
-	/// Status code.
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn compose_panorama(&mut self, pano: &mut dyn core::ToOutputArray) -> Result<crate::stitching::Stitcher_Status> {
 		output_array_arg!(pano);
@@ -1897,19 +1570,6 @@ pub trait StitcherTrait: crate::stitching::StitcherTraitConst {
 		Ok(ret)
 	}
 	
-	/// These functions try to compose the given images (or images stored internally from the other function
-	/// calls) into the final pano under the assumption that the image transformations were estimated
-	/// before.
-	/// 
-	/// 
-	/// Note: Use the functions only if you're aware of the stitching pipeline, otherwise use
-	/// Stitcher::stitch.
-	/// 
-	/// ## Parameters
-	/// * images: Input images.
-	/// * pano: Final pano.
-	/// ## Returns
-	/// Status code.
 	#[inline]
 	fn compose_panorama_images(&mut self, images: &dyn core::ToInputArray, pano: &mut dyn core::ToOutputArray) -> Result<crate::stitching::Stitcher_Status> {
 		input_array_arg!(images);
@@ -1921,16 +1581,6 @@ pub trait StitcherTrait: crate::stitching::StitcherTraitConst {
 		Ok(ret)
 	}
 	
-	/// These functions try to stitch the given images.
-	/// 
-	/// ## Parameters
-	/// * images: Input images.
-	/// * masks: Masks for each input image specifying where to look for keypoints (optional).
-	/// * pano: Final pano.
-	/// ## Returns
-	/// Status code.
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn stitch(&mut self, images: &dyn core::ToInputArray, pano: &mut dyn core::ToOutputArray) -> Result<crate::stitching::Stitcher_Status> {
 		input_array_arg!(images);
@@ -1942,14 +1592,6 @@ pub trait StitcherTrait: crate::stitching::StitcherTraitConst {
 		Ok(ret)
 	}
 	
-	/// These functions try to stitch the given images.
-	/// 
-	/// ## Parameters
-	/// * images: Input images.
-	/// * masks: Masks for each input image specifying where to look for keypoints (optional).
-	/// * pano: Final pano.
-	/// ## Returns
-	/// Status code.
 	#[inline]
 	fn stitch_mask(&mut self, images: &dyn core::ToInputArray, masks: &dyn core::ToInputArray, pano: &mut dyn core::ToOutputArray) -> Result<crate::stitching::Stitcher_Status> {
 		input_array_arg!(images);
@@ -1964,20 +1606,6 @@ pub trait StitcherTrait: crate::stitching::StitcherTraitConst {
 	
 }
 
-/// High level image stitcher.
-/// 
-/// It's possible to use this class without being aware of the entire stitching pipeline. However, to
-/// be able to achieve higher stitching stability and quality of the final images at least being
-/// familiar with the theory is recommended.
-/// 
-/// 
-/// Note:
-/// *   A basic example on image stitching can be found at
-///    opencv_source_code/samples/cpp/stitching.cpp
-/// *   A basic example on image stitching in Python can be found at
-///    opencv_source_code/samples/python/stitching.py
-/// *   A detailed example on image stitching can be found at
-///    opencv_source_code/samples/cpp/stitching_detailed.cpp
 pub struct Stitcher {
 	ptr: *mut c_void
 }
@@ -2003,15 +1631,6 @@ impl crate::stitching::StitcherTrait for Stitcher {
 
 impl Stitcher {
 	pub const ORIG_RESOL: f64 = -1.;
-	/// Creates a Stitcher configured in one of the stitching modes.
-	/// 
-	/// ## Parameters
-	/// * mode: Scenario for stitcher operation. This is usually determined by source of images
-	/// to stitch and their transformation. Default parameters will be chosen for operation in given
-	/// scenario.
-	/// ## Returns
-	/// Stitcher class instance.
-	/// 
 	/// ## C++ default parameters
 	/// * mode: Stitcher::PANORAMA
 	#[inline]
@@ -2080,7 +1699,6 @@ impl crate::stitching::TransverseMercatorWarperTrait for TransverseMercatorWarpe
 impl TransverseMercatorWarper {
 }
 
-/// Image warper factories base class.
 pub trait WarperCreatorConst {
 	fn as_raw_WarperCreator(&self) -> *const c_void;
 
@@ -2101,12 +1719,6 @@ pub trait WarperCreator: crate::stitching::WarperCreatorConst {
 
 }
 
-/// Affine transformation based estimator.
-/// 
-/// This estimator uses pairwise transformations estimated by matcher to estimate
-/// final transformation for each camera.
-/// ## See also
-/// cv::detail::HomographyBasedEstimator
 pub trait Detail_AffineBasedEstimatorTraitConst: crate::stitching::Detail_EstimatorConst {
 	fn as_raw_Detail_AffineBasedEstimator(&self) -> *const c_void;
 
@@ -2117,12 +1729,6 @@ pub trait Detail_AffineBasedEstimatorTrait: crate::stitching::Detail_AffineBased
 
 }
 
-/// Affine transformation based estimator.
-/// 
-/// This estimator uses pairwise transformations estimated by matcher to estimate
-/// final transformation for each camera.
-/// ## See also
-/// cv::detail::HomographyBasedEstimator
 pub struct Detail_AffineBasedEstimator {
 	ptr: *mut c_void
 }
@@ -2167,14 +1773,6 @@ impl Detail_AffineBasedEstimator {
 	
 }
 
-/// Features matcher similar to cv::detail::BestOf2NearestMatcher which
-/// finds two best matches for each feature and leaves the best one only if the
-/// ratio between descriptor distances is greater than the threshold match_conf.
-/// 
-/// Unlike cv::detail::BestOf2NearestMatcher this matcher uses affine
-/// transformation (affine transformation estimate will be placed in matches_info).
-/// ## See also
-/// cv::detail::FeaturesMatcher cv::detail::BestOf2NearestMatcher
 pub trait Detail_AffineBestOf2NearestMatcherTraitConst: crate::stitching::Detail_BestOf2NearestMatcherTraitConst {
 	fn as_raw_Detail_AffineBestOf2NearestMatcher(&self) -> *const c_void;
 
@@ -2185,14 +1783,6 @@ pub trait Detail_AffineBestOf2NearestMatcherTrait: crate::stitching::Detail_Affi
 
 }
 
-/// Features matcher similar to cv::detail::BestOf2NearestMatcher which
-/// finds two best matches for each feature and leaves the best one only if the
-/// ratio between descriptor distances is greater than the threshold match_conf.
-/// 
-/// Unlike cv::detail::BestOf2NearestMatcher this matcher uses affine
-/// transformation (affine transformation estimate will be placed in matches_info).
-/// ## See also
-/// cv::detail::FeaturesMatcher cv::detail::BestOf2NearestMatcher
 pub struct Detail_AffineBestOf2NearestMatcher {
 	ptr: *mut c_void
 }
@@ -2233,19 +1823,6 @@ impl crate::stitching::Detail_AffineBestOf2NearestMatcherTrait for Detail_Affine
 }
 
 impl Detail_AffineBestOf2NearestMatcher {
-	/// Constructs a "best of 2 nearest" matcher that expects affine transformation
-	/// between images
-	/// 
-	/// ## Parameters
-	/// * full_affine: whether to use full affine transformation with 6 degress of freedom or reduced
-	/// transformation with 4 degrees of freedom using only rotation, translation and uniform scaling
-	/// * try_use_gpu: Should try to use GPU or not
-	/// * match_conf: Match distances ration threshold
-	/// * num_matches_thresh1: Minimum number of matches required for the 2D affine transform
-	/// estimation used in the inliers classification step
-	/// ## See also
-	/// cv::estimateAffine2D cv::estimateAffinePartial2D
-	/// 
 	/// ## C++ default parameters
 	/// * full_affine: false
 	/// * try_use_gpu: false
@@ -2265,10 +1842,6 @@ impl Detail_AffineBestOf2NearestMatcher {
 
 boxed_cast_base! { Detail_AffineBestOf2NearestMatcher, crate::stitching::Detail_BestOf2NearestMatcher, cv_Detail_AffineBestOf2NearestMatcher_to_Detail_BestOf2NearestMatcher }
 
-/// Affine warper that uses rotations and translations
-/// 
-/// Uses affine transformation in homogeneous coordinates to represent both rotation and
-/// translation in camera rotation matrix.
 pub trait Detail_AffineWarperTraitConst: crate::stitching::Detail_PlaneWarperTraitConst {
 	fn as_raw_Detail_AffineWarper(&self) -> *const c_void;
 
@@ -2277,14 +1850,6 @@ pub trait Detail_AffineWarperTraitConst: crate::stitching::Detail_PlaneWarperTra
 pub trait Detail_AffineWarperTrait: crate::stitching::Detail_AffineWarperTraitConst + crate::stitching::Detail_PlaneWarperTrait {
 	fn as_raw_mut_Detail_AffineWarper(&mut self) -> *mut c_void;
 
-	/// Projects the image point.
-	/// 
-	/// ## Parameters
-	/// * pt: Source point
-	/// * K: Camera intrinsic parameters
-	/// * H: Camera extrinsic parameters
-	/// ## Returns
-	/// Projected point
 	#[inline]
 	fn warp_point(&mut self, pt: core::Point2f, k: &dyn core::ToInputArray, h: &dyn core::ToInputArray) -> Result<core::Point2f> {
 		input_array_arg!(k);
@@ -2296,14 +1861,6 @@ pub trait Detail_AffineWarperTrait: crate::stitching::Detail_AffineWarperTraitCo
 		Ok(ret)
 	}
 	
-	/// Projects the image point backward.
-	/// 
-	/// ## Parameters
-	/// * pt: Projected point
-	/// * K: Camera intrinsic parameters
-	/// * H: Camera extrinsic parameters
-	/// ## Returns
-	/// Backward-projected point
 	#[inline]
 	fn warp_point_backward(&mut self, pt: core::Point2f, k: &dyn core::ToInputArray, h: &dyn core::ToInputArray) -> Result<core::Point2f> {
 		input_array_arg!(k);
@@ -2315,16 +1872,6 @@ pub trait Detail_AffineWarperTrait: crate::stitching::Detail_AffineWarperTraitCo
 		Ok(ret)
 	}
 	
-	/// Builds the projection maps according to the given camera data.
-	/// 
-	/// ## Parameters
-	/// * src_size: Source image size
-	/// * K: Camera intrinsic parameters
-	/// * H: Camera extrinsic parameters
-	/// * xmap: Projection map for the x axis
-	/// * ymap: Projection map for the y axis
-	/// ## Returns
-	/// Projected image minimum bounding box
 	#[inline]
 	fn build_maps(&mut self, src_size: core::Size, k: &dyn core::ToInputArray, h: &dyn core::ToInputArray, xmap: &mut dyn core::ToOutputArray, ymap: &mut dyn core::ToOutputArray) -> Result<core::Rect> {
 		input_array_arg!(k);
@@ -2338,17 +1885,6 @@ pub trait Detail_AffineWarperTrait: crate::stitching::Detail_AffineWarperTraitCo
 		Ok(ret)
 	}
 	
-	/// Projects the image.
-	/// 
-	/// ## Parameters
-	/// * src: Source image
-	/// * K: Camera intrinsic parameters
-	/// * H: Camera extrinsic parameters
-	/// * interp_mode: Interpolation mode
-	/// * border_mode: Border extrapolation mode
-	/// * dst: Projected image
-	/// ## Returns
-	/// Project image top-left corner
 	#[inline]
 	fn warp(&mut self, src: &dyn core::ToInputArray, k: &dyn core::ToInputArray, h: &dyn core::ToInputArray, interp_mode: i32, border_mode: i32, dst: &mut dyn core::ToOutputArray) -> Result<core::Point> {
 		input_array_arg!(src);
@@ -2362,12 +1898,6 @@ pub trait Detail_AffineWarperTrait: crate::stitching::Detail_AffineWarperTraitCo
 		Ok(ret)
 	}
 	
-	/// ## Parameters
-	/// * src_size: Source image bounding box
-	/// * K: Camera intrinsic parameters
-	/// * H: Camera extrinsic parameters
-	/// ## Returns
-	/// Projected image minimum bounding box
 	#[inline]
 	fn warp_roi(&mut self, src_size: core::Size, k: &dyn core::ToInputArray, h: &dyn core::ToInputArray) -> Result<core::Rect> {
 		input_array_arg!(k);
@@ -2381,10 +1911,6 @@ pub trait Detail_AffineWarperTrait: crate::stitching::Detail_AffineWarperTraitCo
 	
 }
 
-/// Affine warper that uses rotations and translations
-/// 
-/// Uses affine transformation in homogeneous coordinates to represent both rotation and
-/// translation in camera rotation matrix.
 pub struct Detail_AffineWarper {
 	ptr: *mut c_void
 }
@@ -2425,11 +1951,6 @@ impl crate::stitching::Detail_AffineWarperTrait for Detail_AffineWarper {
 }
 
 impl Detail_AffineWarper {
-	/// Construct an instance of the affine warper class.
-	/// 
-	/// ## Parameters
-	/// * scale: Projected image scale multiplier
-	/// 
 	/// ## C++ default parameters
 	/// * scale: 1.f
 	#[inline]
@@ -2446,10 +1967,6 @@ impl Detail_AffineWarper {
 
 boxed_cast_base! { Detail_AffineWarper, crate::stitching::Detail_PlaneWarper, cv_Detail_AffineWarper_to_Detail_PlaneWarper }
 
-/// Features matcher which finds two best matches for each feature and leaves the best one only if the
-/// ratio between descriptor distances is greater than the threshold match_conf
-/// ## See also
-/// detail::FeaturesMatcher
 pub trait Detail_BestOf2NearestMatcherTraitConst: crate::stitching::Detail_FeaturesMatcherConst {
 	fn as_raw_Detail_BestOf2NearestMatcher(&self) -> *const c_void;
 
@@ -2469,10 +1986,6 @@ pub trait Detail_BestOf2NearestMatcherTrait: crate::stitching::Detail_BestOf2Nea
 	
 }
 
-/// Features matcher which finds two best matches for each feature and leaves the best one only if the
-/// ratio between descriptor distances is greater than the threshold match_conf
-/// ## See also
-/// detail::FeaturesMatcher
 pub struct Detail_BestOf2NearestMatcher {
 	ptr: *mut c_void
 }
@@ -2505,16 +2018,6 @@ impl crate::stitching::Detail_BestOf2NearestMatcherTrait for Detail_BestOf2Neare
 }
 
 impl Detail_BestOf2NearestMatcher {
-	/// Constructs a "best of 2 nearest" matcher.
-	/// 
-	/// ## Parameters
-	/// * try_use_gpu: Should try to use GPU or not
-	/// * match_conf: Match distances ration threshold
-	/// * num_matches_thresh1: Minimum number of matches required for the 2D projective transform
-	/// estimation used in the inliers classification step
-	/// * num_matches_thresh2: Minimum number of matches required for the 2D projective transform
-	/// re-estimation on inliers
-	/// 
 	/// ## C++ default parameters
 	/// * try_use_gpu: false
 	/// * match_conf: 0.3f
@@ -2621,9 +2124,6 @@ impl Detail_BestOf2NearestRangeMatcher {
 
 boxed_cast_base! { Detail_BestOf2NearestRangeMatcher, crate::stitching::Detail_BestOf2NearestMatcher, cv_Detail_BestOf2NearestRangeMatcher_to_Detail_BestOf2NearestMatcher }
 
-/// Base class for all blenders.
-/// 
-/// Simple blender which puts one image over another
 pub trait Detail_BlenderTraitConst {
 	fn as_raw_Detail_Blender(&self) -> *const c_void;
 
@@ -2632,11 +2132,6 @@ pub trait Detail_BlenderTraitConst {
 pub trait Detail_BlenderTrait: crate::stitching::Detail_BlenderTraitConst {
 	fn as_raw_mut_Detail_Blender(&mut self) -> *mut c_void;
 
-	/// Prepares the blender for blending.
-	/// 
-	/// ## Parameters
-	/// * corners: Source images top-left corners
-	/// * sizes: Source image sizes
 	#[inline]
 	fn prepare(&mut self, corners: &core::Vector<core::Point>, sizes: &core::Vector<core::Size>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2646,13 +2141,6 @@ pub trait Detail_BlenderTrait: crate::stitching::Detail_BlenderTraitConst {
 		Ok(ret)
 	}
 	
-	/// Prepares the blender for blending.
-	/// 
-	/// ## Parameters
-	/// * corners: Source images top-left corners
-	/// * sizes: Source image sizes
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn prepare_1(&mut self, dst_roi: core::Rect) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2662,12 +2150,6 @@ pub trait Detail_BlenderTrait: crate::stitching::Detail_BlenderTraitConst {
 		Ok(ret)
 	}
 	
-	/// Processes the image.
-	/// 
-	/// ## Parameters
-	/// * img: Source image
-	/// * mask: Source image mask
-	/// * tl: Source image top-left corners
 	#[inline]
 	fn feed(&mut self, img: &dyn core::ToInputArray, mask: &dyn core::ToInputArray, tl: core::Point) -> Result<()> {
 		input_array_arg!(img);
@@ -2679,11 +2161,6 @@ pub trait Detail_BlenderTrait: crate::stitching::Detail_BlenderTraitConst {
 		Ok(ret)
 	}
 	
-	/// Blends and returns the final pano.
-	/// 
-	/// ## Parameters
-	/// * dst: Final pano
-	/// * dst_mask: Final pano mask
 	#[inline]
 	fn blend(&mut self, dst: &mut dyn core::ToInputOutputArray, dst_mask: &mut dyn core::ToInputOutputArray) -> Result<()> {
 		input_output_array_arg!(dst);
@@ -2697,9 +2174,6 @@ pub trait Detail_BlenderTrait: crate::stitching::Detail_BlenderTraitConst {
 	
 }
 
-/// Base class for all blenders.
-/// 
-/// Simple blender which puts one image over another
 pub struct Detail_Blender {
 	ptr: *mut c_void
 }
@@ -2742,8 +2216,6 @@ boxed_cast_descendant! { Detail_Blender, crate::stitching::Detail_FeatherBlender
 
 boxed_cast_descendant! { Detail_Blender, crate::stitching::Detail_MultiBandBlender, cv_Detail_Blender_to_Detail_MultiBandBlender }
 
-/// Exposure compensator which tries to remove exposure related artifacts by adjusting image block
-/// on each channel.
 pub trait Detail_BlocksChannelsCompensatorTraitConst: crate::stitching::Detail_BlocksCompensatorConst {
 	fn as_raw_Detail_BlocksChannelsCompensator(&self) -> *const c_void;
 
@@ -2754,8 +2226,6 @@ pub trait Detail_BlocksChannelsCompensatorTrait: crate::stitching::Detail_Blocks
 
 }
 
-/// Exposure compensator which tries to remove exposure related artifacts by adjusting image block
-/// on each channel.
 pub struct Detail_BlocksChannelsCompensator {
 	ptr: *mut c_void
 }
@@ -2812,7 +2282,6 @@ impl Detail_BlocksChannelsCompensator {
 	
 }
 
-/// Exposure compensator which tries to remove exposure related artifacts by adjusting image blocks.
 pub trait Detail_BlocksCompensatorConst: crate::stitching::Detail_ExposureCompensatorConst {
 	fn as_raw_Detail_BlocksCompensator(&self) -> *const c_void;
 
@@ -2933,8 +2402,6 @@ pub trait Detail_BlocksCompensator: crate::stitching::Detail_BlocksCompensatorCo
 	
 }
 
-/// Exposure compensator which tries to remove exposure related artifacts by adjusting image block
-/// intensities, see [UES01](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_UES01) for details.
 pub trait Detail_BlocksGainCompensatorTraitConst: crate::stitching::Detail_BlocksCompensatorConst {
 	fn as_raw_Detail_BlocksGainCompensator(&self) -> *const c_void;
 
@@ -2974,8 +2441,6 @@ pub trait Detail_BlocksGainCompensatorTrait: crate::stitching::Detail_BlocksComp
 	
 }
 
-/// Exposure compensator which tries to remove exposure related artifacts by adjusting image block
-/// intensities, see [UES01](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_UES01) for details.
 pub struct Detail_BlocksGainCompensator {
 	ptr: *mut c_void
 }
@@ -3041,14 +2506,6 @@ impl Detail_BlocksGainCompensator {
 	
 }
 
-/// Bundle adjuster that expects affine transformation
-/// represented in homogeneous coordinates in R for each camera param. Implements
-/// camera parameters refinement algorithm which minimizes sum of the reprojection
-/// error squares
-/// 
-/// It estimates all transformation parameters. Refinement mask is ignored.
-/// ## See also
-/// AffineBasedEstimator AffineBestOf2NearestMatcher BundleAdjusterAffinePartial
 pub trait Detail_BundleAdjusterAffineTraitConst: crate::stitching::Detail_BundleAdjusterBaseConst {
 	fn as_raw_Detail_BundleAdjusterAffine(&self) -> *const c_void;
 
@@ -3059,14 +2516,6 @@ pub trait Detail_BundleAdjusterAffineTrait: crate::stitching::Detail_BundleAdjus
 
 }
 
-/// Bundle adjuster that expects affine transformation
-/// represented in homogeneous coordinates in R for each camera param. Implements
-/// camera parameters refinement algorithm which minimizes sum of the reprojection
-/// error squares
-/// 
-/// It estimates all transformation parameters. Refinement mask is ignored.
-/// ## See also
-/// AffineBasedEstimator AffineBestOf2NearestMatcher BundleAdjusterAffinePartial
 pub struct Detail_BundleAdjusterAffine {
 	ptr: *mut c_void
 }
@@ -3119,14 +2568,6 @@ impl Detail_BundleAdjusterAffine {
 	
 }
 
-/// Bundle adjuster that expects affine transformation with 4 DOF
-/// represented in homogeneous coordinates in R for each camera param. Implements
-/// camera parameters refinement algorithm which minimizes sum of the reprojection
-/// error squares
-/// 
-/// It estimates all transformation parameters. Refinement mask is ignored.
-/// ## See also
-/// AffineBasedEstimator AffineBestOf2NearestMatcher BundleAdjusterAffine
 pub trait Detail_BundleAdjusterAffinePartialTraitConst: crate::stitching::Detail_BundleAdjusterBaseConst {
 	fn as_raw_Detail_BundleAdjusterAffinePartial(&self) -> *const c_void;
 
@@ -3137,14 +2578,6 @@ pub trait Detail_BundleAdjusterAffinePartialTrait: crate::stitching::Detail_Bund
 
 }
 
-/// Bundle adjuster that expects affine transformation with 4 DOF
-/// represented in homogeneous coordinates in R for each camera param. Implements
-/// camera parameters refinement algorithm which minimizes sum of the reprojection
-/// error squares
-/// 
-/// It estimates all transformation parameters. Refinement mask is ignored.
-/// ## See also
-/// AffineBasedEstimator AffineBestOf2NearestMatcher BundleAdjusterAffine
 pub struct Detail_BundleAdjusterAffinePartial {
 	ptr: *mut c_void
 }
@@ -3197,7 +2630,6 @@ impl Detail_BundleAdjusterAffinePartial {
 	
 }
 
-/// Base class for all camera parameters refinement methods.
 pub trait Detail_BundleAdjusterBaseConst: crate::stitching::Detail_EstimatorConst {
 	fn as_raw_Detail_BundleAdjusterBase(&self) -> *const c_void;
 
@@ -3263,10 +2695,6 @@ pub trait Detail_BundleAdjusterBase: crate::stitching::Detail_BundleAdjusterBase
 	
 }
 
-/// Implementation of the camera parameters refinement algorithm which minimizes sum of the distances
-/// between the rays passing through the camera center and a feature. :
-/// 
-/// It can estimate focal length. It ignores the refinement mask for now.
 pub trait Detail_BundleAdjusterRayTraitConst: crate::stitching::Detail_BundleAdjusterBaseConst {
 	fn as_raw_Detail_BundleAdjusterRay(&self) -> *const c_void;
 
@@ -3277,10 +2705,6 @@ pub trait Detail_BundleAdjusterRayTrait: crate::stitching::Detail_BundleAdjuster
 
 }
 
-/// Implementation of the camera parameters refinement algorithm which minimizes sum of the distances
-/// between the rays passing through the camera center and a feature. :
-/// 
-/// It can estimate focal length. It ignores the refinement mask for now.
 pub struct Detail_BundleAdjusterRay {
 	ptr: *mut c_void
 }
@@ -3333,11 +2757,6 @@ impl Detail_BundleAdjusterRay {
 	
 }
 
-/// Implementation of the camera parameters refinement algorithm which minimizes sum of the reprojection
-/// error squares
-/// 
-/// It can estimate focal length, aspect ratio, principal point.
-/// You can affect only on them via the refinement mask.
 pub trait Detail_BundleAdjusterReprojTraitConst: crate::stitching::Detail_BundleAdjusterBaseConst {
 	fn as_raw_Detail_BundleAdjusterReproj(&self) -> *const c_void;
 
@@ -3348,11 +2767,6 @@ pub trait Detail_BundleAdjusterReprojTrait: crate::stitching::Detail_BundleAdjus
 
 }
 
-/// Implementation of the camera parameters refinement algorithm which minimizes sum of the reprojection
-/// error squares
-/// 
-/// It can estimate focal length, aspect ratio, principal point.
-/// You can affect only on them via the refinement mask.
 pub struct Detail_BundleAdjusterReproj {
 	ptr: *mut c_void
 }
@@ -3405,10 +2819,6 @@ impl Detail_BundleAdjusterReproj {
 	
 }
 
-/// Describes camera parameters.
-/// 
-/// 
-/// Note: Translation is assumed to be zero during the whole stitching pipeline. :
 pub trait Detail_CameraParamsTraitConst {
 	fn as_raw_Detail_CameraParams(&self) -> *const c_void;
 
@@ -3503,10 +2913,6 @@ pub trait Detail_CameraParamsTrait: crate::stitching::Detail_CameraParamsTraitCo
 	
 }
 
-/// Describes camera parameters.
-/// 
-/// 
-/// Note: Translation is assumed to be zero during the whole stitching pipeline. :
 pub struct Detail_CameraParams {
 	ptr: *mut c_void
 }
@@ -3553,8 +2959,6 @@ impl Detail_CameraParams {
 	
 }
 
-/// Exposure compensator which tries to remove exposure related artifacts by adjusting image
-/// intensities on each channel independently.
 pub trait Detail_ChannelsCompensatorTraitConst: crate::stitching::Detail_ExposureCompensatorConst {
 	fn as_raw_Detail_ChannelsCompensator(&self) -> *const c_void;
 
@@ -3640,8 +3044,6 @@ pub trait Detail_ChannelsCompensatorTrait: crate::stitching::Detail_ChannelsComp
 	
 }
 
-/// Exposure compensator which tries to remove exposure related artifacts by adjusting image
-/// intensities on each channel independently.
 pub struct Detail_ChannelsCompensator {
 	ptr: *mut c_void
 }
@@ -4160,7 +3562,6 @@ impl Detail_CylindricalProjector {
 
 boxed_cast_base! { Detail_CylindricalProjector, crate::stitching::Detail_ProjectorBase, cv_Detail_CylindricalProjector_to_Detail_ProjectorBase }
 
-/// Warper that maps an image onto the x\*x + z\*z = 1 cylinder.
 pub trait Detail_CylindricalWarperTraitConst {
 	fn as_raw_Detail_CylindricalWarper(&self) -> *const c_void;
 
@@ -4197,7 +3598,6 @@ pub trait Detail_CylindricalWarperTrait: crate::stitching::Detail_CylindricalWar
 	
 }
 
-/// Warper that maps an image onto the x\*x + z\*z = 1 cylinder.
 pub struct Detail_CylindricalWarper {
 	ptr: *mut c_void
 }
@@ -4230,10 +3630,6 @@ impl crate::stitching::Detail_CylindricalWarperTrait for Detail_CylindricalWarpe
 }
 
 impl Detail_CylindricalWarper {
-	/// Construct an instance of the cylindrical warper class.
-	/// 
-	/// ## Parameters
-	/// * scale: Projected image scale multiplier
 	#[inline]
 	pub fn new(scale: f32) -> Result<crate::stitching::Detail_CylindricalWarper> {
 		return_send!(via ocvrs_return);
@@ -4565,14 +3961,6 @@ impl Detail_DpSeamFinder {
 	
 }
 
-/// Rotation estimator base class.
-/// 
-/// It takes features of all images, pairwise matches between all images and estimates rotations of all
-/// cameras.
-/// 
-/// 
-/// Note: The coordinate system origin is implementation-dependent, but you can always normalize the
-/// rotations in respect to the first camera, for instance. :
 pub trait Detail_EstimatorConst {
 	fn as_raw_Detail_Estimator(&self) -> *const c_void;
 
@@ -4583,7 +3971,6 @@ pub trait Detail_Estimator: crate::stitching::Detail_EstimatorConst {
 
 }
 
-/// Base class for all exposure compensators.
 pub trait Detail_ExposureCompensatorConst {
 	fn as_raw_Detail_ExposureCompensator(&self) -> *const c_void;
 
@@ -4592,11 +3979,6 @@ pub trait Detail_ExposureCompensatorConst {
 pub trait Detail_ExposureCompensator: crate::stitching::Detail_ExposureCompensatorConst {
 	fn as_raw_mut_Detail_ExposureCompensator(&mut self) -> *mut c_void;
 
-	/// ## Parameters
-	/// * corners: Source image top-left corners
-	/// * images: Source images
-	/// * masks: Image masks to update (second value in pair specifies the value which should be used
-	/// to detect where image is)
 	#[inline]
 	fn feed(&mut self, corners: &core::Vector<core::Point>, images: &core::Vector<core::UMat>, masks: &core::Vector<core::UMat>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -4606,13 +3988,6 @@ pub trait Detail_ExposureCompensator: crate::stitching::Detail_ExposureCompensat
 		Ok(ret)
 	}
 	
-	/// Compensate exposure in the specified image.
-	/// 
-	/// ## Parameters
-	/// * index: Image index
-	/// * corner: Image top-left corner
-	/// * image: Image to process
-	/// * mask: Image mask
 	#[inline]
 	fn apply(&mut self, index: i32, corner: core::Point, image: &mut dyn core::ToInputOutputArray, mask: &dyn core::ToInputArray) -> Result<()> {
 		input_output_array_arg!(image);
@@ -4674,7 +4049,6 @@ impl dyn Detail_ExposureCompensator + '_ {
 	}
 	
 }
-/// Simple blender which mixes images at its borders.
 pub trait Detail_FeatherBlenderTraitConst: crate::stitching::Detail_BlenderTraitConst {
 	fn as_raw_Detail_FeatherBlender(&self) -> *const c_void;
 
@@ -4732,8 +4106,6 @@ pub trait Detail_FeatherBlenderTrait: crate::stitching::Detail_BlenderTrait + cr
 		Ok(ret)
 	}
 	
-	/// Creates weight maps for fixed set of source images by their masks and top-left corners.
-	/// Final image can be obtained by simple weighting of the source images.
 	#[inline]
 	fn create_weight_maps(&mut self, masks: &core::Vector<core::UMat>, corners: &core::Vector<core::Point>, weight_maps: &mut core::Vector<core::UMat>) -> Result<core::Rect> {
 		return_send!(via ocvrs_return);
@@ -4745,7 +4117,6 @@ pub trait Detail_FeatherBlenderTrait: crate::stitching::Detail_BlenderTrait + cr
 	
 }
 
-/// Simple blender which mixes images at its borders.
 pub struct Detail_FeatherBlender {
 	ptr: *mut c_void
 }
@@ -4794,12 +4165,9 @@ impl Detail_FeatherBlender {
 
 boxed_cast_base! { Detail_FeatherBlender, crate::stitching::Detail_Blender, cv_Detail_FeatherBlender_to_Detail_Blender }
 
-/// Feature matchers base class.
 pub trait Detail_FeaturesMatcherConst {
 	fn as_raw_Detail_FeaturesMatcher(&self) -> *const c_void;
 
-	/// ## Returns
-	/// True, if it's possible to use the same matcher instance in parallel, false otherwise
 	#[inline]
 	fn is_thread_safe(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -4814,7 +4182,6 @@ pub trait Detail_FeaturesMatcherConst {
 pub trait Detail_FeaturesMatcher: crate::stitching::Detail_FeaturesMatcherConst {
 	fn as_raw_mut_Detail_FeaturesMatcher(&mut self) -> *mut c_void;
 
-	/// Frees unused memory allocated before if there is any.
 	#[inline]
 	fn collect_garbage(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -4944,8 +4311,6 @@ impl Detail_FisheyeWarper {
 	
 }
 
-/// Exposure compensator which tries to remove exposure related artifacts by adjusting image
-/// intensities, see [BL07](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_BL07) and [WJ10](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_WJ10) for details.
 pub trait Detail_GainCompensatorTraitConst: crate::stitching::Detail_ExposureCompensatorConst {
 	fn as_raw_Detail_GainCompensator(&self) -> *const c_void;
 
@@ -5040,8 +4405,6 @@ pub trait Detail_GainCompensatorTrait: crate::stitching::Detail_ExposureCompensa
 	
 }
 
-/// Exposure compensator which tries to remove exposure related artifacts by adjusting image
-/// intensities, see [BL07](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_BL07) and [WJ10](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_WJ10) for details.
 pub struct Detail_GainCompensator {
 	ptr: *mut c_void
 }
@@ -5171,7 +4534,6 @@ impl Detail_Graph {
 	
 }
 
-/// Minimum graph cut-based seam estimator. See details in [V03](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_V03) .
 pub trait Detail_GraphCutSeamFinderTraitConst: crate::stitching::Detail_GraphCutSeamFinderBaseTraitConst + crate::stitching::Detail_SeamFinderConst {
 	fn as_raw_Detail_GraphCutSeamFinder(&self) -> *const c_void;
 
@@ -5191,7 +4553,6 @@ pub trait Detail_GraphCutSeamFinderTrait: crate::stitching::Detail_GraphCutSeamF
 	
 }
 
-/// Minimum graph cut-based seam estimator. See details in [V03](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_V03) .
 pub struct Detail_GraphCutSeamFinder {
 	ptr: *mut c_void
 }
@@ -5264,7 +4625,6 @@ impl Detail_GraphCutSeamFinder {
 
 boxed_cast_base! { Detail_GraphCutSeamFinder, crate::stitching::Detail_GraphCutSeamFinderBase, cv_Detail_GraphCutSeamFinder_to_Detail_GraphCutSeamFinderBase }
 
-/// Base class for all minimum graph-cut-based seam estimators.
 pub trait Detail_GraphCutSeamFinderBaseTraitConst {
 	fn as_raw_Detail_GraphCutSeamFinderBase(&self) -> *const c_void;
 
@@ -5275,7 +4635,6 @@ pub trait Detail_GraphCutSeamFinderBaseTrait: crate::stitching::Detail_GraphCutS
 
 }
 
-/// Base class for all minimum graph-cut-based seam estimators.
 pub struct Detail_GraphCutSeamFinderBase {
 	ptr: *mut c_void
 }
@@ -5301,100 +4660,6 @@ impl crate::stitching::Detail_GraphCutSeamFinderBaseTrait for Detail_GraphCutSea
 
 impl Detail_GraphCutSeamFinderBase {
 }
-
-pub trait Detail_GraphCutSeamFinderGpuTraitConst: crate::stitching::Detail_GraphCutSeamFinderBaseTraitConst + crate::stitching::Detail_PairwiseSeamFinderConst {
-	fn as_raw_Detail_GraphCutSeamFinderGpu(&self) -> *const c_void;
-
-}
-
-pub trait Detail_GraphCutSeamFinderGpuTrait: crate::stitching::Detail_GraphCutSeamFinderBaseTrait + crate::stitching::Detail_GraphCutSeamFinderGpuTraitConst + crate::stitching::Detail_PairwiseSeamFinder {
-	fn as_raw_mut_Detail_GraphCutSeamFinderGpu(&mut self) -> *mut c_void;
-
-	#[inline]
-	fn find(&mut self, src: &core::Vector<core::UMat>, corners: &core::Vector<core::Point>, masks: &mut core::Vector<core::UMat>) -> Result<()> {
-		return_send!(via ocvrs_return);
-		unsafe { sys::cv_detail_GraphCutSeamFinderGpu_find_const_vector_UMat_R_const_vector_Point_R_vector_UMat_R(self.as_raw_mut_Detail_GraphCutSeamFinderGpu(), src.as_raw_VectorOfUMat(), corners.as_raw_VectorOfPoint(), masks.as_raw_mut_VectorOfUMat(), ocvrs_return.as_mut_ptr()) };
-		return_receive!(unsafe ocvrs_return => ret);
-		let ret = ret.into_result()?;
-		Ok(ret)
-	}
-	
-	#[inline]
-	fn find_in_pair(&mut self, first: size_t, second: size_t, roi: core::Rect) -> Result<()> {
-		return_send!(via ocvrs_return);
-		unsafe { sys::cv_detail_GraphCutSeamFinderGpu_findInPair_size_t_size_t_Rect(self.as_raw_mut_Detail_GraphCutSeamFinderGpu(), first, second, roi.opencv_as_extern(), ocvrs_return.as_mut_ptr()) };
-		return_receive!(unsafe ocvrs_return => ret);
-		let ret = ret.into_result()?;
-		Ok(ret)
-	}
-	
-}
-
-pub struct Detail_GraphCutSeamFinderGpu {
-	ptr: *mut c_void
-}
-
-opencv_type_boxed! { Detail_GraphCutSeamFinderGpu }
-
-impl Drop for Detail_GraphCutSeamFinderGpu {
-	fn drop(&mut self) {
-		extern "C" { fn cv_Detail_GraphCutSeamFinderGpu_delete(instance: *mut c_void); }
-		unsafe { cv_Detail_GraphCutSeamFinderGpu_delete(self.as_raw_mut_Detail_GraphCutSeamFinderGpu()) };
-	}
-}
-
-unsafe impl Send for Detail_GraphCutSeamFinderGpu {}
-
-impl crate::stitching::Detail_GraphCutSeamFinderBaseTraitConst for Detail_GraphCutSeamFinderGpu {
-	#[inline] fn as_raw_Detail_GraphCutSeamFinderBase(&self) -> *const c_void { self.as_raw() }
-}
-
-impl crate::stitching::Detail_GraphCutSeamFinderBaseTrait for Detail_GraphCutSeamFinderGpu {
-	#[inline] fn as_raw_mut_Detail_GraphCutSeamFinderBase(&mut self) -> *mut c_void { self.as_raw_mut() }
-}
-
-impl crate::stitching::Detail_PairwiseSeamFinderConst for Detail_GraphCutSeamFinderGpu {
-	#[inline] fn as_raw_Detail_PairwiseSeamFinder(&self) -> *const c_void { self.as_raw() }
-}
-
-impl crate::stitching::Detail_PairwiseSeamFinder for Detail_GraphCutSeamFinderGpu {
-	#[inline] fn as_raw_mut_Detail_PairwiseSeamFinder(&mut self) -> *mut c_void { self.as_raw_mut() }
-}
-
-impl crate::stitching::Detail_SeamFinderConst for Detail_GraphCutSeamFinderGpu {
-	#[inline] fn as_raw_Detail_SeamFinder(&self) -> *const c_void { self.as_raw() }
-}
-
-impl crate::stitching::Detail_SeamFinder for Detail_GraphCutSeamFinderGpu {
-	#[inline] fn as_raw_mut_Detail_SeamFinder(&mut self) -> *mut c_void { self.as_raw_mut() }
-}
-
-impl crate::stitching::Detail_GraphCutSeamFinderGpuTraitConst for Detail_GraphCutSeamFinderGpu {
-	#[inline] fn as_raw_Detail_GraphCutSeamFinderGpu(&self) -> *const c_void { self.as_raw() }
-}
-
-impl crate::stitching::Detail_GraphCutSeamFinderGpuTrait for Detail_GraphCutSeamFinderGpu {
-	#[inline] fn as_raw_mut_Detail_GraphCutSeamFinderGpu(&mut self) -> *mut c_void { self.as_raw_mut() }
-}
-
-impl Detail_GraphCutSeamFinderGpu {
-	/// ## C++ default parameters
-	/// * cost_type: COST_COLOR_GRAD
-	/// * terminal_cost: 10000.f
-	/// * bad_region_penalty: 1000.f
-	#[inline]
-	pub fn new(cost_type: i32, terminal_cost: f32, bad_region_penalty: f32) -> Result<crate::stitching::Detail_GraphCutSeamFinderGpu> {
-		return_send!(via ocvrs_return);
-		unsafe { sys::cv_detail_GraphCutSeamFinderGpu_GraphCutSeamFinderGpu_int_float_float(cost_type, terminal_cost, bad_region_penalty, ocvrs_return.as_mut_ptr()) };
-		return_receive!(unsafe ocvrs_return => ret);
-		let ret = ret.into_result()?;
-		let ret = unsafe { crate::stitching::Detail_GraphCutSeamFinderGpu::opencv_from_extern(ret) };
-		Ok(ret)
-	}
-	
-}
-
-boxed_cast_base! { Detail_GraphCutSeamFinderGpu, crate::stitching::Detail_GraphCutSeamFinderBase, cv_Detail_GraphCutSeamFinderGpu_to_Detail_GraphCutSeamFinderBase }
 
 pub trait Detail_GraphEdgeTraitConst {
 	fn as_raw_Detail_GraphEdge(&self) -> *const c_void;
@@ -5478,7 +4743,6 @@ impl Detail_GraphEdge {
 	
 }
 
-/// Homography based rotation estimator.
 pub trait Detail_HomographyBasedEstimatorTraitConst: crate::stitching::Detail_EstimatorConst {
 	fn as_raw_Detail_HomographyBasedEstimator(&self) -> *const c_void;
 
@@ -5489,7 +4753,6 @@ pub trait Detail_HomographyBasedEstimatorTrait: crate::stitching::Detail_Estimat
 
 }
 
-/// Homography based rotation estimator.
 pub struct Detail_HomographyBasedEstimator {
 	ptr: *mut c_void
 }
@@ -5536,7 +4799,6 @@ impl Detail_HomographyBasedEstimator {
 	
 }
 
-/// Structure containing image keypoints and descriptors.
 pub trait Detail_ImageFeaturesTraitConst {
 	fn as_raw_Detail_ImageFeatures(&self) -> *const c_void;
 
@@ -5609,7 +4871,6 @@ pub trait Detail_ImageFeaturesTrait: crate::stitching::Detail_ImageFeaturesTrait
 	
 }
 
-/// Structure containing image keypoints and descriptors.
 pub struct Detail_ImageFeatures {
 	ptr: *mut c_void
 }
@@ -5636,12 +4897,6 @@ impl crate::stitching::Detail_ImageFeaturesTrait for Detail_ImageFeatures {
 impl Detail_ImageFeatures {
 }
 
-/// Structure containing information about matches between two images.
-/// 
-/// It's assumed that there is a transformation between those images. Transformation may be
-/// homography or affine transformation based on selected matcher.
-/// ## See also
-/// detail::FeaturesMatcher
 pub trait Detail_MatchesInfoTraitConst {
 	fn as_raw_Detail_MatchesInfo(&self) -> *const c_void;
 
@@ -5651,7 +4906,6 @@ pub trait Detail_MatchesInfoTraitConst {
 		ret
 	}
 	
-	/// Images indices (optional)
 	#[inline]
 	fn dst_img_idx(&self) -> i32 {
 		let ret = unsafe { sys::cv_detail_MatchesInfo_getPropDst_img_idx_const(self.as_raw_Detail_MatchesInfo()) };
@@ -5665,7 +4919,6 @@ pub trait Detail_MatchesInfoTraitConst {
 		ret
 	}
 	
-	/// Geometrically consistent matches mask
 	#[inline]
 	fn inliers_mask(&self) -> core::Vector<u8> {
 		let ret = unsafe { sys::cv_detail_MatchesInfo_getPropInliers_mask_const(self.as_raw_Detail_MatchesInfo()) };
@@ -5673,14 +4926,12 @@ pub trait Detail_MatchesInfoTraitConst {
 		ret
 	}
 	
-	/// Number of geometrically consistent matches
 	#[inline]
 	fn num_inliers(&self) -> i32 {
 		let ret = unsafe { sys::cv_detail_MatchesInfo_getPropNum_inliers_const(self.as_raw_Detail_MatchesInfo()) };
 		ret
 	}
 	
-	/// Estimated transformation
 	#[inline]
 	fn h(&self) -> core::Mat {
 		let ret = unsafe { sys::cv_detail_MatchesInfo_getPropH_const(self.as_raw_Detail_MatchesInfo()) };
@@ -5688,7 +4939,6 @@ pub trait Detail_MatchesInfoTraitConst {
 		ret
 	}
 	
-	/// Confidence two images are from the same panorama
 	#[inline]
 	fn confidence(&self) -> f64 {
 		let ret = unsafe { sys::cv_detail_MatchesInfo_getPropConfidence_const(self.as_raw_Detail_MatchesInfo()) };
@@ -5706,7 +4956,6 @@ pub trait Detail_MatchesInfoTrait: crate::stitching::Detail_MatchesInfoTraitCons
 		ret
 	}
 	
-	/// Images indices (optional)
 	#[inline]
 	fn set_dst_img_idx(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_detail_MatchesInfo_setPropDst_img_idx_int(self.as_raw_mut_Detail_MatchesInfo(), val) };
@@ -5719,28 +4968,24 @@ pub trait Detail_MatchesInfoTrait: crate::stitching::Detail_MatchesInfoTraitCons
 		ret
 	}
 	
-	/// Geometrically consistent matches mask
 	#[inline]
 	fn set_inliers_mask(&mut self, mut val: core::Vector<u8>) {
 		let ret = unsafe { sys::cv_detail_MatchesInfo_setPropInliers_mask_vector_unsigned_char_(self.as_raw_mut_Detail_MatchesInfo(), val.as_raw_mut_VectorOfu8()) };
 		ret
 	}
 	
-	/// Number of geometrically consistent matches
 	#[inline]
 	fn set_num_inliers(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_detail_MatchesInfo_setPropNum_inliers_int(self.as_raw_mut_Detail_MatchesInfo(), val) };
 		ret
 	}
 	
-	/// Estimated transformation
 	#[inline]
 	fn set_h(&mut self, mut val: core::Mat) {
 		let ret = unsafe { sys::cv_detail_MatchesInfo_setPropH_Mat(self.as_raw_mut_Detail_MatchesInfo(), val.as_raw_mut_Mat()) };
 		ret
 	}
 	
-	/// Confidence two images are from the same panorama
 	#[inline]
 	fn set_confidence(&mut self, val: f64) {
 		let ret = unsafe { sys::cv_detail_MatchesInfo_setPropConfidence_double(self.as_raw_mut_Detail_MatchesInfo(), val) };
@@ -5769,12 +5014,6 @@ pub trait Detail_MatchesInfoTrait: crate::stitching::Detail_MatchesInfoTraitCons
 	
 }
 
-/// Structure containing information about matches between two images.
-/// 
-/// It's assumed that there is a transformation between those images. Transformation may be
-/// homography or affine transformation based on selected matcher.
-/// ## See also
-/// detail::FeaturesMatcher
 pub struct Detail_MatchesInfo {
 	ptr: *mut c_void
 }
@@ -5939,7 +5178,6 @@ impl Detail_MercatorWarper {
 	
 }
 
-/// Blender which uses multi-band blending algorithm (see [BA83](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_BA83)).
 pub trait Detail_MultiBandBlenderTraitConst: crate::stitching::Detail_BlenderTraitConst {
 	fn as_raw_Detail_MultiBandBlender(&self) -> *const c_void;
 
@@ -5999,7 +5237,6 @@ pub trait Detail_MultiBandBlenderTrait: crate::stitching::Detail_BlenderTrait + 
 	
 }
 
-/// Blender which uses multi-band blending algorithm (see [BA83](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_BA83)).
 pub struct Detail_MultiBandBlender {
 	ptr: *mut c_void
 }
@@ -6050,7 +5287,6 @@ impl Detail_MultiBandBlender {
 
 boxed_cast_base! { Detail_MultiBandBlender, crate::stitching::Detail_Blender, cv_Detail_MultiBandBlender_to_Detail_Blender }
 
-/// Stub bundle adjuster that does nothing.
 pub trait Detail_NoBundleAdjusterTraitConst: crate::stitching::Detail_BundleAdjusterBaseConst {
 	fn as_raw_Detail_NoBundleAdjuster(&self) -> *const c_void;
 
@@ -6061,7 +5297,6 @@ pub trait Detail_NoBundleAdjusterTrait: crate::stitching::Detail_BundleAdjusterB
 
 }
 
-/// Stub bundle adjuster that does nothing.
 pub struct Detail_NoBundleAdjuster {
 	ptr: *mut c_void
 }
@@ -6114,7 +5349,6 @@ impl Detail_NoBundleAdjuster {
 	
 }
 
-/// Stub exposure compensator which does nothing.
 pub trait Detail_NoExposureCompensatorTraitConst: crate::stitching::Detail_ExposureCompensatorConst {
 	fn as_raw_Detail_NoExposureCompensator(&self) -> *const c_void;
 
@@ -6154,7 +5388,6 @@ pub trait Detail_NoExposureCompensatorTrait: crate::stitching::Detail_ExposureCo
 	
 }
 
-/// Stub exposure compensator which does nothing.
 pub struct Detail_NoExposureCompensator {
 	ptr: *mut c_void
 }
@@ -6189,7 +5422,6 @@ impl crate::stitching::Detail_NoExposureCompensatorTrait for Detail_NoExposureCo
 impl Detail_NoExposureCompensator {
 }
 
-/// Stub seam estimator which does nothing.
 pub trait Detail_NoSeamFinderTraitConst: crate::stitching::Detail_SeamFinderConst {
 	fn as_raw_Detail_NoSeamFinder(&self) -> *const c_void;
 
@@ -6209,7 +5441,6 @@ pub trait Detail_NoSeamFinderTrait: crate::stitching::Detail_NoSeamFinderTraitCo
 	
 }
 
-/// Stub seam estimator which does nothing.
 pub struct Detail_NoSeamFinder {
 	ptr: *mut c_void
 }
@@ -6244,7 +5475,6 @@ impl crate::stitching::Detail_NoSeamFinderTrait for Detail_NoSeamFinder {
 impl Detail_NoSeamFinder {
 }
 
-/// Base class for all pairwise seam estimators.
 pub trait Detail_PairwiseSeamFinderConst: crate::stitching::Detail_SeamFinderConst {
 	fn as_raw_Detail_PairwiseSeamFinder(&self) -> *const c_void;
 
@@ -6736,7 +5966,6 @@ impl Detail_PlaneProjector {
 
 boxed_cast_base! { Detail_PlaneProjector, crate::stitching::Detail_ProjectorBase, cv_Detail_PlaneProjector_to_Detail_ProjectorBase }
 
-/// Warper that maps an image onto the z = 1 plane.
 pub trait Detail_PlaneWarperTraitConst {
 	fn as_raw_Detail_PlaneWarper(&self) -> *const c_void;
 
@@ -6870,7 +6099,6 @@ pub trait Detail_PlaneWarperTrait: crate::stitching::Detail_PlaneWarperTraitCons
 	
 }
 
-/// Warper that maps an image onto the z = 1 plane.
 pub struct Detail_PlaneWarper {
 	ptr: *mut c_void
 }
@@ -6903,11 +6131,6 @@ impl crate::stitching::Detail_PlaneWarperTrait for Detail_PlaneWarper {
 }
 
 impl Detail_PlaneWarper {
-	/// Construct an instance of the plane warper class.
-	/// 
-	/// ## Parameters
-	/// * scale: Projected image scale multiplier
-	/// 
 	/// ## C++ default parameters
 	/// * scale: 1.f
 	#[inline]
@@ -7092,7 +6315,6 @@ impl Detail_PlaneWarperGpu {
 
 boxed_cast_base! { Detail_PlaneWarperGpu, crate::stitching::Detail_PlaneWarper, cv_Detail_PlaneWarperGpu_to_Detail_PlaneWarper }
 
-/// Base class for warping logic implementation.
 pub trait Detail_ProjectorBaseTraitConst {
 	fn as_raw_Detail_ProjectorBase(&self) -> *const c_void;
 
@@ -7166,7 +6388,6 @@ pub trait Detail_ProjectorBaseTrait: crate::stitching::Detail_ProjectorBaseTrait
 	
 }
 
-/// Base class for warping logic implementation.
 pub struct Detail_ProjectorBase {
 	ptr: *mut c_void
 }
@@ -7193,7 +6414,6 @@ impl crate::stitching::Detail_ProjectorBaseTrait for Detail_ProjectorBase {
 impl Detail_ProjectorBase {
 }
 
-/// Rotation-only model image warper interface.
 pub trait Detail_RotationWarperConst {
 	fn as_raw_Detail_RotationWarper(&self) -> *const c_void;
 
@@ -7211,14 +6431,6 @@ pub trait Detail_RotationWarperConst {
 pub trait Detail_RotationWarper: crate::stitching::Detail_RotationWarperConst {
 	fn as_raw_mut_Detail_RotationWarper(&mut self) -> *mut c_void;
 
-	/// Projects the image point.
-	/// 
-	/// ## Parameters
-	/// * pt: Source point
-	/// * K: Camera intrinsic parameters
-	/// * R: Camera rotation matrix
-	/// ## Returns
-	/// Projected point
 	#[inline]
 	fn warp_point(&mut self, pt: core::Point2f, k: &dyn core::ToInputArray, r: &dyn core::ToInputArray) -> Result<core::Point2f> {
 		input_array_arg!(k);
@@ -7241,16 +6453,6 @@ pub trait Detail_RotationWarper: crate::stitching::Detail_RotationWarperConst {
 		Ok(ret)
 	}
 	
-	/// Builds the projection maps according to the given camera data.
-	/// 
-	/// ## Parameters
-	/// * src_size: Source image size
-	/// * K: Camera intrinsic parameters
-	/// * R: Camera rotation matrix
-	/// * xmap: Projection map for the x axis
-	/// * ymap: Projection map for the y axis
-	/// ## Returns
-	/// Projected image minimum bounding box
 	#[inline]
 	fn build_maps(&mut self, src_size: core::Size, k: &dyn core::ToInputArray, r: &dyn core::ToInputArray, xmap: &mut dyn core::ToOutputArray, ymap: &mut dyn core::ToOutputArray) -> Result<core::Rect> {
 		input_array_arg!(k);
@@ -7264,17 +6466,6 @@ pub trait Detail_RotationWarper: crate::stitching::Detail_RotationWarperConst {
 		Ok(ret)
 	}
 	
-	/// Projects the image.
-	/// 
-	/// ## Parameters
-	/// * src: Source image
-	/// * K: Camera intrinsic parameters
-	/// * R: Camera rotation matrix
-	/// * interp_mode: Interpolation mode
-	/// * border_mode: Border extrapolation mode
-	/// * dst: Projected image
-	/// ## Returns
-	/// Project image top-left corner
 	#[inline]
 	fn warp(&mut self, src: &dyn core::ToInputArray, k: &dyn core::ToInputArray, r: &dyn core::ToInputArray, interp_mode: i32, border_mode: i32, dst: &mut dyn core::ToOutputArray) -> Result<core::Point> {
 		input_array_arg!(src);
@@ -7288,16 +6479,6 @@ pub trait Detail_RotationWarper: crate::stitching::Detail_RotationWarperConst {
 		Ok(ret)
 	}
 	
-	/// Projects the image backward.
-	/// 
-	/// ## Parameters
-	/// * src: Projected image
-	/// * K: Camera intrinsic parameters
-	/// * R: Camera rotation matrix
-	/// * interp_mode: Interpolation mode
-	/// * border_mode: Border extrapolation mode
-	/// * dst_size: Backward-projected image size
-	/// * dst: Backward-projected image
 	#[inline]
 	fn warp_backward(&mut self, src: &dyn core::ToInputArray, k: &dyn core::ToInputArray, r: &dyn core::ToInputArray, interp_mode: i32, border_mode: i32, dst_size: core::Size, dst: &mut dyn core::ToOutputArray) -> Result<()> {
 		input_array_arg!(src);
@@ -7311,12 +6492,6 @@ pub trait Detail_RotationWarper: crate::stitching::Detail_RotationWarperConst {
 		Ok(ret)
 	}
 	
-	/// ## Parameters
-	/// * src_size: Source image bounding box
-	/// * K: Camera intrinsic parameters
-	/// * R: Camera rotation matrix
-	/// ## Returns
-	/// Projected image minimum bounding box
 	#[inline]
 	fn warp_roi(&mut self, src_size: core::Size, k: &dyn core::ToInputArray, r: &dyn core::ToInputArray) -> Result<core::Rect> {
 		input_array_arg!(k);
@@ -7339,7 +6514,6 @@ pub trait Detail_RotationWarper: crate::stitching::Detail_RotationWarperConst {
 	
 }
 
-/// Base class for a seam estimator.
 pub trait Detail_SeamFinderConst {
 	fn as_raw_Detail_SeamFinder(&self) -> *const c_void;
 
@@ -7348,12 +6522,6 @@ pub trait Detail_SeamFinderConst {
 pub trait Detail_SeamFinder: crate::stitching::Detail_SeamFinderConst {
 	fn as_raw_mut_Detail_SeamFinder(&mut self) -> *mut c_void;
 
-	/// Estimates seams.
-	/// 
-	/// ## Parameters
-	/// * src: Source images
-	/// * corners: Source image top-left corners
-	/// * masks: Source image masks to update
 	#[inline]
 	fn find(&mut self, src: &core::Vector<core::UMat>, corners: &core::Vector<core::Point>, masks: &mut core::Vector<core::UMat>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -7524,11 +6692,6 @@ impl Detail_SphericalProjector {
 	
 }
 
-/// Warper that maps an image onto the unit sphere located at the origin.
-/// 
-/// Projects image onto unit sphere with origin at (0, 0, 0) and radius scale, measured in pixels.
-/// A 360 panorama would therefore have a resulting width of 2 * scale * PI pixels.
-/// Poles are located at (0, -1, 0) and (0, 1, 0) points.
 pub trait Detail_SphericalWarperTraitConst {
 	fn as_raw_Detail_SphericalWarper(&self) -> *const c_void;
 
@@ -7565,11 +6728,6 @@ pub trait Detail_SphericalWarperTrait: crate::stitching::Detail_SphericalWarperT
 	
 }
 
-/// Warper that maps an image onto the unit sphere located at the origin.
-/// 
-/// Projects image onto unit sphere with origin at (0, 0, 0) and radius scale, measured in pixels.
-/// A 360 panorama would therefore have a resulting width of 2 * scale * PI pixels.
-/// Poles are located at (0, -1, 0) and (0, 1, 0) points.
 pub struct Detail_SphericalWarper {
 	ptr: *mut c_void
 }
@@ -7602,11 +6760,6 @@ impl crate::stitching::Detail_SphericalWarperTrait for Detail_SphericalWarper {
 }
 
 impl Detail_SphericalWarper {
-	/// Construct an instance of the spherical warper class.
-	/// 
-	/// ## Parameters
-	/// * scale: Radius of the projected sphere, in pixels. An image spanning the
-	///              whole sphere will have a width of 2 * scale * PI pixels.
 	#[inline]
 	pub fn new(scale: f32) -> Result<crate::stitching::Detail_SphericalWarper> {
 		return_send!(via ocvrs_return);
@@ -7969,7 +7122,6 @@ impl Detail_TransverseMercatorWarper {
 	
 }
 
-/// Voronoi diagram-based seam estimator.
 pub trait Detail_VoronoiSeamFinderTraitConst: crate::stitching::Detail_PairwiseSeamFinderConst {
 	fn as_raw_Detail_VoronoiSeamFinder(&self) -> *const c_void;
 
@@ -7998,7 +7150,6 @@ pub trait Detail_VoronoiSeamFinderTrait: crate::stitching::Detail_PairwiseSeamFi
 	
 }
 
-/// Voronoi diagram-based seam estimator.
 pub struct Detail_VoronoiSeamFinder {
 	ptr: *mut c_void
 }

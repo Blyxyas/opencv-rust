@@ -99,17 +99,6 @@ pub const MAX_DIST: i32 = 4;
 pub const MINKOWSKI: i32 = 3;
 pub const SAVED: i32 = 254;
 pub const USE_UNORDERED_MAP: i32 = 1;
-/// Pooled storage allocator
-/// 
-/// The following routines allow for the efficient allocation of storage in
-/// small chunks from a specified pool.  Rather than allowing each structure
-/// to be freed individually, an entire pool of storage is freed at once.
-/// This method has two advantages over just using malloc() and free().  First,
-/// it is far more efficient for allocating small objects, as there is
-/// no overhead for remembering all the information needed to free each
-/// object or consolidating fragmented memory.  Second, the decision about
-/// how long to keep an object is made at the time of allocation, and there
-/// is no need to track down all the objects to free them.
 pub const WORDSIZE: u32 = 16;
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
@@ -225,9 +214,7 @@ pub enum flann_log_level_t {
 
 opencv_type_enum! { crate::flann::flann_log_level_t }
 
-/// The id from which we can get a bucket back in an LSH table
 pub type bucket_key = u32;
-/// What is stored in an LSH bucket
 pub type feature_index = u32;
 #[inline]
 pub fn flann_distance_type() -> Result<crate::flann::flann_distance_t> {

@@ -13,15 +13,6 @@ pub mod prelude {
 	pub use { super::ShapeTransformerConst, super::ShapeTransformer, super::ThinPlateSplineShapeTransformerConst, super::ThinPlateSplineShapeTransformer, super::AffineTransformerConst, super::AffineTransformer, super::HistogramCostExtractorConst, super::HistogramCostExtractor, super::NormHistogramCostExtractorConst, super::NormHistogramCostExtractor, super::EMDHistogramCostExtractorConst, super::EMDHistogramCostExtractor, super::ChiHistogramCostExtractorConst, super::ChiHistogramCostExtractor, super::EMDL1HistogramCostExtractorConst, super::EMDL1HistogramCostExtractor, super::ShapeDistanceExtractorConst, super::ShapeDistanceExtractor, super::ShapeContextDistanceExtractorConst, super::ShapeContextDistanceExtractor, super::HausdorffDistanceExtractorConst, super::HausdorffDistanceExtractor };
 }
 
-/// Computes the "minimal work" distance between two weighted point configurations base on the papers
-/// "EMD-L1: An efficient and Robust Algorithm for comparing histogram-based descriptors", by Haibin
-/// Ling and Kazunori Okuda; and "The Earth Mover's Distance is the Mallows Distance: Some Insights from
-/// Statistics", by Elizaveta Levina and Peter Bickel.
-/// 
-/// ## Parameters
-/// * signature1: First signature, a single column floating-point matrix. Each row is the value of
-/// the histogram in each bin.
-/// * signature2: Second signature of the same format and size as signature1.
 #[inline]
 pub fn emdl1(signature1: &dyn core::ToInputArray, signature2: &dyn core::ToInputArray) -> Result<f32> {
 	input_array_arg!(signature1);
@@ -33,7 +24,6 @@ pub fn emdl1(signature1: &dyn core::ToInputArray, signature2: &dyn core::ToInput
 	Ok(ret)
 }
 
-/// Complete constructor
 #[inline]
 pub fn create_affine_transformer(full_affine: bool) -> Result<core::Ptr<dyn crate::shape::AffineTransformer>> {
 	return_send!(via ocvrs_return);
@@ -129,8 +119,6 @@ pub fn create_shape_context_distance_extractor(n_angular_bins: i32, n_radial_bin
 	Ok(ret)
 }
 
-/// Complete constructor
-/// 
 /// ## C++ default parameters
 /// * regularization_parameter: 0
 #[inline]
@@ -143,7 +131,6 @@ pub fn create_thin_plate_spline_shape_transformer(regularization_parameter: f64)
 	Ok(ret)
 }
 
-/// Wrapper class for the OpenCV Affine Transformation algorithm. :
 pub trait AffineTransformerConst: crate::shape::ShapeTransformerConst {
 	fn as_raw_AffineTransformer(&self) -> *const c_void;
 
@@ -172,7 +159,6 @@ pub trait AffineTransformer: crate::shape::AffineTransformerConst + crate::shape
 	
 }
 
-/// An Chi based cost extraction. :
 pub trait ChiHistogramCostExtractorConst: crate::shape::HistogramCostExtractorConst {
 	fn as_raw_ChiHistogramCostExtractor(&self) -> *const c_void;
 
@@ -183,7 +169,6 @@ pub trait ChiHistogramCostExtractor: crate::shape::ChiHistogramCostExtractorCons
 
 }
 
-/// An EMD based cost extraction. :
 pub trait EMDHistogramCostExtractorConst: crate::shape::HistogramCostExtractorConst {
 	fn as_raw_EMDHistogramCostExtractor(&self) -> *const c_void;
 
@@ -212,7 +197,6 @@ pub trait EMDHistogramCostExtractor: crate::shape::EMDHistogramCostExtractorCons
 	
 }
 
-/// An EMD-L1 based cost extraction. :
 pub trait EMDL1HistogramCostExtractorConst: crate::shape::HistogramCostExtractorConst {
 	fn as_raw_EMDL1HistogramCostExtractor(&self) -> *const c_void;
 
@@ -223,13 +207,6 @@ pub trait EMDL1HistogramCostExtractor: crate::shape::EMDL1HistogramCostExtractor
 
 }
 
-/// ********************************************************************************
-/// /
-/// /
-/// A simple Hausdorff distance measure between shapes defined by contours
-/// 
-/// according to the paper "Comparing Images using the Hausdorff distance." by D.P. Huttenlocher, G.A.
-/// Klanderman, and W.J. Rucklidge. (PAMI 1993). :
 pub trait HausdorffDistanceExtractorConst: crate::shape::ShapeDistanceExtractorConst {
 	fn as_raw_HausdorffDistanceExtractor(&self) -> *const c_void;
 
@@ -256,11 +233,6 @@ pub trait HausdorffDistanceExtractorConst: crate::shape::ShapeDistanceExtractorC
 pub trait HausdorffDistanceExtractor: crate::shape::HausdorffDistanceExtractorConst + crate::shape::ShapeDistanceExtractor {
 	fn as_raw_mut_HausdorffDistanceExtractor(&mut self) -> *mut c_void;
 
-	/// Set the norm used to compute the Hausdorff value between two shapes. It can be L1 or L2 norm.
-	/// 
-	/// ## Parameters
-	/// * distanceFlag: Flag indicating which norm is used to compute the Hausdorff distance
-	/// (NORM_L1, NORM_L2).
 	#[inline]
 	fn set_distance_flag(&mut self, distance_flag: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -270,12 +242,6 @@ pub trait HausdorffDistanceExtractor: crate::shape::HausdorffDistanceExtractorCo
 		Ok(ret)
 	}
 	
-	/// This method sets the rank proportion (or fractional value) that establish the Kth ranked value of
-	/// the partial Hausdorff distance. Experimentally had been shown that 0.6 is a good value to compare
-	/// shapes.
-	/// 
-	/// ## Parameters
-	/// * rankProportion: fractional value (between 0 and 1).
 	#[inline]
 	fn set_rank_proportion(&mut self, rank_proportion: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -287,7 +253,6 @@ pub trait HausdorffDistanceExtractor: crate::shape::HausdorffDistanceExtractorCo
 	
 }
 
-/// Abstract base class for histogram cost algorithms.
 pub trait HistogramCostExtractorConst: core::AlgorithmTraitConst {
 	fn as_raw_HistogramCostExtractor(&self) -> *const c_void;
 
@@ -346,7 +311,6 @@ pub trait HistogramCostExtractor: core::AlgorithmTrait + crate::shape::Histogram
 	
 }
 
-/// A norm based cost extraction. :
 pub trait NormHistogramCostExtractorConst: crate::shape::HistogramCostExtractorConst {
 	fn as_raw_NormHistogramCostExtractor(&self) -> *const c_void;
 
@@ -375,14 +339,6 @@ pub trait NormHistogramCostExtractor: crate::shape::HistogramCostExtractor + cra
 	
 }
 
-/// ********************************************************************************
-/// /
-/// /
-/// Implementation of the Shape Context descriptor and matching algorithm
-/// 
-/// proposed by Belongie et al. in "Shape Matching and Object Recognition Using Shape Contexts" (PAMI
-/// 2002). This implementation is packaged in a generic scheme, in order to allow you the
-/// implementation of the common variations of the original pipeline.
 pub trait ShapeContextDistanceExtractorConst: crate::shape::ShapeDistanceExtractorConst {
 	fn as_raw_ShapeContextDistanceExtractor(&self) -> *const c_void;
 
@@ -512,11 +468,6 @@ pub trait ShapeContextDistanceExtractorConst: crate::shape::ShapeDistanceExtract
 pub trait ShapeContextDistanceExtractor: crate::shape::ShapeContextDistanceExtractorConst + crate::shape::ShapeDistanceExtractor {
 	fn as_raw_mut_ShapeContextDistanceExtractor(&mut self) -> *mut c_void;
 
-	/// Establish the number of angular bins for the Shape Context Descriptor used in the shape matching
-	/// pipeline.
-	/// 
-	/// ## Parameters
-	/// * nAngularBins: The number of angular bins in the shape context descriptor.
 	#[inline]
 	fn set_angular_bins(&mut self, n_angular_bins: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -526,11 +477,6 @@ pub trait ShapeContextDistanceExtractor: crate::shape::ShapeContextDistanceExtra
 		Ok(ret)
 	}
 	
-	/// Establish the number of radial bins for the Shape Context Descriptor used in the shape matching
-	/// pipeline.
-	/// 
-	/// ## Parameters
-	/// * nRadialBins: The number of radial bins in the shape context descriptor.
 	#[inline]
 	fn set_radial_bins(&mut self, n_radial_bins: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -540,10 +486,6 @@ pub trait ShapeContextDistanceExtractor: crate::shape::ShapeContextDistanceExtra
 		Ok(ret)
 	}
 	
-	/// Set the inner radius of the shape context descriptor.
-	/// 
-	/// ## Parameters
-	/// * innerRadius: The value of the inner radius.
 	#[inline]
 	fn set_inner_radius(&mut self, inner_radius: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -553,10 +495,6 @@ pub trait ShapeContextDistanceExtractor: crate::shape::ShapeContextDistanceExtra
 		Ok(ret)
 	}
 	
-	/// Set the outer radius of the shape context descriptor.
-	/// 
-	/// ## Parameters
-	/// * outerRadius: The value of the outer radius.
 	#[inline]
 	fn set_outer_radius(&mut self, outer_radius: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -575,13 +513,6 @@ pub trait ShapeContextDistanceExtractor: crate::shape::ShapeContextDistanceExtra
 		Ok(ret)
 	}
 	
-	/// Set the weight of the shape context distance in the final value of the shape distance. The shape
-	/// context distance between two shapes is defined as the symmetric sum of shape context matching costs
-	/// over best matching points. The final value of the shape distance is a user-defined linear
-	/// combination of the shape context distance, an image appearance distance, and a bending energy.
-	/// 
-	/// ## Parameters
-	/// * shapeContextWeight: The weight of the shape context distance in the final distance value.
 	#[inline]
 	fn set_shape_context_weight(&mut self, shape_context_weight: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -591,15 +522,6 @@ pub trait ShapeContextDistanceExtractor: crate::shape::ShapeContextDistanceExtra
 		Ok(ret)
 	}
 	
-	/// Set the weight of the Image Appearance cost in the final value of the shape distance. The image
-	/// appearance cost is defined as the sum of squared brightness differences in Gaussian windows around
-	/// corresponding image points. The final value of the shape distance is a user-defined linear
-	/// combination of the shape context distance, an image appearance distance, and a bending energy. If
-	/// this value is set to a number different from 0, is mandatory to set the images that correspond to
-	/// each shape.
-	/// 
-	/// ## Parameters
-	/// * imageAppearanceWeight: The weight of the appearance cost in the final distance value.
 	#[inline]
 	fn set_image_appearance_weight(&mut self, image_appearance_weight: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -609,13 +531,6 @@ pub trait ShapeContextDistanceExtractor: crate::shape::ShapeContextDistanceExtra
 		Ok(ret)
 	}
 	
-	/// Set the weight of the Bending Energy in the final value of the shape distance. The bending energy
-	/// definition depends on what transformation is being used to align the shapes. The final value of the
-	/// shape distance is a user-defined linear combination of the shape context distance, an image
-	/// appearance distance, and a bending energy.
-	/// 
-	/// ## Parameters
-	/// * bendingEnergyWeight: The weight of the Bending Energy in the final distance value.
 	#[inline]
 	fn set_bending_energy_weight(&mut self, bending_energy_weight: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -625,12 +540,6 @@ pub trait ShapeContextDistanceExtractor: crate::shape::ShapeContextDistanceExtra
 		Ok(ret)
 	}
 	
-	/// Set the images that correspond to each shape. This images are used in the calculation of the Image
-	/// Appearance cost.
-	/// 
-	/// ## Parameters
-	/// * image1: Image corresponding to the shape defined by contours1.
-	/// * image2: Image corresponding to the shape defined by contours2.
 	#[inline]
 	fn set_images(&mut self, image1: &dyn core::ToInputArray, image2: &dyn core::ToInputArray) -> Result<()> {
 		input_array_arg!(image1);
@@ -651,11 +560,6 @@ pub trait ShapeContextDistanceExtractor: crate::shape::ShapeContextDistanceExtra
 		Ok(ret)
 	}
 	
-	/// Set the algorithm used for building the shape context descriptor cost matrix.
-	/// 
-	/// ## Parameters
-	/// * comparer: Smart pointer to a HistogramCostExtractor, an algorithm that defines the cost
-	/// matrix between descriptors.
 	#[inline]
 	fn set_cost_extractor(&mut self, mut comparer: core::Ptr<dyn crate::shape::HistogramCostExtractor>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -665,10 +569,6 @@ pub trait ShapeContextDistanceExtractor: crate::shape::ShapeContextDistanceExtra
 		Ok(ret)
 	}
 	
-	/// Set the value of the standard deviation for the Gaussian window for the image appearance cost.
-	/// 
-	/// ## Parameters
-	/// * sigma: Standard Deviation.
 	#[inline]
 	fn set_std_dev(&mut self, sigma: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -678,11 +578,6 @@ pub trait ShapeContextDistanceExtractor: crate::shape::ShapeContextDistanceExtra
 		Ok(ret)
 	}
 	
-	/// Set the algorithm used for aligning the shapes.
-	/// 
-	/// ## Parameters
-	/// * transformer: Smart pointer to a ShapeTransformer, an algorithm that defines the aligning
-	/// transformation.
 	#[inline]
 	fn set_transform_algorithm(&mut self, mut transformer: core::Ptr<dyn crate::shape::ShapeTransformer>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -694,10 +589,6 @@ pub trait ShapeContextDistanceExtractor: crate::shape::ShapeContextDistanceExtra
 	
 }
 
-/// @example modules/shape/samples/shape_example.cpp
-/// An example using shape distance algorithm
-/// 
-/// Abstract base class for shape distance algorithms.
 pub trait ShapeDistanceExtractorConst: core::AlgorithmTraitConst {
 	fn as_raw_ShapeDistanceExtractor(&self) -> *const c_void;
 
@@ -706,11 +597,6 @@ pub trait ShapeDistanceExtractorConst: core::AlgorithmTraitConst {
 pub trait ShapeDistanceExtractor: core::AlgorithmTrait + crate::shape::ShapeDistanceExtractorConst {
 	fn as_raw_mut_ShapeDistanceExtractor(&mut self) -> *mut c_void;
 
-	/// Compute the shape distance between two shapes defined by its contours.
-	/// 
-	/// ## Parameters
-	/// * contour1: Contour defining first shape.
-	/// * contour2: Contour defining second shape.
 	#[inline]
 	fn compute_distance(&mut self, contour1: &dyn core::ToInputArray, contour2: &dyn core::ToInputArray) -> Result<f32> {
 		input_array_arg!(contour1);
@@ -724,19 +610,9 @@ pub trait ShapeDistanceExtractor: core::AlgorithmTrait + crate::shape::ShapeDist
 	
 }
 
-/// Abstract base class for shape transformation algorithms.
 pub trait ShapeTransformerConst: core::AlgorithmTraitConst {
 	fn as_raw_ShapeTransformer(&self) -> *const c_void;
 
-	/// Apply a transformation, given a pre-estimated transformation parameters, to an Image.
-	/// 
-	/// ## Parameters
-	/// * transformingImage: Input image.
-	/// * output: Output image.
-	/// * flags: Image interpolation method.
-	/// * borderMode: border style.
-	/// * borderValue: border value.
-	/// 
 	/// ## C++ default parameters
 	/// * flags: INTER_LINEAR
 	/// * border_mode: BORDER_CONSTANT
@@ -757,12 +633,6 @@ pub trait ShapeTransformerConst: core::AlgorithmTraitConst {
 pub trait ShapeTransformer: core::AlgorithmTrait + crate::shape::ShapeTransformerConst {
 	fn as_raw_mut_ShapeTransformer(&mut self) -> *mut c_void;
 
-	/// Estimate the transformation parameters of the current transformer algorithm, based on point matches.
-	/// 
-	/// ## Parameters
-	/// * transformingShape: Contour defining first shape.
-	/// * targetShape: Contour defining second shape (Target).
-	/// * matches: Standard vector of Matches between points.
 	#[inline]
 	fn estimate_transformation(&mut self, transforming_shape: &dyn core::ToInputArray, target_shape: &dyn core::ToInputArray, matches: &mut core::Vector<core::DMatch>) -> Result<()> {
 		input_array_arg!(transforming_shape);
@@ -774,12 +644,6 @@ pub trait ShapeTransformer: core::AlgorithmTrait + crate::shape::ShapeTransforme
 		Ok(ret)
 	}
 	
-	/// Apply a transformation, given a pre-estimated transformation parameters.
-	/// 
-	/// ## Parameters
-	/// * input: Contour (set of points) to apply the transformation.
-	/// * output: Output contour.
-	/// 
 	/// ## C++ default parameters
 	/// * output: noArray()
 	#[inline]
@@ -795,10 +659,6 @@ pub trait ShapeTransformer: core::AlgorithmTrait + crate::shape::ShapeTransforme
 	
 }
 
-/// Definition of the transformation
-/// 
-/// occupied in the paper "Principal Warps: Thin-Plate Splines and Decomposition of Deformations", by
-/// F.L. Bookstein (PAMI 1989). :
 pub trait ThinPlateSplineShapeTransformerConst: crate::shape::ShapeTransformerConst {
 	fn as_raw_ThinPlateSplineShapeTransformer(&self) -> *const c_void;
 
@@ -816,11 +676,6 @@ pub trait ThinPlateSplineShapeTransformerConst: crate::shape::ShapeTransformerCo
 pub trait ThinPlateSplineShapeTransformer: crate::shape::ShapeTransformer + crate::shape::ThinPlateSplineShapeTransformerConst {
 	fn as_raw_mut_ThinPlateSplineShapeTransformer(&mut self) -> *mut c_void;
 
-	/// Set the regularization parameter for relaxing the exact interpolation requirements of the TPS
-	/// algorithm.
-	/// 
-	/// ## Parameters
-	/// * beta: value of the regularization parameter.
 	#[inline]
 	fn set_regularization_parameter(&mut self, beta: f64) -> Result<()> {
 		return_send!(via ocvrs_return);

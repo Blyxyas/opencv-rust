@@ -33,7 +33,7 @@
 //! color inpainting. The method is implemented is a flexible way and it's made public for other users.
 use crate::{mod_prelude::*, core, sys, types};
 pub mod prelude {
-	pub use { super::ISparseOptFlowEstimatorConst, super::ISparseOptFlowEstimator, super::IDenseOptFlowEstimatorConst, super::IDenseOptFlowEstimator, super::PyrLkOptFlowEstimatorBaseTraitConst, super::PyrLkOptFlowEstimatorBaseTrait, super::SparsePyrLkOptFlowEstimatorTraitConst, super::SparsePyrLkOptFlowEstimatorTrait, super::SparsePyrLkOptFlowEstimatorGpuTraitConst, super::SparsePyrLkOptFlowEstimatorGpuTrait, super::DensePyrLkOptFlowEstimatorGpuTraitConst, super::DensePyrLkOptFlowEstimatorGpuTrait, super::RansacParamsTraitConst, super::RansacParamsTrait, super::IOutlierRejectorConst, super::IOutlierRejector, super::NullOutlierRejectorTraitConst, super::NullOutlierRejectorTrait, super::TranslationBasedLocalOutlierRejectorTraitConst, super::TranslationBasedLocalOutlierRejectorTrait, super::MotionEstimatorBaseConst, super::MotionEstimatorBase, super::MotionEstimatorRansacL2TraitConst, super::MotionEstimatorRansacL2Trait, super::MotionEstimatorL1TraitConst, super::MotionEstimatorL1Trait, super::ImageMotionEstimatorBaseConst, super::ImageMotionEstimatorBase, super::FromFileMotionReaderTraitConst, super::FromFileMotionReaderTrait, super::ToFileMotionWriterTraitConst, super::ToFileMotionWriterTrait, super::KeypointBasedMotionEstimatorTraitConst, super::KeypointBasedMotionEstimatorTrait, super::KeypointBasedMotionEstimatorGpuTraitConst, super::KeypointBasedMotionEstimatorGpuTrait, super::IMotionStabilizerConst, super::IMotionStabilizer, super::MotionStabilizationPipelineTraitConst, super::MotionStabilizationPipelineTrait, super::MotionFilterBaseConst, super::MotionFilterBase, super::GaussianMotionFilterTraitConst, super::GaussianMotionFilterTrait, super::LpMotionStabilizerTraitConst, super::LpMotionStabilizerTrait, super::IFrameSourceConst, super::IFrameSource, super::NullFrameSourceTraitConst, super::NullFrameSourceTrait, super::VideoFileSourceTraitConst, super::VideoFileSourceTrait, super::MaskFrameSourceTraitConst, super::MaskFrameSourceTrait, super::ILogConst, super::ILog, super::NullLogTraitConst, super::NullLogTrait, super::LogToStdoutTraitConst, super::LogToStdoutTrait, super::FastMarchingMethodTraitConst, super::FastMarchingMethodTrait, super::InpainterBaseConst, super::InpainterBase, super::NullInpainterTraitConst, super::NullInpainterTrait, super::InpaintingPipelineTraitConst, super::InpaintingPipelineTrait, super::ConsistentMosaicInpainterTraitConst, super::ConsistentMosaicInpainterTrait, super::MotionInpainterTraitConst, super::MotionInpainterTrait, super::ColorAverageInpainterTraitConst, super::ColorAverageInpainterTrait, super::ColorInpainterTraitConst, super::ColorInpainterTrait, super::DeblurerBaseConst, super::DeblurerBase, super::NullDeblurerTraitConst, super::NullDeblurerTrait, super::WeightingDeblurerTraitConst, super::WeightingDeblurerTrait, super::WobbleSuppressorBaseConst, super::WobbleSuppressorBase, super::NullWobbleSuppressorTraitConst, super::NullWobbleSuppressorTrait, super::MoreAccurateMotionWobbleSuppressorBaseConst, super::MoreAccurateMotionWobbleSuppressorBase, super::MoreAccurateMotionWobbleSuppressorTraitConst, super::MoreAccurateMotionWobbleSuppressorTrait, super::MoreAccurateMotionWobbleSuppressorGpuTraitConst, super::MoreAccurateMotionWobbleSuppressorGpuTrait, super::StabilizerBaseConst, super::StabilizerBase, super::OnePassStabilizerTraitConst, super::OnePassStabilizerTrait, super::TwoPassStabilizerTraitConst, super::TwoPassStabilizerTrait };
+	pub use { super::ISparseOptFlowEstimatorConst, super::ISparseOptFlowEstimator, super::IDenseOptFlowEstimatorConst, super::IDenseOptFlowEstimator, super::PyrLkOptFlowEstimatorBaseTraitConst, super::PyrLkOptFlowEstimatorBaseTrait, super::SparsePyrLkOptFlowEstimatorTraitConst, super::SparsePyrLkOptFlowEstimatorTrait, super::RansacParamsTraitConst, super::RansacParamsTrait, super::IOutlierRejectorConst, super::IOutlierRejector, super::NullOutlierRejectorTraitConst, super::NullOutlierRejectorTrait, super::TranslationBasedLocalOutlierRejectorTraitConst, super::TranslationBasedLocalOutlierRejectorTrait, super::MotionEstimatorBaseConst, super::MotionEstimatorBase, super::MotionEstimatorRansacL2TraitConst, super::MotionEstimatorRansacL2Trait, super::MotionEstimatorL1TraitConst, super::MotionEstimatorL1Trait, super::ImageMotionEstimatorBaseConst, super::ImageMotionEstimatorBase, super::FromFileMotionReaderTraitConst, super::FromFileMotionReaderTrait, super::ToFileMotionWriterTraitConst, super::ToFileMotionWriterTrait, super::KeypointBasedMotionEstimatorTraitConst, super::KeypointBasedMotionEstimatorTrait, super::IMotionStabilizerConst, super::IMotionStabilizer, super::MotionStabilizationPipelineTraitConst, super::MotionStabilizationPipelineTrait, super::MotionFilterBaseConst, super::MotionFilterBase, super::GaussianMotionFilterTraitConst, super::GaussianMotionFilterTrait, super::LpMotionStabilizerTraitConst, super::LpMotionStabilizerTrait, super::IFrameSourceConst, super::IFrameSource, super::NullFrameSourceTraitConst, super::NullFrameSourceTrait, super::VideoFileSourceTraitConst, super::VideoFileSourceTrait, super::MaskFrameSourceTraitConst, super::MaskFrameSourceTrait, super::ILogConst, super::ILog, super::NullLogTraitConst, super::NullLogTrait, super::LogToStdoutTraitConst, super::LogToStdoutTrait, super::FastMarchingMethodTraitConst, super::FastMarchingMethodTrait, super::InpainterBaseConst, super::InpainterBase, super::NullInpainterTraitConst, super::NullInpainterTrait, super::InpaintingPipelineTraitConst, super::InpaintingPipelineTrait, super::ConsistentMosaicInpainterTraitConst, super::ConsistentMosaicInpainterTrait, super::MotionInpainterTraitConst, super::MotionInpainterTrait, super::ColorAverageInpainterTraitConst, super::ColorAverageInpainterTrait, super::ColorInpainterTraitConst, super::ColorInpainterTrait, super::DeblurerBaseConst, super::DeblurerBase, super::NullDeblurerTraitConst, super::NullDeblurerTrait, super::WeightingDeblurerTraitConst, super::WeightingDeblurerTrait, super::WobbleSuppressorBaseConst, super::WobbleSuppressorBase, super::NullWobbleSuppressorTraitConst, super::NullWobbleSuppressorTrait, super::MoreAccurateMotionWobbleSuppressorBaseConst, super::MoreAccurateMotionWobbleSuppressorBase, super::MoreAccurateMotionWobbleSuppressorTraitConst, super::MoreAccurateMotionWobbleSuppressorTrait, super::StabilizerBaseConst, super::StabilizerBase, super::OnePassStabilizerTraitConst, super::OnePassStabilizerTrait, super::TwoPassStabilizerTraitConst, super::TwoPassStabilizerTrait };
 }
 
 pub const MM_AFFINE: i32 = 5;
@@ -44,7 +44,6 @@ pub const MM_SIMILARITY: i32 = 4;
 pub const MM_TRANSLATION: i32 = 0;
 pub const MM_TRANSLATION_AND_SCALE: i32 = 1;
 pub const MM_UNKNOWN: i32 = 7;
-/// Describes motion model between two point clouds.
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum MotionModel {
@@ -97,19 +96,6 @@ pub fn ensure_inclusion_constraint(m: &core::Mat, size: core::Size, trim_ratio: 
 	Ok(ret)
 }
 
-/// Estimates best global motion between two 2D point clouds in the least-squares sense.
-/// 
-/// 
-/// Note: Works in-place and changes input point arrays.
-/// 
-/// ## Parameters
-/// * points0: Source set of 2D points (32F).
-/// * points1: Destination set of 2D points (32F).
-/// * model: Motion model (up to MM_AFFINE).
-/// * rmse: Final root-mean-square error.
-/// ## Returns
-/// 3x3 2D transformation matrix (32F).
-/// 
 /// ## C++ default parameters
 /// * model: MM_AFFINE
 /// * rmse: 0
@@ -125,16 +111,6 @@ pub fn estimate_global_motion_least_squares(points0: &mut dyn core::ToInputOutpu
 	Ok(ret)
 }
 
-/// Estimates best global motion between two 2D point clouds robustly (using RANSAC method).
-/// 
-/// ## Parameters
-/// * points0: Source set of 2D points (32F).
-/// * points1: Destination set of 2D points (32F).
-/// * model: Motion model. See cv::videostab::MotionModel.
-/// * params: RANSAC method parameters. See videostab::RansacParams.
-/// * rmse: Final root-mean-square error.
-/// * ninliers: Final number of inliers.
-/// 
 /// ## C++ default parameters
 /// * model: MM_AFFINE
 /// * params: RansacParams::default2dMotion(MM_AFFINE)
@@ -161,14 +137,6 @@ pub fn estimate_optimal_trim_ratio(m: &core::Mat, size: core::Size) -> Result<f3
 	Ok(ret)
 }
 
-/// Computes motion between two frames assuming that all the intermediate motions are known.
-/// 
-/// ## Parameters
-/// * from: Source frame index.
-/// * to: Destination frame index.
-/// * motions: Pair-wise motions. motions[i] denotes motion from the frame i to the frame i+1
-/// ## Returns
-/// Motion from the Source frame to the Destination frame.
 #[inline]
 pub fn get_motion(from: i32, to: i32, motions: &core::Vector<core::Mat>) -> Result<core::Mat> {
 	return_send!(via ocvrs_return);
@@ -473,92 +441,9 @@ pub trait DeblurerBase: crate::videostab::DeblurerBaseConst {
 	
 }
 
-pub trait DensePyrLkOptFlowEstimatorGpuTraitConst: crate::videostab::IDenseOptFlowEstimatorConst + crate::videostab::PyrLkOptFlowEstimatorBaseTraitConst {
-	fn as_raw_DensePyrLkOptFlowEstimatorGpu(&self) -> *const c_void;
-
-}
-
-pub trait DensePyrLkOptFlowEstimatorGpuTrait: crate::videostab::DensePyrLkOptFlowEstimatorGpuTraitConst + crate::videostab::IDenseOptFlowEstimator + crate::videostab::PyrLkOptFlowEstimatorBaseTrait {
-	fn as_raw_mut_DensePyrLkOptFlowEstimatorGpu(&mut self) -> *mut c_void;
-
-	#[inline]
-	fn run(&mut self, frame0: &dyn core::ToInputArray, frame1: &dyn core::ToInputArray, flow_x: &mut dyn core::ToInputOutputArray, flow_y: &mut dyn core::ToInputOutputArray, errors: &mut dyn core::ToOutputArray) -> Result<()> {
-		input_array_arg!(frame0);
-		input_array_arg!(frame1);
-		input_output_array_arg!(flow_x);
-		input_output_array_arg!(flow_y);
-		output_array_arg!(errors);
-		return_send!(via ocvrs_return);
-		unsafe { sys::cv_videostab_DensePyrLkOptFlowEstimatorGpu_run_const__InputArrayR_const__InputArrayR_const__InputOutputArrayR_const__InputOutputArrayR_const__OutputArrayR(self.as_raw_mut_DensePyrLkOptFlowEstimatorGpu(), frame0.as_raw__InputArray(), frame1.as_raw__InputArray(), flow_x.as_raw__InputOutputArray(), flow_y.as_raw__InputOutputArray(), errors.as_raw__OutputArray(), ocvrs_return.as_mut_ptr()) };
-		return_receive!(unsafe ocvrs_return => ret);
-		let ret = ret.into_result()?;
-		Ok(ret)
-	}
-	
-}
-
-pub struct DensePyrLkOptFlowEstimatorGpu {
-	ptr: *mut c_void
-}
-
-opencv_type_boxed! { DensePyrLkOptFlowEstimatorGpu }
-
-impl Drop for DensePyrLkOptFlowEstimatorGpu {
-	fn drop(&mut self) {
-		extern "C" { fn cv_DensePyrLkOptFlowEstimatorGpu_delete(instance: *mut c_void); }
-		unsafe { cv_DensePyrLkOptFlowEstimatorGpu_delete(self.as_raw_mut_DensePyrLkOptFlowEstimatorGpu()) };
-	}
-}
-
-unsafe impl Send for DensePyrLkOptFlowEstimatorGpu {}
-
-impl crate::videostab::IDenseOptFlowEstimatorConst for DensePyrLkOptFlowEstimatorGpu {
-	#[inline] fn as_raw_IDenseOptFlowEstimator(&self) -> *const c_void { self.as_raw() }
-}
-
-impl crate::videostab::IDenseOptFlowEstimator for DensePyrLkOptFlowEstimatorGpu {
-	#[inline] fn as_raw_mut_IDenseOptFlowEstimator(&mut self) -> *mut c_void { self.as_raw_mut() }
-}
-
-impl crate::videostab::PyrLkOptFlowEstimatorBaseTraitConst for DensePyrLkOptFlowEstimatorGpu {
-	#[inline] fn as_raw_PyrLkOptFlowEstimatorBase(&self) -> *const c_void { self.as_raw() }
-}
-
-impl crate::videostab::PyrLkOptFlowEstimatorBaseTrait for DensePyrLkOptFlowEstimatorGpu {
-	#[inline] fn as_raw_mut_PyrLkOptFlowEstimatorBase(&mut self) -> *mut c_void { self.as_raw_mut() }
-}
-
-impl crate::videostab::DensePyrLkOptFlowEstimatorGpuTraitConst for DensePyrLkOptFlowEstimatorGpu {
-	#[inline] fn as_raw_DensePyrLkOptFlowEstimatorGpu(&self) -> *const c_void { self.as_raw() }
-}
-
-impl crate::videostab::DensePyrLkOptFlowEstimatorGpuTrait for DensePyrLkOptFlowEstimatorGpu {
-	#[inline] fn as_raw_mut_DensePyrLkOptFlowEstimatorGpu(&mut self) -> *mut c_void { self.as_raw_mut() }
-}
-
-impl DensePyrLkOptFlowEstimatorGpu {
-	#[inline]
-	pub fn default() -> Result<crate::videostab::DensePyrLkOptFlowEstimatorGpu> {
-		return_send!(via ocvrs_return);
-		unsafe { sys::cv_videostab_DensePyrLkOptFlowEstimatorGpu_DensePyrLkOptFlowEstimatorGpu(ocvrs_return.as_mut_ptr()) };
-		return_receive!(unsafe ocvrs_return => ret);
-		let ret = ret.into_result()?;
-		let ret = unsafe { crate::videostab::DensePyrLkOptFlowEstimatorGpu::opencv_from_extern(ret) };
-		Ok(ret)
-	}
-	
-}
-
-boxed_cast_base! { DensePyrLkOptFlowEstimatorGpu, crate::videostab::PyrLkOptFlowEstimatorBase, cv_DensePyrLkOptFlowEstimatorGpu_to_PyrLkOptFlowEstimatorBase }
-
-/// Describes the Fast Marching Method implementation.
-/// 
-/// See http://iwi.eldoc.ub.rug.nl/FILES/root/2004/JGraphToolsTelea/2004JGraphToolsTelea.pdf
 pub trait FastMarchingMethodTraitConst {
 	fn as_raw_FastMarchingMethod(&self) -> *const c_void;
 
-	/// ## Returns
-	/// Distance map that's created during working of the method.
 	#[inline]
 	fn distance_map(&self) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -576,9 +461,6 @@ pub trait FastMarchingMethodTrait: crate::videostab::FastMarchingMethodTraitCons
 
 }
 
-/// Describes the Fast Marching Method implementation.
-/// 
-/// See http://iwi.eldoc.ub.rug.nl/FILES/root/2004/JGraphToolsTelea/2004JGraphToolsTelea.pdf
 pub struct FastMarchingMethod {
 	ptr: *mut c_void
 }
@@ -867,7 +749,6 @@ pub trait IMotionStabilizerConst {
 pub trait IMotionStabilizer: crate::videostab::IMotionStabilizerConst {
 	fn as_raw_mut_IMotionStabilizer(&mut self) -> *mut c_void;
 
-	/// assumes that [0, size-1) is in or equals to [range.first, range.second)
 	#[inline]
 	fn stabilize(&mut self, size: i32, motions: &core::Vector<core::Mat>, range: &core::Range, stabilization_motions: &mut core::Mat) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -926,7 +807,6 @@ pub trait ISparseOptFlowEstimator: crate::videostab::ISparseOptFlowEstimatorCons
 	
 }
 
-/// Base class for global 2D motion estimation methods which take frames as input.
 pub trait ImageMotionEstimatorBaseConst {
 	fn as_raw_ImageMotionEstimatorBase(&self) -> *const c_void;
 
@@ -1233,8 +1113,6 @@ impl crate::videostab::InpaintingPipelineTrait for InpaintingPipeline {
 impl InpaintingPipeline {
 }
 
-/// Describes a global 2D motion estimation method which uses keypoints detection and optical flow for
-/// matching.
 pub trait KeypointBasedMotionEstimatorTraitConst: crate::videostab::ImageMotionEstimatorBaseConst {
 	fn as_raw_KeypointBasedMotionEstimator(&self) -> *const c_void;
 
@@ -1356,8 +1234,6 @@ pub trait KeypointBasedMotionEstimatorTrait: crate::videostab::ImageMotionEstima
 	
 }
 
-/// Describes a global 2D motion estimation method which uses keypoints detection and optical flow for
-/// matching.
 pub struct KeypointBasedMotionEstimator {
 	ptr: *mut c_void
 }
@@ -1397,121 +1273,6 @@ impl KeypointBasedMotionEstimator {
 		return_receive!(unsafe ocvrs_return => ret);
 		let ret = ret.into_result()?;
 		let ret = unsafe { crate::videostab::KeypointBasedMotionEstimator::opencv_from_extern(ret) };
-		Ok(ret)
-	}
-	
-}
-
-pub trait KeypointBasedMotionEstimatorGpuTraitConst: crate::videostab::ImageMotionEstimatorBaseConst {
-	fn as_raw_KeypointBasedMotionEstimatorGpu(&self) -> *const c_void;
-
-	#[inline]
-	fn motion_model(&self) -> Result<crate::videostab::MotionModel> {
-		return_send!(via ocvrs_return);
-		unsafe { sys::cv_videostab_KeypointBasedMotionEstimatorGpu_motionModel_const(self.as_raw_KeypointBasedMotionEstimatorGpu(), ocvrs_return.as_mut_ptr()) };
-		return_receive!(unsafe ocvrs_return => ret);
-		let ret = ret.into_result()?;
-		Ok(ret)
-	}
-	
-	#[inline]
-	fn outlier_rejector(&self) -> Result<core::Ptr<dyn crate::videostab::IOutlierRejector>> {
-		return_send!(via ocvrs_return);
-		unsafe { sys::cv_videostab_KeypointBasedMotionEstimatorGpu_outlierRejector_const(self.as_raw_KeypointBasedMotionEstimatorGpu(), ocvrs_return.as_mut_ptr()) };
-		return_receive!(unsafe ocvrs_return => ret);
-		let ret = ret.into_result()?;
-		let ret = unsafe { core::Ptr::<dyn crate::videostab::IOutlierRejector>::opencv_from_extern(ret) };
-		Ok(ret)
-	}
-	
-}
-
-pub trait KeypointBasedMotionEstimatorGpuTrait: crate::videostab::ImageMotionEstimatorBase + crate::videostab::KeypointBasedMotionEstimatorGpuTraitConst {
-	fn as_raw_mut_KeypointBasedMotionEstimatorGpu(&mut self) -> *mut c_void;
-
-	#[inline]
-	fn set_motion_model(&mut self, val: crate::videostab::MotionModel) -> Result<()> {
-		return_send!(via ocvrs_return);
-		unsafe { sys::cv_videostab_KeypointBasedMotionEstimatorGpu_setMotionModel_MotionModel(self.as_raw_mut_KeypointBasedMotionEstimatorGpu(), val, ocvrs_return.as_mut_ptr()) };
-		return_receive!(unsafe ocvrs_return => ret);
-		let ret = ret.into_result()?;
-		Ok(ret)
-	}
-	
-	#[inline]
-	fn set_outlier_rejector(&mut self, mut val: core::Ptr<dyn crate::videostab::IOutlierRejector>) -> Result<()> {
-		return_send!(via ocvrs_return);
-		unsafe { sys::cv_videostab_KeypointBasedMotionEstimatorGpu_setOutlierRejector_Ptr_IOutlierRejector_(self.as_raw_mut_KeypointBasedMotionEstimatorGpu(), val.as_raw_mut_PtrOfIOutlierRejector(), ocvrs_return.as_mut_ptr()) };
-		return_receive!(unsafe ocvrs_return => ret);
-		let ret = ret.into_result()?;
-		Ok(ret)
-	}
-	
-	/// ## C++ default parameters
-	/// * ok: 0
-	#[inline]
-	fn estimate(&mut self, frame0: &core::Mat, frame1: &core::Mat, ok: &mut bool) -> Result<core::Mat> {
-		return_send!(via ocvrs_return);
-		unsafe { sys::cv_videostab_KeypointBasedMotionEstimatorGpu_estimate_const_MatR_const_MatR_boolX(self.as_raw_mut_KeypointBasedMotionEstimatorGpu(), frame0.as_raw_Mat(), frame1.as_raw_Mat(), ok, ocvrs_return.as_mut_ptr()) };
-		return_receive!(unsafe ocvrs_return => ret);
-		let ret = ret.into_result()?;
-		let ret = unsafe { core::Mat::opencv_from_extern(ret) };
-		Ok(ret)
-	}
-	
-	/// ## C++ default parameters
-	/// * ok: 0
-	#[inline]
-	fn estimate_1(&mut self, frame0: &core::GpuMat, frame1: &core::GpuMat, ok: &mut bool) -> Result<core::Mat> {
-		return_send!(via ocvrs_return);
-		unsafe { sys::cv_videostab_KeypointBasedMotionEstimatorGpu_estimate_const_GpuMatR_const_GpuMatR_boolX(self.as_raw_mut_KeypointBasedMotionEstimatorGpu(), frame0.as_raw_GpuMat(), frame1.as_raw_GpuMat(), ok, ocvrs_return.as_mut_ptr()) };
-		return_receive!(unsafe ocvrs_return => ret);
-		let ret = ret.into_result()?;
-		let ret = unsafe { core::Mat::opencv_from_extern(ret) };
-		Ok(ret)
-	}
-	
-}
-
-pub struct KeypointBasedMotionEstimatorGpu {
-	ptr: *mut c_void
-}
-
-opencv_type_boxed! { KeypointBasedMotionEstimatorGpu }
-
-impl Drop for KeypointBasedMotionEstimatorGpu {
-	fn drop(&mut self) {
-		extern "C" { fn cv_KeypointBasedMotionEstimatorGpu_delete(instance: *mut c_void); }
-		unsafe { cv_KeypointBasedMotionEstimatorGpu_delete(self.as_raw_mut_KeypointBasedMotionEstimatorGpu()) };
-	}
-}
-
-unsafe impl Send for KeypointBasedMotionEstimatorGpu {}
-
-impl crate::videostab::ImageMotionEstimatorBaseConst for KeypointBasedMotionEstimatorGpu {
-	#[inline] fn as_raw_ImageMotionEstimatorBase(&self) -> *const c_void { self.as_raw() }
-}
-
-impl crate::videostab::ImageMotionEstimatorBase for KeypointBasedMotionEstimatorGpu {
-	#[inline] fn as_raw_mut_ImageMotionEstimatorBase(&mut self) -> *mut c_void { self.as_raw_mut() }
-}
-
-impl crate::videostab::KeypointBasedMotionEstimatorGpuTraitConst for KeypointBasedMotionEstimatorGpu {
-	#[inline] fn as_raw_KeypointBasedMotionEstimatorGpu(&self) -> *const c_void { self.as_raw() }
-}
-
-impl crate::videostab::KeypointBasedMotionEstimatorGpuTrait for KeypointBasedMotionEstimatorGpu {
-	#[inline] fn as_raw_mut_KeypointBasedMotionEstimatorGpu(&mut self) -> *mut c_void { self.as_raw_mut() }
-}
-
-impl KeypointBasedMotionEstimatorGpu {
-	#[inline]
-	pub fn new(mut estimator: core::Ptr<dyn crate::videostab::MotionEstimatorBase>) -> Result<crate::videostab::KeypointBasedMotionEstimatorGpu> {
-		return_send!(via ocvrs_return);
-		unsafe { sys::cv_videostab_KeypointBasedMotionEstimatorGpu_KeypointBasedMotionEstimatorGpu_Ptr_MotionEstimatorBase_(estimator.as_raw_mut_PtrOfMotionEstimatorBase(), ocvrs_return.as_mut_ptr()) };
-		return_receive!(unsafe ocvrs_return => ret);
-		let ret = ret.into_result()?;
-		let ret = unsafe { crate::videostab::KeypointBasedMotionEstimatorGpu::opencv_from_extern(ret) };
 		Ok(ret)
 	}
 	
@@ -1924,82 +1685,9 @@ pub trait MoreAccurateMotionWobbleSuppressorBase: crate::videostab::MoreAccurate
 	
 }
 
-pub trait MoreAccurateMotionWobbleSuppressorGpuTraitConst: crate::videostab::MoreAccurateMotionWobbleSuppressorBaseConst {
-	fn as_raw_MoreAccurateMotionWobbleSuppressorGpu(&self) -> *const c_void;
-
-}
-
-pub trait MoreAccurateMotionWobbleSuppressorGpuTrait: crate::videostab::MoreAccurateMotionWobbleSuppressorBase + crate::videostab::MoreAccurateMotionWobbleSuppressorGpuTraitConst {
-	fn as_raw_mut_MoreAccurateMotionWobbleSuppressorGpu(&mut self) -> *mut c_void;
-
-	#[inline]
-	fn suppress(&mut self, idx: i32, frame: &core::GpuMat, result: &mut core::GpuMat) -> Result<()> {
-		return_send!(via ocvrs_return);
-		unsafe { sys::cv_videostab_MoreAccurateMotionWobbleSuppressorGpu_suppress_int_const_GpuMatR_GpuMatR(self.as_raw_mut_MoreAccurateMotionWobbleSuppressorGpu(), idx, frame.as_raw_GpuMat(), result.as_raw_mut_GpuMat(), ocvrs_return.as_mut_ptr()) };
-		return_receive!(unsafe ocvrs_return => ret);
-		let ret = ret.into_result()?;
-		Ok(ret)
-	}
-	
-	#[inline]
-	fn suppress_1(&mut self, idx: i32, frame: &core::Mat, result: &mut core::Mat) -> Result<()> {
-		return_send!(via ocvrs_return);
-		unsafe { sys::cv_videostab_MoreAccurateMotionWobbleSuppressorGpu_suppress_int_const_MatR_MatR(self.as_raw_mut_MoreAccurateMotionWobbleSuppressorGpu(), idx, frame.as_raw_Mat(), result.as_raw_mut_Mat(), ocvrs_return.as_mut_ptr()) };
-		return_receive!(unsafe ocvrs_return => ret);
-		let ret = ret.into_result()?;
-		Ok(ret)
-	}
-	
-}
-
-pub struct MoreAccurateMotionWobbleSuppressorGpu {
-	ptr: *mut c_void
-}
-
-opencv_type_boxed! { MoreAccurateMotionWobbleSuppressorGpu }
-
-impl Drop for MoreAccurateMotionWobbleSuppressorGpu {
-	fn drop(&mut self) {
-		extern "C" { fn cv_MoreAccurateMotionWobbleSuppressorGpu_delete(instance: *mut c_void); }
-		unsafe { cv_MoreAccurateMotionWobbleSuppressorGpu_delete(self.as_raw_mut_MoreAccurateMotionWobbleSuppressorGpu()) };
-	}
-}
-
-unsafe impl Send for MoreAccurateMotionWobbleSuppressorGpu {}
-
-impl crate::videostab::MoreAccurateMotionWobbleSuppressorBaseConst for MoreAccurateMotionWobbleSuppressorGpu {
-	#[inline] fn as_raw_MoreAccurateMotionWobbleSuppressorBase(&self) -> *const c_void { self.as_raw() }
-}
-
-impl crate::videostab::MoreAccurateMotionWobbleSuppressorBase for MoreAccurateMotionWobbleSuppressorGpu {
-	#[inline] fn as_raw_mut_MoreAccurateMotionWobbleSuppressorBase(&mut self) -> *mut c_void { self.as_raw_mut() }
-}
-
-impl crate::videostab::WobbleSuppressorBaseConst for MoreAccurateMotionWobbleSuppressorGpu {
-	#[inline] fn as_raw_WobbleSuppressorBase(&self) -> *const c_void { self.as_raw() }
-}
-
-impl crate::videostab::WobbleSuppressorBase for MoreAccurateMotionWobbleSuppressorGpu {
-	#[inline] fn as_raw_mut_WobbleSuppressorBase(&mut self) -> *mut c_void { self.as_raw_mut() }
-}
-
-impl crate::videostab::MoreAccurateMotionWobbleSuppressorGpuTraitConst for MoreAccurateMotionWobbleSuppressorGpu {
-	#[inline] fn as_raw_MoreAccurateMotionWobbleSuppressorGpu(&self) -> *const c_void { self.as_raw() }
-}
-
-impl crate::videostab::MoreAccurateMotionWobbleSuppressorGpuTrait for MoreAccurateMotionWobbleSuppressorGpu {
-	#[inline] fn as_raw_mut_MoreAccurateMotionWobbleSuppressorGpu(&mut self) -> *mut c_void { self.as_raw_mut() }
-}
-
-impl MoreAccurateMotionWobbleSuppressorGpu {
-}
-
-/// Base class for all global motion estimation methods.
 pub trait MotionEstimatorBaseConst {
 	fn as_raw_MotionEstimatorBase(&self) -> *const c_void;
 
-	/// ## Returns
-	/// Motion model. See cv::videostab::MotionModel.
 	#[inline]
 	fn motion_model(&self) -> Result<crate::videostab::MotionModel> {
 		return_send!(via ocvrs_return);
@@ -2014,10 +1702,6 @@ pub trait MotionEstimatorBaseConst {
 pub trait MotionEstimatorBase: crate::videostab::MotionEstimatorBaseConst {
 	fn as_raw_mut_MotionEstimatorBase(&mut self) -> *mut c_void;
 
-	/// Sets motion model.
-	/// 
-	/// ## Parameters
-	/// * val: Motion model. See cv::videostab::MotionModel.
 	#[inline]
 	fn set_motion_model(&mut self, val: crate::videostab::MotionModel) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2027,15 +1711,6 @@ pub trait MotionEstimatorBase: crate::videostab::MotionEstimatorBaseConst {
 		Ok(ret)
 	}
 	
-	/// Estimates global motion between two 2D point clouds.
-	/// 
-	/// ## Parameters
-	/// * points0: Source set of 2D points (32F).
-	/// * points1: Destination set of 2D points (32F).
-	/// * ok: Indicates whether motion was estimated successfully.
-	/// ## Returns
-	/// 3x3 2D transformation matrix (32F).
-	/// 
 	/// ## C++ default parameters
 	/// * ok: 0
 	#[inline]
@@ -2052,10 +1727,6 @@ pub trait MotionEstimatorBase: crate::videostab::MotionEstimatorBaseConst {
 	
 }
 
-/// Describes a global 2D motion estimation method which minimizes L1 error.
-/// 
-/// 
-/// Note: To be able to use this method you must build OpenCV with CLP library support. :
 pub trait MotionEstimatorL1TraitConst: crate::videostab::MotionEstimatorBaseConst {
 	fn as_raw_MotionEstimatorL1(&self) -> *const c_void;
 
@@ -2080,10 +1751,6 @@ pub trait MotionEstimatorL1Trait: crate::videostab::MotionEstimatorBase + crate:
 	
 }
 
-/// Describes a global 2D motion estimation method which minimizes L1 error.
-/// 
-/// 
-/// Note: To be able to use this method you must build OpenCV with CLP library support. :
 pub struct MotionEstimatorL1 {
 	ptr: *mut c_void
 }
@@ -2130,7 +1797,6 @@ impl MotionEstimatorL1 {
 	
 }
 
-/// Describes a robust RANSAC-based global 2D motion estimation method which minimizes L2 error.
 pub trait MotionEstimatorRansacL2TraitConst: crate::videostab::MotionEstimatorBaseConst {
 	fn as_raw_MotionEstimatorRansacL2(&self) -> *const c_void;
 
@@ -2192,7 +1858,6 @@ pub trait MotionEstimatorRansacL2Trait: crate::videostab::MotionEstimatorBase + 
 	
 }
 
-/// Describes a robust RANSAC-based global 2D motion estimation method which minimizes L2 error.
 pub struct MotionEstimatorRansacL2 {
 	ptr: *mut c_void
 }
@@ -2989,46 +2654,35 @@ impl PyrLkOptFlowEstimatorBase {
 	
 }
 
-boxed_cast_descendant! { PyrLkOptFlowEstimatorBase, crate::videostab::DensePyrLkOptFlowEstimatorGpu, cv_PyrLkOptFlowEstimatorBase_to_DensePyrLkOptFlowEstimatorGpu }
-
 boxed_cast_descendant! { PyrLkOptFlowEstimatorBase, crate::videostab::SparsePyrLkOptFlowEstimator, cv_PyrLkOptFlowEstimatorBase_to_SparsePyrLkOptFlowEstimator }
 
-boxed_cast_descendant! { PyrLkOptFlowEstimatorBase, crate::videostab::SparsePyrLkOptFlowEstimatorGpu, cv_PyrLkOptFlowEstimatorBase_to_SparsePyrLkOptFlowEstimatorGpu }
-
-/// Describes RANSAC method parameters.
 pub trait RansacParamsTraitConst {
 	fn as_raw_RansacParams(&self) -> *const c_void;
 
-	/// subset size
 	#[inline]
 	fn size(&self) -> i32 {
 		let ret = unsafe { sys::cv_videostab_RansacParams_getPropSize_const(self.as_raw_RansacParams()) };
 		ret
 	}
 	
-	/// max error to classify as inlier
 	#[inline]
 	fn thresh(&self) -> f32 {
 		let ret = unsafe { sys::cv_videostab_RansacParams_getPropThresh_const(self.as_raw_RansacParams()) };
 		ret
 	}
 	
-	/// max outliers ratio
 	#[inline]
 	fn eps(&self) -> f32 {
 		let ret = unsafe { sys::cv_videostab_RansacParams_getPropEps_const(self.as_raw_RansacParams()) };
 		ret
 	}
 	
-	/// probability of success
 	#[inline]
 	fn prob(&self) -> f32 {
 		let ret = unsafe { sys::cv_videostab_RansacParams_getPropProb_const(self.as_raw_RansacParams()) };
 		ret
 	}
 	
-	/// ## Returns
-	/// Number of iterations that'll be performed by RANSAC method.
 	#[inline]
 	fn niters(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -3043,28 +2697,24 @@ pub trait RansacParamsTraitConst {
 pub trait RansacParamsTrait: crate::videostab::RansacParamsTraitConst {
 	fn as_raw_mut_RansacParams(&mut self) -> *mut c_void;
 
-	/// subset size
 	#[inline]
 	fn set_size(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_videostab_RansacParams_setPropSize_int(self.as_raw_mut_RansacParams(), val) };
 		ret
 	}
 	
-	/// max error to classify as inlier
 	#[inline]
 	fn set_thresh(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_videostab_RansacParams_setPropThresh_float(self.as_raw_mut_RansacParams(), val) };
 		ret
 	}
 	
-	/// max outliers ratio
 	#[inline]
 	fn set_eps(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_videostab_RansacParams_setPropEps_float(self.as_raw_mut_RansacParams(), val) };
 		ret
 	}
 	
-	/// probability of success
 	#[inline]
 	fn set_prob(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_videostab_RansacParams_setPropProb_float(self.as_raw_mut_RansacParams(), val) };
@@ -3073,7 +2723,6 @@ pub trait RansacParamsTrait: crate::videostab::RansacParamsTraitConst {
 	
 }
 
-/// Describes RANSAC method parameters.
 pub struct RansacParams {
 	ptr: *mut c_void
 }
@@ -3108,12 +2757,6 @@ impl RansacParams {
 		Ok(ret)
 	}
 	
-	/// Constructor
-	/// ## Parameters
-	/// * size: Subset size.
-	/// * thresh: Maximum re-projection error value to classify as inlier.
-	/// * eps: Maximum ratio of incorrect correspondences.
-	/// * prob: Required success probability.
 	#[inline]
 	pub fn new(size: i32, thresh: f32, eps: f32, prob: f32) -> Result<crate::videostab::RansacParams> {
 		return_send!(via ocvrs_return);
@@ -3124,10 +2767,6 @@ impl RansacParams {
 		Ok(ret)
 	}
 	
-	/// ## Parameters
-	/// * model: Motion model. See cv::videostab::MotionModel.
-	/// ## Returns
-	/// Default RANSAC method parameters for the given motion model.
 	#[inline]
 	pub fn default2d_motion(model: crate::videostab::MotionModel) -> Result<crate::videostab::RansacParams> {
 		return_send!(via ocvrs_return);
@@ -3208,103 +2847,6 @@ impl SparsePyrLkOptFlowEstimator {
 }
 
 boxed_cast_base! { SparsePyrLkOptFlowEstimator, crate::videostab::PyrLkOptFlowEstimatorBase, cv_SparsePyrLkOptFlowEstimator_to_PyrLkOptFlowEstimatorBase }
-
-pub trait SparsePyrLkOptFlowEstimatorGpuTraitConst: crate::videostab::ISparseOptFlowEstimatorConst + crate::videostab::PyrLkOptFlowEstimatorBaseTraitConst {
-	fn as_raw_SparsePyrLkOptFlowEstimatorGpu(&self) -> *const c_void;
-
-}
-
-pub trait SparsePyrLkOptFlowEstimatorGpuTrait: crate::videostab::ISparseOptFlowEstimator + crate::videostab::PyrLkOptFlowEstimatorBaseTrait + crate::videostab::SparsePyrLkOptFlowEstimatorGpuTraitConst {
-	fn as_raw_mut_SparsePyrLkOptFlowEstimatorGpu(&mut self) -> *mut c_void;
-
-	#[inline]
-	fn run(&mut self, frame0: &dyn core::ToInputArray, frame1: &dyn core::ToInputArray, points0: &dyn core::ToInputArray, points1: &mut dyn core::ToInputOutputArray, status: &mut dyn core::ToOutputArray, errors: &mut dyn core::ToOutputArray) -> Result<()> {
-		input_array_arg!(frame0);
-		input_array_arg!(frame1);
-		input_array_arg!(points0);
-		input_output_array_arg!(points1);
-		output_array_arg!(status);
-		output_array_arg!(errors);
-		return_send!(via ocvrs_return);
-		unsafe { sys::cv_videostab_SparsePyrLkOptFlowEstimatorGpu_run_const__InputArrayR_const__InputArrayR_const__InputArrayR_const__InputOutputArrayR_const__OutputArrayR_const__OutputArrayR(self.as_raw_mut_SparsePyrLkOptFlowEstimatorGpu(), frame0.as_raw__InputArray(), frame1.as_raw__InputArray(), points0.as_raw__InputArray(), points1.as_raw__InputOutputArray(), status.as_raw__OutputArray(), errors.as_raw__OutputArray(), ocvrs_return.as_mut_ptr()) };
-		return_receive!(unsafe ocvrs_return => ret);
-		let ret = ret.into_result()?;
-		Ok(ret)
-	}
-	
-	#[inline]
-	fn run_1(&mut self, frame0: &core::GpuMat, frame1: &core::GpuMat, points0: &core::GpuMat, points1: &mut core::GpuMat, status: &mut core::GpuMat, errors: &mut core::GpuMat) -> Result<()> {
-		return_send!(via ocvrs_return);
-		unsafe { sys::cv_videostab_SparsePyrLkOptFlowEstimatorGpu_run_const_GpuMatR_const_GpuMatR_const_GpuMatR_GpuMatR_GpuMatR_GpuMatR(self.as_raw_mut_SparsePyrLkOptFlowEstimatorGpu(), frame0.as_raw_GpuMat(), frame1.as_raw_GpuMat(), points0.as_raw_GpuMat(), points1.as_raw_mut_GpuMat(), status.as_raw_mut_GpuMat(), errors.as_raw_mut_GpuMat(), ocvrs_return.as_mut_ptr()) };
-		return_receive!(unsafe ocvrs_return => ret);
-		let ret = ret.into_result()?;
-		Ok(ret)
-	}
-	
-	#[inline]
-	fn run_2(&mut self, frame0: &core::GpuMat, frame1: &core::GpuMat, points0: &core::GpuMat, points1: &mut core::GpuMat, status: &mut core::GpuMat) -> Result<()> {
-		return_send!(via ocvrs_return);
-		unsafe { sys::cv_videostab_SparsePyrLkOptFlowEstimatorGpu_run_const_GpuMatR_const_GpuMatR_const_GpuMatR_GpuMatR_GpuMatR(self.as_raw_mut_SparsePyrLkOptFlowEstimatorGpu(), frame0.as_raw_GpuMat(), frame1.as_raw_GpuMat(), points0.as_raw_GpuMat(), points1.as_raw_mut_GpuMat(), status.as_raw_mut_GpuMat(), ocvrs_return.as_mut_ptr()) };
-		return_receive!(unsafe ocvrs_return => ret);
-		let ret = ret.into_result()?;
-		Ok(ret)
-	}
-	
-}
-
-pub struct SparsePyrLkOptFlowEstimatorGpu {
-	ptr: *mut c_void
-}
-
-opencv_type_boxed! { SparsePyrLkOptFlowEstimatorGpu }
-
-impl Drop for SparsePyrLkOptFlowEstimatorGpu {
-	fn drop(&mut self) {
-		extern "C" { fn cv_SparsePyrLkOptFlowEstimatorGpu_delete(instance: *mut c_void); }
-		unsafe { cv_SparsePyrLkOptFlowEstimatorGpu_delete(self.as_raw_mut_SparsePyrLkOptFlowEstimatorGpu()) };
-	}
-}
-
-unsafe impl Send for SparsePyrLkOptFlowEstimatorGpu {}
-
-impl crate::videostab::ISparseOptFlowEstimatorConst for SparsePyrLkOptFlowEstimatorGpu {
-	#[inline] fn as_raw_ISparseOptFlowEstimator(&self) -> *const c_void { self.as_raw() }
-}
-
-impl crate::videostab::ISparseOptFlowEstimator for SparsePyrLkOptFlowEstimatorGpu {
-	#[inline] fn as_raw_mut_ISparseOptFlowEstimator(&mut self) -> *mut c_void { self.as_raw_mut() }
-}
-
-impl crate::videostab::PyrLkOptFlowEstimatorBaseTraitConst for SparsePyrLkOptFlowEstimatorGpu {
-	#[inline] fn as_raw_PyrLkOptFlowEstimatorBase(&self) -> *const c_void { self.as_raw() }
-}
-
-impl crate::videostab::PyrLkOptFlowEstimatorBaseTrait for SparsePyrLkOptFlowEstimatorGpu {
-	#[inline] fn as_raw_mut_PyrLkOptFlowEstimatorBase(&mut self) -> *mut c_void { self.as_raw_mut() }
-}
-
-impl crate::videostab::SparsePyrLkOptFlowEstimatorGpuTraitConst for SparsePyrLkOptFlowEstimatorGpu {
-	#[inline] fn as_raw_SparsePyrLkOptFlowEstimatorGpu(&self) -> *const c_void { self.as_raw() }
-}
-
-impl crate::videostab::SparsePyrLkOptFlowEstimatorGpuTrait for SparsePyrLkOptFlowEstimatorGpu {
-	#[inline] fn as_raw_mut_SparsePyrLkOptFlowEstimatorGpu(&mut self) -> *mut c_void { self.as_raw_mut() }
-}
-
-impl SparsePyrLkOptFlowEstimatorGpu {
-	#[inline]
-	pub fn default() -> Result<crate::videostab::SparsePyrLkOptFlowEstimatorGpu> {
-		return_send!(via ocvrs_return);
-		unsafe { sys::cv_videostab_SparsePyrLkOptFlowEstimatorGpu_SparsePyrLkOptFlowEstimatorGpu(ocvrs_return.as_mut_ptr()) };
-		return_receive!(unsafe ocvrs_return => ret);
-		let ret = ret.into_result()?;
-		let ret = unsafe { crate::videostab::SparsePyrLkOptFlowEstimatorGpu::opencv_from_extern(ret) };
-		Ok(ret)
-	}
-	
-}
-
-boxed_cast_base! { SparsePyrLkOptFlowEstimatorGpu, crate::videostab::PyrLkOptFlowEstimatorBase, cv_SparsePyrLkOptFlowEstimatorGpu_to_PyrLkOptFlowEstimatorBase }
 
 pub trait StabilizerBaseConst {
 	fn as_raw_StabilizerBase(&self) -> *const c_void;

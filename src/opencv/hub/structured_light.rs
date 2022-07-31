@@ -29,31 +29,13 @@ pub mod prelude {
 	pub use { super::StructuredLightPatternConst, super::StructuredLightPattern, super::GrayCodePattern_ParamsTraitConst, super::GrayCodePattern_ParamsTrait, super::GrayCodePatternConst, super::GrayCodePattern, super::SinusoidalPattern_ParamsTraitConst, super::SinusoidalPattern_ParamsTrait, super::SinusoidalPatternConst, super::SinusoidalPattern };
 }
 
-/// Kyriakos Herakleous, Charalambos Poullis. "3DUNDERWORLD-SLS: An Open-Source Structured-Light Scanning System for Rapid Geometry Acquisition", arXiv preprint arXiv:1406.6595 (2014).
 pub const DECODE_3D_UNDERWORLD: i32 = 0;
 pub const FAPS: i32 = 2;
 pub const FTP: i32 = 0;
 pub const PSP: i32 = 1;
-/// Class implementing the Gray-code pattern, based on [UNDERWORLD](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_UNDERWORLD).
-/// 
-/// The generation of the pattern images is performed with Gray encoding using the traditional white and black colors.
-/// 
-/// The information about the two image axes x, y is encoded separately into two different pattern sequences.
-/// A projector P with resolution (P_res_x, P_res_y) will result in Ncols = log 2 (P_res_x) encoded pattern images representing the columns, and
-/// in Nrows = log 2 (P_res_y) encoded pattern images representing the rows.
-/// For example a projector with resolution 1024x768 will result in Ncols = 10 and Nrows = 10.
-/// 
-/// However, the generated pattern sequence consists of both regular color and color-inverted images: inverted pattern images are images
-/// with the same structure as the original but with inverted colors.
-/// This provides an effective method for easily determining the intensity value of each pixel when it is lit (highest value) and
-/// when it is not lit (lowest value). So for a a projector with resolution 1024x768, the number of pattern images will be Ncols * 2 + Nrows * 2 = 40.
 pub trait GrayCodePatternConst: crate::structured_light::StructuredLightPatternConst {
 	fn as_raw_GrayCodePattern(&self) -> *const c_void;
 
-	/// Get the number of pattern images needed for the graycode pattern.
-	/// 
-	/// ## Returns
-	/// The number of pattern images needed for the graycode pattern.
 	#[inline]
 	fn get_number_of_pattern_images(&self) -> Result<size_t> {
 		return_send!(via ocvrs_return);
@@ -63,15 +45,6 @@ pub trait GrayCodePatternConst: crate::structured_light::StructuredLightPatternC
 		Ok(ret)
 	}
 	
-	/// Generates the all-black and all-white images needed for shadowMasks computation.
-	/// 
-	/// To identify shadow regions, the regions of two images where the pixels are not lit by projector's light and thus where there is not coded information,
-	/// the 3DUNDERWORLD algorithm computes a shadow mask for the two cameras views, starting from a white and a black images captured by each camera.
-	/// This method generates these two additional images to project.
-	/// 
-	/// ## Parameters
-	/// * blackImage: The generated all-black CV_8U image, at projector's resolution.
-	/// * whiteImage: The generated all-white CV_8U image, at projector's resolution.
 	#[inline]
 	fn get_images_for_shadow_masks(&self, black_image: &mut dyn core::ToInputOutputArray, white_image: &mut dyn core::ToInputOutputArray) -> Result<()> {
 		input_output_array_arg!(black_image);
@@ -83,16 +56,6 @@ pub trait GrayCodePatternConst: crate::structured_light::StructuredLightPatternC
 		Ok(ret)
 	}
 	
-	/// For a (x,y) pixel of a camera returns the corresponding projector pixel.
-	/// 
-	/// The function decodes each pixel in the pattern images acquired by a camera into their corresponding decimal numbers representing the projector's column and row,
-	/// providing a mapping between camera's and projector's pixel.
-	/// 
-	/// ## Parameters
-	/// * patternImages: The pattern images acquired by the camera, stored in a grayscale vector < Mat >.
-	/// * x: x coordinate of the image pixel.
-	/// * y: y coordinate of the image pixel.
-	/// * projPix: Projector's pixel corresponding to the camera's pixel: projPix.x and projPix.y are the image coordinates of the projector's pixel corresponding to the pixel being decoded in a camera.
 	#[inline]
 	fn get_proj_pixel(&self, pattern_images: &dyn core::ToInputArray, x: i32, y: i32, proj_pix: &mut core::Point) -> Result<bool> {
 		input_array_arg!(pattern_images);
@@ -108,12 +71,6 @@ pub trait GrayCodePatternConst: crate::structured_light::StructuredLightPatternC
 pub trait GrayCodePattern: crate::structured_light::GrayCodePatternConst + crate::structured_light::StructuredLightPattern {
 	fn as_raw_mut_GrayCodePattern(&mut self) -> *mut c_void;
 
-	/// Sets the value for white threshold, needed for decoding.
-	/// 
-	/// White threshold is a number between 0-255 that represents the minimum brightness difference required for valid pixels, between the graycode pattern and its inverse images; used in getProjPixel method.
-	/// 
-	/// ## Parameters
-	/// * value: The desired white threshold value.
 	#[inline]
 	fn set_white_threshold(&mut self, value: size_t) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -123,12 +80,6 @@ pub trait GrayCodePattern: crate::structured_light::GrayCodePatternConst + crate
 		Ok(ret)
 	}
 	
-	/// Sets the value for black threshold, needed for decoding (shadowsmasks computation).
-	/// 
-	/// Black threshold is a number between 0-255 that represents the minimum brightness difference required for valid pixels, between the fully illuminated (white) and the not illuminated images (black); used in computeShadowMasks method.
-	/// 
-	/// ## Parameters
-	/// * value: The desired black threshold value.
 	#[inline]
 	fn set_black_threshold(&mut self, value: size_t) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -141,10 +92,6 @@ pub trait GrayCodePattern: crate::structured_light::GrayCodePatternConst + crate
 }
 
 impl dyn GrayCodePattern + '_ {
-	/// Constructor
-	/// ## Parameters
-	/// * parameters: GrayCodePattern parameters GrayCodePattern::Params: the width and the height of the projector.
-	/// 
 	/// ## C++ default parameters
 	/// * parameters: GrayCodePattern::Params()
 	#[inline]
@@ -168,10 +115,6 @@ impl dyn GrayCodePattern + '_ {
 	}
 	
 }
-/// Parameters of StructuredLightPattern constructor.
-/// ## Parameters
-/// * width: Projector's width. Default value is 1024.
-/// * height: Projector's height. Default value is 768.
 pub trait GrayCodePattern_ParamsTraitConst {
 	fn as_raw_GrayCodePattern_Params(&self) -> *const c_void;
 
@@ -206,10 +149,6 @@ pub trait GrayCodePattern_ParamsTrait: crate::structured_light::GrayCodePattern_
 	
 }
 
-/// Parameters of StructuredLightPattern constructor.
-/// ## Parameters
-/// * width: Projector's width. Default value is 1024.
-/// * height: Projector's height. Default value is 768.
 pub struct GrayCodePattern_Params {
 	ptr: *mut c_void
 }
@@ -246,10 +185,6 @@ impl GrayCodePattern_Params {
 	
 }
 
-/// Class implementing Fourier transform profilometry (FTP) , phase-shifting profilometry (PSP)
-/// and Fourier-assisted phase-shifting profilometry (FAPS) based on [faps](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_faps).
-/// 
-/// This class generates sinusoidal patterns that can be used with FTP, PSP and FAPS.
 pub trait SinusoidalPatternConst: crate::structured_light::StructuredLightPatternConst {
 	fn as_raw_SinusoidalPattern(&self) -> *const c_void;
 
@@ -258,13 +193,6 @@ pub trait SinusoidalPatternConst: crate::structured_light::StructuredLightPatter
 pub trait SinusoidalPattern: crate::structured_light::SinusoidalPatternConst + crate::structured_light::StructuredLightPattern {
 	fn as_raw_mut_SinusoidalPattern(&mut self) -> *mut c_void;
 
-	/// Compute a wrapped phase map from sinusoidal patterns.
-	/// ## Parameters
-	/// * patternImages: Input data to compute the wrapped phase map.
-	/// * wrappedPhaseMap: Wrapped phase map obtained through one of the three methods.
-	/// * shadowMask: Mask used to discard shadow regions.
-	/// * fundamental: Fundamental matrix used to compute epipolar lines and ease the matching step.
-	/// 
 	/// ## C++ default parameters
 	/// * shadow_mask: noArray()
 	/// * fundamental: noArray()
@@ -281,13 +209,6 @@ pub trait SinusoidalPattern: crate::structured_light::SinusoidalPatternConst + c
 		Ok(ret)
 	}
 	
-	/// Unwrap the wrapped phase map to remove phase ambiguities.
-	/// ## Parameters
-	/// * wrappedPhaseMap: The wrapped phase map computed from the pattern.
-	/// * unwrappedPhaseMap: The unwrapped phase map used to find correspondences between the two devices.
-	/// * camSize: Resolution of the camera.
-	/// * shadowMask: Mask used to discard shadow regions.
-	/// 
 	/// ## C++ default parameters
 	/// * shadow_mask: noArray()
 	#[inline]
@@ -302,11 +223,6 @@ pub trait SinusoidalPattern: crate::structured_light::SinusoidalPatternConst + c
 		Ok(ret)
 	}
 	
-	/// Find correspondences between the two devices thanks to unwrapped phase maps.
-	/// ## Parameters
-	/// * projUnwrappedPhaseMap: Projector's unwrapped phase map.
-	/// * camUnwrappedPhaseMap: Camera's unwrapped phase map.
-	/// * matches: Images used to display correspondences map.
 	#[inline]
 	fn find_pro_cam_matches(&mut self, proj_unwrapped_phase_map: &dyn core::ToInputArray, cam_unwrapped_phase_map: &dyn core::ToInputArray, matches: &mut dyn core::ToOutputArray) -> Result<()> {
 		input_array_arg!(proj_unwrapped_phase_map);
@@ -319,11 +235,6 @@ pub trait SinusoidalPattern: crate::structured_light::SinusoidalPatternConst + c
 		Ok(ret)
 	}
 	
-	/// compute the data modulation term.
-	/// ## Parameters
-	/// * patternImages: captured images with projected patterns.
-	/// * dataModulationTerm: Mat where the data modulation term is saved.
-	/// * shadowMask: Mask used to discard shadow regions.
 	#[inline]
 	fn compute_data_modulation_term(&mut self, pattern_images: &dyn core::ToInputArray, data_modulation_term: &mut dyn core::ToOutputArray, shadow_mask: &dyn core::ToInputArray) -> Result<()> {
 		input_array_arg!(pattern_images);
@@ -339,10 +250,6 @@ pub trait SinusoidalPattern: crate::structured_light::SinusoidalPatternConst + c
 }
 
 impl dyn SinusoidalPattern + '_ {
-	/// Constructor.
-	/// ## Parameters
-	/// * parameters: SinusoidalPattern parameters SinusoidalPattern::Params: width, height of the projector and patterns parameters.
-	/// 
 	/// ## C++ default parameters
 	/// * parameters: makePtr<SinusoidalPattern::Params>()
 	#[inline]
@@ -356,16 +263,6 @@ impl dyn SinusoidalPattern + '_ {
 	}
 	
 }
-/// Parameters of SinusoidalPattern constructor
-/// ## Parameters
-/// * width: Projector's width.
-/// * height: Projector's height.
-/// * nbrOfPeriods: Number of period along the patterns direction.
-/// * shiftValue: Phase shift between two consecutive patterns.
-/// * methodId: Allow to choose between FTP, PSP and FAPS.
-/// * nbrOfPixelsBetweenMarkers: Number of pixels between two consecutive markers on the same row.
-/// * setMarkers: Allow to set markers on the patterns.
-/// * markersLocation: vector used to store markers location on the patterns.
 pub trait SinusoidalPattern_ParamsTraitConst {
 	fn as_raw_SinusoidalPattern_Params(&self) -> *const c_void;
 
@@ -485,16 +382,6 @@ pub trait SinusoidalPattern_ParamsTrait: crate::structured_light::SinusoidalPatt
 	
 }
 
-/// Parameters of SinusoidalPattern constructor
-/// ## Parameters
-/// * width: Projector's width.
-/// * height: Projector's height.
-/// * nbrOfPeriods: Number of period along the patterns direction.
-/// * shiftValue: Phase shift between two consecutive patterns.
-/// * methodId: Allow to choose between FTP, PSP and FAPS.
-/// * nbrOfPixelsBetweenMarkers: Number of pixels between two consecutive markers on the same row.
-/// * setMarkers: Allow to set markers on the patterns.
-/// * markersLocation: vector used to store markers location on the patterns.
 pub struct SinusoidalPattern_Params {
 	ptr: *mut c_void
 }
@@ -531,21 +418,9 @@ impl SinusoidalPattern_Params {
 	
 }
 
-/// Abstract base class for generating and decoding structured light patterns.
 pub trait StructuredLightPatternConst: core::AlgorithmTraitConst {
 	fn as_raw_StructuredLightPattern(&self) -> *const c_void;
 
-	/// Decodes the structured light pattern, generating a disparity map
-	/// 
-	/// ## Parameters
-	/// * patternImages: The acquired pattern images to decode (vector<vector<Mat>>), loaded as grayscale and previously rectified.
-	/// * disparityMap: The decoding result: a CV_64F Mat at image resolution, storing the computed disparity map.
-	/// * blackImages: The all-black images needed for shadowMasks computation.
-	/// * whiteImages: The all-white images needed for shadowMasks computation.
-	/// * flags: Flags setting decoding algorithms. Default: DECODE_3D_UNDERWORLD.
-	/// 
-	/// Note: All the images must be at the same resolution.
-	/// 
 	/// ## C++ default parameters
 	/// * black_images: noArray()
 	/// * white_images: noArray()
@@ -567,10 +442,6 @@ pub trait StructuredLightPatternConst: core::AlgorithmTraitConst {
 pub trait StructuredLightPattern: core::AlgorithmTrait + crate::structured_light::StructuredLightPatternConst {
 	fn as_raw_mut_StructuredLightPattern(&mut self) -> *mut c_void;
 
-	/// Generates the structured light pattern to project.
-	/// 
-	/// ## Parameters
-	/// * patternImages: The generated pattern: a vector<Mat>, in which each image is a CV_8U Mat at projector's resolution.
 	#[inline]
 	fn generate(&mut self, pattern_images: &mut dyn core::ToOutputArray) -> Result<bool> {
 		output_array_arg!(pattern_images);

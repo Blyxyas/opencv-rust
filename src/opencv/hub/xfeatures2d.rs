@@ -38,8 +38,6 @@ pub const VGG_VGG_120: i32 = 100;
 pub const VGG_VGG_48: i32 = 103;
 pub const VGG_VGG_64: i32 = 102;
 pub const VGG_VGG_80: i32 = 101;
-/// Descriptor number of bits, each bit is a boosting weak-learner.
-/// The user can choose between 512 or 256 bits.
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum BEBLID_BeblidSize {
@@ -60,7 +58,6 @@ pub enum DAISY_NormalizationType {
 
 opencv_type_enum! { crate::xfeatures2d::DAISY_NormalizationType }
 
-/// Lp distance function selector.
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum PCTSignatures_DistanceFunction {
@@ -75,37 +72,21 @@ pub enum PCTSignatures_DistanceFunction {
 
 opencv_type_enum! { crate::xfeatures2d::PCTSignatures_DistanceFunction }
 
-/// Point distributions supported by random point generator.
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum PCTSignatures_PointDistribution {
-	/// Generate numbers uniformly.
 	UNIFORM = 0,
-	/// Generate points in a regular grid.
 	REGULAR = 1,
-	/// Generate points with normal (gaussian) distribution.
 	NORMAL = 2,
 }
 
 opencv_type_enum! { crate::xfeatures2d::PCTSignatures_PointDistribution }
 
-/// Similarity function selector.
-/// ## See also
-/// Christian Beecks, Merih Seran Uysal, Thomas Seidl.
-///       Signature quadratic form distance.
-///       In Proceedings of the ACM International Conference on Image and Video Retrieval, pages 438-445.
-///       ACM, 2010.
-/// [BeecksUS10](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_BeecksUS10)
-/// 
-/// Note: For selected distance function: ![block formula](https://latex.codecogs.com/png.latex?%20d%28c%5Fi%2C%20c%5Fj%29%20)  and parameter: ![block formula](https://latex.codecogs.com/png.latex?%20%5Calpha%20)
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum PCTSignatures_SimilarityFunction {
-	/// ![block formula](https://latex.codecogs.com/png.latex?%20%2Dd%28c%5Fi%2C%20c%5Fj%29%20)
 	MINUS = 0,
-	/// ![block formula](https://latex.codecogs.com/png.latex?%20e%5E%7B%20%2D%5Calpha%20%2A%20d%5E2%28c%5Fi%2C%20c%5Fj%29%7D%20)
 	GAUSSIAN = 1,
-	/// ![block formula](https://latex.codecogs.com/png.latex?%20%5Cfrac%7B1%7D%7B%5Calpha%20%2B%20d%28c%5Fi%2C%20c%5Fj%29%7D%20)
 	HEURISTIC = 2,
 }
 
@@ -128,22 +109,6 @@ opencv_type_enum! { crate::xfeatures2d::SURF_CUDA_KeypointLayout }
 
 pub type SurfDescriptorExtractor = dyn crate::xfeatures2d::SURF;
 pub type SurfFeatureDetector = dyn crate::xfeatures2d::SURF;
-/// Estimates cornerness for prespecified KeyPoints using the FAST algorithm
-/// 
-/// ## Parameters
-/// * image: grayscale image where keypoints (corners) are detected.
-/// * keypoints: keypoints which should be tested to fit the FAST criteria. Keypoints not being
-/// detected as corners are removed.
-/// * threshold: threshold on difference between intensity of the central pixel and pixels of a
-/// circle around this pixel.
-/// * nonmaxSuppression: if true, non-maximum suppression is applied to detected corners
-/// (keypoints).
-/// * type: one of the three neighborhoods as defined in the paper:
-/// FastFeatureDetector::TYPE_9_16, FastFeatureDetector::TYPE_7_12,
-/// FastFeatureDetector::TYPE_5_8
-/// 
-/// Detects corners using the FAST algorithm by [Rosten06](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Rosten06) .
-/// 
 /// ## C++ default parameters
 /// * nonmax_suppression: true
 /// * typ: FastFeatureDetector::TYPE_9_16
@@ -157,23 +122,6 @@ pub fn fast_for_point_set(image: &dyn core::ToInputArray, keypoints: &mut core::
 	Ok(ret)
 }
 
-/// GMS (Grid-based Motion Statistics) feature matching strategy described in [Bian2017gms](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Bian2017gms) .
-/// ## Parameters
-/// * size1: Input size of image1.
-/// * size2: Input size of image2.
-/// * keypoints1: Input keypoints of image1.
-/// * keypoints2: Input keypoints of image2.
-/// * matches1to2: Input 1-nearest neighbor matches.
-/// * matchesGMS: Matches returned by the GMS matching strategy.
-/// * withRotation: Take rotation transformation into account.
-/// * withScale: Take scale transformation into account.
-/// * thresholdFactor: The higher, the less matches.
-/// 
-/// Note:
-///    Since GMS works well when the number of features is large, we recommend to use the ORB feature and set FastThreshold to 0 to get as many as possible features quickly.
-///    If matching results are not satisfying, please add more features. (We use 10000 for images with 640 X 480).
-///    If your images have big rotation and scale changes, please set withRotation or withScale to true.
-/// 
 /// ## C++ default parameters
 /// * with_rotation: false
 /// * with_scale: false
@@ -187,18 +135,6 @@ pub fn match_gms(size1: core::Size, size2: core::Size, keypoints1: &core::Vector
 	Ok(ret)
 }
 
-/// LOGOS (Local geometric support for high-outlier spatial verification) feature matching strategy described in [Lowry2018LOGOSLG](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Lowry2018LOGOSLG) .
-/// ## Parameters
-/// * keypoints1: Input keypoints of image1.
-/// * keypoints2: Input keypoints of image2.
-/// * nn1: Index to the closest BoW centroid for each descriptors of image1.
-/// * nn2: Index to the closest BoW centroid for each descriptors of image2.
-/// * matches1to2: Matches returned by the LOGOS matching strategy.
-/// 
-/// Note:
-///    This matching strategy is suitable for features matching against large scale database.
-///    First step consists in constructing the bag-of-words (BoW) from a representative image database.
-///    Image descriptors are then represented by their closest codevector (nearest BoW centroid).
 #[inline]
 pub fn match_logos(keypoints1: &core::Vector<core::KeyPoint>, keypoints2: &core::Vector<core::KeyPoint>, nn1: &core::Vector<i32>, nn2: &core::Vector<i32>, matches1to2: &mut core::Vector<core::DMatch>) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -208,38 +144,6 @@ pub fn match_logos(keypoints1: &core::Vector<core::KeyPoint>, keypoints2: &core:
 	Ok(ret)
 }
 
-/// Class used for extracting Speeded Up Robust Features (SURF) from an image. :
-/// 
-/// The class SURF_CUDA implements Speeded Up Robust Features descriptor. There is a fast multi-scale
-/// Hessian keypoint detector that can be used to find the keypoints (which is the default option). But
-/// the descriptors can also be computed for the user-specified keypoints. Only 8-bit grayscale images
-/// are supported.
-/// 
-/// The class SURF_CUDA can store results in the GPU and CPU memory. It provides functions to convert
-/// results between CPU and GPU version ( uploadKeypoints, downloadKeypoints, downloadDescriptors ). The
-/// format of CPU results is the same as SURF results. GPU results are stored in GpuMat. The keypoints
-/// matrix is ![inline formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7BnFeatures%7D%20%5Ctimes%207) matrix with the CV_32FC1 type.
-/// 
-/// *   keypoints.ptr\<float\>(X_ROW)[i] contains x coordinate of the i-th feature.
-/// *   keypoints.ptr\<float\>(Y_ROW)[i] contains y coordinate of the i-th feature.
-/// *   keypoints.ptr\<float\>(LAPLACIAN_ROW)[i] contains the laplacian sign of the i-th feature.
-/// *   keypoints.ptr\<float\>(OCTAVE_ROW)[i] contains the octave of the i-th feature.
-/// *   keypoints.ptr\<float\>(SIZE_ROW)[i] contains the size of the i-th feature.
-/// *   keypoints.ptr\<float\>(ANGLE_ROW)[i] contain orientation of the i-th feature.
-/// *   keypoints.ptr\<float\>(HESSIAN_ROW)[i] contains the response of the i-th feature.
-/// 
-/// The descriptors matrix is ![inline formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7BnFeatures%7D%20%5Ctimes%20%5Ctexttt%7BdescriptorSize%7D) matrix with the
-/// CV_32FC1 type.
-/// 
-/// The class SURF_CUDA uses some buffers and provides access to it. All buffers can be safely released
-/// between function calls.
-/// ## See also
-/// SURF
-/// 
-/// 
-/// Note:
-///    *   An example for using the SURF keypoint matcher on GPU can be found at
-///        opencv_source_code/samples/gpu/surf_keypoint_matcher.cpp
 pub trait SURF_CUDATraitConst {
 	fn as_raw_SURF_CUDA(&self) -> *const c_void;
 
@@ -273,7 +177,6 @@ pub trait SURF_CUDATraitConst {
 		ret
 	}
 	
-	/// max keypoints = min(keypointsRatio * img.size().area(), 65535)
 	#[inline]
 	fn keypoints_ratio(&self) -> f32 {
 		let ret = unsafe { sys::cv_cuda_SURF_CUDA_getPropKeypointsRatio_const(self.as_raw_SURF_CUDA()) };
@@ -322,7 +225,6 @@ pub trait SURF_CUDATraitConst {
 		ret
 	}
 	
-	/// returns the descriptor size in float's (64 or 128)
 	#[inline]
 	fn descriptor_size(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -332,7 +234,6 @@ pub trait SURF_CUDATraitConst {
 		Ok(ret)
 	}
 	
-	/// returns the default norm type
 	#[inline]
 	fn default_norm(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -377,7 +278,6 @@ pub trait SURF_CUDATrait: crate::xfeatures2d::SURF_CUDATraitConst {
 		ret
 	}
 	
-	/// max keypoints = min(keypointsRatio * img.size().area(), 65535)
 	#[inline]
 	fn set_keypoints_ratio(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_cuda_SURF_CUDA_setPropKeypointsRatio_float(self.as_raw_mut_SURF_CUDA(), val) };
@@ -420,7 +320,6 @@ pub trait SURF_CUDATrait: crate::xfeatures2d::SURF_CUDATraitConst {
 		ret
 	}
 	
-	/// upload host keypoints to device memory
 	#[inline]
 	fn upload_keypoints(&mut self, keypoints: &core::Vector<core::KeyPoint>, keypoints_gpu: &mut core::GpuMat) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -430,7 +329,6 @@ pub trait SURF_CUDATrait: crate::xfeatures2d::SURF_CUDATraitConst {
 		Ok(ret)
 	}
 	
-	/// download keypoints from device to host memory
 	#[inline]
 	fn download_keypoints(&mut self, keypoints_gpu: &core::GpuMat, keypoints: &mut core::Vector<core::KeyPoint>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -440,7 +338,6 @@ pub trait SURF_CUDATrait: crate::xfeatures2d::SURF_CUDATraitConst {
 		Ok(ret)
 	}
 	
-	/// download descriptors from device to host memory
 	#[inline]
 	fn download_descriptors(&mut self, descriptors_gpu: &core::GpuMat, descriptors: &mut core::Vector<f32>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -450,12 +347,6 @@ pub trait SURF_CUDATrait: crate::xfeatures2d::SURF_CUDATraitConst {
 		Ok(ret)
 	}
 	
-	/// Finds the keypoints using fast hessian detector used in SURF
-	/// 
-	/// ## Parameters
-	/// * img: Source image, currently supports only CV_8UC1 images.
-	/// * mask: A mask image same size as src and of type CV_8UC1.
-	/// * keypoints: Detected keypoints.
 	#[inline]
 	fn detect(&mut self, img: &core::GpuMat, mask: &core::GpuMat, keypoints: &mut core::GpuMat) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -465,15 +356,6 @@ pub trait SURF_CUDATrait: crate::xfeatures2d::SURF_CUDATraitConst {
 		Ok(ret)
 	}
 	
-	/// Finds the keypoints and computes their descriptors using fast hessian detector used in SURF
-	/// 
-	/// ## Parameters
-	/// * img: Source image, currently supports only CV_8UC1 images.
-	/// * mask: A mask image same size as src and of type CV_8UC1.
-	/// * keypoints: Detected keypoints.
-	/// * descriptors: Keypoint descriptors.
-	/// * useProvidedKeypoints: Compute descriptors for the user-provided keypoints and recompute keypoints direction.
-	/// 
 	/// ## C++ default parameters
 	/// * use_provided_keypoints: false
 	#[inline]
@@ -496,38 +378,6 @@ pub trait SURF_CUDATrait: crate::xfeatures2d::SURF_CUDATraitConst {
 	
 }
 
-/// Class used for extracting Speeded Up Robust Features (SURF) from an image. :
-/// 
-/// The class SURF_CUDA implements Speeded Up Robust Features descriptor. There is a fast multi-scale
-/// Hessian keypoint detector that can be used to find the keypoints (which is the default option). But
-/// the descriptors can also be computed for the user-specified keypoints. Only 8-bit grayscale images
-/// are supported.
-/// 
-/// The class SURF_CUDA can store results in the GPU and CPU memory. It provides functions to convert
-/// results between CPU and GPU version ( uploadKeypoints, downloadKeypoints, downloadDescriptors ). The
-/// format of CPU results is the same as SURF results. GPU results are stored in GpuMat. The keypoints
-/// matrix is ![inline formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7BnFeatures%7D%20%5Ctimes%207) matrix with the CV_32FC1 type.
-/// 
-/// *   keypoints.ptr\<float\>(X_ROW)[i] contains x coordinate of the i-th feature.
-/// *   keypoints.ptr\<float\>(Y_ROW)[i] contains y coordinate of the i-th feature.
-/// *   keypoints.ptr\<float\>(LAPLACIAN_ROW)[i] contains the laplacian sign of the i-th feature.
-/// *   keypoints.ptr\<float\>(OCTAVE_ROW)[i] contains the octave of the i-th feature.
-/// *   keypoints.ptr\<float\>(SIZE_ROW)[i] contains the size of the i-th feature.
-/// *   keypoints.ptr\<float\>(ANGLE_ROW)[i] contain orientation of the i-th feature.
-/// *   keypoints.ptr\<float\>(HESSIAN_ROW)[i] contains the response of the i-th feature.
-/// 
-/// The descriptors matrix is ![inline formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7BnFeatures%7D%20%5Ctimes%20%5Ctexttt%7BdescriptorSize%7D) matrix with the
-/// CV_32FC1 type.
-/// 
-/// The class SURF_CUDA uses some buffers and provides access to it. All buffers can be safely released
-/// between function calls.
-/// ## See also
-/// SURF
-/// 
-/// 
-/// Note:
-///    *   An example for using the SURF keypoint matcher on GPU can be found at
-///        opencv_source_code/samples/gpu/surf_keypoint_matcher.cpp
 pub struct SURF_CUDA {
 	ptr: *mut c_void
 }
@@ -552,7 +402,6 @@ impl crate::xfeatures2d::SURF_CUDATrait for SURF_CUDA {
 }
 
 impl SURF_CUDA {
-	/// the default constructor
 	#[inline]
 	pub fn default() -> Result<crate::xfeatures2d::SURF_CUDA> {
 		return_send!(via ocvrs_return);
@@ -563,8 +412,6 @@ impl SURF_CUDA {
 		Ok(ret)
 	}
 	
-	/// the full constructor taking all the necessary parameters
-	/// 
 	/// ## C++ default parameters
 	/// * _n_octaves: 4
 	/// * _n_octave_layers: 2
@@ -581,16 +428,6 @@ impl SURF_CUDA {
 		Ok(ret)
 	}
 	
-	/// ## Parameters
-	/// * _hessianThreshold: Threshold for hessian keypoint detector used in SURF.
-	/// * _nOctaves: Number of pyramid octaves the keypoint detector will use.
-	/// * _nOctaveLayers: Number of octave layers within each octave.
-	/// * _extended: Extended descriptor flag (true - use extended 128-element descriptors; false - use
-	/// 64-element descriptors).
-	/// * _keypointsRatio: 
-	/// * _upright: Up-right or rotated features flag (true - do not compute orientation of features;
-	/// false - compute orientation).
-	/// 
 	/// ## C++ default parameters
 	/// * _n_octaves: 4
 	/// * _n_octave_layers: 2
@@ -609,14 +446,6 @@ impl SURF_CUDA {
 	
 }
 
-/// Class implementing affine adaptation for key points.
-/// 
-/// A @ref FeatureDetector and a @ref DescriptorExtractor are wrapped to augment the
-/// detected points with their affine invariant elliptic region and to compute
-/// the feature descriptors on the regions after warping them into circles.
-/// 
-/// The interface is equivalent to @ref Feature2D, adding operations for
-/// @ref Elliptic_KeyPoint "Elliptic_KeyPoints" instead of @ref KeyPoint "KeyPoints".
 pub trait AffineFeature2DConst: crate::features2d::Feature2DTraitConst {
 	fn as_raw_AffineFeature2D(&self) -> *const c_void;
 
@@ -625,9 +454,6 @@ pub trait AffineFeature2DConst: crate::features2d::Feature2DTraitConst {
 pub trait AffineFeature2D: crate::features2d::Feature2DTrait + crate::xfeatures2d::AffineFeature2DConst {
 	fn as_raw_mut_AffineFeature2D(&mut self) -> *mut c_void;
 
-	/// Detects keypoints in the image using the wrapped detector and
-	/// performs affine adaptation to augment them with their elliptic regions.
-	/// 
 	/// ## C++ default parameters
 	/// * mask: noArray()
 	#[inline]
@@ -641,9 +467,6 @@ pub trait AffineFeature2D: crate::features2d::Feature2DTrait + crate::xfeatures2
 		Ok(ret)
 	}
 	
-	/// Detects keypoints and computes descriptors for their surrounding
-	/// regions, after warping them into circles.
-	/// 
 	/// ## C++ default parameters
 	/// * use_provided_keypoints: false
 	#[inline]
@@ -661,8 +484,6 @@ pub trait AffineFeature2D: crate::features2d::Feature2DTrait + crate::xfeatures2
 }
 
 impl dyn AffineFeature2D + '_ {
-	/// Creates an instance wrapping the given keypoint detector and
-	/// descriptor extractor.
 	#[inline]
 	pub fn create(mut keypoint_detector: core::Ptr<crate::features2d::Feature2D>, mut descriptor_extractor: core::Ptr<crate::features2d::Feature2D>) -> Result<core::Ptr<dyn crate::xfeatures2d::AffineFeature2D>> {
 		return_send!(via ocvrs_return);
@@ -673,8 +494,6 @@ impl dyn AffineFeature2D + '_ {
 		Ok(ret)
 	}
 	
-	/// Creates an instance where keypoint detector and descriptor
-	/// extractor are identical.
 	#[inline]
 	pub fn create_1(mut keypoint_detector: core::Ptr<crate::features2d::Feature2D>) -> Result<core::Ptr<dyn crate::xfeatures2d::AffineFeature2D>> {
 		return_send!(via ocvrs_return);
@@ -686,27 +505,6 @@ impl dyn AffineFeature2D + '_ {
 	}
 	
 }
-/// Class implementing BEBLID (Boosted Efficient Binary Local Image Descriptor),
-///  described in [Suarez2020BEBLID](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Suarez2020BEBLID) .
-/// 
-/// BEBLID \cite Suarez2020BEBLID is a efficient binary descriptor learned with boosting.
-/// It is able to describe keypoints from any detector just by changing the scale_factor parameter.
-/// In several benchmarks it has proved to largely improve other binary descriptors like ORB or
-/// BRISK with the same efficiency. BEBLID describes using the difference of mean gray values in
-/// different regions of the image around the KeyPoint, the descriptor is specifically optimized for
-/// image matching and patch retrieval addressing the asymmetries of these problems.
-/// 
-/// If you find this code useful, please add a reference to the following paper:
-/// <BLOCKQUOTE> Iago Suárez, Ghesn Sfeir, José M. Buenaposada, and Luis Baumela.
-/// BEBLID: Boosted efficient binary local image descriptor.
-/// Pattern Recognition Letters, 133:366–372, 2020. </BLOCKQUOTE>
-/// 
-/// The descriptor was trained using 1 million of randomly sampled pairs of patches
-/// (20% positives and 80% negatives) from the Liberty split of the UBC datasets
-/// \cite winder2007learning as described in the paper [Suarez2020BEBLID](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Suarez2020BEBLID).
-/// You can check in the [AKAZE example](https://raw.githubusercontent.com/opencv/opencv/master/samples/cpp/tutorial_code/features2D/AKAZE_match.cpp)
-/// how well BEBLID works. Detecting 10000 keypoints with ORB and describing with BEBLID obtains
-/// 561 inliers (75%) whereas describing with ORB obtains only 493 inliers (63%).
 pub trait BEBLIDTraitConst: crate::features2d::Feature2DTraitConst {
 	fn as_raw_BEBLID(&self) -> *const c_void;
 
@@ -717,27 +515,6 @@ pub trait BEBLIDTrait: crate::features2d::Feature2DTrait + crate::xfeatures2d::B
 
 }
 
-/// Class implementing BEBLID (Boosted Efficient Binary Local Image Descriptor),
-///  described in [Suarez2020BEBLID](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Suarez2020BEBLID) .
-/// 
-/// BEBLID \cite Suarez2020BEBLID is a efficient binary descriptor learned with boosting.
-/// It is able to describe keypoints from any detector just by changing the scale_factor parameter.
-/// In several benchmarks it has proved to largely improve other binary descriptors like ORB or
-/// BRISK with the same efficiency. BEBLID describes using the difference of mean gray values in
-/// different regions of the image around the KeyPoint, the descriptor is specifically optimized for
-/// image matching and patch retrieval addressing the asymmetries of these problems.
-/// 
-/// If you find this code useful, please add a reference to the following paper:
-/// <BLOCKQUOTE> Iago Suárez, Ghesn Sfeir, José M. Buenaposada, and Luis Baumela.
-/// BEBLID: Boosted efficient binary local image descriptor.
-/// Pattern Recognition Letters, 133:366–372, 2020. </BLOCKQUOTE>
-/// 
-/// The descriptor was trained using 1 million of randomly sampled pairs of patches
-/// (20% positives and 80% negatives) from the Liberty split of the UBC datasets
-/// \cite winder2007learning as described in the paper [Suarez2020BEBLID](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Suarez2020BEBLID).
-/// You can check in the [AKAZE example](https://raw.githubusercontent.com/opencv/opencv/master/samples/cpp/tutorial_code/features2D/AKAZE_match.cpp)
-/// how well BEBLID works. Detecting 10000 keypoints with ORB and describing with BEBLID obtains
-/// 561 inliers (75%) whereas describing with ORB obtains only 493 inliers (63%).
 pub struct BEBLID {
 	ptr: *mut c_void
 }
@@ -778,16 +555,6 @@ impl crate::xfeatures2d::BEBLIDTrait for BEBLID {
 }
 
 impl BEBLID {
-	/// Creates the BEBLID descriptor.
-	/// ## Parameters
-	/// * scale_factor: Adjust the sampling window around detected keypoints:
-	/// - <b> 1.00f </b> should be the scale for ORB keypoints
-	/// - <b> 6.75f </b> should be the scale for SIFT detected keypoints
-	/// - <b> 6.25f </b> is default and fits for KAZE, SURF detected keypoints
-	/// - <b> 5.00f </b> should be the scale for AKAZE, MSD, AGAST, FAST, BRISK keypoints
-	/// * n_bits: Determine the number of bits in the descriptor. Should be either
-	///  BEBLID::SIZE_512_BITS or BEBLID::SIZE_256_BITS.
-	/// 
 	/// ## C++ default parameters
 	/// * n_bits: BEBLID::SIZE_512_BITS
 	#[inline]
@@ -806,32 +573,6 @@ boxed_cast_base! { BEBLID, core::Algorithm, cv_BEBLID_to_Algorithm }
 
 boxed_cast_base! { BEBLID, crate::features2d::Feature2D, cv_BEBLID_to_Feature2D }
 
-/// Class implementing BoostDesc (Learning Image Descriptors with Boosting), described in
-/// [Trzcinski13a](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Trzcinski13a) and [Trzcinski13b](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Trzcinski13b).
-/// 
-/// ## Parameters
-/// * desc: type of descriptor to use, BoostDesc::BINBOOST_256 is default (256 bit long dimension)
-/// Available types are: BoostDesc::BGM, BoostDesc::BGM_HARD, BoostDesc::BGM_BILINEAR, BoostDesc::LBGM,
-/// BoostDesc::BINBOOST_64, BoostDesc::BINBOOST_128, BoostDesc::BINBOOST_256
-/// * use_orientation: sample patterns using keypoints orientation, enabled by default
-/// * scale_factor: adjust the sampling window of detected keypoints
-/// 6.25f is default and fits for KAZE, SURF detected keypoints window ratio
-/// 6.75f should be the scale for SIFT detected keypoints window ratio
-/// 5.00f should be the scale for AKAZE, MSD, AGAST, FAST, BRISK keypoints window ratio
-/// 0.75f should be the scale for ORB keypoints ratio
-/// 1.50f was the default in original implementation
-/// 
-/// 
-/// Note: BGM is the base descriptor where each binary dimension is computed as the output of a single weak learner.
-/// BGM_HARD and BGM_BILINEAR refers to same BGM but use different type of gradient binning. In the BGM_HARD that
-/// use ASSIGN_HARD binning type the gradient is assigned to the nearest orientation bin. In the BGM_BILINEAR that use
-/// ASSIGN_BILINEAR binning type the gradient is assigned to the two neighbouring bins. In the BGM and all other modes that use
-/// ASSIGN_SOFT binning type the gradient is assigned to 8 nearest bins according to the cosine value between the gradient
-/// angle and the bin center. LBGM (alias FP-Boost) is the floating point extension where each dimension is computed
-/// as a linear combination of the weak learner responses. BINBOOST and subvariants are the binary extensions of LBGM
-/// where each bit is computed as a thresholded linear combination of a set of weak learners.
-/// BoostDesc header files (boostdesc_*.i) was exported from original binaries with export-boostdesc.py script from
-/// samples subfolder.
 pub trait BoostDescConst: crate::features2d::Feature2DTraitConst {
 	fn as_raw_BoostDesc(&self) -> *const c_void;
 
@@ -894,11 +635,6 @@ impl dyn BoostDesc + '_ {
 	}
 	
 }
-/// Class for computing BRIEF descriptors described in [calon2010](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_calon2010) .
-/// 
-/// ## Parameters
-/// * bytes: legth of the descriptor in bytes, valid values are: 16, 32 (default) or 64 .
-/// * use_orientation: sample patterns using keypoints orientation, disabled by default.
 pub trait BriefDescriptorExtractorTraitConst: crate::features2d::Feature2DTraitConst {
 	fn as_raw_BriefDescriptorExtractor(&self) -> *const c_void;
 
@@ -909,11 +645,6 @@ pub trait BriefDescriptorExtractorTrait: crate::features2d::Feature2DTrait + cra
 
 }
 
-/// Class for computing BRIEF descriptors described in [calon2010](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_calon2010) .
-/// 
-/// ## Parameters
-/// * bytes: legth of the descriptor in bytes, valid values are: 16, 32 (default) or 64 .
-/// * use_orientation: sample patterns using keypoints orientation, disabled by default.
 pub struct BriefDescriptorExtractor {
 	ptr: *mut c_void
 }
@@ -973,29 +704,9 @@ boxed_cast_base! { BriefDescriptorExtractor, core::Algorithm, cv_BriefDescriptor
 
 boxed_cast_base! { BriefDescriptorExtractor, crate::features2d::Feature2D, cv_BriefDescriptorExtractor_to_Feature2D }
 
-/// Class implementing DAISY descriptor, described in [Tola10](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Tola10)
-/// 
-/// ## Parameters
-/// * radius: radius of the descriptor at the initial scale
-/// * q_radius: amount of radial range division quantity
-/// * q_theta: amount of angular range division quantity
-/// * q_hist: amount of gradient orientations range division quantity
-/// * norm: choose descriptors normalization type, where
-/// DAISY::NRM_NONE will not do any normalization (default),
-/// DAISY::NRM_PARTIAL mean that histograms are normalized independently for L2 norm equal to 1.0,
-/// DAISY::NRM_FULL mean that descriptors are normalized for L2 norm equal to 1.0,
-/// DAISY::NRM_SIFT mean that descriptors are normalized for L2 norm equal to 1.0 but no individual one is bigger than 0.154 as in SIFT
-/// * H: optional 3x3 homography matrix used to warp the grid of daisy but sampling keypoints remains unwarped on image
-/// * interpolation: switch to disable interpolation for speed improvement at minor quality loss
-/// * use_orientation: sample patterns using keypoints orientation, disabled by default.
 pub trait DAISYConst: crate::features2d::Feature2DTraitConst {
 	fn as_raw_DAISY(&self) -> *const c_void;
 
-	/// ## Parameters
-	/// * y: position y on image
-	/// * x: position x on image
-	/// * orientation: orientation on image (0->360)
-	/// * descriptor: supplied array for descriptor storage
 	#[inline]
 	fn get_descriptor(&self, y: f64, x: f64, orientation: i32, descriptor: &mut f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1005,12 +716,6 @@ pub trait DAISYConst: crate::features2d::Feature2DTraitConst {
 		Ok(ret)
 	}
 	
-	/// ## Parameters
-	/// * y: position y on image
-	/// * x: position x on image
-	/// * orientation: orientation on image (0->360)
-	/// * descriptor: supplied array for descriptor storage
-	/// * H: homography matrix for warped grid
 	#[inline]
 	fn get_descriptor_1(&self, y: f64, x: f64, orientation: i32, descriptor: &mut f32, h: &mut f64) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -1020,11 +725,6 @@ pub trait DAISYConst: crate::features2d::Feature2DTraitConst {
 		Ok(ret)
 	}
 	
-	/// ## Parameters
-	/// * y: position y on image
-	/// * x: position x on image
-	/// * orientation: orientation on image (0->360)
-	/// * descriptor: supplied array for descriptor storage
 	#[inline]
 	fn get_unnormalized_descriptor(&self, y: f64, x: f64, orientation: i32, descriptor: &mut f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1034,12 +734,6 @@ pub trait DAISYConst: crate::features2d::Feature2DTraitConst {
 		Ok(ret)
 	}
 	
-	/// ## Parameters
-	/// * y: position y on image
-	/// * x: position x on image
-	/// * orientation: orientation on image (0->360)
-	/// * descriptor: supplied array for descriptor storage
-	/// * H: homography matrix for warped grid
 	#[inline]
 	fn get_unnormalized_descriptor_1(&self, y: f64, x: f64, orientation: i32, descriptor: &mut f32, h: &mut f64) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -1054,11 +748,6 @@ pub trait DAISYConst: crate::features2d::Feature2DTraitConst {
 pub trait DAISY: crate::features2d::Feature2DTrait + crate::xfeatures2d::DAISYConst {
 	fn as_raw_mut_DAISY(&mut self) -> *mut c_void;
 
-	/// This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
-	/// ## Parameters
-	/// * image: image to extract descriptors
-	/// * keypoints: of interest within image
-	/// * descriptors: resulted descriptors array
 	#[inline]
 	fn compute(&mut self, image: &dyn core::ToInputArray, keypoints: &mut core::Vector<core::KeyPoint>, descriptors: &mut dyn core::ToOutputArray) -> Result<()> {
 		input_array_arg!(image);
@@ -1081,11 +770,6 @@ pub trait DAISY: crate::features2d::Feature2DTrait + crate::xfeatures2d::DAISYCo
 		Ok(ret)
 	}
 	
-	/// This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
-	/// ## Parameters
-	/// * image: image to extract descriptors
-	/// * roi: region of interest within image
-	/// * descriptors: resulted descriptors array for roi image pixels
 	#[inline]
 	fn compute_2(&mut self, image: &dyn core::ToInputArray, roi: core::Rect, descriptors: &mut dyn core::ToOutputArray) -> Result<()> {
 		input_array_arg!(image);
@@ -1097,10 +781,6 @@ pub trait DAISY: crate::features2d::Feature2DTrait + crate::xfeatures2d::DAISYCo
 		Ok(ret)
 	}
 	
-	/// This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
-	/// ## Parameters
-	/// * image: image to extract descriptors
-	/// * descriptors: resulted descriptors array for all image pixels
 	#[inline]
 	fn compute_3(&mut self, image: &dyn core::ToInputArray, descriptors: &mut dyn core::ToOutputArray) -> Result<()> {
 		input_array_arg!(image);
@@ -1136,11 +816,9 @@ impl dyn DAISY + '_ {
 	}
 	
 }
-/// Elliptic region around an interest point.
 pub trait Elliptic_KeyPointTraitConst {
 	fn as_raw_Elliptic_KeyPoint(&self) -> *const c_void;
 
-	/// the lengths of the major and minor ellipse axes
 	#[inline]
 	fn axes(&self) -> core::Size_<f32> {
 		return_send!(via ocvrs_return);
@@ -1149,14 +827,12 @@ pub trait Elliptic_KeyPointTraitConst {
 		ret
 	}
 	
-	/// the integration scale at which the parameters were estimated
 	#[inline]
 	fn si(&self) -> f32 {
 		let ret = unsafe { sys::cv_xfeatures2d_Elliptic_KeyPoint_getPropSi_const(self.as_raw_Elliptic_KeyPoint()) };
 		ret
 	}
 	
-	/// the transformation between image space and local patch space
 	#[inline]
 	fn transf(&self) -> core::Matx23f {
 		return_send!(via ocvrs_return);
@@ -1170,21 +846,18 @@ pub trait Elliptic_KeyPointTraitConst {
 pub trait Elliptic_KeyPointTrait: crate::xfeatures2d::Elliptic_KeyPointTraitConst {
 	fn as_raw_mut_Elliptic_KeyPoint(&mut self) -> *mut c_void;
 
-	/// the lengths of the major and minor ellipse axes
 	#[inline]
 	fn set_axes(&mut self, val: core::Size_<f32>) {
 		let ret = unsafe { sys::cv_xfeatures2d_Elliptic_KeyPoint_setPropAxes_Size__float_(self.as_raw_mut_Elliptic_KeyPoint(), val.opencv_as_extern()) };
 		ret
 	}
 	
-	/// the integration scale at which the parameters were estimated
 	#[inline]
 	fn set_si(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_xfeatures2d_Elliptic_KeyPoint_setPropSi_float(self.as_raw_mut_Elliptic_KeyPoint(), val) };
 		ret
 	}
 	
-	/// the transformation between image space and local patch space
 	#[inline]
 	fn set_transf(&mut self, val: core::Matx23f) {
 		let ret = unsafe { sys::cv_xfeatures2d_Elliptic_KeyPoint_setPropTransf_Matx23f(self.as_raw_mut_Elliptic_KeyPoint(), val.opencv_as_extern()) };
@@ -1193,7 +866,6 @@ pub trait Elliptic_KeyPointTrait: crate::xfeatures2d::Elliptic_KeyPointTraitCons
 	
 }
 
-/// Elliptic region around an interest point.
 pub struct Elliptic_KeyPoint {
 	ptr: *mut c_void
 }
@@ -1240,18 +912,6 @@ impl Elliptic_KeyPoint {
 	
 }
 
-/// Class implementing the FREAK (*Fast Retina Keypoint*) keypoint descriptor, described in [AOV12](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_AOV12) .
-/// 
-/// The algorithm propose a novel keypoint descriptor inspired by the human visual system and more
-/// precisely the retina, coined Fast Retina Key- point (FREAK). A cascade of binary strings is
-/// computed by efficiently comparing image intensities over a retinal sampling pattern. FREAKs are in
-/// general faster to compute with lower memory load and also more robust than SIFT, SURF or BRISK.
-/// They are competitive alternatives to existing keypoints in particular for embedded applications.
-/// 
-/// 
-/// Note:
-///    *   An example on how to use the FREAK descriptor can be found at
-///        opencv_source_code/samples/cpp/freak_demo.cpp
 pub trait FREAKTraitConst: crate::features2d::Feature2DTraitConst {
 	fn as_raw_FREAK(&self) -> *const c_void;
 
@@ -1262,18 +922,6 @@ pub trait FREAKTrait: crate::features2d::Feature2DTrait + crate::xfeatures2d::FR
 
 }
 
-/// Class implementing the FREAK (*Fast Retina Keypoint*) keypoint descriptor, described in [AOV12](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_AOV12) .
-/// 
-/// The algorithm propose a novel keypoint descriptor inspired by the human visual system and more
-/// precisely the retina, coined Fast Retina Key- point (FREAK). A cascade of binary strings is
-/// computed by efficiently comparing image intensities over a retinal sampling pattern. FREAKs are in
-/// general faster to compute with lower memory load and also more robust than SIFT, SURF or BRISK.
-/// They are competitive alternatives to existing keypoints in particular for embedded applications.
-/// 
-/// 
-/// Note:
-///    *   An example on how to use the FREAK descriptor can be found at
-///        opencv_source_code/samples/cpp/freak_demo.cpp
 pub struct FREAK {
 	ptr: *mut c_void
 }
@@ -1317,13 +965,6 @@ impl FREAK {
 	pub const NB_SCALES: i32 = 64;
 	pub const NB_PAIRS: i32 = 512;
 	pub const NB_ORIENPAIRS: i32 = 45;
-	/// ## Parameters
-	/// * orientationNormalized: Enable orientation normalization.
-	/// * scaleNormalized: Enable scale normalization.
-	/// * patternScale: Scaling of the description pattern.
-	/// * nOctaves: Number of octaves covered by the detected keypoints.
-	/// * selectedPairs: (Optional) user defined selected pairs indexes,
-	/// 
 	/// ## C++ default parameters
 	/// * orientation_normalized: true
 	/// * scale_normalized: true
@@ -1346,7 +987,6 @@ boxed_cast_base! { FREAK, core::Algorithm, cv_FREAK_to_Algorithm }
 
 boxed_cast_base! { FREAK, crate::features2d::Feature2D, cv_FREAK_to_Feature2D }
 
-/// Class implementing the Harris-Laplace feature detector as described in [Mikolajczyk2004](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Mikolajczyk2004).
 pub trait HarrisLaplaceFeatureDetectorTraitConst: crate::features2d::Feature2DTraitConst {
 	fn as_raw_HarrisLaplaceFeatureDetector(&self) -> *const c_void;
 
@@ -1357,7 +997,6 @@ pub trait HarrisLaplaceFeatureDetectorTrait: crate::features2d::Feature2DTrait +
 
 }
 
-/// Class implementing the Harris-Laplace feature detector as described in [Mikolajczyk2004](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Mikolajczyk2004).
 pub struct HarrisLaplaceFeatureDetector {
 	ptr: *mut c_void
 }
@@ -1398,15 +1037,6 @@ impl crate::xfeatures2d::HarrisLaplaceFeatureDetectorTrait for HarrisLaplaceFeat
 }
 
 impl HarrisLaplaceFeatureDetector {
-	/// Creates a new implementation instance.
-	/// 
-	/// ## Parameters
-	/// * numOctaves: the number of octaves in the scale-space pyramid
-	/// * corn_thresh: the threshold for the Harris cornerness measure
-	/// * DOG_thresh: the threshold for the Difference-of-Gaussians scale selection
-	/// * maxCorners: the maximum number of corners to consider
-	/// * num_layers: the number of intermediate scales per octave
-	/// 
 	/// ## C++ default parameters
 	/// * num_octaves: 6
 	/// * corn_thresh: 0.01f
@@ -1429,22 +1059,6 @@ boxed_cast_base! { HarrisLaplaceFeatureDetector, core::Algorithm, cv_HarrisLapla
 
 boxed_cast_base! { HarrisLaplaceFeatureDetector, crate::features2d::Feature2D, cv_HarrisLaplaceFeatureDetector_to_Feature2D }
 
-/// latch Class for computing the LATCH descriptor.
-/// If you find this code useful, please add a reference to the following paper in your work:
-/// Gil Levi and Tal Hassner, "LATCH: Learned Arrangements of Three Patch Codes", arXiv preprint arXiv:1501.03719, 15 Jan. 2015
-/// 
-/// LATCH is a binary descriptor based on learned comparisons of triplets of image patches.
-/// 
-/// * bytes is the size of the descriptor - can be 64, 32, 16, 8, 4, 2 or 1
-/// * rotationInvariance - whether or not the descriptor should compansate for orientation changes.
-/// * half_ssd_size - the size of half of the mini-patches size. For example, if we would like to compare triplets of patches of size 7x7x
-///    then the half_ssd_size should be (7-1)/2 = 3.
-/// * sigma - sigma value for GaussianBlur smoothing of the source image. Source image will be used without smoothing in case sigma value is 0.
-/// 
-/// Note: the descriptor can be coupled with any keypoint extractor. The only demand is that if you use set rotationInvariance = True then
-///    you will have to use an extractor which estimates the patch orientation (in degrees). Examples for such extractors are ORB and SIFT.
-/// 
-/// Note: a complete example can be found under /samples/cpp/tutorial_code/xfeatures2D/latch_match.cpp
 pub trait LATCHTraitConst: crate::features2d::Feature2DTraitConst {
 	fn as_raw_LATCH(&self) -> *const c_void;
 
@@ -1455,22 +1069,6 @@ pub trait LATCHTrait: crate::features2d::Feature2DTrait + crate::xfeatures2d::LA
 
 }
 
-/// latch Class for computing the LATCH descriptor.
-/// If you find this code useful, please add a reference to the following paper in your work:
-/// Gil Levi and Tal Hassner, "LATCH: Learned Arrangements of Three Patch Codes", arXiv preprint arXiv:1501.03719, 15 Jan. 2015
-/// 
-/// LATCH is a binary descriptor based on learned comparisons of triplets of image patches.
-/// 
-/// * bytes is the size of the descriptor - can be 64, 32, 16, 8, 4, 2 or 1
-/// * rotationInvariance - whether or not the descriptor should compansate for orientation changes.
-/// * half_ssd_size - the size of half of the mini-patches size. For example, if we would like to compare triplets of patches of size 7x7x
-///    then the half_ssd_size should be (7-1)/2 = 3.
-/// * sigma - sigma value for GaussianBlur smoothing of the source image. Source image will be used without smoothing in case sigma value is 0.
-/// 
-/// Note: the descriptor can be coupled with any keypoint extractor. The only demand is that if you use set rotationInvariance = True then
-///    you will have to use an extractor which estimates the patch orientation (in degrees). Examples for such extractors are ORB and SIFT.
-/// 
-/// Note: a complete example can be found under /samples/cpp/tutorial_code/xfeatures2D/latch_match.cpp
 pub struct LATCH {
 	ptr: *mut c_void
 }
@@ -1532,13 +1130,6 @@ boxed_cast_base! { LATCH, core::Algorithm, cv_LATCH_to_Algorithm }
 
 boxed_cast_base! { LATCH, crate::features2d::Feature2D, cv_LATCH_to_Feature2D }
 
-/// Class implementing the locally uniform comparison image descriptor, described in [LUCID](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_LUCID)
-/// 
-/// An image descriptor that can be computed very fast, while being
-/// about as robust as, for example, SURF or BRIEF.
-/// 
-/// 
-/// Note: It requires a color image as input.
 pub trait LUCIDTraitConst: crate::features2d::Feature2DTraitConst {
 	fn as_raw_LUCID(&self) -> *const c_void;
 
@@ -1549,13 +1140,6 @@ pub trait LUCIDTrait: crate::features2d::Feature2DTrait + crate::xfeatures2d::LU
 
 }
 
-/// Class implementing the locally uniform comparison image descriptor, described in [LUCID](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_LUCID)
-/// 
-/// An image descriptor that can be computed very fast, while being
-/// about as robust as, for example, SURF or BRIEF.
-/// 
-/// 
-/// Note: It requires a color image as input.
 pub struct LUCID {
 	ptr: *mut c_void
 }
@@ -1596,10 +1180,6 @@ impl crate::xfeatures2d::LUCIDTrait for LUCID {
 }
 
 impl LUCID {
-	/// ## Parameters
-	/// * lucid_kernel: kernel for descriptor construction, where 1=3x3, 2=5x5, 3=7x7 and so forth
-	/// * blur_kernel: kernel for blurring image prior to descriptor construction, where 1=3x3, 2=5x5, 3=7x7 and so forth
-	/// 
 	/// ## C++ default parameters
 	/// * lucid_kernel: 1
 	/// * blur_kernel: 2
@@ -1619,16 +1199,6 @@ boxed_cast_base! { LUCID, core::Algorithm, cv_LUCID_to_Algorithm }
 
 boxed_cast_base! { LUCID, crate::features2d::Feature2D, cv_LUCID_to_Feature2D }
 
-/// Class implementing the MSD (*Maximal Self-Dissimilarity*) keypoint detector, described in [Tombari14](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Tombari14).
-/// 
-/// The algorithm implements a novel interest point detector stemming from the intuition that image patches
-/// which are highly dissimilar over a relatively large extent of their surroundings hold the property of
-/// being repeatable and distinctive. This concept of "contextual self-dissimilarity" reverses the key
-/// paradigm of recent successful techniques such as the Local Self-Similarity descriptor and the Non-Local
-/// Means filter, which build upon the presence of similar - rather than dissimilar - patches. Moreover,
-/// it extends to contextual information the local self-dissimilarity notion embedded in established
-/// detectors of corner-like interest points, thereby achieving enhanced repeatability, distinctiveness and
-/// localization accuracy.
 pub trait MSDDetectorTraitConst: crate::features2d::Feature2DTraitConst {
 	fn as_raw_MSDDetector(&self) -> *const c_void;
 
@@ -1639,16 +1209,6 @@ pub trait MSDDetectorTrait: crate::features2d::Feature2DTrait + crate::xfeatures
 
 }
 
-/// Class implementing the MSD (*Maximal Self-Dissimilarity*) keypoint detector, described in [Tombari14](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Tombari14).
-/// 
-/// The algorithm implements a novel interest point detector stemming from the intuition that image patches
-/// which are highly dissimilar over a relatively large extent of their surroundings hold the property of
-/// being repeatable and distinctive. This concept of "contextual self-dissimilarity" reverses the key
-/// paradigm of recent successful techniques such as the Local Self-Similarity descriptor and the Non-Local
-/// Means filter, which build upon the presence of similar - rather than dissimilar - patches. Moreover,
-/// it extends to contextual information the local self-dissimilarity notion embedded in established
-/// detectors of corner-like interest points, thereby achieving enhanced repeatability, distinctiveness and
-/// localization accuracy.
 pub struct MSDDetector {
 	ptr: *mut c_void
 }
@@ -1715,25 +1275,9 @@ boxed_cast_base! { MSDDetector, core::Algorithm, cv_MSDDetector_to_Algorithm }
 
 boxed_cast_base! { MSDDetector, crate::features2d::Feature2D, cv_MSDDetector_to_Feature2D }
 
-/// Class implementing PCT (position-color-texture) signature extraction
-///       as described in [KrulisLS16](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_KrulisLS16).
-///       The algorithm is divided to a feature sampler and a clusterizer.
-///       Feature sampler produces samples at given set of coordinates.
-///       Clusterizer then produces clusters of these samples using k-means algorithm.
-///       Resulting set of clusters is the signature of the input image.
-/// 
-///       A signature is an array of SIGNATURE_DIMENSION-dimensional points.
-///       Used dimensions are:
-///       weight, x, y position; lab color, contrast, entropy.
-/// [KrulisLS16](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_KrulisLS16)
-/// [BeecksUS10](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_BeecksUS10)
 pub trait PCTSignaturesConst: core::AlgorithmTraitConst {
 	fn as_raw_PCTSignatures(&self) -> *const c_void;
 
-	/// Computes signature of given image.
-	/// ## Parameters
-	/// * image: Input image of CV_8U type.
-	/// * signature: Output computed signature.
 	#[inline]
 	fn compute_signature(&self, image: &dyn core::ToInputArray, signature: &mut dyn core::ToOutputArray) -> Result<()> {
 		input_array_arg!(image);
@@ -1745,10 +1289,6 @@ pub trait PCTSignaturesConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Computes signatures for multiple images in parallel.
-	/// ## Parameters
-	/// * images: Vector of input images of CV_8U type.
-	/// * signatures: Vector of computed signatures.
 	#[inline]
 	fn compute_signatures(&self, images: &core::Vector<core::Mat>, signatures: &mut core::Vector<core::Mat>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1758,7 +1298,6 @@ pub trait PCTSignaturesConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Number of initial samples taken from the image.
 	#[inline]
 	fn get_sample_count(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -1768,9 +1307,6 @@ pub trait PCTSignaturesConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Color resolution of the greyscale bitmap represented in allocated bits
-	///       (i.e., value 4 means that 16 shades of grey are used).
-	///       The greyscale bitmap is used for computing contrast and entropy values.
 	#[inline]
 	fn get_grayscale_bits(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -1780,9 +1316,6 @@ pub trait PCTSignaturesConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Size of the texture sampling window used to compute contrast and entropy
-	///       (center of the window is always in the pixel selected by x,y coordinates
-	///       of the corresponding feature sample).
 	#[inline]
 	fn get_window_radius(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -1792,8 +1325,6 @@ pub trait PCTSignaturesConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Weights (multiplicative constants) that linearly stretch individual axes of the feature space
-	///       (x,y = position; L,a,b = color in CIE Lab space; c = contrast. e = entropy)
 	#[inline]
 	fn get_weight_x(&self) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -1803,8 +1334,6 @@ pub trait PCTSignaturesConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Weights (multiplicative constants) that linearly stretch individual axes of the feature space
-	///       (x,y = position; L,a,b = color in CIE Lab space; c = contrast. e = entropy)
 	#[inline]
 	fn get_weight_y(&self) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -1814,8 +1343,6 @@ pub trait PCTSignaturesConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Weights (multiplicative constants) that linearly stretch individual axes of the feature space
-	///       (x,y = position; L,a,b = color in CIE Lab space; c = contrast. e = entropy)
 	#[inline]
 	fn get_weight_l(&self) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -1825,8 +1352,6 @@ pub trait PCTSignaturesConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Weights (multiplicative constants) that linearly stretch individual axes of the feature space
-	///       (x,y = position; L,a,b = color in CIE Lab space; c = contrast. e = entropy)
 	#[inline]
 	fn get_weight_a(&self) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -1836,8 +1361,6 @@ pub trait PCTSignaturesConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Weights (multiplicative constants) that linearly stretch individual axes of the feature space
-	///       (x,y = position; L,a,b = color in CIE Lab space; c = contrast. e = entropy)
 	#[inline]
 	fn get_weight_b(&self) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -1847,8 +1370,6 @@ pub trait PCTSignaturesConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Weights (multiplicative constants) that linearly stretch individual axes of the feature space
-	///       (x,y = position; L,a,b = color in CIE Lab space; c = contrast. e = entropy)
 	#[inline]
 	fn get_weight_contrast(&self) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -1858,8 +1379,6 @@ pub trait PCTSignaturesConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Weights (multiplicative constants) that linearly stretch individual axes of the feature space
-	///       (x,y = position; L,a,b = color in CIE Lab space; c = contrast. e = entropy)
 	#[inline]
 	fn get_weight_entropy(&self) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -1869,8 +1388,6 @@ pub trait PCTSignaturesConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Initial samples taken from the image.
-	///       These sampled features become the input for clustering.
 	#[inline]
 	fn get_sampling_points(&self) -> Result<core::Vector<core::Point2f>> {
 		return_send!(via ocvrs_return);
@@ -1881,9 +1398,6 @@ pub trait PCTSignaturesConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// ** clusterizer ***
-	/// 
-	/// * Initial seeds (initial number of clusters) for the k-means algorithm.
 	#[inline]
 	fn get_init_seed_indexes(&self) -> Result<core::Vector<i32>> {
 		return_send!(via ocvrs_return);
@@ -1894,7 +1408,6 @@ pub trait PCTSignaturesConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Number of initial seeds (initial number of clusters) for the k-means algorithm.
 	#[inline]
 	fn get_init_seed_count(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -1904,9 +1417,6 @@ pub trait PCTSignaturesConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Number of iterations of the k-means clustering.
-	///       We use fixed number of iterations, since the modified clustering is pruning clusters
-	///       (not iteratively refining k clusters).
 	#[inline]
 	fn get_iteration_count(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -1916,8 +1426,6 @@ pub trait PCTSignaturesConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Maximal number of generated clusters. If the number is exceeded,
-	///       the clusters are sorted by their weights and the smallest clusters are cropped.
 	#[inline]
 	fn get_max_clusters_count(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -1927,9 +1435,6 @@ pub trait PCTSignaturesConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// This parameter multiplied by the index of iteration gives lower limit for cluster size.
-	///       Clusters containing fewer points than specified by the limit have their centroid dismissed
-	///       and points are reassigned.
 	#[inline]
 	fn get_cluster_min_size(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -1939,9 +1444,6 @@ pub trait PCTSignaturesConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Threshold euclidean distance between two centroids.
-	///       If two cluster centers are closer than this distance,
-	///       one of the centroid is dismissed and points are reassigned.
 	#[inline]
 	fn get_joining_distance(&self) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -1951,7 +1453,6 @@ pub trait PCTSignaturesConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Remove centroids in k-means whose weight is lesser or equal to given threshold.
 	#[inline]
 	fn get_drop_threshold(&self) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -1961,7 +1462,6 @@ pub trait PCTSignaturesConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Distance function selector used for measuring distance between two points in k-means.
 	#[inline]
 	fn get_distance_function(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -1976,9 +1476,6 @@ pub trait PCTSignaturesConst: core::AlgorithmTraitConst {
 pub trait PCTSignatures: core::AlgorithmTrait + crate::xfeatures2d::PCTSignaturesConst {
 	fn as_raw_mut_PCTSignatures(&mut self) -> *mut c_void;
 
-	/// Color resolution of the greyscale bitmap represented in allocated bits
-	///       (i.e., value 4 means that 16 shades of grey are used).
-	///       The greyscale bitmap is used for computing contrast and entropy values.
 	#[inline]
 	fn set_grayscale_bits(&mut self, grayscale_bits: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1988,9 +1485,6 @@ pub trait PCTSignatures: core::AlgorithmTrait + crate::xfeatures2d::PCTSignature
 		Ok(ret)
 	}
 	
-	/// Size of the texture sampling window used to compute contrast and entropy
-	///       (center of the window is always in the pixel selected by x,y coordinates
-	///       of the corresponding feature sample).
 	#[inline]
 	fn set_window_radius(&mut self, radius: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2000,8 +1494,6 @@ pub trait PCTSignatures: core::AlgorithmTrait + crate::xfeatures2d::PCTSignature
 		Ok(ret)
 	}
 	
-	/// Weights (multiplicative constants) that linearly stretch individual axes of the feature space
-	///       (x,y = position; L,a,b = color in CIE Lab space; c = contrast. e = entropy)
 	#[inline]
 	fn set_weight_x(&mut self, weight: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2011,8 +1503,6 @@ pub trait PCTSignatures: core::AlgorithmTrait + crate::xfeatures2d::PCTSignature
 		Ok(ret)
 	}
 	
-	/// Weights (multiplicative constants) that linearly stretch individual axes of the feature space
-	///       (x,y = position; L,a,b = color in CIE Lab space; c = contrast. e = entropy)
 	#[inline]
 	fn set_weight_y(&mut self, weight: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2022,8 +1512,6 @@ pub trait PCTSignatures: core::AlgorithmTrait + crate::xfeatures2d::PCTSignature
 		Ok(ret)
 	}
 	
-	/// Weights (multiplicative constants) that linearly stretch individual axes of the feature space
-	///       (x,y = position; L,a,b = color in CIE Lab space; c = contrast. e = entropy)
 	#[inline]
 	fn set_weight_l(&mut self, weight: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2033,8 +1521,6 @@ pub trait PCTSignatures: core::AlgorithmTrait + crate::xfeatures2d::PCTSignature
 		Ok(ret)
 	}
 	
-	/// Weights (multiplicative constants) that linearly stretch individual axes of the feature space
-	///       (x,y = position; L,a,b = color in CIE Lab space; c = contrast. e = entropy)
 	#[inline]
 	fn set_weight_a(&mut self, weight: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2044,8 +1530,6 @@ pub trait PCTSignatures: core::AlgorithmTrait + crate::xfeatures2d::PCTSignature
 		Ok(ret)
 	}
 	
-	/// Weights (multiplicative constants) that linearly stretch individual axes of the feature space
-	///       (x,y = position; L,a,b = color in CIE Lab space; c = contrast. e = entropy)
 	#[inline]
 	fn set_weight_b(&mut self, weight: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2055,8 +1539,6 @@ pub trait PCTSignatures: core::AlgorithmTrait + crate::xfeatures2d::PCTSignature
 		Ok(ret)
 	}
 	
-	/// Weights (multiplicative constants) that linearly stretch individual axes of the feature space
-	///       (x,y = position; L,a,b = color in CIE Lab space; c = contrast. e = entropy)
 	#[inline]
 	fn set_weight_contrast(&mut self, weight: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2066,8 +1548,6 @@ pub trait PCTSignatures: core::AlgorithmTrait + crate::xfeatures2d::PCTSignature
 		Ok(ret)
 	}
 	
-	/// Weights (multiplicative constants) that linearly stretch individual axes of the feature space
-	///       (x,y = position; L,a,b = color in CIE Lab space; c = contrast. e = entropy)
 	#[inline]
 	fn set_weight_entropy(&mut self, weight: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2077,20 +1557,6 @@ pub trait PCTSignatures: core::AlgorithmTrait + crate::xfeatures2d::PCTSignature
 		Ok(ret)
 	}
 	
-	/// Weights (multiplicative constants) that linearly stretch individual axes of the feature space.
-	/// ## Parameters
-	/// * idx: ID of the weight
-	/// * value: Value of the weight
-	/// 
-	/// Note:
-	///       WEIGHT_IDX = 0;
-	///       X_IDX = 1;
-	///       Y_IDX = 2;
-	///       L_IDX = 3;
-	///       A_IDX = 4;
-	///       B_IDX = 5;
-	///       CONTRAST_IDX = 6;
-	///       ENTROPY_IDX = 7;
 	#[inline]
 	fn set_weight(&mut self, idx: i32, value: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2100,19 +1566,6 @@ pub trait PCTSignatures: core::AlgorithmTrait + crate::xfeatures2d::PCTSignature
 		Ok(ret)
 	}
 	
-	/// Weights (multiplicative constants) that linearly stretch individual axes of the feature space.
-	/// ## Parameters
-	/// * weights: Values of all weights.
-	/// 
-	/// Note:
-	///       WEIGHT_IDX = 0;
-	///       X_IDX = 1;
-	///       Y_IDX = 2;
-	///       L_IDX = 3;
-	///       A_IDX = 4;
-	///       B_IDX = 5;
-	///       CONTRAST_IDX = 6;
-	///       ENTROPY_IDX = 7;
 	#[inline]
 	fn set_weights(&mut self, weights: &core::Vector<f32>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2122,20 +1575,6 @@ pub trait PCTSignatures: core::AlgorithmTrait + crate::xfeatures2d::PCTSignature
 		Ok(ret)
 	}
 	
-	/// Translations of the individual axes of the feature space.
-	/// ## Parameters
-	/// * idx: ID of the translation
-	/// * value: Value of the translation
-	/// 
-	/// Note:
-	///       WEIGHT_IDX = 0;
-	///       X_IDX = 1;
-	///       Y_IDX = 2;
-	///       L_IDX = 3;
-	///       A_IDX = 4;
-	///       B_IDX = 5;
-	///       CONTRAST_IDX = 6;
-	///       ENTROPY_IDX = 7;
 	#[inline]
 	fn set_translation(&mut self, idx: i32, value: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2145,19 +1584,6 @@ pub trait PCTSignatures: core::AlgorithmTrait + crate::xfeatures2d::PCTSignature
 		Ok(ret)
 	}
 	
-	/// Translations of the individual axes of the feature space.
-	/// ## Parameters
-	/// * translations: Values of all translations.
-	/// 
-	/// Note:
-	///       WEIGHT_IDX = 0;
-	///       X_IDX = 1;
-	///       Y_IDX = 2;
-	///       L_IDX = 3;
-	///       A_IDX = 4;
-	///       B_IDX = 5;
-	///       CONTRAST_IDX = 6;
-	///       ENTROPY_IDX = 7;
 	#[inline]
 	fn set_translations(&mut self, translations: &core::Vector<f32>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2167,11 +1593,6 @@ pub trait PCTSignatures: core::AlgorithmTrait + crate::xfeatures2d::PCTSignature
 		Ok(ret)
 	}
 	
-	/// Sets sampling points used to sample the input image.
-	/// ## Parameters
-	/// * samplingPoints: Vector of sampling points in range [0..1)
-	/// 
-	/// Note: Number of sampling points must be greater or equal to clusterization seed count.
 	#[inline]
 	fn set_sampling_points(&mut self, mut sampling_points: core::Vector<core::Point2f>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2181,7 +1602,6 @@ pub trait PCTSignatures: core::AlgorithmTrait + crate::xfeatures2d::PCTSignature
 		Ok(ret)
 	}
 	
-	/// Initial seed indexes for the k-means algorithm.
 	#[inline]
 	fn set_init_seed_indexes(&mut self, mut init_seed_indexes: core::Vector<i32>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2191,9 +1611,6 @@ pub trait PCTSignatures: core::AlgorithmTrait + crate::xfeatures2d::PCTSignature
 		Ok(ret)
 	}
 	
-	/// Number of iterations of the k-means clustering.
-	///       We use fixed number of iterations, since the modified clustering is pruning clusters
-	///       (not iteratively refining k clusters).
 	#[inline]
 	fn set_iteration_count(&mut self, iteration_count: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2203,8 +1620,6 @@ pub trait PCTSignatures: core::AlgorithmTrait + crate::xfeatures2d::PCTSignature
 		Ok(ret)
 	}
 	
-	/// Maximal number of generated clusters. If the number is exceeded,
-	///       the clusters are sorted by their weights and the smallest clusters are cropped.
 	#[inline]
 	fn set_max_clusters_count(&mut self, max_clusters_count: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2214,9 +1629,6 @@ pub trait PCTSignatures: core::AlgorithmTrait + crate::xfeatures2d::PCTSignature
 		Ok(ret)
 	}
 	
-	/// This parameter multiplied by the index of iteration gives lower limit for cluster size.
-	///       Clusters containing fewer points than specified by the limit have their centroid dismissed
-	///       and points are reassigned.
 	#[inline]
 	fn set_cluster_min_size(&mut self, cluster_min_size: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2226,9 +1638,6 @@ pub trait PCTSignatures: core::AlgorithmTrait + crate::xfeatures2d::PCTSignature
 		Ok(ret)
 	}
 	
-	/// Threshold euclidean distance between two centroids.
-	///       If two cluster centers are closer than this distance,
-	///       one of the centroid is dismissed and points are reassigned.
 	#[inline]
 	fn set_joining_distance(&mut self, joining_distance: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2238,7 +1647,6 @@ pub trait PCTSignatures: core::AlgorithmTrait + crate::xfeatures2d::PCTSignature
 		Ok(ret)
 	}
 	
-	/// Remove centroids in k-means whose weight is lesser or equal to given threshold.
 	#[inline]
 	fn set_drop_threshold(&mut self, drop_threshold: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2248,8 +1656,6 @@ pub trait PCTSignatures: core::AlgorithmTrait + crate::xfeatures2d::PCTSignature
 		Ok(ret)
 	}
 	
-	/// Distance function selector used for measuring distance between two points in k-means.
-	///       Available: L0_25, L0_5, L1, L2, L2SQUARED, L5, L_INFINITY.
 	#[inline]
 	fn set_distance_function(&mut self, distance_function: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2262,17 +1668,6 @@ pub trait PCTSignatures: core::AlgorithmTrait + crate::xfeatures2d::PCTSignature
 }
 
 impl dyn PCTSignatures + '_ {
-	/// Creates PCTSignatures algorithm using sample and seed count.
-	///       It generates its own sets of sampling points and clusterization seed indexes.
-	/// ## Parameters
-	/// * initSampleCount: Number of points used for image sampling.
-	/// * initSeedCount: Number of initial clusterization seeds.
-	///       Must be lower or equal to initSampleCount
-	/// * pointDistribution: Distribution of generated points. Default: UNIFORM.
-	///       Available: UNIFORM, REGULAR, NORMAL.
-	/// ## Returns
-	/// Created algorithm.
-	/// 
 	/// ## C++ default parameters
 	/// * init_sample_count: 2000
 	/// * init_seed_count: 400
@@ -2287,15 +1682,6 @@ impl dyn PCTSignatures + '_ {
 		Ok(ret)
 	}
 	
-	/// Creates PCTSignatures algorithm using pre-generated sampling points
-	///       and number of clusterization seeds. It uses the provided
-	///       sampling points and generates its own clusterization seed indexes.
-	/// ## Parameters
-	/// * initSamplingPoints: Sampling points used in image sampling.
-	/// * initSeedCount: Number of initial clusterization seeds.
-	///       Must be lower or equal to initSamplingPoints.size().
-	/// ## Returns
-	/// Created algorithm.
 	#[inline]
 	pub fn create_1(init_sampling_points: &core::Vector<core::Point2f>, init_seed_count: i32) -> Result<core::Ptr<dyn crate::xfeatures2d::PCTSignatures>> {
 		return_send!(via ocvrs_return);
@@ -2306,14 +1692,6 @@ impl dyn PCTSignatures + '_ {
 		Ok(ret)
 	}
 	
-	/// Creates PCTSignatures algorithm using pre-generated sampling points
-	///       and clusterization seeds indexes.
-	/// ## Parameters
-	/// * initSamplingPoints: Sampling points used in image sampling.
-	/// * initClusterSeedIndexes: Indexes of initial clusterization seeds.
-	///       Its size must be lower or equal to initSamplingPoints.size().
-	/// ## Returns
-	/// Created algorithm.
 	#[inline]
 	pub fn create_2(init_sampling_points: &core::Vector<core::Point2f>, init_cluster_seed_indexes: &core::Vector<i32>) -> Result<core::Ptr<dyn crate::xfeatures2d::PCTSignatures>> {
 		return_send!(via ocvrs_return);
@@ -2324,18 +1702,6 @@ impl dyn PCTSignatures + '_ {
 		Ok(ret)
 	}
 	
-	/// Draws signature in the source image and outputs the result.
-	///       Signatures are visualized as a circle
-	///       with radius based on signature weight
-	///       and color based on signature color.
-	///       Contrast and entropy are not visualized.
-	/// ## Parameters
-	/// * source: Source image.
-	/// * signature: Image signature.
-	/// * result: Output result.
-	/// * radiusToShorterSideRatio: Determines maximal radius of signature in the output image.
-	/// * borderThickness: Border thickness of the visualized signature.
-	/// 
 	/// ## C++ default parameters
 	/// * radius_to_shorter_side_ratio: 1.0/8
 	/// * border_thickness: 1
@@ -2351,14 +1717,6 @@ impl dyn PCTSignatures + '_ {
 		Ok(ret)
 	}
 	
-	/// Generates initial sampling points according to selected point distribution.
-	/// ## Parameters
-	/// * initPoints: Output vector where the generated points will be saved.
-	/// * count: Number of points to generate.
-	/// * pointDistribution: Point distribution selector.
-	///       Available: UNIFORM, REGULAR, NORMAL.
-	/// 
-	/// Note: Generated coordinates are in range [0..1)
 	#[inline]
 	pub fn generate_init_points(init_points: &mut core::Vector<core::Point2f>, count: i32, point_distribution: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2369,20 +1727,9 @@ impl dyn PCTSignatures + '_ {
 	}
 	
 }
-/// Class implementing Signature Quadratic Form Distance (SQFD).
-/// ## See also
-/// Christian Beecks, Merih Seran Uysal, Thomas Seidl.
-///   Signature quadratic form distance.
-///   In Proceedings of the ACM International Conference on Image and Video Retrieval, pages 438-445.
-///   ACM, 2010.
-/// [BeecksUS10](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_BeecksUS10)
 pub trait PCTSignaturesSQFDConst: core::AlgorithmTraitConst {
 	fn as_raw_PCTSignaturesSQFD(&self) -> *const c_void;
 
-	/// Computes Signature Quadratic Form Distance of two signatures.
-	/// ## Parameters
-	/// * _signature0: The first signature.
-	/// * _signature1: The second signature.
 	#[inline]
 	fn compute_quadratic_form_distance(&self, _signature0: &dyn core::ToInputArray, _signature1: &dyn core::ToInputArray) -> Result<f32> {
 		input_array_arg!(_signature0);
@@ -2394,12 +1741,6 @@ pub trait PCTSignaturesSQFDConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Computes Signature Quadratic Form Distance between the reference signature
-	///       and each of the other image signatures.
-	/// ## Parameters
-	/// * sourceSignature: The signature to measure distance of other signatures from.
-	/// * imageSignatures: Vector of signatures to measure distance from the source signature.
-	/// * distances: Output vector of measured distances.
 	#[inline]
 	fn compute_quadratic_form_distances(&self, source_signature: &core::Mat, image_signatures: &core::Vector<core::Mat>, distances: &mut core::Vector<f32>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2417,15 +1758,6 @@ pub trait PCTSignaturesSQFD: core::AlgorithmTrait + crate::xfeatures2d::PCTSigna
 }
 
 impl dyn PCTSignaturesSQFD + '_ {
-	/// Creates the algorithm instance using selected distance function,
-	///       similarity function and similarity function parameter.
-	/// ## Parameters
-	/// * distanceFunction: Distance function selector. Default: L2
-	///       Available: L0_25, L0_5, L1, L2, L2SQUARED, L5, L_INFINITY
-	/// * similarityFunction: Similarity function selector. Default: HEURISTIC
-	///       Available: MINUS, GAUSSIAN, HEURISTIC
-	/// * similarityParameter: Parameter of the similarity function.
-	/// 
 	/// ## C++ default parameters
 	/// * distance_function: 3
 	/// * similarity_function: 2
@@ -2441,35 +1773,6 @@ impl dyn PCTSignaturesSQFD + '_ {
 	}
 	
 }
-/// Class for extracting Speeded Up Robust Features from an image [Bay06](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Bay06) .
-/// 
-/// The algorithm parameters:
-/// *   member int extended
-///    *   0 means that the basic descriptors (64 elements each) shall be computed
-///    *   1 means that the extended descriptors (128 elements each) shall be computed
-/// *   member int upright
-///    *   0 means that detector computes orientation of each feature.
-///    *   1 means that the orientation is not computed (which is much, much faster). For example,
-/// if you match images from a stereo pair, or do image stitching, the matched features
-/// likely have very similar angles, and you can speed up feature extraction by setting
-/// upright=1.
-/// *   member double hessianThreshold
-/// Threshold for the keypoint detector. Only features, whose hessian is larger than
-/// hessianThreshold are retained by the detector. Therefore, the larger the value, the less
-/// keypoints you will get. A good default value could be from 300 to 500, depending from the
-/// image contrast.
-/// *   member int nOctaves
-/// The number of a gaussian pyramid octaves that the detector uses. It is set to 4 by default.
-/// If you want to get very large features, use the larger value. If you want just small
-/// features, decrease it.
-/// *   member int nOctaveLayers
-/// The number of images within each octave of a gaussian pyramid. It is set to 2 by default.
-/// 
-/// Note:
-///    *   An example using the SURF feature detector can be found at
-///        opencv_source_code/samples/cpp/generic_descriptor_match.cpp
-///    *   Another example using the SURF feature detector, extractor and matcher can be found at
-///        opencv_source_code/samples/cpp/matcher_simple.cpp
 pub trait SURFConst: crate::features2d::Feature2DTraitConst {
 	fn as_raw_SURF(&self) -> *const c_void;
 
@@ -2571,15 +1874,6 @@ pub trait SURF: crate::features2d::Feature2DTrait + crate::xfeatures2d::SURFCons
 }
 
 impl dyn SURF + '_ {
-	/// ## Parameters
-	/// * hessianThreshold: Threshold for hessian keypoint detector used in SURF.
-	/// * nOctaves: Number of pyramid octaves the keypoint detector will use.
-	/// * nOctaveLayers: Number of octave layers within each octave.
-	/// * extended: Extended descriptor flag (true - use extended 128-element descriptors; false - use
-	/// 64-element descriptors).
-	/// * upright: Up-right or rotated features flag (true - do not compute orientation of features;
-	/// false - compute orientation).
-	/// 
 	/// ## C++ default parameters
 	/// * hessian_threshold: 100
 	/// * n_octaves: 4
@@ -2597,7 +1891,6 @@ impl dyn SURF + '_ {
 	}
 	
 }
-/// The class implements the keypoint detector introduced by [Agrawal08](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Agrawal08), synonym of StarDetector. :
 pub trait StarDetectorTraitConst: crate::features2d::Feature2DTraitConst {
 	fn as_raw_StarDetector(&self) -> *const c_void;
 
@@ -2608,7 +1901,6 @@ pub trait StarDetectorTrait: crate::features2d::Feature2DTrait + crate::xfeature
 
 }
 
-/// The class implements the keypoint detector introduced by [Agrawal08](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Agrawal08), synonym of StarDetector. :
 pub struct StarDetector {
 	ptr: *mut c_void
 }
@@ -2649,8 +1941,6 @@ impl crate::xfeatures2d::StarDetectorTrait for StarDetector {
 }
 
 impl StarDetector {
-	/// the full constructor
-	/// 
 	/// ## C++ default parameters
 	/// * max_size: 45
 	/// * response_threshold: 30
@@ -2673,22 +1963,6 @@ boxed_cast_base! { StarDetector, core::Algorithm, cv_StarDetector_to_Algorithm }
 
 boxed_cast_base! { StarDetector, crate::features2d::Feature2D, cv_StarDetector_to_Feature2D }
 
-/// Class implementing the Tree Based Morse Regions (TBMR) as described in
-/// [Najman2014](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Najman2014) extended with scaled extraction ability.
-/// 
-/// ## Parameters
-/// * min_area: prune areas smaller than minArea
-/// * max_area_relative: prune areas bigger than maxArea = max_area_relative *
-/// input_image_size
-/// * scale_factor: scale factor for scaled extraction.
-/// * n_scales: number of applications of the scale factor (octaves).
-/// 
-/// 
-/// Note: This algorithm is based on Component Tree (Min/Max) as well as MSER but
-/// uses a Morse-theory approach to extract features.
-/// 
-/// Features are ellipses (similar to MSER, however a MSER feature can never be a
-/// TBMR feature and vice versa).
 pub trait TBMRConst: crate::xfeatures2d::AffineFeature2DConst {
 	fn as_raw_TBMR(&self) -> *const c_void;
 
@@ -2788,22 +2062,6 @@ impl dyn TBMR + '_ {
 	}
 	
 }
-/// Class implementing VGG (Oxford Visual Geometry Group) descriptor trained end to end
-/// using "Descriptor Learning Using Convex Optimisation" (DLCO) aparatus described in [Simonyan14](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Simonyan14).
-/// 
-/// ## Parameters
-/// * desc: type of descriptor to use, VGG::VGG_120 is default (120 dimensions float)
-/// Available types are VGG::VGG_120, VGG::VGG_80, VGG::VGG_64, VGG::VGG_48
-/// * isigma: gaussian kernel value for image blur (default is 1.4f)
-/// * img_normalize: use image sample intensity normalization (enabled by default)
-/// * use_orientation: sample patterns using keypoints orientation, enabled by default
-/// * scale_factor: adjust the sampling window of detected keypoints to 64.0f (VGG sampling window)
-/// 6.25f is default and fits for KAZE, SURF detected keypoints window ratio
-/// 6.75f should be the scale for SIFT detected keypoints window ratio
-/// 5.00f should be the scale for AKAZE, MSD, AGAST, FAST, BRISK keypoints window ratio
-/// 0.75f should be the scale for ORB keypoints ratio
-/// 
-/// * dsc_normalize: clamp descriptors to 255 and convert to uchar CV_8UC1 (disabled by default)
 pub trait VGGConst: crate::features2d::Feature2DTraitConst {
 	fn as_raw_VGG(&self) -> *const c_void;
 

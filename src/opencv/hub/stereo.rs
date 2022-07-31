@@ -24,9 +24,6 @@ pub const CV_SPARSE_CENSUS: i32 = 1;
 pub const CV_SPECKLE_REMOVAL_ALGORITHM: i32 = 0;
 pub const CV_SPECKLE_REMOVAL_AVG_ALGORITHM: i32 = 1;
 pub const CV_STAR_KERNEL: i32 = 6;
-/// Two variations of census applied on input images
-/// Implementation of a census transform which is taking into account just the some pixels from the census kernel thus allowing for larger block sizes
-/// *
 #[inline]
 pub fn census_transform(image1: &core::Mat, image2: &core::Mat, kernel_size: i32, dist1: &mut core::Mat, dist2: &mut core::Mat, typ: i32) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -36,7 +33,6 @@ pub fn census_transform(image1: &core::Mat, image2: &core::Mat, kernel_size: i32
 	Ok(ret)
 }
 
-/// single image census transform
 #[inline]
 pub fn census_transform_1(image1: &core::Mat, kernel_size: i32, dist1: &mut core::Mat, typ: i32) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -46,10 +42,6 @@ pub fn census_transform_1(image1: &core::Mat, kernel_size: i32, dist1: &mut core
 	Ok(ret)
 }
 
-/// STANDARD_MCT - Modified census which is memorizing for each pixel 2 bits and includes a tolerance to the pixel comparison
-/// MCT_MEAN_VARIATION - Implementation of a modified census transform which is also taking into account the variation to the mean of the window not just the center pixel
-/// *
-/// 
 /// ## C++ default parameters
 /// * t: 0
 /// * integral_image1: Mat()
@@ -63,8 +55,6 @@ pub fn modified_census_transform(img1: &core::Mat, img2: &core::Mat, kernel_size
 	Ok(ret)
 }
 
-/// single version of modified census transform descriptor
-/// 
 /// ## C++ default parameters
 /// * t: 0
 /// * integral_image: Mat()
@@ -77,7 +67,6 @@ pub fn modified_census_transform_1(img1: &core::Mat, kernel_size: i32, dist: &mu
 	Ok(ret)
 }
 
-/// in a 9x9 kernel only certain positions are choosen
 #[inline]
 pub fn star_census_transform(img1: &core::Mat, img2: &core::Mat, kernel_size: i32, dist1: &mut core::Mat, dist2: &mut core::Mat) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -87,7 +76,6 @@ pub fn star_census_transform(img1: &core::Mat, img2: &core::Mat, kernel_size: i3
 	Ok(ret)
 }
 
-/// single image version of star kernel
 #[inline]
 pub fn star_census_transform_1(img1: &core::Mat, kernel_size: i32, dist: &mut core::Mat) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -97,9 +85,6 @@ pub fn star_census_transform_1(img1: &core::Mat, kernel_size: i32, dist: &mut co
 	Ok(ret)
 }
 
-/// The classical center symetric census
-/// A modified version of cs census which is comparing a pixel with its correspondent after the center
-/// *
 #[inline]
 pub fn symetric_census_transform(img1: &core::Mat, img2: &core::Mat, kernel_size: i32, dist1: &mut core::Mat, dist2: &mut core::Mat, typ: i32) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -109,7 +94,6 @@ pub fn symetric_census_transform(img1: &core::Mat, img2: &core::Mat, kernel_size
 	Ok(ret)
 }
 
-/// single version of census transform
 #[inline]
 pub fn symetric_census_transform_1(img1: &core::Mat, kernel_size: i32, dist1: &mut core::Mat, typ: i32) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -119,7 +103,6 @@ pub fn symetric_census_transform_1(img1: &core::Mat, kernel_size: i32, dist1: &m
 	Ok(ret)
 }
 
-/// \addtogroup stereo
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub struct MatchQuasiDense {
@@ -167,27 +150,6 @@ opencv_type_simple! { crate::stereo::PropagationParameters }
 impl PropagationParameters {
 }
 
-/// Class containing the methods needed for Quasi Dense Stereo computation.
-/// 
-/// This module contains the code to perform quasi dense stereo matching.
-/// The method initially starts with a sparse 3D reconstruction based on feature matching across a
-/// stereo image pair and subsequently propagates the structure into neighboring image regions.
-/// To obtain initial seed correspondences, the algorithm locates Shi and Tomashi features in the
-/// left image of the stereo pair and then tracks them using pyramidal Lucas-Kanade in the right image.
-/// To densify the sparse correspondences, the algorithm computes the zero-mean normalized
-/// cross-correlation (ZNCC) in small patches around every seed pair and uses it as a quality metric
-/// for each match. In this code, we introduce a custom structure to store the location and ZNCC value
-/// of correspondences called "Match". Seed Matches are stored in a priority queue sorted according to
-/// their ZNCC value, allowing for the best quality Match to be readily available. The algorithm pops
-/// Matches and uses them to extract new matches around them. This is done by considering a small
-/// neighboring area around each Seed and retrieving correspondences above a certain texture threshold
-/// that are not previously computed. New matches are stored in the seed priority queue and used as seeds.
-/// The propagation process ends when no additional matches can be retrieved.
-/// ## See also
-/// This code represents the work presented in [Stoyanov2010](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Stoyanov2010).
-/// If this code is useful for your work please cite [Stoyanov2010](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Stoyanov2010).
-/// 
-/// Also the original growing scheme idea is described in [Lhuillier2000](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Lhuillier2000)
 pub trait QuasiDenseStereoConst {
 	fn as_raw_QuasiDenseStereo(&self) -> *const c_void;
 
@@ -210,22 +172,6 @@ pub trait QuasiDenseStereo: crate::stereo::QuasiDenseStereoConst {
 		ret
 	}
 	
-	/// Load a file containing the configuration parameters of the class.
-	/// ## Parameters
-	/// * filepath: The location of the .YAML file containing the configuration parameters.
-	/// 
-	/// Note: default value is an empty string in which case the default parameters will be loaded.
-	/// @retval 1: If the path is not empty and the program loaded the parameters successfully.
-	/// @retval 0: If the path is empty and the program loaded default parameters.
-	/// @retval -1: If the file location is not valid or the program could not open the file and
-	/// loaded default parameters from defaults.hpp.
-	/// 
-	/// Note: The method is automatically called in the constructor and configures the class.
-	/// 
-	/// Note: Loading different parameters will have an effect on the output. This is useful for tuning
-	/// in case of video processing.
-	/// ## See also
-	/// loadParameters
 	#[inline]
 	fn load_parameters(&mut self, filepath: &str) -> Result<i32> {
 		extern_container_arg!(mut filepath);
@@ -236,16 +182,6 @@ pub trait QuasiDenseStereo: crate::stereo::QuasiDenseStereoConst {
 		Ok(ret)
 	}
 	
-	/// Save a file containing all the configuration parameters the class is currently set to.
-	/// ## Parameters
-	/// * filepath: The location to store the parameters file.
-	/// 
-	/// Note: Calling this method with no arguments will result in storing class parameters to a file
-	/// names "qds_parameters.yaml" in the root project folder.
-	/// 
-	/// Note: This method can be used to generate a template file for tuning the class.
-	/// ## See also
-	/// loadParameters
 	#[inline]
 	fn save_parameters(&mut self, filepath: &str) -> Result<i32> {
 		extern_container_arg!(mut filepath);
@@ -256,13 +192,6 @@ pub trait QuasiDenseStereo: crate::stereo::QuasiDenseStereoConst {
 		Ok(ret)
 	}
 	
-	/// Get The sparse corresponding points.
-	/// ## Parameters
-	/// * sMatches:[out] A vector containing all sparse correspondences.
-	/// 
-	/// Note: The method clears the sMatches vector.
-	/// 
-	/// Note: The returned Match elements inside the sMatches vector, do not use corr member.
 	#[inline]
 	fn get_sparse_matches(&mut self, s_matches: &mut core::Vector<crate::stereo::MatchQuasiDense>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -272,13 +201,6 @@ pub trait QuasiDenseStereo: crate::stereo::QuasiDenseStereoConst {
 		Ok(ret)
 	}
 	
-	/// Get The dense corresponding points.
-	/// ## Parameters
-	/// * denseMatches:[out] A vector containing all dense matches.
-	/// 
-	/// Note: The method clears the denseMatches vector.
-	/// 
-	/// Note: The returned Match elements inside the sMatches vector, do not use corr member.
 	#[inline]
 	fn get_dense_matches(&mut self, dense_matches: &mut core::Vector<crate::stereo::MatchQuasiDense>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -288,19 +210,6 @@ pub trait QuasiDenseStereo: crate::stereo::QuasiDenseStereoConst {
 		Ok(ret)
 	}
 	
-	/// Main process of the algorithm. This method computes the sparse seeds and then densifies them.
-	/// 
-	/// Initially input images are converted to gray-scale and then the sparseMatching method
-	/// is called to obtain the sparse stereo. Finally quasiDenseMatching is called to densify the corresponding
-	/// points.
-	/// ## Parameters
-	/// * imgLeft: The left Channel of a stereo image pair.
-	/// * imgRight: The right Channel of a stereo image pair.
-	/// 
-	/// Note: If input images are in color, the method assumes that are BGR and converts them to grayscale.
-	/// ## See also
-	/// sparseMatching
-	/// quasiDenseMatching
 	#[inline]
 	fn process(&mut self, img_left: &core::Mat, img_right: &core::Mat) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -310,14 +219,6 @@ pub trait QuasiDenseStereo: crate::stereo::QuasiDenseStereoConst {
 		Ok(ret)
 	}
 	
-	/// Specify pixel coordinates in the left image and get its corresponding location in the right image.
-	/// ## Parameters
-	/// * x: The x pixel coordinate in the left image channel.
-	/// * y: The y pixel coordinate in the left image channel.
-	/// @retval cv::Point(x, y) The location of the corresponding pixel in the right image.
-	/// @retval cv::Point(0, 0) (NO_MATCH)  if no match is found in the right image for the specified pixel location in the left image.
-	/// 
-	/// Note: This method should be always called after process, otherwise the matches will not be correct.
 	#[inline]
 	fn get_match(&mut self, x: i32, y: i32) -> Result<core::Point2f> {
 		return_send!(via ocvrs_return);
@@ -327,14 +228,6 @@ pub trait QuasiDenseStereo: crate::stereo::QuasiDenseStereoConst {
 		Ok(ret)
 	}
 	
-	/// Compute and return the disparity map based on the correspondences found in the "process" method.
-	/// 
-	/// Note: Default level is 50
-	/// ## Returns
-	/// cv::Mat containing a the disparity image in grayscale.
-	/// ## See also
-	/// computeDisparity
-	/// quantizeDisparity
 	#[inline]
 	fn get_disparity(&mut self) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);

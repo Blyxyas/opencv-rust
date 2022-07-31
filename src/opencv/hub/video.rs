@@ -26,25 +26,6 @@ pub const MOTION_TRANSLATION: i32 = 0;
 pub const OPTFLOW_FARNEBACK_GAUSSIAN: i32 = 256;
 pub const OPTFLOW_LK_GET_MIN_EIGENVALS: i32 = 8;
 pub const OPTFLOW_USE_INITIAL_FLOW: i32 = 4;
-/// Finds an object center, size, and orientation.
-/// 
-/// ## Parameters
-/// * probImage: Back projection of the object histogram. See calcBackProject.
-/// * window: Initial search window.
-/// * criteria: Stop criteria for the underlying meanShift.
-/// returns
-/// (in old interfaces) Number of iterations CAMSHIFT took to converge
-/// The function implements the CAMSHIFT object tracking algorithm [Bradski98](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Bradski98) . First, it finds an
-/// object center using meanShift and then adjusts the window size and finds the optimal rotation. The
-/// function returns the rotated rectangle structure that includes the object position, size, and
-/// orientation. The next position of the search window can be obtained with RotatedRect::boundingRect()
-/// 
-/// See the OpenCV sample camshiftdemo.c that tracks colored objects.
-/// 
-/// 
-/// Note:
-/// *   (Python) A sample explaining the camshift tracking algorithm can be found at
-///    opencv_source_code/samples/python/camshift.py
 #[inline]
 pub fn cam_shift(prob_image: &dyn core::ToInputArray, window: &mut core::Rect, criteria: core::TermCriteria) -> Result<core::RotatedRect> {
 	input_array_arg!(prob_image);
@@ -56,23 +37,6 @@ pub fn cam_shift(prob_image: &dyn core::ToInputArray, window: &mut core::Rect, c
 	Ok(ret)
 }
 
-/// Constructs the image pyramid which can be passed to calcOpticalFlowPyrLK.
-/// 
-/// ## Parameters
-/// * img: 8-bit input image.
-/// * pyramid: output pyramid.
-/// * winSize: window size of optical flow algorithm. Must be not less than winSize argument of
-/// calcOpticalFlowPyrLK. It is needed to calculate required padding for pyramid levels.
-/// * maxLevel: 0-based maximal pyramid level number.
-/// * withDerivatives: set to precompute gradients for the every pyramid level. If pyramid is
-/// constructed without the gradients then calcOpticalFlowPyrLK will calculate them internally.
-/// * pyrBorder: the border mode for pyramid layers.
-/// * derivBorder: the border mode for gradients.
-/// * tryReuseInputImage: put ROI of input image into the pyramid if possible. You can pass false
-/// to force data copying.
-/// ## Returns
-/// number of levels in constructed pyramid. Can be less than maxLevel.
-/// 
 /// ## C++ default parameters
 /// * with_derivatives: true
 /// * pyr_border: BORDER_REFLECT_101
@@ -89,45 +53,6 @@ pub fn build_optical_flow_pyramid(img: &dyn core::ToInputArray, pyramid: &mut dy
 	Ok(ret)
 }
 
-/// Computes a dense optical flow using the Gunnar Farneback's algorithm.
-/// 
-/// ## Parameters
-/// * prev: first 8-bit single-channel input image.
-/// * next: second input image of the same size and the same type as prev.
-/// * flow: computed flow image that has the same size as prev and type CV_32FC2.
-/// * pyr_scale: parameter, specifying the image scale (\<1) to build pyramids for each image;
-/// pyr_scale=0.5 means a classical pyramid, where each next layer is twice smaller than the previous
-/// one.
-/// * levels: number of pyramid layers including the initial image; levels=1 means that no extra
-/// layers are created and only the original images are used.
-/// * winsize: averaging window size; larger values increase the algorithm robustness to image
-/// noise and give more chances for fast motion detection, but yield more blurred motion field.
-/// * iterations: number of iterations the algorithm does at each pyramid level.
-/// * poly_n: size of the pixel neighborhood used to find polynomial expansion in each pixel;
-/// larger values mean that the image will be approximated with smoother surfaces, yielding more
-/// robust algorithm and more blurred motion field, typically poly_n =5 or 7.
-/// * poly_sigma: standard deviation of the Gaussian that is used to smooth derivatives used as a
-/// basis for the polynomial expansion; for poly_n=5, you can set poly_sigma=1.1, for poly_n=7, a
-/// good value would be poly_sigma=1.5.
-/// * flags: operation flags that can be a combination of the following:
-///  *   **OPTFLOW_USE_INITIAL_FLOW** uses the input flow as an initial flow approximation.
-///  *   **OPTFLOW_FARNEBACK_GAUSSIAN** uses the Gaussian ![inline formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bwinsize%7D%5Ctimes%5Ctexttt%7Bwinsize%7D)
-///      filter instead of a box filter of the same size for optical flow estimation; usually, this
-///      option gives z more accurate flow than with a box filter, at the cost of lower speed;
-///      normally, winsize for a Gaussian window should be set to a larger value to achieve the same
-///      level of robustness.
-/// 
-/// The function finds an optical flow for each prev pixel using the [Farneback2003](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Farneback2003) algorithm so that
-/// 
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7Bprev%7D%20%28y%2Cx%29%20%20%5Csim%20%5Ctexttt%7Bnext%7D%20%28%20y%20%2B%20%5Ctexttt%7Bflow%7D%20%28y%2Cx%29%5B1%5D%2C%20%20x%20%2B%20%5Ctexttt%7Bflow%7D%20%28y%2Cx%29%5B0%5D%29)
-/// 
-/// 
-/// Note:
-/// 
-/// *   An example using the optical flow algorithm described by Gunnar Farneback can be found at
-///    opencv_source_code/samples/cpp/fback.cpp
-/// *   (Python) An example using the optical flow algorithm described by Gunnar Farneback can be
-///    found at opencv_source_code/samples/python/opt_flow.py
 #[inline]
 pub fn calc_optical_flow_farneback(prev: &dyn core::ToInputArray, next: &dyn core::ToInputArray, flow: &mut dyn core::ToInputOutputArray, pyr_scale: f64, levels: i32, winsize: i32, iterations: i32, poly_n: i32, poly_sigma: f64, flags: i32) -> Result<()> {
 	input_array_arg!(prev);
@@ -140,55 +65,6 @@ pub fn calc_optical_flow_farneback(prev: &dyn core::ToInputArray, next: &dyn cor
 	Ok(ret)
 }
 
-/// Calculates an optical flow for a sparse feature set using the iterative Lucas-Kanade method with
-/// pyramids.
-/// 
-/// ## Parameters
-/// * prevImg: first 8-bit input image or pyramid constructed by buildOpticalFlowPyramid.
-/// * nextImg: second input image or pyramid of the same size and the same type as prevImg.
-/// * prevPts: vector of 2D points for which the flow needs to be found; point coordinates must be
-/// single-precision floating-point numbers.
-/// * nextPts: output vector of 2D points (with single-precision floating-point coordinates)
-/// containing the calculated new positions of input features in the second image; when
-/// OPTFLOW_USE_INITIAL_FLOW flag is passed, the vector must have the same size as in the input.
-/// * status: output status vector (of unsigned chars); each element of the vector is set to 1 if
-/// the flow for the corresponding features has been found, otherwise, it is set to 0.
-/// * err: output vector of errors; each element of the vector is set to an error for the
-/// corresponding feature, type of the error measure can be set in flags parameter; if the flow wasn't
-/// found then the error is not defined (use the status parameter to find such cases).
-/// * winSize: size of the search window at each pyramid level.
-/// * maxLevel: 0-based maximal pyramid level number; if set to 0, pyramids are not used (single
-/// level), if set to 1, two levels are used, and so on; if pyramids are passed to input then
-/// algorithm will use as many levels as pyramids have but no more than maxLevel.
-/// * criteria: parameter, specifying the termination criteria of the iterative search algorithm
-/// (after the specified maximum number of iterations criteria.maxCount or when the search window
-/// moves by less than criteria.epsilon.
-/// * flags: operation flags:
-///  *   **OPTFLOW_USE_INITIAL_FLOW** uses initial estimations, stored in nextPts; if the flag is
-///      not set, then prevPts is copied to nextPts and is considered the initial estimate.
-///  *   **OPTFLOW_LK_GET_MIN_EIGENVALS** use minimum eigen values as an error measure (see
-///      minEigThreshold description); if the flag is not set, then L1 distance between patches
-///      around the original and a moved point, divided by number of pixels in a window, is used as a
-///      error measure.
-/// * minEigThreshold: the algorithm calculates the minimum eigen value of a 2x2 normal matrix of
-/// optical flow equations (this matrix is called a spatial gradient matrix in [Bouguet00](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Bouguet00)), divided
-/// by number of pixels in a window; if this value is less than minEigThreshold, then a corresponding
-/// feature is filtered out and its flow is not processed, so it allows to remove bad points and get a
-/// performance boost.
-/// 
-/// The function implements a sparse iterative version of the Lucas-Kanade optical flow in pyramids. See
-/// [Bouguet00](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Bouguet00) . The function is parallelized with the TBB library.
-/// 
-/// 
-/// Note:
-/// 
-/// *   An example using the Lucas-Kanade optical flow algorithm can be found at
-///    opencv_source_code/samples/cpp/lkdemo.cpp
-/// *   (Python) An example using the Lucas-Kanade optical flow algorithm can be found at
-///    opencv_source_code/samples/python/lk_track.py
-/// *   (Python) An example using the Lucas-Kanade tracker for homography matching can be found at
-///    opencv_source_code/samples/python/lk_homography.py
-/// 
 /// ## C++ default parameters
 /// * win_size: Size(21,21)
 /// * max_level: 3
@@ -210,16 +86,6 @@ pub fn calc_optical_flow_pyr_lk(prev_img: &dyn core::ToInputArray, next_img: &dy
 	Ok(ret)
 }
 
-/// Computes the Enhanced Correlation Coefficient value between two images [EP08](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_EP08) .
-/// 
-/// ## Parameters
-/// * templateImage: single-channel template image; CV_8U or CV_32F array.
-/// * inputImage: single-channel input image to be warped to provide an image similar to
-///  templateImage, same type as templateImage.
-/// * inputMask: An optional mask to indicate valid values of inputImage.
-/// ## See also
-/// findTransformECC
-/// 
 /// ## C++ default parameters
 /// * input_mask: noArray()
 #[inline]
@@ -234,15 +100,6 @@ pub fn compute_ecc(template_image: &dyn core::ToInputArray, input_image: &dyn co
 	Ok(ret)
 }
 
-/// Creates KNN Background Subtractor
-/// 
-/// ## Parameters
-/// * history: Length of the history.
-/// * dist2Threshold: Threshold on the squared distance between the pixel and the sample to decide
-/// whether a pixel is close to that sample. This parameter does not affect the background update.
-/// * detectShadows: If true, the algorithm will detect shadows and mark them. It decreases the
-/// speed a bit, so if you do not need this feature, set the parameter to false.
-/// 
 /// ## C++ default parameters
 /// * history: 500
 /// * dist2_threshold: 400.0
@@ -257,16 +114,6 @@ pub fn create_background_subtractor_knn(history: i32, dist2_threshold: f64, dete
 	Ok(ret)
 }
 
-/// Creates MOG2 Background Subtractor
-/// 
-/// ## Parameters
-/// * history: Length of the history.
-/// * varThreshold: Threshold on the squared Mahalanobis distance between the pixel and the model
-/// to decide whether a pixel is well described by the background model. This parameter does not
-/// affect the background update.
-/// * detectShadows: If true, the algorithm will detect shadows and mark them. It decreases the
-/// speed a bit, so if you do not need this feature, set the parameter to false.
-/// 
 /// ## C++ default parameters
 /// * history: 500
 /// * var_threshold: 16
@@ -281,37 +128,6 @@ pub fn create_background_subtractor_mog2(history: i32, var_threshold: f64, detec
 	Ok(ret)
 }
 
-/// Computes an optimal affine transformation between two 2D point sets.
-/// 
-/// ## Parameters
-/// * src: First input 2D point set stored in std::vector or Mat, or an image stored in Mat.
-/// * dst: Second input 2D point set of the same size and the same type as A, or another image.
-/// * fullAffine: If true, the function finds an optimal affine transformation with no additional
-/// restrictions (6 degrees of freedom). Otherwise, the class of transformations to choose from is
-/// limited to combinations of translation, rotation, and uniform scaling (4 degrees of freedom).
-/// 
-/// The function finds an optimal affine transform *[A|b]* (a 2 x 3 floating-point matrix) that
-/// approximates best the affine transformation between:
-/// 
-/// *   Two point sets
-/// *   Two raster images. In this case, the function first finds some features in the src image and
-///    finds the corresponding features in dst image. After that, the problem is reduced to the first
-///    case.
-/// In case of point sets, the problem is formulated as follows: you need to find a 2x2 matrix *A* and
-/// 2x1 vector *b* so that:
-/// 
-/// ![block formula](https://latex.codecogs.com/png.latex?%5BA%5E%2A%7Cb%5E%2A%5D%20%3D%20arg%20%20%5Cmin%20%5F%7B%5BA%7Cb%5D%7D%20%20%5Csum%20%5Fi%20%20%5C%7C%20%5Ctexttt%7Bdst%7D%5Bi%5D%20%2D%20A%20%7B%20%5Ctexttt%7Bsrc%7D%5Bi%5D%7D%5ET%20%2D%20b%20%20%5C%7C%20%5E2)
-/// where src[i] and dst[i] are the i-th points in src and dst, respectively
-/// ![inline formula](https://latex.codecogs.com/png.latex?%5BA%7Cb%5D) can be either arbitrary (when fullAffine=true ) or have a form of
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Cbegin%7Bbmatrix%7D%20a%5F%7B11%7D%20%26%20a%5F%7B12%7D%20%26%20b%5F1%20%20%5C%5C%20%2Da%5F%7B12%7D%20%26%20a%5F%7B11%7D%20%26%20b%5F2%20%20%5Cend%7Bbmatrix%7D)
-/// when fullAffine=false.
-/// 
-/// 
-/// **Deprecated**: Use cv::estimateAffine2D, cv::estimateAffinePartial2D instead. If you are using this function
-/// with images, extract points using cv::calcOpticalFlowPyrLK and then use the estimation functions.
-/// ## See also
-/// estimateAffine2D, estimateAffinePartial2D, getAffineTransform, getPerspectiveTransform, findHomography
-#[deprecated = "Use cv::estimateAffine2D, cv::estimateAffinePartial2D instead. If you are using this function"]
 #[inline]
 pub fn estimate_rigid_transform(src: &dyn core::ToInputArray, dst: &dyn core::ToInputArray, full_affine: bool) -> Result<core::Mat> {
 	input_array_arg!(src);
@@ -324,59 +140,6 @@ pub fn estimate_rigid_transform(src: &dyn core::ToInputArray, dst: &dyn core::To
 	Ok(ret)
 }
 
-/// Finds the geometric transform (warp) between two images in terms of the ECC criterion [EP08](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_EP08) .
-/// 
-/// ## Parameters
-/// * templateImage: single-channel template image; CV_8U or CV_32F array.
-/// * inputImage: single-channel input image which should be warped with the final warpMatrix in
-/// order to provide an image similar to templateImage, same type as templateImage.
-/// * warpMatrix: floating-point ![inline formula](https://latex.codecogs.com/png.latex?2%5Ctimes%203) or ![inline formula](https://latex.codecogs.com/png.latex?3%5Ctimes%203) mapping matrix (warp).
-/// * motionType: parameter, specifying the type of motion:
-///  *   **MOTION_TRANSLATION** sets a translational motion model; warpMatrix is ![inline formula](https://latex.codecogs.com/png.latex?2%5Ctimes%203) with
-///      the first ![inline formula](https://latex.codecogs.com/png.latex?2%5Ctimes%202) part being the unity matrix and the rest two parameters being
-///      estimated.
-///  *   **MOTION_EUCLIDEAN** sets a Euclidean (rigid) transformation as motion model; three
-///      parameters are estimated; warpMatrix is ![inline formula](https://latex.codecogs.com/png.latex?2%5Ctimes%203).
-///  *   **MOTION_AFFINE** sets an affine motion model (DEFAULT); six parameters are estimated;
-///      warpMatrix is ![inline formula](https://latex.codecogs.com/png.latex?2%5Ctimes%203).
-///  *   **MOTION_HOMOGRAPHY** sets a homography as a motion model; eight parameters are
-///      estimated;\`warpMatrix\` is ![inline formula](https://latex.codecogs.com/png.latex?3%5Ctimes%203).
-/// * criteria: parameter, specifying the termination criteria of the ECC algorithm;
-/// criteria.epsilon defines the threshold of the increment in the correlation coefficient between two
-/// iterations (a negative criteria.epsilon makes criteria.maxcount the only termination criterion).
-/// Default values are shown in the declaration above.
-/// * inputMask: An optional mask to indicate valid values of inputImage.
-/// * gaussFiltSize: An optional value indicating size of gaussian blur filter; (DEFAULT: 5)
-/// 
-/// The function estimates the optimum transformation (warpMatrix) with respect to ECC criterion
-/// ([EP08](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_EP08)), that is
-/// 
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7BwarpMatrix%7D%20%3D%20%5Carg%5Cmax%5F%7BW%7D%20%5Ctexttt%7BECC%7D%28%5Ctexttt%7BtemplateImage%7D%28x%2Cy%29%2C%5Ctexttt%7BinputImage%7D%28x%27%2Cy%27%29%29)
-/// 
-/// where
-/// 
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Cbegin%7Bbmatrix%7D%20x%27%20%5C%5C%20y%27%20%5Cend%7Bbmatrix%7D%20%3D%20W%20%5Ccdot%20%5Cbegin%7Bbmatrix%7D%20x%20%5C%5C%20y%20%5C%5C%201%20%5Cend%7Bbmatrix%7D)
-/// 
-/// (the equation holds with homogeneous coordinates for homography). It returns the final enhanced
-/// correlation coefficient, that is the correlation coefficient between the template image and the
-/// final warped input image. When a ![inline formula](https://latex.codecogs.com/png.latex?3%5Ctimes%203) matrix is given with motionType =0, 1 or 2, the third
-/// row is ignored.
-/// 
-/// Unlike findHomography and estimateRigidTransform, the function findTransformECC implements an
-/// area-based alignment that builds on intensity similarities. In essence, the function updates the
-/// initial transformation that roughly aligns the images. If this information is missing, the identity
-/// warp (unity matrix) is used as an initialization. Note that if images undergo strong
-/// displacements/rotations, an initial transformation that roughly aligns the images is necessary
-/// (e.g., a simple euclidean/similarity transform that allows for the images showing the same image
-/// content approximately). Use inverse warping in the second image to take an image close to the first
-/// one, i.e. use the flag WARP_INVERSE_MAP with warpAffine or warpPerspective. See also the OpenCV
-/// sample image_alignment.cpp that demonstrates the use of the function. Note that the function throws
-/// an exception if algorithm does not converges.
-/// ## See also
-/// computeECC, estimateAffine2D, estimateAffinePartial2D, findHomography
-/// 
-/// ## Overloaded parameters
-/// 
 /// ## C++ default parameters
 /// * motion_type: MOTION_AFFINE
 /// * criteria: TermCriteria(TermCriteria::COUNT+TermCriteria::EPS,50,0.001)
@@ -394,56 +157,6 @@ pub fn find_transform_ecc_1(template_image: &dyn core::ToInputArray, input_image
 	Ok(ret)
 }
 
-/// Finds the geometric transform (warp) between two images in terms of the ECC criterion [EP08](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_EP08) .
-/// 
-/// ## Parameters
-/// * templateImage: single-channel template image; CV_8U or CV_32F array.
-/// * inputImage: single-channel input image which should be warped with the final warpMatrix in
-/// order to provide an image similar to templateImage, same type as templateImage.
-/// * warpMatrix: floating-point ![inline formula](https://latex.codecogs.com/png.latex?2%5Ctimes%203) or ![inline formula](https://latex.codecogs.com/png.latex?3%5Ctimes%203) mapping matrix (warp).
-/// * motionType: parameter, specifying the type of motion:
-///  *   **MOTION_TRANSLATION** sets a translational motion model; warpMatrix is ![inline formula](https://latex.codecogs.com/png.latex?2%5Ctimes%203) with
-///      the first ![inline formula](https://latex.codecogs.com/png.latex?2%5Ctimes%202) part being the unity matrix and the rest two parameters being
-///      estimated.
-///  *   **MOTION_EUCLIDEAN** sets a Euclidean (rigid) transformation as motion model; three
-///      parameters are estimated; warpMatrix is ![inline formula](https://latex.codecogs.com/png.latex?2%5Ctimes%203).
-///  *   **MOTION_AFFINE** sets an affine motion model (DEFAULT); six parameters are estimated;
-///      warpMatrix is ![inline formula](https://latex.codecogs.com/png.latex?2%5Ctimes%203).
-///  *   **MOTION_HOMOGRAPHY** sets a homography as a motion model; eight parameters are
-///      estimated;\`warpMatrix\` is ![inline formula](https://latex.codecogs.com/png.latex?3%5Ctimes%203).
-/// * criteria: parameter, specifying the termination criteria of the ECC algorithm;
-/// criteria.epsilon defines the threshold of the increment in the correlation coefficient between two
-/// iterations (a negative criteria.epsilon makes criteria.maxcount the only termination criterion).
-/// Default values are shown in the declaration above.
-/// * inputMask: An optional mask to indicate valid values of inputImage.
-/// * gaussFiltSize: An optional value indicating size of gaussian blur filter; (DEFAULT: 5)
-/// 
-/// The function estimates the optimum transformation (warpMatrix) with respect to ECC criterion
-/// ([EP08](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_EP08)), that is
-/// 
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Ctexttt%7BwarpMatrix%7D%20%3D%20%5Carg%5Cmax%5F%7BW%7D%20%5Ctexttt%7BECC%7D%28%5Ctexttt%7BtemplateImage%7D%28x%2Cy%29%2C%5Ctexttt%7BinputImage%7D%28x%27%2Cy%27%29%29)
-/// 
-/// where
-/// 
-/// ![block formula](https://latex.codecogs.com/png.latex?%5Cbegin%7Bbmatrix%7D%20x%27%20%5C%5C%20y%27%20%5Cend%7Bbmatrix%7D%20%3D%20W%20%5Ccdot%20%5Cbegin%7Bbmatrix%7D%20x%20%5C%5C%20y%20%5C%5C%201%20%5Cend%7Bbmatrix%7D)
-/// 
-/// (the equation holds with homogeneous coordinates for homography). It returns the final enhanced
-/// correlation coefficient, that is the correlation coefficient between the template image and the
-/// final warped input image. When a ![inline formula](https://latex.codecogs.com/png.latex?3%5Ctimes%203) matrix is given with motionType =0, 1 or 2, the third
-/// row is ignored.
-/// 
-/// Unlike findHomography and estimateRigidTransform, the function findTransformECC implements an
-/// area-based alignment that builds on intensity similarities. In essence, the function updates the
-/// initial transformation that roughly aligns the images. If this information is missing, the identity
-/// warp (unity matrix) is used as an initialization. Note that if images undergo strong
-/// displacements/rotations, an initial transformation that roughly aligns the images is necessary
-/// (e.g., a simple euclidean/similarity transform that allows for the images showing the same image
-/// content approximately). Use inverse warping in the second image to take an image close to the first
-/// one, i.e. use the flag WARP_INVERSE_MAP with warpAffine or warpPerspective. See also the OpenCV
-/// sample image_alignment.cpp that demonstrates the use of the function. Note that the function throws
-/// an exception if algorithm does not converges.
-/// ## See also
-/// computeECC, estimateAffine2D, estimateAffinePartial2D, findHomography
 #[inline]
 pub fn find_transform_ecc(template_image: &dyn core::ToInputArray, input_image: &dyn core::ToInputArray, warp_matrix: &mut dyn core::ToInputOutputArray, motion_type: i32, criteria: core::TermCriteria, input_mask: &dyn core::ToInputArray, gauss_filt_size: i32) -> Result<f64> {
 	input_array_arg!(template_image);
@@ -457,24 +170,6 @@ pub fn find_transform_ecc(template_image: &dyn core::ToInputArray, input_image: 
 	Ok(ret)
 }
 
-/// Finds an object on a back projection image.
-/// 
-/// ## Parameters
-/// * probImage: Back projection of the object histogram. See calcBackProject for details.
-/// * window: Initial search window.
-/// * criteria: Stop criteria for the iterative search algorithm.
-/// returns
-/// :   Number of iterations CAMSHIFT took to converge.
-/// The function implements the iterative object search algorithm. It takes the input back projection of
-/// an object and the initial position. The mass center in window of the back projection image is
-/// computed and the search window center shifts to the mass center. The procedure is repeated until the
-/// specified number of iterations criteria.maxCount is done or until the window center shifts by less
-/// than criteria.epsilon. The algorithm is used inside CamShift and, unlike CamShift , the search
-/// window size or orientation do not change during the search. You can simply pass the output of
-/// calcBackProject to this function. But better results can be obtained if you pre-filter the back
-/// projection and remove the noise. For example, you can do this by retrieving connected components
-/// with findContours , throwing away contours with small area ( contourArea ), and rendering the
-/// remaining contours with drawContours.
 #[inline]
 pub fn mean_shift(prob_image: &dyn core::ToInputArray, window: &mut core::Rect, criteria: core::TermCriteria) -> Result<i32> {
 	input_array_arg!(prob_image);
@@ -485,14 +180,6 @@ pub fn mean_shift(prob_image: &dyn core::ToInputArray, window: &mut core::Rect, 
 	Ok(ret)
 }
 
-/// Read a .flo file
-/// 
-/// ## Parameters
-/// * path: Path to the file to be loaded
-/// 
-/// The function readOpticalFlow loads a flow field from a file and returns it as a single matrix.
-/// Resulting Mat has a type CV_32FC2 - floating-point, 2-channel. First channel corresponds to the
-/// flow in the horizontal direction (u), second - vertical (v).
 #[inline]
 pub fn read_optical_flow(path: &str) -> Result<core::Mat> {
 	extern_container_arg!(path);
@@ -504,15 +191,6 @@ pub fn read_optical_flow(path: &str) -> Result<core::Mat> {
 	Ok(ret)
 }
 
-/// Write a .flo to disk
-/// 
-/// ## Parameters
-/// * path: Path to the file to be written
-/// * flow: Flow field to be stored
-/// 
-/// The function stores a flow field in a file, returns true on success, false otherwise.
-/// The flow field must be a 2-channel, floating-point matrix (CV_32FC2). First channel corresponds
-/// to the flow in the horizontal direction (u), second - vertical (v).
 #[inline]
 pub fn write_optical_flow(path: &str, flow: &dyn core::ToInputArray) -> Result<bool> {
 	extern_container_arg!(path);
@@ -524,21 +202,9 @@ pub fn write_optical_flow(path: &str, flow: &dyn core::ToInputArray) -> Result<b
 	Ok(ret)
 }
 
-/// Base class for background/foreground segmentation. :
-/// 
-/// The class is only used to define the common interface for the whole family of background/foreground
-/// segmentation algorithms.
 pub trait BackgroundSubtractorConst: core::AlgorithmTraitConst {
 	fn as_raw_BackgroundSubtractor(&self) -> *const c_void;
 
-	/// Computes a background image.
-	/// 
-	/// ## Parameters
-	/// * backgroundImage: The output background image.
-	/// 
-	/// 
-	/// Note: Sometimes the background image can be very blurry, as it contain the average background
-	/// statistics.
 	#[inline]
 	fn get_background_image(&self, background_image: &mut dyn core::ToOutputArray) -> Result<()> {
 		output_array_arg!(background_image);
@@ -554,16 +220,6 @@ pub trait BackgroundSubtractorConst: core::AlgorithmTraitConst {
 pub trait BackgroundSubtractor: core::AlgorithmTrait + crate::video::BackgroundSubtractorConst {
 	fn as_raw_mut_BackgroundSubtractor(&mut self) -> *mut c_void;
 
-	/// Computes a foreground mask.
-	/// 
-	/// ## Parameters
-	/// * image: Next video frame.
-	/// * fgmask: The output foreground mask as an 8-bit binary image.
-	/// * learningRate: The value between 0 and 1 that indicates how fast the background model is
-	/// learnt. Negative parameter value makes the algorithm to use some automatically chosen learning
-	/// rate. 0 means that the background model is not updated at all, 1 means that the background model
-	/// is completely reinitialized from the last frame.
-	/// 
 	/// ## C++ default parameters
 	/// * learning_rate: -1
 	#[inline]
@@ -579,14 +235,9 @@ pub trait BackgroundSubtractor: core::AlgorithmTrait + crate::video::BackgroundS
 	
 }
 
-/// K-nearest neighbours - based Background/Foreground Segmentation Algorithm.
-/// 
-/// The class implements the K-nearest neighbours background subtraction described in [Zivkovic2006](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Zivkovic2006) .
-/// Very efficient if number of foreground pixels is low.
 pub trait BackgroundSubtractorKNNConst: crate::video::BackgroundSubtractorConst {
 	fn as_raw_BackgroundSubtractorKNN(&self) -> *const c_void;
 
-	/// Returns the number of last frames that affect the background model
 	#[inline]
 	fn get_history(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -596,7 +247,6 @@ pub trait BackgroundSubtractorKNNConst: crate::video::BackgroundSubtractorConst 
 		Ok(ret)
 	}
 	
-	/// Returns the number of data samples in the background model
 	#[inline]
 	fn get_n_samples(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -606,10 +256,6 @@ pub trait BackgroundSubtractorKNNConst: crate::video::BackgroundSubtractorConst 
 		Ok(ret)
 	}
 	
-	/// Returns the threshold on the squared distance between the pixel and the sample
-	/// 
-	/// The threshold on the squared distance between the pixel and the sample to decide whether a pixel is
-	/// close to a data sample.
 	#[inline]
 	fn get_dist2_threshold(&self) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -619,10 +265,6 @@ pub trait BackgroundSubtractorKNNConst: crate::video::BackgroundSubtractorConst 
 		Ok(ret)
 	}
 	
-	/// Returns the number of neighbours, the k in the kNN.
-	/// 
-	/// K is the number of samples that need to be within dist2Threshold in order to decide that that
-	/// pixel is matching the kNN background model.
 	#[inline]
 	fn getk_nn_samples(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -632,10 +274,6 @@ pub trait BackgroundSubtractorKNNConst: crate::video::BackgroundSubtractorConst 
 		Ok(ret)
 	}
 	
-	/// Returns the shadow detection flag
-	/// 
-	/// If true, the algorithm detects shadows and marks them. See createBackgroundSubtractorKNN for
-	/// details.
 	#[inline]
 	fn get_detect_shadows(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -645,10 +283,6 @@ pub trait BackgroundSubtractorKNNConst: crate::video::BackgroundSubtractorConst 
 		Ok(ret)
 	}
 	
-	/// Returns the shadow value
-	/// 
-	/// Shadow value is the value used to mark shadows in the foreground mask. Default value is 127. Value 0
-	/// in the mask always means background, 255 means foreground.
 	#[inline]
 	fn get_shadow_value(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -658,12 +292,6 @@ pub trait BackgroundSubtractorKNNConst: crate::video::BackgroundSubtractorConst 
 		Ok(ret)
 	}
 	
-	/// Returns the shadow threshold
-	/// 
-	/// A shadow is detected if pixel is a darker version of the background. The shadow threshold (Tau in
-	/// the paper) is a threshold defining how much darker the shadow can be. Tau= 0.5 means that if a pixel
-	/// is more than twice darker then it is not shadow. See Prati, Mikic, Trivedi and Cucchiara,
-	/// *Detecting Moving Shadows...*, IEEE PAMI,2003.
 	#[inline]
 	fn get_shadow_threshold(&self) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -678,7 +306,6 @@ pub trait BackgroundSubtractorKNNConst: crate::video::BackgroundSubtractorConst 
 pub trait BackgroundSubtractorKNN: crate::video::BackgroundSubtractor + crate::video::BackgroundSubtractorKNNConst {
 	fn as_raw_mut_BackgroundSubtractorKNN(&mut self) -> *mut c_void;
 
-	/// Sets the number of last frames that affect the background model
 	#[inline]
 	fn set_history(&mut self, history: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -688,9 +315,6 @@ pub trait BackgroundSubtractorKNN: crate::video::BackgroundSubtractor + crate::v
 		Ok(ret)
 	}
 	
-	/// Sets the number of data samples in the background model.
-	/// 
-	/// The model needs to be reinitalized to reserve memory.
 	#[inline]
 	fn set_n_samples(&mut self, _n_n: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -700,7 +324,6 @@ pub trait BackgroundSubtractorKNN: crate::video::BackgroundSubtractor + crate::v
 		Ok(ret)
 	}
 	
-	/// Sets the threshold on the squared distance
 	#[inline]
 	fn set_dist2_threshold(&mut self, _dist2_threshold: f64) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -710,7 +333,6 @@ pub trait BackgroundSubtractorKNN: crate::video::BackgroundSubtractor + crate::v
 		Ok(ret)
 	}
 	
-	/// Sets the k in the kNN. How many nearest neighbours need to match.
 	#[inline]
 	fn setk_nn_samples(&mut self, _nk_nn: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -720,7 +342,6 @@ pub trait BackgroundSubtractorKNN: crate::video::BackgroundSubtractor + crate::v
 		Ok(ret)
 	}
 	
-	/// Enables or disables shadow detection
 	#[inline]
 	fn set_detect_shadows(&mut self, detect_shadows: bool) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -730,7 +351,6 @@ pub trait BackgroundSubtractorKNN: crate::video::BackgroundSubtractor + crate::v
 		Ok(ret)
 	}
 	
-	/// Sets the shadow value
 	#[inline]
 	fn set_shadow_value(&mut self, value: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -740,7 +360,6 @@ pub trait BackgroundSubtractorKNN: crate::video::BackgroundSubtractor + crate::v
 		Ok(ret)
 	}
 	
-	/// Sets the shadow threshold
 	#[inline]
 	fn set_shadow_threshold(&mut self, threshold: f64) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -752,14 +371,9 @@ pub trait BackgroundSubtractorKNN: crate::video::BackgroundSubtractor + crate::v
 	
 }
 
-/// Gaussian Mixture-based Background/Foreground Segmentation Algorithm.
-/// 
-/// The class implements the Gaussian mixture model background subtraction described in [Zivkovic2004](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Zivkovic2004)
-/// and [Zivkovic2006](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Zivkovic2006) .
 pub trait BackgroundSubtractorMOG2Const: crate::video::BackgroundSubtractorConst {
 	fn as_raw_BackgroundSubtractorMOG2(&self) -> *const c_void;
 
-	/// Returns the number of last frames that affect the background model
 	#[inline]
 	fn get_history(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -769,7 +383,6 @@ pub trait BackgroundSubtractorMOG2Const: crate::video::BackgroundSubtractorConst
 		Ok(ret)
 	}
 	
-	/// Returns the number of gaussian components in the background model
 	#[inline]
 	fn get_n_mixtures(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -779,11 +392,6 @@ pub trait BackgroundSubtractorMOG2Const: crate::video::BackgroundSubtractorConst
 		Ok(ret)
 	}
 	
-	/// Returns the "background ratio" parameter of the algorithm
-	/// 
-	/// If a foreground pixel keeps semi-constant value for about backgroundRatio\*history frames, it's
-	/// considered background and added to the model as a center of a new component. It corresponds to TB
-	/// parameter in the paper.
 	#[inline]
 	fn get_background_ratio(&self) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -793,10 +401,6 @@ pub trait BackgroundSubtractorMOG2Const: crate::video::BackgroundSubtractorConst
 		Ok(ret)
 	}
 	
-	/// Returns the variance threshold for the pixel-model match
-	/// 
-	/// The main threshold on the squared Mahalanobis distance to decide if the sample is well described by
-	/// the background model or not. Related to Cthr from the paper.
 	#[inline]
 	fn get_var_threshold(&self) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -806,13 +410,6 @@ pub trait BackgroundSubtractorMOG2Const: crate::video::BackgroundSubtractorConst
 		Ok(ret)
 	}
 	
-	/// Returns the variance threshold for the pixel-model match used for new mixture component generation
-	/// 
-	/// Threshold for the squared Mahalanobis distance that helps decide when a sample is close to the
-	/// existing components (corresponds to Tg in the paper). If a pixel is not close to any component, it
-	/// is considered foreground or added as a new component. 3 sigma =\> Tg=3\*3=9 is default. A smaller Tg
-	/// value generates more components. A higher Tg value may result in a small number of components but
-	/// they can grow too large.
 	#[inline]
 	fn get_var_threshold_gen(&self) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -822,7 +419,6 @@ pub trait BackgroundSubtractorMOG2Const: crate::video::BackgroundSubtractorConst
 		Ok(ret)
 	}
 	
-	/// Returns the initial variance of each gaussian component
 	#[inline]
 	fn get_var_init(&self) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -850,11 +446,6 @@ pub trait BackgroundSubtractorMOG2Const: crate::video::BackgroundSubtractorConst
 		Ok(ret)
 	}
 	
-	/// Returns the complexity reduction threshold
-	/// 
-	/// This parameter defines the number of samples needed to accept to prove the component exists. CT=0.05
-	/// is a default value for all the samples. By setting CT=0 you get an algorithm very similar to the
-	/// standard Stauffer&Grimson algorithm.
 	#[inline]
 	fn get_complexity_reduction_threshold(&self) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -864,10 +455,6 @@ pub trait BackgroundSubtractorMOG2Const: crate::video::BackgroundSubtractorConst
 		Ok(ret)
 	}
 	
-	/// Returns the shadow detection flag
-	/// 
-	/// If true, the algorithm detects shadows and marks them. See createBackgroundSubtractorMOG2 for
-	/// details.
 	#[inline]
 	fn get_detect_shadows(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -877,10 +464,6 @@ pub trait BackgroundSubtractorMOG2Const: crate::video::BackgroundSubtractorConst
 		Ok(ret)
 	}
 	
-	/// Returns the shadow value
-	/// 
-	/// Shadow value is the value used to mark shadows in the foreground mask. Default value is 127. Value 0
-	/// in the mask always means background, 255 means foreground.
 	#[inline]
 	fn get_shadow_value(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -890,12 +473,6 @@ pub trait BackgroundSubtractorMOG2Const: crate::video::BackgroundSubtractorConst
 		Ok(ret)
 	}
 	
-	/// Returns the shadow threshold
-	/// 
-	/// A shadow is detected if pixel is a darker version of the background. The shadow threshold (Tau in
-	/// the paper) is a threshold defining how much darker the shadow can be. Tau= 0.5 means that if a pixel
-	/// is more than twice darker then it is not shadow. See Prati, Mikic, Trivedi and Cucchiara,
-	/// *Detecting Moving Shadows...*, IEEE PAMI,2003.
 	#[inline]
 	fn get_shadow_threshold(&self) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -910,7 +487,6 @@ pub trait BackgroundSubtractorMOG2Const: crate::video::BackgroundSubtractorConst
 pub trait BackgroundSubtractorMOG2: crate::video::BackgroundSubtractor + crate::video::BackgroundSubtractorMOG2Const {
 	fn as_raw_mut_BackgroundSubtractorMOG2(&mut self) -> *mut c_void;
 
-	/// Sets the number of last frames that affect the background model
 	#[inline]
 	fn set_history(&mut self, history: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -920,9 +496,6 @@ pub trait BackgroundSubtractorMOG2: crate::video::BackgroundSubtractor + crate::
 		Ok(ret)
 	}
 	
-	/// Sets the number of gaussian components in the background model.
-	/// 
-	/// The model needs to be reinitalized to reserve memory.
 	#[inline]
 	fn set_n_mixtures(&mut self, nmixtures: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -932,7 +505,6 @@ pub trait BackgroundSubtractorMOG2: crate::video::BackgroundSubtractor + crate::
 		Ok(ret)
 	}
 	
-	/// Sets the "background ratio" parameter of the algorithm
 	#[inline]
 	fn set_background_ratio(&mut self, ratio: f64) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -942,7 +514,6 @@ pub trait BackgroundSubtractorMOG2: crate::video::BackgroundSubtractor + crate::
 		Ok(ret)
 	}
 	
-	/// Sets the variance threshold for the pixel-model match
 	#[inline]
 	fn set_var_threshold(&mut self, var_threshold: f64) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -952,7 +523,6 @@ pub trait BackgroundSubtractorMOG2: crate::video::BackgroundSubtractor + crate::
 		Ok(ret)
 	}
 	
-	/// Sets the variance threshold for the pixel-model match used for new mixture component generation
 	#[inline]
 	fn set_var_threshold_gen(&mut self, var_threshold_gen: f64) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -962,7 +532,6 @@ pub trait BackgroundSubtractorMOG2: crate::video::BackgroundSubtractor + crate::
 		Ok(ret)
 	}
 	
-	/// Sets the initial variance of each gaussian component
 	#[inline]
 	fn set_var_init(&mut self, var_init: f64) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -990,7 +559,6 @@ pub trait BackgroundSubtractorMOG2: crate::video::BackgroundSubtractor + crate::
 		Ok(ret)
 	}
 	
-	/// Sets the complexity reduction threshold
 	#[inline]
 	fn set_complexity_reduction_threshold(&mut self, ct: f64) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1000,7 +568,6 @@ pub trait BackgroundSubtractorMOG2: crate::video::BackgroundSubtractor + crate::
 		Ok(ret)
 	}
 	
-	/// Enables or disables shadow detection
 	#[inline]
 	fn set_detect_shadows(&mut self, detect_shadows: bool) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1010,7 +577,6 @@ pub trait BackgroundSubtractorMOG2: crate::video::BackgroundSubtractor + crate::
 		Ok(ret)
 	}
 	
-	/// Sets the shadow value
 	#[inline]
 	fn set_shadow_value(&mut self, value: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1020,7 +586,6 @@ pub trait BackgroundSubtractorMOG2: crate::video::BackgroundSubtractor + crate::
 		Ok(ret)
 	}
 	
-	/// Sets the shadow threshold
 	#[inline]
 	fn set_shadow_threshold(&mut self, threshold: f64) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1030,16 +595,6 @@ pub trait BackgroundSubtractorMOG2: crate::video::BackgroundSubtractor + crate::
 		Ok(ret)
 	}
 	
-	/// Computes a foreground mask.
-	/// 
-	/// ## Parameters
-	/// * image: Next video frame. Floating point frame will be used without scaling and should be in range ![inline formula](https://latex.codecogs.com/png.latex?%5B0%2C255%5D).
-	/// * fgmask: The output foreground mask as an 8-bit binary image.
-	/// * learningRate: The value between 0 and 1 that indicates how fast the background model is
-	/// learnt. Negative parameter value makes the algorithm to use some automatically chosen learning
-	/// rate. 0 means that the background model is not updated at all, 1 means that the background model
-	/// is completely reinitialized from the last frame.
-	/// 
 	/// ## C++ default parameters
 	/// * learning_rate: -1
 	#[inline]
@@ -1055,24 +610,9 @@ pub trait BackgroundSubtractorMOG2: crate::video::BackgroundSubtractor + crate::
 	
 }
 
-/// DIS optical flow algorithm.
-/// 
-/// This class implements the Dense Inverse Search (DIS) optical flow algorithm. More
-/// details about the algorithm can be found at [Kroeger2016](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Kroeger2016) . Includes three presets with preselected
-/// parameters to provide reasonable trade-off between speed and quality. However, even the slowest preset is
-/// still relatively fast, use DeepFlow if you need better quality and don't care about speed.
-/// 
-/// This implementation includes several additional features compared to the algorithm described in the paper,
-/// including spatial propagation of flow vectors (@ref getUseSpatialPropagation), as well as an option to
-/// utilize an initial flow approximation passed to @ref calc (which is, essentially, temporal propagation,
-/// if the previous frame's flow field is passed).
 pub trait DISOpticalFlowConst: crate::video::DenseOpticalFlowConst {
 	fn as_raw_DISOpticalFlow(&self) -> *const c_void;
 
-	/// Finest level of the Gaussian pyramid on which the flow is computed (zero level
-	/// corresponds to the original image resolution). The final flow is obtained by bilinear upscaling.
-	/// ## See also
-	/// setFinestScale
 	#[inline]
 	fn get_finest_scale(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -1082,10 +622,6 @@ pub trait DISOpticalFlowConst: crate::video::DenseOpticalFlowConst {
 		Ok(ret)
 	}
 	
-	/// Size of an image patch for matching (in pixels). Normally, default 8x8 patches work well
-	/// enough in most cases.
-	/// ## See also
-	/// setPatchSize
 	#[inline]
 	fn get_patch_size(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -1095,10 +631,6 @@ pub trait DISOpticalFlowConst: crate::video::DenseOpticalFlowConst {
 		Ok(ret)
 	}
 	
-	/// Stride between neighbor patches. Must be less than patch size. Lower values correspond
-	/// to higher flow quality.
-	/// ## See also
-	/// setPatchStride
 	#[inline]
 	fn get_patch_stride(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -1108,10 +640,6 @@ pub trait DISOpticalFlowConst: crate::video::DenseOpticalFlowConst {
 		Ok(ret)
 	}
 	
-	/// Maximum number of gradient descent iterations in the patch inverse search stage. Higher values
-	/// may improve quality in some cases.
-	/// ## See also
-	/// setGradientDescentIterations
 	#[inline]
 	fn get_gradient_descent_iterations(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -1121,11 +649,6 @@ pub trait DISOpticalFlowConst: crate::video::DenseOpticalFlowConst {
 		Ok(ret)
 	}
 	
-	/// Number of fixed point iterations of variational refinement per scale. Set to zero to
-	///    disable variational refinement completely. Higher values will typically result in more smooth and
-	///    high-quality flow.
-	/// ## See also
-	/// setGradientDescentIterations
 	#[inline]
 	fn get_variational_refinement_iterations(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -1135,9 +658,6 @@ pub trait DISOpticalFlowConst: crate::video::DenseOpticalFlowConst {
 		Ok(ret)
 	}
 	
-	/// Weight of the smoothness term
-	/// ## See also
-	/// setVariationalRefinementAlpha
 	#[inline]
 	fn get_variational_refinement_alpha(&self) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -1147,9 +667,6 @@ pub trait DISOpticalFlowConst: crate::video::DenseOpticalFlowConst {
 		Ok(ret)
 	}
 	
-	/// Weight of the color constancy term
-	/// ## See also
-	/// setVariationalRefinementDelta
 	#[inline]
 	fn get_variational_refinement_delta(&self) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -1159,9 +676,6 @@ pub trait DISOpticalFlowConst: crate::video::DenseOpticalFlowConst {
 		Ok(ret)
 	}
 	
-	/// Weight of the gradient constancy term
-	/// ## See also
-	/// setVariationalRefinementGamma
 	#[inline]
 	fn get_variational_refinement_gamma(&self) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -1171,12 +685,6 @@ pub trait DISOpticalFlowConst: crate::video::DenseOpticalFlowConst {
 		Ok(ret)
 	}
 	
-	/// Whether to use mean-normalization of patches when computing patch distance. It is turned on
-	///    by default as it typically provides a noticeable quality boost because of increased robustness to
-	///    illumination variations. Turn it off if you are certain that your sequence doesn't contain any changes
-	///    in illumination.
-	/// ## See also
-	/// setUseMeanNormalization
 	#[inline]
 	fn get_use_mean_normalization(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -1186,12 +694,6 @@ pub trait DISOpticalFlowConst: crate::video::DenseOpticalFlowConst {
 		Ok(ret)
 	}
 	
-	/// Whether to use spatial propagation of good optical flow vectors. This option is turned on by
-	///    default, as it tends to work better on average and can sometimes help recover from major errors
-	///    introduced by the coarse-to-fine scheme employed by the DIS optical flow algorithm. Turning this
-	///    option off can make the output flow field a bit smoother, however.
-	/// ## See also
-	/// setUseSpatialPropagation
 	#[inline]
 	fn get_use_spatial_propagation(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -1206,10 +708,6 @@ pub trait DISOpticalFlowConst: crate::video::DenseOpticalFlowConst {
 pub trait DISOpticalFlow: crate::video::DISOpticalFlowConst + crate::video::DenseOpticalFlow {
 	fn as_raw_mut_DISOpticalFlow(&mut self) -> *mut c_void;
 
-	/// Finest level of the Gaussian pyramid on which the flow is computed (zero level
-	/// corresponds to the original image resolution). The final flow is obtained by bilinear upscaling.
-	/// ## See also
-	/// setFinestScale getFinestScale
 	#[inline]
 	fn set_finest_scale(&mut self, val: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1219,10 +717,6 @@ pub trait DISOpticalFlow: crate::video::DISOpticalFlowConst + crate::video::Dens
 		Ok(ret)
 	}
 	
-	/// Size of an image patch for matching (in pixels). Normally, default 8x8 patches work well
-	/// enough in most cases.
-	/// ## See also
-	/// setPatchSize getPatchSize
 	#[inline]
 	fn set_patch_size(&mut self, val: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1232,10 +726,6 @@ pub trait DISOpticalFlow: crate::video::DISOpticalFlowConst + crate::video::Dens
 		Ok(ret)
 	}
 	
-	/// Stride between neighbor patches. Must be less than patch size. Lower values correspond
-	/// to higher flow quality.
-	/// ## See also
-	/// setPatchStride getPatchStride
 	#[inline]
 	fn set_patch_stride(&mut self, val: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1245,10 +735,6 @@ pub trait DISOpticalFlow: crate::video::DISOpticalFlowConst + crate::video::Dens
 		Ok(ret)
 	}
 	
-	/// Maximum number of gradient descent iterations in the patch inverse search stage. Higher values
-	/// may improve quality in some cases.
-	/// ## See also
-	/// setGradientDescentIterations getGradientDescentIterations
 	#[inline]
 	fn set_gradient_descent_iterations(&mut self, val: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1258,10 +744,6 @@ pub trait DISOpticalFlow: crate::video::DISOpticalFlowConst + crate::video::Dens
 		Ok(ret)
 	}
 	
-	/// Maximum number of gradient descent iterations in the patch inverse search stage. Higher values
-	/// may improve quality in some cases.
-	/// ## See also
-	/// setGradientDescentIterations getGradientDescentIterations
 	#[inline]
 	fn set_variational_refinement_iterations(&mut self, val: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1271,9 +753,6 @@ pub trait DISOpticalFlow: crate::video::DISOpticalFlowConst + crate::video::Dens
 		Ok(ret)
 	}
 	
-	/// Weight of the smoothness term
-	/// ## See also
-	/// setVariationalRefinementAlpha getVariationalRefinementAlpha
 	#[inline]
 	fn set_variational_refinement_alpha(&mut self, val: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1283,9 +762,6 @@ pub trait DISOpticalFlow: crate::video::DISOpticalFlowConst + crate::video::Dens
 		Ok(ret)
 	}
 	
-	/// Weight of the color constancy term
-	/// ## See also
-	/// setVariationalRefinementDelta getVariationalRefinementDelta
 	#[inline]
 	fn set_variational_refinement_delta(&mut self, val: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1295,9 +771,6 @@ pub trait DISOpticalFlow: crate::video::DISOpticalFlowConst + crate::video::Dens
 		Ok(ret)
 	}
 	
-	/// Weight of the gradient constancy term
-	/// ## See also
-	/// setVariationalRefinementGamma getVariationalRefinementGamma
 	#[inline]
 	fn set_variational_refinement_gamma(&mut self, val: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1307,12 +780,6 @@ pub trait DISOpticalFlow: crate::video::DISOpticalFlowConst + crate::video::Dens
 		Ok(ret)
 	}
 	
-	/// Whether to use mean-normalization of patches when computing patch distance. It is turned on
-	///    by default as it typically provides a noticeable quality boost because of increased robustness to
-	///    illumination variations. Turn it off if you are certain that your sequence doesn't contain any changes
-	///    in illumination.
-	/// ## See also
-	/// setUseMeanNormalization getUseMeanNormalization
 	#[inline]
 	fn set_use_mean_normalization(&mut self, val: bool) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1322,12 +789,6 @@ pub trait DISOpticalFlow: crate::video::DISOpticalFlowConst + crate::video::Dens
 		Ok(ret)
 	}
 	
-	/// Whether to use spatial propagation of good optical flow vectors. This option is turned on by
-	///    default, as it tends to work better on average and can sometimes help recover from major errors
-	///    introduced by the coarse-to-fine scheme employed by the DIS optical flow algorithm. Turning this
-	///    option off can make the output flow field a bit smoother, however.
-	/// ## See also
-	/// setUseSpatialPropagation getUseSpatialPropagation
 	#[inline]
 	fn set_use_spatial_propagation(&mut self, val: bool) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1340,11 +801,6 @@ pub trait DISOpticalFlow: crate::video::DISOpticalFlowConst + crate::video::Dens
 }
 
 impl dyn DISOpticalFlow + '_ {
-	/// Creates an instance of DISOpticalFlow
-	/// 
-	/// ## Parameters
-	/// * preset: one of PRESET_ULTRAFAST, PRESET_FAST and PRESET_MEDIUM
-	/// 
 	/// ## C++ default parameters
 	/// * preset: DISOpticalFlow::PRESET_FAST
 	#[inline]
@@ -1358,7 +814,6 @@ impl dyn DISOpticalFlow + '_ {
 	}
 	
 }
-/// Base class for dense optical flow algorithms
 pub trait DenseOpticalFlowConst: core::AlgorithmTraitConst {
 	fn as_raw_DenseOpticalFlow(&self) -> *const c_void;
 
@@ -1367,12 +822,6 @@ pub trait DenseOpticalFlowConst: core::AlgorithmTraitConst {
 pub trait DenseOpticalFlow: core::AlgorithmTrait + crate::video::DenseOpticalFlowConst {
 	fn as_raw_mut_DenseOpticalFlow(&mut self) -> *mut c_void;
 
-	/// Calculates an optical flow.
-	/// 
-	/// ## Parameters
-	/// * I0: first 8-bit single-channel input image.
-	/// * I1: second input image of the same size and the same type as prev.
-	/// * flow: computed flow image that has the same size as prev and type CV_32FC2.
 	#[inline]
 	fn calc(&mut self, i0: &dyn core::ToInputArray, i1: &dyn core::ToInputArray, flow: &mut dyn core::ToInputOutputArray) -> Result<()> {
 		input_array_arg!(i0);
@@ -1385,7 +834,6 @@ pub trait DenseOpticalFlow: core::AlgorithmTrait + crate::video::DenseOpticalFlo
 		Ok(ret)
 	}
 	
-	/// Releases all inner buffers.
 	#[inline]
 	fn collect_garbage(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1397,7 +845,6 @@ pub trait DenseOpticalFlow: core::AlgorithmTrait + crate::video::DenseOpticalFlo
 	
 }
 
-/// Class computing a dense optical flow using the Gunnar Farneback's algorithm.
 pub trait FarnebackOpticalFlowConst: crate::video::DenseOpticalFlowConst {
 	fn as_raw_FarnebackOpticalFlow(&self) -> *const c_void;
 
@@ -1573,18 +1020,9 @@ impl dyn FarnebackOpticalFlow + '_ {
 	}
 	
 }
-/// Kalman filter class.
-/// 
-/// The class implements a standard Kalman filter <http://en.wikipedia.org/wiki/Kalman_filter>,
-/// [Welch95](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Welch95) . However, you can modify transitionMatrix, controlMatrix, and measurementMatrix to get
-/// an extended Kalman filter functionality.
-/// 
-/// Note: In C API when CvKalman\* kalmanFilter structure is not needed anymore, it should be released
-/// with cvReleaseKalman(&kalmanFilter)
 pub trait KalmanFilterTraitConst {
 	fn as_raw_KalmanFilter(&self) -> *const c_void;
 
-	/// predicted state (x'(k)): x(k)=A*x(k-1)+B*u(k)
 	#[inline]
 	fn state_pre(&self) -> core::Mat {
 		let ret = unsafe { sys::cv_KalmanFilter_getPropStatePre_const(self.as_raw_KalmanFilter()) };
@@ -1592,7 +1030,6 @@ pub trait KalmanFilterTraitConst {
 		ret
 	}
 	
-	/// corrected state (x(k)): x(k)=x'(k)+K(k)*(z(k)-H*x'(k))
 	#[inline]
 	fn state_post(&self) -> core::Mat {
 		let ret = unsafe { sys::cv_KalmanFilter_getPropStatePost_const(self.as_raw_KalmanFilter()) };
@@ -1600,7 +1037,6 @@ pub trait KalmanFilterTraitConst {
 		ret
 	}
 	
-	/// state transition matrix (A)
 	#[inline]
 	fn transition_matrix(&self) -> core::Mat {
 		let ret = unsafe { sys::cv_KalmanFilter_getPropTransitionMatrix_const(self.as_raw_KalmanFilter()) };
@@ -1608,7 +1044,6 @@ pub trait KalmanFilterTraitConst {
 		ret
 	}
 	
-	/// control matrix (B) (not used if there is no control)
 	#[inline]
 	fn control_matrix(&self) -> core::Mat {
 		let ret = unsafe { sys::cv_KalmanFilter_getPropControlMatrix_const(self.as_raw_KalmanFilter()) };
@@ -1616,7 +1051,6 @@ pub trait KalmanFilterTraitConst {
 		ret
 	}
 	
-	/// measurement matrix (H)
 	#[inline]
 	fn measurement_matrix(&self) -> core::Mat {
 		let ret = unsafe { sys::cv_KalmanFilter_getPropMeasurementMatrix_const(self.as_raw_KalmanFilter()) };
@@ -1624,7 +1058,6 @@ pub trait KalmanFilterTraitConst {
 		ret
 	}
 	
-	/// process noise covariance matrix (Q)
 	#[inline]
 	fn process_noise_cov(&self) -> core::Mat {
 		let ret = unsafe { sys::cv_KalmanFilter_getPropProcessNoiseCov_const(self.as_raw_KalmanFilter()) };
@@ -1632,7 +1065,6 @@ pub trait KalmanFilterTraitConst {
 		ret
 	}
 	
-	/// measurement noise covariance matrix (R)
 	#[inline]
 	fn measurement_noise_cov(&self) -> core::Mat {
 		let ret = unsafe { sys::cv_KalmanFilter_getPropMeasurementNoiseCov_const(self.as_raw_KalmanFilter()) };
@@ -1640,7 +1072,6 @@ pub trait KalmanFilterTraitConst {
 		ret
 	}
 	
-	/// priori error estimate covariance matrix (P'(k)): P'(k)=A*P(k-1)*At + Q)
 	#[inline]
 	fn error_cov_pre(&self) -> core::Mat {
 		let ret = unsafe { sys::cv_KalmanFilter_getPropErrorCovPre_const(self.as_raw_KalmanFilter()) };
@@ -1648,7 +1079,6 @@ pub trait KalmanFilterTraitConst {
 		ret
 	}
 	
-	/// Kalman gain matrix (K(k)): K(k)=P'(k)*Ht*inv(H*P'(k)*Ht+R)
 	#[inline]
 	fn gain(&self) -> core::Mat {
 		let ret = unsafe { sys::cv_KalmanFilter_getPropGain_const(self.as_raw_KalmanFilter()) };
@@ -1656,7 +1086,6 @@ pub trait KalmanFilterTraitConst {
 		ret
 	}
 	
-	/// posteriori error estimate covariance matrix (P(k)): P(k)=(I-K(k)*H)*P'(k)
 	#[inline]
 	fn error_cov_post(&self) -> core::Mat {
 		let ret = unsafe { sys::cv_KalmanFilter_getPropErrorCovPost_const(self.as_raw_KalmanFilter()) };
@@ -1704,70 +1133,60 @@ pub trait KalmanFilterTraitConst {
 pub trait KalmanFilterTrait: crate::video::KalmanFilterTraitConst {
 	fn as_raw_mut_KalmanFilter(&mut self) -> *mut c_void;
 
-	/// predicted state (x'(k)): x(k)=A*x(k-1)+B*u(k)
 	#[inline]
 	fn set_state_pre(&mut self, mut val: core::Mat) {
 		let ret = unsafe { sys::cv_KalmanFilter_setPropStatePre_Mat(self.as_raw_mut_KalmanFilter(), val.as_raw_mut_Mat()) };
 		ret
 	}
 	
-	/// corrected state (x(k)): x(k)=x'(k)+K(k)*(z(k)-H*x'(k))
 	#[inline]
 	fn set_state_post(&mut self, mut val: core::Mat) {
 		let ret = unsafe { sys::cv_KalmanFilter_setPropStatePost_Mat(self.as_raw_mut_KalmanFilter(), val.as_raw_mut_Mat()) };
 		ret
 	}
 	
-	/// state transition matrix (A)
 	#[inline]
 	fn set_transition_matrix(&mut self, mut val: core::Mat) {
 		let ret = unsafe { sys::cv_KalmanFilter_setPropTransitionMatrix_Mat(self.as_raw_mut_KalmanFilter(), val.as_raw_mut_Mat()) };
 		ret
 	}
 	
-	/// control matrix (B) (not used if there is no control)
 	#[inline]
 	fn set_control_matrix(&mut self, mut val: core::Mat) {
 		let ret = unsafe { sys::cv_KalmanFilter_setPropControlMatrix_Mat(self.as_raw_mut_KalmanFilter(), val.as_raw_mut_Mat()) };
 		ret
 	}
 	
-	/// measurement matrix (H)
 	#[inline]
 	fn set_measurement_matrix(&mut self, mut val: core::Mat) {
 		let ret = unsafe { sys::cv_KalmanFilter_setPropMeasurementMatrix_Mat(self.as_raw_mut_KalmanFilter(), val.as_raw_mut_Mat()) };
 		ret
 	}
 	
-	/// process noise covariance matrix (Q)
 	#[inline]
 	fn set_process_noise_cov(&mut self, mut val: core::Mat) {
 		let ret = unsafe { sys::cv_KalmanFilter_setPropProcessNoiseCov_Mat(self.as_raw_mut_KalmanFilter(), val.as_raw_mut_Mat()) };
 		ret
 	}
 	
-	/// measurement noise covariance matrix (R)
 	#[inline]
 	fn set_measurement_noise_cov(&mut self, mut val: core::Mat) {
 		let ret = unsafe { sys::cv_KalmanFilter_setPropMeasurementNoiseCov_Mat(self.as_raw_mut_KalmanFilter(), val.as_raw_mut_Mat()) };
 		ret
 	}
 	
-	/// priori error estimate covariance matrix (P'(k)): P'(k)=A*P(k-1)*At + Q)
 	#[inline]
 	fn set_error_cov_pre(&mut self, mut val: core::Mat) {
 		let ret = unsafe { sys::cv_KalmanFilter_setPropErrorCovPre_Mat(self.as_raw_mut_KalmanFilter(), val.as_raw_mut_Mat()) };
 		ret
 	}
 	
-	/// Kalman gain matrix (K(k)): K(k)=P'(k)*Ht*inv(H*P'(k)*Ht+R)
 	#[inline]
 	fn set_gain(&mut self, mut val: core::Mat) {
 		let ret = unsafe { sys::cv_KalmanFilter_setPropGain_Mat(self.as_raw_mut_KalmanFilter(), val.as_raw_mut_Mat()) };
 		ret
 	}
 	
-	/// posteriori error estimate covariance matrix (P(k)): P(k)=(I-K(k)*H)*P'(k)
 	#[inline]
 	fn set_error_cov_post(&mut self, mut val: core::Mat) {
 		let ret = unsafe { sys::cv_KalmanFilter_setPropErrorCovPost_Mat(self.as_raw_mut_KalmanFilter(), val.as_raw_mut_Mat()) };
@@ -1804,14 +1223,6 @@ pub trait KalmanFilterTrait: crate::video::KalmanFilterTraitConst {
 		ret
 	}
 	
-	/// Re-initializes Kalman filter. The previous content is destroyed.
-	/// 
-	/// ## Parameters
-	/// * dynamParams: Dimensionality of the state.
-	/// * measureParams: Dimensionality of the measurement.
-	/// * controlParams: Dimensionality of the control vector.
-	/// * type: Type of the created matrices that should be CV_32F or CV_64F.
-	/// 
 	/// ## C++ default parameters
 	/// * control_params: 0
 	/// * typ: CV_32F
@@ -1824,11 +1235,6 @@ pub trait KalmanFilterTrait: crate::video::KalmanFilterTraitConst {
 		Ok(ret)
 	}
 	
-	/// Computes a predicted state.
-	/// 
-	/// ## Parameters
-	/// * control: The optional input control
-	/// 
 	/// ## C++ default parameters
 	/// * control: Mat()
 	#[inline]
@@ -1841,10 +1247,6 @@ pub trait KalmanFilterTrait: crate::video::KalmanFilterTraitConst {
 		Ok(ret)
 	}
 	
-	/// Updates the predicted state from the measurement.
-	/// 
-	/// ## Parameters
-	/// * measurement: The measured system parameters
 	#[inline]
 	fn correct(&mut self, measurement: &core::Mat) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -1857,14 +1259,6 @@ pub trait KalmanFilterTrait: crate::video::KalmanFilterTraitConst {
 	
 }
 
-/// Kalman filter class.
-/// 
-/// The class implements a standard Kalman filter <http://en.wikipedia.org/wiki/Kalman_filter>,
-/// [Welch95](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Welch95) . However, you can modify transitionMatrix, controlMatrix, and measurementMatrix to get
-/// an extended Kalman filter functionality.
-/// 
-/// Note: In C API when CvKalman\* kalmanFilter structure is not needed anymore, it should be released
-/// with cvReleaseKalman(&kalmanFilter)
 pub struct KalmanFilter {
 	ptr: *mut c_void
 }
@@ -1899,13 +1293,6 @@ impl KalmanFilter {
 		Ok(ret)
 	}
 	
-	/// This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
-	/// ## Parameters
-	/// * dynamParams: Dimensionality of the state.
-	/// * measureParams: Dimensionality of the measurement.
-	/// * controlParams: Dimensionality of the control vector.
-	/// * type: Type of the created matrices that should be CV_32F or CV_64F.
-	/// 
 	/// ## C++ default parameters
 	/// * control_params: 0
 	/// * typ: CV_32F
@@ -1921,7 +1308,6 @@ impl KalmanFilter {
 	
 }
 
-/// Base interface for sparse optical flow algorithms.
 pub trait SparseOpticalFlowConst: core::AlgorithmTraitConst {
 	fn as_raw_SparseOpticalFlow(&self) -> *const c_void;
 
@@ -1930,17 +1316,6 @@ pub trait SparseOpticalFlowConst: core::AlgorithmTraitConst {
 pub trait SparseOpticalFlow: core::AlgorithmTrait + crate::video::SparseOpticalFlowConst {
 	fn as_raw_mut_SparseOpticalFlow(&mut self) -> *mut c_void;
 
-	/// Calculates a sparse optical flow.
-	/// 
-	/// ## Parameters
-	/// * prevImg: First input image.
-	/// * nextImg: Second input image of the same size and the same type as prevImg.
-	/// * prevPts: Vector of 2D points for which the flow needs to be found.
-	/// * nextPts: Output vector of 2D points containing the calculated new positions of input features in the second image.
-	/// * status: Output status vector. Each element of the vector is set to 1 if the
-	///               flow for the corresponding features has been found. Otherwise, it is set to 0.
-	/// * err: Optional output vector that contains error response for each point (inverse confidence).
-	/// 
 	/// ## C++ default parameters
 	/// * err: cv::noArray()
 	#[inline]
@@ -1960,12 +1335,6 @@ pub trait SparseOpticalFlow: core::AlgorithmTrait + crate::video::SparseOpticalF
 	
 }
 
-/// Class used for calculating a sparse optical flow.
-/// 
-/// The class can calculate an optical flow for a sparse feature set using the
-/// iterative Lucas-Kanade method with pyramids.
-/// ## See also
-/// calcOpticalFlowPyrLK
 pub trait SparsePyrLKOpticalFlowConst: crate::video::SparseOpticalFlowConst {
 	fn as_raw_SparsePyrLKOpticalFlow(&self) -> *const c_void;
 
@@ -2084,7 +1453,6 @@ impl dyn SparsePyrLKOpticalFlow + '_ {
 	}
 	
 }
-/// Base abstract class for the long-term tracker
 pub trait TrackerConst {
 	fn as_raw_Tracker(&self) -> *const c_void;
 
@@ -2093,10 +1461,6 @@ pub trait TrackerConst {
 pub trait Tracker: crate::video::TrackerConst {
 	fn as_raw_mut_Tracker(&mut self) -> *mut c_void;
 
-	/// Initialize the tracker with a known bounding box that surrounded the target
-	/// ## Parameters
-	/// * image: The initial frame
-	/// * boundingBox: The initial bounding box
 	#[inline]
 	fn init(&mut self, image: &dyn core::ToInputArray, bounding_box: core::Rect) -> Result<()> {
 		input_array_arg!(image);
@@ -2107,16 +1471,6 @@ pub trait Tracker: crate::video::TrackerConst {
 		Ok(ret)
 	}
 	
-	/// Update the tracker, find the new most likely bounding box for the target
-	/// ## Parameters
-	/// * image: The current frame
-	/// * boundingBox: The bounding box that represent the new target location, if true was returned, not
-	/// modified otherwise
-	/// 
-	/// ## Returns
-	/// True means that target was located and false means that tracker cannot locate target in
-	/// current frame. Note, that latter *does not* imply that tracker has failed, maybe target is indeed
-	/// missing from the frame (say, out of sight)
 	#[inline]
 	fn update(&mut self, image: &dyn core::ToInputArray, bounding_box: &mut core::Rect) -> Result<bool> {
 		input_array_arg!(image);
@@ -2137,7 +1491,6 @@ pub trait TrackerDaSiamRPNConst: crate::video::TrackerConst {
 pub trait TrackerDaSiamRPN: crate::video::Tracker + crate::video::TrackerDaSiamRPNConst {
 	fn as_raw_mut_TrackerDaSiamRPN(&mut self) -> *mut c_void;
 
-	/// Return tracking score
 	#[inline]
 	fn get_tracking_score(&mut self) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -2150,10 +1503,6 @@ pub trait TrackerDaSiamRPN: crate::video::Tracker + crate::video::TrackerDaSiamR
 }
 
 impl dyn TrackerDaSiamRPN + '_ {
-	/// Constructor
-	/// ## Parameters
-	/// * parameters: DaSiamRPN parameters TrackerDaSiamRPN::Params
-	/// 
 	/// ## C++ default parameters
 	/// * parameters: TrackerDaSiamRPN::Params()
 	#[inline]
@@ -2279,20 +1628,6 @@ impl TrackerDaSiamRPN_Params {
 	
 }
 
-/// the GOTURN (Generic Object Tracking Using Regression Networks) tracker
-/// 
-/// GOTURN ([GOTURN](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_GOTURN)) is kind of trackers based on Convolutional Neural Networks (CNN). While taking all advantages of CNN trackers,
-/// GOTURN is much faster due to offline training without online fine-tuning nature.
-/// GOTURN tracker addresses the problem of single target tracking: given a bounding box label of an object in the first frame of the video,
-/// we track that object through the rest of the video. NOTE: Current method of GOTURN does not handle occlusions; however, it is fairly
-/// robust to viewpoint changes, lighting changes, and deformations.
-/// Inputs of GOTURN are two RGB patches representing Target and Search patches resized to 227x227.
-/// Outputs of GOTURN are predicted bounding box coordinates, relative to Search patch coordinate system, in format X1,Y1,X2,Y2.
-/// Original paper is here: <http://davheld.github.io/GOTURN/GOTURN.pdf>
-/// As long as original authors implementation: <https://github.com/davheld/GOTURN#train-the-tracker>
-/// Implementation of training algorithm is placed in separately here due to 3d-party dependencies:
-/// <https://github.com/Auron-X/GOTURN_Training_Toolkit>
-/// GOTURN architecture goturn.prototxt and trained model goturn.caffemodel are accessible on opencv_extra GitHub repository.
 pub trait TrackerGOTURNConst: crate::video::TrackerConst {
 	fn as_raw_TrackerGOTURN(&self) -> *const c_void;
 
@@ -2304,10 +1639,6 @@ pub trait TrackerGOTURN: crate::video::Tracker + crate::video::TrackerGOTURNCons
 }
 
 impl dyn TrackerGOTURN + '_ {
-	/// Constructor
-	/// ## Parameters
-	/// * parameters: GOTURN parameters TrackerGOTURN::Params
-	/// 
 	/// ## C++ default parameters
 	/// * parameters: TrackerGOTURN::Params()
 	#[inline]
@@ -2395,13 +1726,6 @@ impl TrackerGOTURN_Params {
 	
 }
 
-/// The MIL algorithm trains a classifier in an online manner to separate the object from the
-/// background.
-/// 
-/// Multiple Instance Learning avoids the drift problem for a robust tracking. The implementation is
-/// based on [MIL](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_MIL) .
-/// 
-/// Original code can be found here <http://vision.ucsd.edu/~bbabenko/project_miltrack.shtml>
 pub trait TrackerMILConst: crate::video::TrackerConst {
 	fn as_raw_TrackerMIL(&self) -> *const c_void;
 
@@ -2413,10 +1737,6 @@ pub trait TrackerMIL: crate::video::Tracker + crate::video::TrackerMILConst {
 }
 
 impl dyn TrackerMIL + '_ {
-	/// Create MIL tracker instance
-	/// ## Parameters
-	/// * parameters: MIL parameters TrackerMIL::Params
-	/// 
 	/// ## C++ default parameters
 	/// * parameters: TrackerMIL::Params()
 	#[inline]
@@ -2433,19 +1753,12 @@ impl dyn TrackerMIL + '_ {
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub struct TrackerMIL_Params {
-	/// radius for gathering positive instances during init
 	pub sampler_init_in_radius: f32,
-	/// # negative samples to use during init
 	pub sampler_init_max_neg_num: i32,
-	/// size of search window
 	pub sampler_search_win_size: f32,
-	/// radius for gathering positive instances during tracking
 	pub sampler_track_in_radius: f32,
-	/// # positive samples to use during tracking
 	pub sampler_track_max_pos_num: i32,
-	/// # negative samples to use during tracking
 	pub sampler_track_max_neg_num: i32,
-	/// # features
 	pub feature_set_num_features: i32,
 }
 
@@ -2463,21 +1776,9 @@ impl TrackerMIL_Params {
 	
 }
 
-/// Variational optical flow refinement
-/// 
-/// This class implements variational refinement of the input flow field, i.e.
-/// it uses input flow to initialize the minimization of the following functional:
-/// ![inline formula](https://latex.codecogs.com/png.latex?E%28U%29%20%3D%20%5Cint%5F%7B%5COmega%7D%20%5Cdelta%20%5CPsi%28E%5FI%29%20%2B%20%5Cgamma%20%5CPsi%28E%5FG%29%20%2B%20%5Calpha%20%5CPsi%28E%5FS%29%20),
-/// where ![inline formula](https://latex.codecogs.com/png.latex?E%5FI%2CE%5FG%2CE%5FS) are color constancy, gradient constancy and smoothness terms
-/// respectively. ![inline formula](https://latex.codecogs.com/png.latex?%5CPsi%28s%5E2%29%3D%5Csqrt%7Bs%5E2%2B%5Cepsilon%5E2%7D) is a robust penalizer to limit the
-/// influence of outliers. A complete formulation and a description of the minimization
-/// procedure can be found in [Brox2004](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Brox2004)
 pub trait VariationalRefinementConst: crate::video::DenseOpticalFlowConst {
 	fn as_raw_VariationalRefinement(&self) -> *const c_void;
 
-	/// Number of outer (fixed-point) iterations in the minimization procedure.
-	/// ## See also
-	/// setFixedPointIterations
 	#[inline]
 	fn get_fixed_point_iterations(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -2487,10 +1788,6 @@ pub trait VariationalRefinementConst: crate::video::DenseOpticalFlowConst {
 		Ok(ret)
 	}
 	
-	/// Number of inner successive over-relaxation (SOR) iterations
-	///    in the minimization procedure to solve the respective linear system.
-	/// ## See also
-	/// setSorIterations
 	#[inline]
 	fn get_sor_iterations(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -2500,9 +1797,6 @@ pub trait VariationalRefinementConst: crate::video::DenseOpticalFlowConst {
 		Ok(ret)
 	}
 	
-	/// Relaxation factor in SOR
-	/// ## See also
-	/// setOmega
 	#[inline]
 	fn get_omega(&self) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -2512,9 +1806,6 @@ pub trait VariationalRefinementConst: crate::video::DenseOpticalFlowConst {
 		Ok(ret)
 	}
 	
-	/// Weight of the smoothness term
-	/// ## See also
-	/// setAlpha
 	#[inline]
 	fn get_alpha(&self) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -2524,9 +1815,6 @@ pub trait VariationalRefinementConst: crate::video::DenseOpticalFlowConst {
 		Ok(ret)
 	}
 	
-	/// Weight of the color constancy term
-	/// ## See also
-	/// setDelta
 	#[inline]
 	fn get_delta(&self) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -2536,9 +1824,6 @@ pub trait VariationalRefinementConst: crate::video::DenseOpticalFlowConst {
 		Ok(ret)
 	}
 	
-	/// Weight of the gradient constancy term
-	/// ## See also
-	/// setGamma
 	#[inline]
 	fn get_gamma(&self) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -2553,8 +1838,6 @@ pub trait VariationalRefinementConst: crate::video::DenseOpticalFlowConst {
 pub trait VariationalRefinement: crate::video::DenseOpticalFlow + crate::video::VariationalRefinementConst {
 	fn as_raw_mut_VariationalRefinement(&mut self) -> *mut c_void;
 
-	/// @ref calc function overload to handle separate horizontal (u) and vertical (v) flow components
-	/// (to avoid extra splits/merges)
 	#[inline]
 	fn calc_uv(&mut self, i0: &dyn core::ToInputArray, i1: &dyn core::ToInputArray, flow_u: &mut dyn core::ToInputOutputArray, flow_v: &mut dyn core::ToInputOutputArray) -> Result<()> {
 		input_array_arg!(i0);
@@ -2568,9 +1851,6 @@ pub trait VariationalRefinement: crate::video::DenseOpticalFlow + crate::video::
 		Ok(ret)
 	}
 	
-	/// Number of outer (fixed-point) iterations in the minimization procedure.
-	/// ## See also
-	/// setFixedPointIterations getFixedPointIterations
 	#[inline]
 	fn set_fixed_point_iterations(&mut self, val: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2580,10 +1860,6 @@ pub trait VariationalRefinement: crate::video::DenseOpticalFlow + crate::video::
 		Ok(ret)
 	}
 	
-	/// Number of inner successive over-relaxation (SOR) iterations
-	///    in the minimization procedure to solve the respective linear system.
-	/// ## See also
-	/// setSorIterations getSorIterations
 	#[inline]
 	fn set_sor_iterations(&mut self, val: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2593,9 +1869,6 @@ pub trait VariationalRefinement: crate::video::DenseOpticalFlow + crate::video::
 		Ok(ret)
 	}
 	
-	/// Relaxation factor in SOR
-	/// ## See also
-	/// setOmega getOmega
 	#[inline]
 	fn set_omega(&mut self, val: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2605,9 +1878,6 @@ pub trait VariationalRefinement: crate::video::DenseOpticalFlow + crate::video::
 		Ok(ret)
 	}
 	
-	/// Weight of the smoothness term
-	/// ## See also
-	/// setAlpha getAlpha
 	#[inline]
 	fn set_alpha(&mut self, val: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2617,9 +1887,6 @@ pub trait VariationalRefinement: crate::video::DenseOpticalFlow + crate::video::
 		Ok(ret)
 	}
 	
-	/// Weight of the color constancy term
-	/// ## See also
-	/// setDelta getDelta
 	#[inline]
 	fn set_delta(&mut self, val: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2629,9 +1896,6 @@ pub trait VariationalRefinement: crate::video::DenseOpticalFlow + crate::video::
 		Ok(ret)
 	}
 	
-	/// Weight of the gradient constancy term
-	/// ## See also
-	/// setGamma getGamma
 	#[inline]
 	fn set_gamma(&mut self, val: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2644,7 +1908,6 @@ pub trait VariationalRefinement: crate::video::DenseOpticalFlow + crate::video::
 }
 
 impl dyn VariationalRefinement + '_ {
-	/// Creates an instance of VariationalRefinement
 	#[inline]
 	pub fn create() -> Result<core::Ptr<dyn crate::video::VariationalRefinement>> {
 		return_send!(via ocvrs_return);

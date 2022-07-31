@@ -70,7 +70,6 @@ pub fn show_image(img: &dyn core::ToInputArray, data: &crate::cvv::CallMetaData,
 	Ok(ret)
 }
 
-/// Optional information about a location in Code.
 pub trait CallMetaDataTraitConst {
 	fn as_raw_CallMetaData(&self) -> *const c_void;
 
@@ -94,7 +93,6 @@ pub trait CallMetaDataTraitConst {
 		ret
 	}
 	
-	/// Whether *this holds actual data.
 	#[inline]
 	fn is_known(&self) -> bool {
 		let ret = unsafe { sys::cvv_impl_CallMetaData_getPropIsKnown_const(self.as_raw_CallMetaData()) };
@@ -117,7 +115,6 @@ pub trait CallMetaDataTrait: crate::cvv::CallMetaDataTraitConst {
 	
 }
 
-/// Optional information about a location in Code.
 pub struct CallMetaData {
 	ptr: *mut c_void
 }
@@ -142,7 +139,6 @@ impl crate::cvv::CallMetaDataTrait for CallMetaData {
 }
 
 impl CallMetaData {
-	/// Creates an unknown location.
 	#[inline]
 	pub fn default() -> Result<crate::cvv::CallMetaData> {
 		return_send!(via ocvrs_return);
@@ -153,9 +149,6 @@ impl CallMetaData {
 		Ok(ret)
 	}
 	
-	/// Creates the provided location.
-	/// 
-	/// Argument should be self-explaining.
 	#[inline]
 	pub fn new(file: &str, line: size_t, function: &str) -> Result<crate::cvv::CallMetaData> {
 		extern_container_arg!(file);

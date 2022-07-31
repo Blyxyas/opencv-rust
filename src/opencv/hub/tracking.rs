@@ -15,10 +15,6 @@ pub mod prelude {
 	pub use { super::TrackerCSRT_ParamsTraitConst, super::TrackerCSRT_ParamsTrait, super::TrackerCSRTConst, super::TrackerCSRT, super::TrackerKCFConst, super::TrackerKCF };
 }
 
-/// \brief Feature type to be used in the tracking grayscale, colornames, compressed color-names
-/// The modes available now:
-///  *   "GRAY" -- Use grayscale values as the feature
-///  *   "CN" -- Color-names feature
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum TrackerKCF_MODE {
@@ -30,9 +26,6 @@ pub enum TrackerKCF_MODE {
 opencv_type_enum! { crate::tracking::TrackerKCF_MODE }
 
 pub type TrackerKCF_FeatureExtractorCallbackFN = Option<unsafe extern "C" fn(*const c_void, core::Rect, *mut c_void) -> ()>;
-/// the CSRT tracker
-/// 
-/// The implementation is based on [Lukezic_IJCV2018](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Lukezic_IJCV2018) Discriminative Correlation Filter with Channel and Spatial Reliability
 pub trait TrackerCSRTConst: crate::video::TrackerConst {
 	fn as_raw_TrackerCSRT(&self) -> *const c_void;
 
@@ -54,10 +47,6 @@ pub trait TrackerCSRT: crate::tracking::TrackerCSRTConst + crate::video::Tracker
 }
 
 impl dyn TrackerCSRT + '_ {
-	/// Create CSRT tracker instance
-	/// ## Parameters
-	/// * parameters: CSRT parameters TrackerCSRT::Params
-	/// 
 	/// ## C++ default parameters
 	/// * parameters: TrackerCSRT::Params()
 	#[inline]
@@ -110,7 +99,6 @@ pub trait TrackerCSRT_ParamsTraitConst {
 		ret
 	}
 	
-	/// Window function: "hann", "cheb", "kaiser"
 	#[inline]
 	fn window_function(&self) -> String {
 		let ret = unsafe { sys::cv_tracking_TrackerCSRT_Params_getPropWindow_function_const(self.as_raw_TrackerCSRT_Params()) };
@@ -232,7 +220,6 @@ pub trait TrackerCSRT_ParamsTraitConst {
 		ret
 	}
 	
-	/// we lost the target, if the psr is lower than this.
 	#[inline]
 	fn psr_threshold(&self) -> f32 {
 		let ret = unsafe { sys::cv_tracking_TrackerCSRT_Params_getPropPsr_threshold_const(self.as_raw_TrackerCSRT_Params()) };
@@ -280,7 +267,6 @@ pub trait TrackerCSRT_ParamsTrait: crate::tracking::TrackerCSRT_ParamsTraitConst
 		ret
 	}
 	
-	/// Window function: "hann", "cheb", "kaiser"
 	#[inline]
 	fn set_window_function(&mut self, val: &str) {
 		extern_container_arg!(nofail mut val);
@@ -402,7 +388,6 @@ pub trait TrackerCSRT_ParamsTrait: crate::tracking::TrackerCSRT_ParamsTraitConst
 		ret
 	}
 	
-	/// we lost the target, if the psr is lower than this.
 	#[inline]
 	fn set_psr_threshold(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_tracking_TrackerCSRT_Params_setPropPsr_threshold_float(self.as_raw_mut_TrackerCSRT_Params(), val) };
@@ -447,13 +432,6 @@ impl TrackerCSRT_Params {
 	
 }
 
-/// the KCF (Kernelized Correlation Filter) tracker
-/// 
-/// * KCF is a novel tracking framework that utilizes properties of circulant matrix to enhance the processing speed.
-/// * This tracking method is an implementation of [KCF_ECCV](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_KCF_ECCV) which is extended to KCF with color-names features ([KCF_CN](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_KCF_CN)).
-/// * The original paper of KCF is available at <http://www.robots.ox.ac.uk/~joao/publications/henriques_tpami2015.pdf>
-/// * as well as the matlab implementation. For more information about KCF with color-names features, please refer to
-/// * <http://www.cvl.isy.liu.se/research/objrec/visualtracking/colvistrack/index.html>.
 pub trait TrackerKCFConst: crate::video::TrackerConst {
 	fn as_raw_TrackerKCF(&self) -> *const c_void;
 
@@ -476,10 +454,6 @@ pub trait TrackerKCF: crate::tracking::TrackerKCFConst + crate::video::Tracker {
 }
 
 impl dyn TrackerKCF + '_ {
-	/// Create KCF tracker instance
-	/// ## Parameters
-	/// * parameters: KCF parameters TrackerKCF::Params
-	/// 
 	/// ## C++ default parameters
 	/// * parameters: TrackerKCF::Params()
 	#[inline]
@@ -496,33 +470,19 @@ impl dyn TrackerKCF + '_ {
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub struct TrackerKCF_Params {
-	/// detection confidence threshold
 	pub detect_thresh: f32,
-	/// gaussian kernel bandwidth
 	pub sigma: f32,
-	/// regularization
 	pub lambda: f32,
-	/// linear interpolation factor for adaptation
 	pub interp_factor: f32,
-	/// spatial bandwidth (proportional to target)
 	pub output_sigma_factor: f32,
-	/// compression learning rate
 	pub pca_learning_rate: f32,
-	/// activate the resize feature to improve the processing speed
 	pub resize: bool,
-	/// split the training coefficients into two matrices
 	pub split_coeff: bool,
-	/// wrap around the kernel values
 	pub wrap_kernel: bool,
-	/// activate the pca method to compress the features
 	pub compress_feature: bool,
-	/// threshold for the ROI size
 	pub max_patch_size: i32,
-	/// feature size after compression
 	pub compressed_size: i32,
-	/// compressed descriptors of TrackerKCF::MODE
 	pub desc_pca: i32,
-	/// non-compressed descriptors of TrackerKCF::MODE
 	pub desc_npca: i32,
 }
 

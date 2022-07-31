@@ -86,7 +86,6 @@ pub enum DetectionBasedTracker_ObjectStatus {
 
 opencv_type_enum! { crate::objdetect::DetectionBasedTracker_ObjectStatus }
 
-/// Definition of distance used for calculating the distance between two face features
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum FaceRecognizerSF_DisType {
@@ -1200,9 +1199,6 @@ impl crate::objdetect::DetectionROITrait for DetectionROI {
 impl DetectionROI {
 }
 
-/// DNN-based face detector
-/// 
-/// model download link: https://github.com/opencv/opencv_zoo/tree/master/models/face_detection_yunet
 pub trait FaceDetectorYNConst {
 	fn as_raw_FaceDetectorYN(&self) -> *const c_void;
 
@@ -1211,10 +1207,6 @@ pub trait FaceDetectorYNConst {
 pub trait FaceDetectorYN: crate::objdetect::FaceDetectorYNConst {
 	fn as_raw_mut_FaceDetectorYN(&mut self) -> *mut c_void;
 
-	/// Set the size for the network input, which overwrites the input size of creating model. Call this method when the size of input image does not match the input size when creating model
-	/// 
-	/// ## Parameters
-	/// * input_size: the size of the input image
 	#[inline]
 	fn set_input_size(&mut self, input_size: core::Size) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1233,10 +1225,6 @@ pub trait FaceDetectorYN: crate::objdetect::FaceDetectorYNConst {
 		Ok(ret)
 	}
 	
-	/// Set the score threshold to filter out bounding boxes of score less than the given value
-	/// 
-	/// ## Parameters
-	/// * score_threshold: threshold for filtering out bounding boxes
 	#[inline]
 	fn set_score_threshold(&mut self, score_threshold: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1255,10 +1243,6 @@ pub trait FaceDetectorYN: crate::objdetect::FaceDetectorYNConst {
 		Ok(ret)
 	}
 	
-	/// Set the Non-maximum-suppression threshold to suppress bounding boxes that have IoU greater than the given value
-	/// 
-	/// ## Parameters
-	/// * nms_threshold: threshold for NMS operation
 	#[inline]
 	fn set_nms_threshold(&mut self, nms_threshold: f32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1277,10 +1261,6 @@ pub trait FaceDetectorYN: crate::objdetect::FaceDetectorYNConst {
 		Ok(ret)
 	}
 	
-	/// Set the number of bounding boxes preserved before NMS
-	/// 
-	/// ## Parameters
-	/// * top_k: the number of bounding boxes to preserve from top rank based on score
 	#[inline]
 	fn set_top_k(&mut self, top_k: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1299,11 +1279,6 @@ pub trait FaceDetectorYN: crate::objdetect::FaceDetectorYNConst {
 		Ok(ret)
 	}
 	
-	/// A simple interface to detect face from given image
-	/// 
-	/// ## Parameters
-	/// * image: an image to detect
-	/// * faces: detection results stored in a cv::Mat
 	#[inline]
 	fn detect(&mut self, image: &dyn core::ToInputArray, faces: &mut dyn core::ToOutputArray) -> Result<i32> {
 		input_array_arg!(image);
@@ -1318,18 +1293,6 @@ pub trait FaceDetectorYN: crate::objdetect::FaceDetectorYNConst {
 }
 
 impl dyn FaceDetectorYN + '_ {
-	/// Creates an instance of this class with given parameters
-	/// 
-	/// ## Parameters
-	/// * model: the path to the requested model
-	/// * config: the path to the config file for compability, which is not requested for ONNX models
-	/// * input_size: the size of the input image
-	/// * score_threshold: the threshold to filter out bounding boxes of score smaller than the given value
-	/// * nms_threshold: the threshold to suppress bounding boxes of IoU bigger than the given value
-	/// * top_k: keep top K bboxes before NMS
-	/// * backend_id: the id of backend
-	/// * target_id: the id of target device
-	/// 
 	/// ## C++ default parameters
 	/// * score_threshold: 0.9f
 	/// * nms_threshold: 0.3f
@@ -1349,17 +1312,9 @@ impl dyn FaceDetectorYN + '_ {
 	}
 	
 }
-/// DNN-based face recognizer
-/// 
-/// model download link: https://github.com/opencv/opencv_zoo/tree/master/models/face_recognition_sface
 pub trait FaceRecognizerSFConst {
 	fn as_raw_FaceRecognizerSF(&self) -> *const c_void;
 
-	/// Aligning image to put face on the standard position
-	/// ## Parameters
-	/// * src_img: input image
-	/// * face_box: the detection result used for indicate face in input image
-	/// * aligned_img: output aligned image
 	#[inline]
 	fn align_crop(&self, src_img: &dyn core::ToInputArray, face_box: &dyn core::ToInputArray, aligned_img: &mut dyn core::ToOutputArray) -> Result<()> {
 		input_array_arg!(src_img);
@@ -1372,12 +1327,6 @@ pub trait FaceRecognizerSFConst {
 		Ok(ret)
 	}
 	
-	/// Calculating the distance between two face features
-	/// ## Parameters
-	/// * face_feature1: the first input feature
-	/// * face_feature2: the second input feature of the same size and the same type as face_feature1
-	/// * dis_type: defining the similarity with optional values "FR_OSINE" or "FR_NORM_L2"
-	/// 
 	/// ## C++ default parameters
 	/// * dis_type: FaceRecognizerSF::FR_COSINE
 	#[inline]
@@ -1396,10 +1345,6 @@ pub trait FaceRecognizerSFConst {
 pub trait FaceRecognizerSF: crate::objdetect::FaceRecognizerSFConst {
 	fn as_raw_mut_FaceRecognizerSF(&mut self) -> *mut c_void;
 
-	/// Extracting face feature from aligned image
-	/// ## Parameters
-	/// * aligned_img: input aligned image
-	/// * face_feature: output face feature
 	#[inline]
 	fn feature(&mut self, aligned_img: &dyn core::ToInputArray, face_feature: &mut dyn core::ToOutputArray) -> Result<()> {
 		input_array_arg!(aligned_img);
@@ -1414,13 +1359,6 @@ pub trait FaceRecognizerSF: crate::objdetect::FaceRecognizerSFConst {
 }
 
 impl dyn FaceRecognizerSF + '_ {
-	/// Creates an instance of this class with given parameters
-	/// ## Parameters
-	/// * model: the path of the onnx model used for face recognition
-	/// * config: the path to the config file for compability, which is not requested for ONNX models
-	/// * backend_id: the id of backend
-	/// * target_id: the id of target device
-	/// 
 	/// ## C++ default parameters
 	/// * backend_id: 0
 	/// * target_id: 0

@@ -30,19 +30,9 @@ pub mod prelude {
 
 pub const AgastFeatureDetector_NONMAX_SUPPRESSION: i32 = 10001;
 pub const AgastFeatureDetector_THRESHOLD: i32 = 10000;
-/// Output image matrix will be created (Mat::create),
-/// i.e. existing memory of output image may be reused.
-/// Two source image, matches and single keypoints will be drawn.
-/// For each keypoint only the center point will be drawn (without
-/// the circle around keypoint with keypoint size and orientation).
 pub const DrawMatchesFlags_DEFAULT: i32 = 0;
-/// Output image matrix will not be created (Mat::create).
-/// Matches will be drawn on existing content of output image.
 pub const DrawMatchesFlags_DRAW_OVER_OUTIMG: i32 = 1;
-/// For each keypoint the circle around keypoint with keypoint size and
-/// orientation will be drawn.
 pub const DrawMatchesFlags_DRAW_RICH_KEYPOINTS: i32 = 4;
-/// Single keypoints will not be drawn.
 pub const DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS: i32 = 2;
 pub const FastFeatureDetector_FAST_N: i32 = 10002;
 pub const FastFeatureDetector_NONMAX_SUPPRESSION: i32 = 10001;
@@ -50,10 +40,8 @@ pub const FastFeatureDetector_THRESHOLD: i32 = 10000;
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum AKAZE_DescriptorType {
-	/// Upright descriptors, not invariant to rotation
 	DESCRIPTOR_KAZE_UPRIGHT = 2,
 	DESCRIPTOR_KAZE = 3,
-	/// Upright descriptors, not invariant to rotation
 	DESCRIPTOR_MLDB_UPRIGHT = 4,
 	DESCRIPTOR_MLDB = 5,
 }
@@ -87,19 +75,9 @@ opencv_type_enum! { crate::features2d::DescriptorMatcher_MatcherType }
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum DrawMatchesFlags {
-	/// Output image matrix will be created (Mat::create),
-	/// i.e. existing memory of output image may be reused.
-	/// Two source image, matches and single keypoints will be drawn.
-	/// For each keypoint only the center point will be drawn (without
-	/// the circle around keypoint with keypoint size and orientation).
 	DEFAULT = 0,
-	/// Output image matrix will not be created (Mat::create).
-	/// Matches will be drawn on existing content of output image.
 	DRAW_OVER_OUTIMG = 1,
-	/// Single keypoints will not be drawn.
 	NOT_DRAW_SINGLE_POINTS = 2,
-	/// For each keypoint the circle around keypoint with keypoint size and
-	/// orientation will be drawn.
 	DRAW_RICH_KEYPOINTS = 4,
 }
 
@@ -137,37 +115,10 @@ opencv_type_enum! { crate::features2d::ORB_ScoreType }
 
 pub type AffineDescriptorExtractor = dyn crate::features2d::AffineFeature;
 pub type AffineFeatureDetector = dyn crate::features2d::AffineFeature;
-/// Extractors of keypoint descriptors in OpenCV have wrappers with a common interface that enables you
-/// to easily switch between different algorithms solving the same problem. This section is devoted to
-/// computing descriptors represented as vectors in a multidimensional space. All objects that implement
-/// the vector descriptor extractors inherit the DescriptorExtractor interface.
 pub type DescriptorExtractor = crate::features2d::Feature2D;
-/// Feature detectors in OpenCV have wrappers with a common interface that enables you to easily switch
-/// between different algorithms solving the same problem. All objects that implement keypoint detectors
-/// inherit the FeatureDetector interface.
 pub type FeatureDetector = crate::features2d::Feature2D;
 pub type SiftDescriptorExtractor = crate::features2d::SIFT;
 pub type SiftFeatureDetector = crate::features2d::SIFT;
-/// Detects corners using the AGAST algorithm
-/// 
-/// ## Parameters
-/// * image: grayscale image where keypoints (corners) are detected.
-/// * keypoints: keypoints detected on the image.
-/// * threshold: threshold on difference between intensity of the central pixel and pixels of a
-/// circle around this pixel.
-/// * nonmaxSuppression: if true, non-maximum suppression is applied to detected corners
-/// (keypoints).
-/// * type: one of the four neighborhoods as defined in the paper:
-/// AgastFeatureDetector::AGAST_5_8, AgastFeatureDetector::AGAST_7_12d,
-/// AgastFeatureDetector::AGAST_7_12s, AgastFeatureDetector::OAST_9_16
-/// 
-/// For non-Intel platforms, there is a tree optimised variant of AGAST with same numerical results.
-/// The 32-bit binary tree tables were generated automatically from original code using perl script.
-/// The perl script and examples of tree generation are placed in features2d/doc folder.
-/// Detects corners using the AGAST algorithm by [mair2010_agast](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_mair2010_agast) .
-/// 
-/// ## Overloaded parameters
-/// 
 /// ## C++ default parameters
 /// * nonmax_suppression: true
 #[inline]
@@ -180,23 +131,6 @@ pub fn AGAST(image: &dyn core::ToInputArray, keypoints: &mut core::Vector<core::
 	Ok(ret)
 }
 
-/// Detects corners using the AGAST algorithm
-/// 
-/// ## Parameters
-/// * image: grayscale image where keypoints (corners) are detected.
-/// * keypoints: keypoints detected on the image.
-/// * threshold: threshold on difference between intensity of the central pixel and pixels of a
-/// circle around this pixel.
-/// * nonmaxSuppression: if true, non-maximum suppression is applied to detected corners
-/// (keypoints).
-/// * type: one of the four neighborhoods as defined in the paper:
-/// AgastFeatureDetector::AGAST_5_8, AgastFeatureDetector::AGAST_7_12d,
-/// AgastFeatureDetector::AGAST_7_12s, AgastFeatureDetector::OAST_9_16
-/// 
-/// For non-Intel platforms, there is a tree optimised variant of AGAST with same numerical results.
-/// The 32-bit binary tree tables were generated automatically from original code using perl script.
-/// The perl script and examples of tree generation are placed in features2d/doc folder.
-/// Detects corners using the AGAST algorithm by [mair2010_agast](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_mair2010_agast) .
 #[inline]
 pub fn AGAST_with_type(image: &dyn core::ToInputArray, keypoints: &mut core::Vector<core::KeyPoint>, threshold: i32, nonmax_suppression: bool, typ: crate::features2d::AgastFeatureDetector_DetectorType) -> Result<()> {
 	input_array_arg!(image);
@@ -207,28 +141,6 @@ pub fn AGAST_with_type(image: &dyn core::ToInputArray, keypoints: &mut core::Vec
 	Ok(ret)
 }
 
-/// Detects corners using the FAST algorithm
-/// 
-/// ## Parameters
-/// * image: grayscale image where keypoints (corners) are detected.
-/// * keypoints: keypoints detected on the image.
-/// * threshold: threshold on difference between intensity of the central pixel and pixels of a
-/// circle around this pixel.
-/// * nonmaxSuppression: if true, non-maximum suppression is applied to detected corners
-/// (keypoints).
-/// * type: one of the three neighborhoods as defined in the paper:
-/// FastFeatureDetector::TYPE_9_16, FastFeatureDetector::TYPE_7_12,
-/// FastFeatureDetector::TYPE_5_8
-/// 
-/// Detects corners using the FAST algorithm by [Rosten06](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Rosten06) .
-/// 
-/// 
-/// Note: In Python API, types are given as cv.FAST_FEATURE_DETECTOR_TYPE_5_8,
-/// cv.FAST_FEATURE_DETECTOR_TYPE_7_12 and cv.FAST_FEATURE_DETECTOR_TYPE_9_16. For corner
-/// detection, use cv.FAST.detect() method.
-/// 
-/// ## Overloaded parameters
-/// 
 /// ## C++ default parameters
 /// * nonmax_suppression: true
 #[inline]
@@ -241,25 +153,6 @@ pub fn FAST(image: &dyn core::ToInputArray, keypoints: &mut core::Vector<core::K
 	Ok(ret)
 }
 
-/// Detects corners using the FAST algorithm
-/// 
-/// ## Parameters
-/// * image: grayscale image where keypoints (corners) are detected.
-/// * keypoints: keypoints detected on the image.
-/// * threshold: threshold on difference between intensity of the central pixel and pixels of a
-/// circle around this pixel.
-/// * nonmaxSuppression: if true, non-maximum suppression is applied to detected corners
-/// (keypoints).
-/// * type: one of the three neighborhoods as defined in the paper:
-/// FastFeatureDetector::TYPE_9_16, FastFeatureDetector::TYPE_7_12,
-/// FastFeatureDetector::TYPE_5_8
-/// 
-/// Detects corners using the FAST algorithm by [Rosten06](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Rosten06) .
-/// 
-/// 
-/// Note: In Python API, types are given as cv.FAST_FEATURE_DETECTOR_TYPE_5_8,
-/// cv.FAST_FEATURE_DETECTOR_TYPE_7_12 and cv.FAST_FEATURE_DETECTOR_TYPE_9_16. For corner
-/// detection, use cv.FAST.detect() method.
 #[inline]
 pub fn FAST_with_type(image: &dyn core::ToInputArray, keypoints: &mut core::Vector<core::KeyPoint>, threshold: i32, nonmax_suppression: bool, typ: crate::features2d::FastFeatureDetector_DetectorType) -> Result<()> {
 	input_array_arg!(image);
@@ -279,23 +172,6 @@ pub fn compute_recall_precision_curve(matches1to2: &core::Vector<core::Vector<co
 	Ok(ret)
 }
 
-/// Draws keypoints.
-/// 
-/// ## Parameters
-/// * image: Source image.
-/// * keypoints: Keypoints from the source image.
-/// * outImage: Output image. Its content depends on the flags value defining what is drawn in the
-/// output image. See possible flags bit values below.
-/// * color: Color of keypoints.
-/// * flags: Flags setting drawing features. Possible flags bit values are defined by
-/// DrawMatchesFlags. See details above in drawMatches .
-/// 
-/// 
-/// Note:
-/// For Python API, flags are modified as cv.DRAW_MATCHES_FLAGS_DEFAULT,
-/// cv.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS, cv.DRAW_MATCHES_FLAGS_DRAW_OVER_OUTIMG,
-/// cv.DRAW_MATCHES_FLAGS_NOT_DRAW_SINGLE_POINTS
-/// 
 /// ## C++ default parameters
 /// * color: Scalar::all(-1)
 /// * flags: DrawMatchesFlags::DEFAULT
@@ -310,29 +186,6 @@ pub fn draw_keypoints(image: &dyn core::ToInputArray, keypoints: &core::Vector<c
 	Ok(ret)
 }
 
-/// Draws the found matches of keypoints from two images.
-/// 
-/// ## Parameters
-/// * img1: First source image.
-/// * keypoints1: Keypoints from the first source image.
-/// * img2: Second source image.
-/// * keypoints2: Keypoints from the second source image.
-/// * matches1to2: Matches from the first image to the second one, which means that keypoints1[i]
-/// has a corresponding point in keypoints2[matches[i]] .
-/// * outImg: Output image. Its content depends on the flags value defining what is drawn in the
-/// output image. See possible flags bit values below.
-/// * matchColor: Color of matches (lines and connected keypoints). If matchColor==Scalar::all(-1)
-/// , the color is generated randomly.
-/// * singlePointColor: Color of single keypoints (circles), which means that keypoints do not
-/// have the matches. If singlePointColor==Scalar::all(-1) , the color is generated randomly.
-/// * matchesMask: Mask determining which matches are drawn. If the mask is empty, all matches are
-/// drawn.
-/// * flags: Flags setting drawing features. Possible flags bit values are defined by
-/// DrawMatchesFlags.
-/// 
-/// This function draws matches of keypoints from two images in the output image. Match is a line
-/// connecting two keypoints (circles). See cv::DrawMatchesFlags.
-/// 
 /// ## C++ default parameters
 /// * match_color: Scalar::all(-1)
 /// * single_point_color: Scalar::all(-1)
@@ -350,31 +203,6 @@ pub fn draw_matches(img1: &dyn core::ToInputArray, keypoints1: &core::Vector<cor
 	Ok(ret)
 }
 
-/// Draws the found matches of keypoints from two images.
-/// 
-/// ## Parameters
-/// * img1: First source image.
-/// * keypoints1: Keypoints from the first source image.
-/// * img2: Second source image.
-/// * keypoints2: Keypoints from the second source image.
-/// * matches1to2: Matches from the first image to the second one, which means that keypoints1[i]
-/// has a corresponding point in keypoints2[matches[i]] .
-/// * outImg: Output image. Its content depends on the flags value defining what is drawn in the
-/// output image. See possible flags bit values below.
-/// * matchColor: Color of matches (lines and connected keypoints). If matchColor==Scalar::all(-1)
-/// , the color is generated randomly.
-/// * singlePointColor: Color of single keypoints (circles), which means that keypoints do not
-/// have the matches. If singlePointColor==Scalar::all(-1) , the color is generated randomly.
-/// * matchesMask: Mask determining which matches are drawn. If the mask is empty, all matches are
-/// drawn.
-/// * flags: Flags setting drawing features. Possible flags bit values are defined by
-/// DrawMatchesFlags.
-/// 
-/// This function draws matches of keypoints from two images in the output image. Match is a line
-/// connecting two keypoints (circles). See cv::DrawMatchesFlags.
-/// 
-/// ## Overloaded parameters
-/// 
 /// ## C++ default parameters
 /// * match_color: Scalar::all(-1)
 /// * single_point_color: Scalar::all(-1)
@@ -409,10 +237,6 @@ pub fn draw_matches_knn(img1: &dyn core::ToInputArray, keypoints1: &core::Vector
 	Ok(ret)
 }
 
-/// *************************************************************************************\
-///    Functions to evaluate the feature detectors and [generic] descriptor extractors      *
-/// \***************************************************************************************
-/// 
 /// ## C++ default parameters
 /// * fdetector: Ptr<FeatureDetector>()
 #[inline]
@@ -442,23 +266,6 @@ pub fn get_recall(recall_precision_curve: &core::Vector<core::Point2f>, l_precis
 	Ok(ret)
 }
 
-/// Class implementing the AKAZE keypoint detector and descriptor extractor, described in [ANB13](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_ANB13).
-/// 
-/// @details AKAZE descriptors can only be used with KAZE or AKAZE keypoints. This class is thread-safe.
-/// 
-/// 
-/// Note: When you need descriptors use Feature2D::detectAndCompute, which
-/// provides better performance. When using Feature2D::detect followed by
-/// Feature2D::compute scale space pyramid is computed twice.
-/// 
-/// 
-/// Note: AKAZE implements T-API. When image is passed as UMat some parts of the algorithm
-/// will use OpenCL.
-/// 
-/// 
-/// Note: [ANB13] Fast Explicit Diffusion for Accelerated Features in Nonlinear
-/// Scale Spaces. Pablo F. Alcantarilla, Jesús Nuevo and Adrien Bartoli. In
-/// British Machine Vision Conference (BMVC), Bristol, UK, September 2013.
 pub trait AKAZEConst: crate::features2d::Feature2DTraitConst {
 	fn as_raw_AKAZE(&self) -> *const c_void;
 
@@ -606,19 +413,6 @@ pub trait AKAZE: crate::features2d::AKAZEConst + crate::features2d::Feature2DTra
 }
 
 impl dyn AKAZE + '_ {
-	/// The AKAZE constructor
-	/// 
-	/// ## Parameters
-	/// * descriptor_type: Type of the extracted descriptor: DESCRIPTOR_KAZE,
-	/// DESCRIPTOR_KAZE_UPRIGHT, DESCRIPTOR_MLDB or DESCRIPTOR_MLDB_UPRIGHT.
-	/// * descriptor_size: Size of the descriptor in bits. 0 -\> Full size
-	/// * descriptor_channels: Number of channels in the descriptor (1, 2, 3)
-	/// * threshold: Detector response threshold to accept point
-	/// * nOctaves: Maximum octave evolution of the image
-	/// * nOctaveLayers: Default number of sublevels per scale level
-	/// * diffusivity: Diffusivity type. DIFF_PM_G1, DIFF_PM_G2, DIFF_WEICKERT or
-	/// DIFF_CHARBONNIER
-	/// 
 	/// ## C++ default parameters
 	/// * descriptor_type: AKAZE::DESCRIPTOR_MLDB
 	/// * descriptor_size: 0
@@ -638,8 +432,6 @@ impl dyn AKAZE + '_ {
 	}
 	
 }
-/// Class for implementing the wrapper which makes detectors and extractors to be affine invariant,
-/// described as ASIFT in [YM11](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_YM11) .
 pub trait AffineFeatureConst: crate::features2d::Feature2DTraitConst {
 	fn as_raw_AffineFeature(&self) -> *const c_void;
 
@@ -679,13 +471,6 @@ pub trait AffineFeature: crate::features2d::AffineFeatureConst + crate::features
 }
 
 impl dyn AffineFeature + '_ {
-	/// ## Parameters
-	/// * backend: The detector/extractor you want to use as backend.
-	/// * maxTilt: The highest power index of tilt factor. 5 is used in the paper as tilt sampling range n.
-	/// * minTilt: The lowest power index of tilt factor. 0 is used in the paper.
-	/// * tiltStep: Tilt sampling step ![inline formula](https://latex.codecogs.com/png.latex?%5Cdelta%5Ft) in Algorithm 1 in the paper.
-	/// * rotateStepBase: Rotation sampling step factor b in Algorithm 1 in the paper.
-	/// 
 	/// ## C++ default parameters
 	/// * max_tilt: 5
 	/// * min_tilt: 0
@@ -702,7 +487,6 @@ impl dyn AffineFeature + '_ {
 	}
 	
 }
-/// Wrapping class for feature detection using the AGAST method. :
 pub trait AgastFeatureDetectorConst: crate::features2d::Feature2DTraitConst {
 	fn as_raw_AgastFeatureDetector(&self) -> *const c_void;
 
@@ -793,11 +577,6 @@ impl dyn AgastFeatureDetector + '_ {
 	}
 	
 }
-/// Brute-force descriptor matcher.
-/// 
-/// For each descriptor in the first set, this matcher finds the closest descriptor in the second set
-/// by trying each one. This descriptor matcher supports masking permissible matches of descriptor
-/// sets.
 pub trait BFMatcherTraitConst: crate::features2d::DescriptorMatcherConst {
 	fn as_raw_BFMatcher(&self) -> *const c_void;
 
@@ -830,11 +609,6 @@ pub trait BFMatcherTrait: crate::features2d::BFMatcherTraitConst + crate::featur
 
 }
 
-/// Brute-force descriptor matcher.
-/// 
-/// For each descriptor in the first set, this matcher finds the closest descriptor in the second set
-/// by trying each one. This descriptor matcher supports masking permissible matches of descriptor
-/// sets.
 pub struct BFMatcher {
 	ptr: *mut c_void
 }
@@ -875,8 +649,6 @@ impl crate::features2d::BFMatcherTrait for BFMatcher {
 }
 
 impl BFMatcher {
-	/// Brute-force matcher constructor (obsolete). Please use BFMatcher.create()
-	/// 
 	/// ## C++ default parameters
 	/// * norm_type: NORM_L2
 	/// * cross_check: false
@@ -890,19 +662,6 @@ impl BFMatcher {
 		Ok(ret)
 	}
 	
-	/// Brute-force matcher create method.
-	/// ## Parameters
-	/// * normType: One of NORM_L1, NORM_L2, NORM_HAMMING, NORM_HAMMING2. L1 and L2 norms are
-	/// preferable choices for SIFT and SURF descriptors, NORM_HAMMING should be used with ORB, BRISK and
-	/// BRIEF, NORM_HAMMING2 should be used with ORB when WTA_K==3 or 4 (see ORB::ORB constructor
-	/// description).
-	/// * crossCheck: If it is false, this is will be default BFMatcher behaviour when it finds the k
-	/// nearest neighbors for each query descriptor. If crossCheck==true, then the knnMatch() method with
-	/// k=1 will only return pairs (i,j) such that for i-th query descriptor the j-th descriptor in the
-	/// matcher's collection is the nearest and vice versa, i.e. the BFMatcher will only return consistent
-	/// pairs. Such technique usually produces best results with minimal number of outliers when there are
-	/// enough matches. This is alternative to the ratio test, used by D. Lowe in SIFT paper.
-	/// 
 	/// ## C++ default parameters
 	/// * norm_type: NORM_L2
 	/// * cross_check: false
@@ -920,19 +679,9 @@ impl BFMatcher {
 
 boxed_cast_base! { BFMatcher, core::Algorithm, cv_BFMatcher_to_Algorithm }
 
-/// Class to compute an image descriptor using the *bag of visual words*.
-/// 
-/// Such a computation consists of the following steps:
-/// 
-/// 1.  Compute descriptors for a given image and its keypoints set.
-/// 2.  Find the nearest visual words from the vocabulary for each keypoint descriptor.
-/// 3.  Compute the bag-of-words image descriptor as is a normalized histogram of vocabulary words
-/// encountered in the image. The i-th bin of the histogram is a frequency of i-th word of the
-/// vocabulary in the given image.
 pub trait BOWImgDescriptorExtractorTraitConst {
 	fn as_raw_BOWImgDescriptorExtractor(&self) -> *const c_void;
 
-	/// Returns the set vocabulary.
 	#[inline]
 	fn get_vocabulary(&self) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -943,7 +692,6 @@ pub trait BOWImgDescriptorExtractorTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns an image descriptor size if the vocabulary is set. Otherwise, it returns 0.
 	#[inline]
 	fn descriptor_size(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -953,7 +701,6 @@ pub trait BOWImgDescriptorExtractorTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns an image descriptor type.
 	#[inline]
 	fn descriptor_type(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -968,11 +715,6 @@ pub trait BOWImgDescriptorExtractorTraitConst {
 pub trait BOWImgDescriptorExtractorTrait: crate::features2d::BOWImgDescriptorExtractorTraitConst {
 	fn as_raw_mut_BOWImgDescriptorExtractor(&mut self) -> *mut c_void;
 
-	/// Sets a visual vocabulary.
-	/// 
-	/// ## Parameters
-	/// * vocabulary: Vocabulary (can be trained using the inheritor of BOWTrainer ). Each row of the
-	/// vocabulary is a visual word (cluster center).
 	#[inline]
 	fn set_vocabulary(&mut self, vocabulary: &core::Mat) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -982,17 +724,6 @@ pub trait BOWImgDescriptorExtractorTrait: crate::features2d::BOWImgDescriptorExt
 		Ok(ret)
 	}
 	
-	/// Computes an image descriptor using the set visual vocabulary.
-	/// 
-	/// ## Parameters
-	/// * image: Image, for which the descriptor is computed.
-	/// * keypoints: Keypoints detected in the input image.
-	/// * imgDescriptor: Computed output image descriptor.
-	/// * pointIdxsOfClusters: Indices of keypoints that belong to the cluster. This means that
-	/// pointIdxsOfClusters[i] are keypoint indices that belong to the i -th cluster (word of vocabulary)
-	/// returned if it is non-zero.
-	/// * descriptors: Descriptors of the image keypoints that are returned if they are non-zero.
-	/// 
 	/// ## C++ default parameters
 	/// * point_idxs_of_clusters: 0
 	/// * descriptors: 0
@@ -1007,25 +738,6 @@ pub trait BOWImgDescriptorExtractorTrait: crate::features2d::BOWImgDescriptorExt
 		Ok(ret)
 	}
 	
-	/// Computes an image descriptor using the set visual vocabulary.
-	/// 
-	/// ## Parameters
-	/// * image: Image, for which the descriptor is computed.
-	/// * keypoints: Keypoints detected in the input image.
-	/// * imgDescriptor: Computed output image descriptor.
-	/// * pointIdxsOfClusters: Indices of keypoints that belong to the cluster. This means that
-	/// pointIdxsOfClusters[i] are keypoint indices that belong to the i -th cluster (word of vocabulary)
-	/// returned if it is non-zero.
-	/// * descriptors: Descriptors of the image keypoints that are returned if they are non-zero.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * keypointDescriptors: Computed descriptors to match with vocabulary.
-	/// * imgDescriptor: Computed output image descriptor.
-	/// * pointIdxsOfClusters: Indices of keypoints that belong to the cluster. This means that
-	///    pointIdxsOfClusters[i] are keypoint indices that belong to the i -th cluster (word of vocabulary)
-	///    returned if it is non-zero.
-	/// 
 	/// ## C++ default parameters
 	/// * point_idxs_of_clusters: 0
 	#[inline]
@@ -1050,15 +762,6 @@ pub trait BOWImgDescriptorExtractorTrait: crate::features2d::BOWImgDescriptorExt
 	
 }
 
-/// Class to compute an image descriptor using the *bag of visual words*.
-/// 
-/// Such a computation consists of the following steps:
-/// 
-/// 1.  Compute descriptors for a given image and its keypoints set.
-/// 2.  Find the nearest visual words from the vocabulary for each keypoint descriptor.
-/// 3.  Compute the bag-of-words image descriptor as is a normalized histogram of vocabulary words
-/// encountered in the image. The i-th bin of the histogram is a frequency of i-th word of the
-/// vocabulary in the given image.
 pub struct BOWImgDescriptorExtractor {
 	ptr: *mut c_void
 }
@@ -1083,13 +786,6 @@ impl crate::features2d::BOWImgDescriptorExtractorTrait for BOWImgDescriptorExtra
 }
 
 impl BOWImgDescriptorExtractor {
-	/// The constructor.
-	/// 
-	/// ## Parameters
-	/// * dextractor: Descriptor extractor that is used to compute descriptors for an input image and
-	/// its keypoints.
-	/// * dmatcher: Descriptor matcher that is used to find the nearest word of the trained vocabulary
-	/// for each keypoint descriptor of the image.
 	#[inline]
 	pub fn new(dextractor: &core::Ptr<crate::features2d::Feature2D>, dmatcher: &core::Ptr<dyn crate::features2d::DescriptorMatcher>) -> Result<crate::features2d::BOWImgDescriptorExtractor> {
 		return_send!(via ocvrs_return);
@@ -1100,15 +796,6 @@ impl BOWImgDescriptorExtractor {
 		Ok(ret)
 	}
 	
-	/// The constructor.
-	/// 
-	/// ## Parameters
-	/// * dextractor: Descriptor extractor that is used to compute descriptors for an input image and
-	/// its keypoints.
-	/// * dmatcher: Descriptor matcher that is used to find the nearest word of the trained vocabulary
-	/// for each keypoint descriptor of the image.
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	pub fn new_1(dmatcher: &core::Ptr<dyn crate::features2d::DescriptorMatcher>) -> Result<crate::features2d::BOWImgDescriptorExtractor> {
 		return_send!(via ocvrs_return);
@@ -1121,7 +808,6 @@ impl BOWImgDescriptorExtractor {
 	
 }
 
-/// kmeans -based class to train visual vocabulary using the *bag of visual words* approach. :
 pub trait BOWKMeansTrainerTraitConst: crate::features2d::BOWTrainerConst {
 	fn as_raw_BOWKMeansTrainer(&self) -> *const c_void;
 
@@ -1152,7 +838,6 @@ pub trait BOWKMeansTrainerTrait: crate::features2d::BOWKMeansTrainerTraitConst +
 
 }
 
-/// kmeans -based class to train visual vocabulary using the *bag of visual words* approach. :
 pub struct BOWKMeansTrainer {
 	ptr: *mut c_void
 }
@@ -1185,10 +870,6 @@ impl crate::features2d::BOWKMeansTrainerTrait for BOWKMeansTrainer {
 }
 
 impl BOWKMeansTrainer {
-	/// The constructor.
-	/// ## See also
-	/// cv::kmeans
-	/// 
 	/// ## C++ default parameters
 	/// * termcrit: TermCriteria()
 	/// * attempts: 3
@@ -1205,14 +886,9 @@ impl BOWKMeansTrainer {
 	
 }
 
-/// Abstract base class for training the *bag of visual words* vocabulary from a set of descriptors.
-/// 
-/// For details, see, for example, *Visual Categorization with Bags of Keypoints* by Gabriella Csurka,
-/// Christopher R. Dance, Lixin Fan, Jutta Willamowski, Cedric Bray, 2004. :
 pub trait BOWTrainerConst {
 	fn as_raw_BOWTrainer(&self) -> *const c_void;
 
-	/// Returns a training set of descriptors.
 	#[inline]
 	fn get_descriptors(&self) -> Result<core::Vector<core::Mat>> {
 		return_send!(via ocvrs_return);
@@ -1223,7 +899,6 @@ pub trait BOWTrainerConst {
 		Ok(ret)
 	}
 	
-	/// Returns the count of all descriptors stored in the training set.
 	#[inline]
 	fn descriptors_count(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -1233,17 +908,6 @@ pub trait BOWTrainerConst {
 		Ok(ret)
 	}
 	
-	/// Clusters train descriptors.
-	/// 
-	/// ## Parameters
-	/// * descriptors: Descriptors to cluster. Each row of the descriptors matrix is a descriptor.
-	/// Descriptors are not added to the inner train descriptor set.
-	/// 
-	/// The vocabulary consists of cluster centers. So, this method returns the vocabulary. In the first
-	/// variant of the method, train descriptors stored in the object are clustered. In the second variant,
-	/// input descriptors are clustered.
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn cluster(&self) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -1254,15 +918,6 @@ pub trait BOWTrainerConst {
 		Ok(ret)
 	}
 	
-	/// Clusters train descriptors.
-	/// 
-	/// ## Parameters
-	/// * descriptors: Descriptors to cluster. Each row of the descriptors matrix is a descriptor.
-	/// Descriptors are not added to the inner train descriptor set.
-	/// 
-	/// The vocabulary consists of cluster centers. So, this method returns the vocabulary. In the first
-	/// variant of the method, train descriptors stored in the object are clustered. In the second variant,
-	/// input descriptors are clustered.
 	#[inline]
 	fn cluster_with_descriptors(&self, descriptors: &core::Mat) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -1278,13 +933,6 @@ pub trait BOWTrainerConst {
 pub trait BOWTrainer: crate::features2d::BOWTrainerConst {
 	fn as_raw_mut_BOWTrainer(&mut self) -> *mut c_void;
 
-	/// Adds descriptors to a training set.
-	/// 
-	/// ## Parameters
-	/// * descriptors: Descriptors to add to a training set. Each row of the descriptors matrix is a
-	/// descriptor.
-	/// 
-	/// The training set is clustered using clustermethod to construct the vocabulary.
 	#[inline]
 	fn add(&mut self, descriptors: &core::Mat) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1305,7 +953,6 @@ pub trait BOWTrainer: crate::features2d::BOWTrainerConst {
 	
 }
 
-/// Class implementing the BRISK keypoint detector and descriptor extractor, described in [LCS11](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_LCS11) .
 pub trait BRISKTraitConst: crate::features2d::Feature2DTraitConst {
 	fn as_raw_BRISK(&self) -> *const c_void;
 
@@ -1342,9 +989,6 @@ pub trait BRISKTraitConst: crate::features2d::Feature2DTraitConst {
 pub trait BRISKTrait: crate::features2d::BRISKTraitConst + crate::features2d::Feature2DTrait {
 	fn as_raw_mut_BRISK(&mut self) -> *mut c_void;
 
-	/// Set detection threshold.
-	/// ## Parameters
-	/// * threshold: AGAST detection threshold score.
 	#[inline]
 	fn set_threshold(&mut self, threshold: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1354,9 +998,6 @@ pub trait BRISKTrait: crate::features2d::BRISKTraitConst + crate::features2d::Fe
 		Ok(ret)
 	}
 	
-	/// Set detection octaves.
-	/// ## Parameters
-	/// * octaves: detection octaves. Use 0 to do single scale.
 	#[inline]
 	fn set_octaves(&mut self, octaves: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1368,7 +1009,6 @@ pub trait BRISKTrait: crate::features2d::BRISKTraitConst + crate::features2d::Fe
 	
 }
 
-/// Class implementing the BRISK keypoint detector and descriptor extractor, described in [LCS11](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_LCS11) .
 pub struct BRISK {
 	ptr: *mut c_void
 }
@@ -1409,14 +1049,6 @@ impl crate::features2d::BRISKTrait for BRISK {
 }
 
 impl BRISK {
-	/// The BRISK constructor
-	/// 
-	/// ## Parameters
-	/// * thresh: AGAST detection threshold score.
-	/// * octaves: detection octaves. Use 0 to do single scale.
-	/// * patternScale: apply this scale to the pattern used for sampling the neighbourhood of a
-	/// keypoint.
-	/// 
 	/// ## C++ default parameters
 	/// * thresh: 30
 	/// * octaves: 3
@@ -1431,19 +1063,6 @@ impl BRISK {
 		Ok(ret)
 	}
 	
-	/// The BRISK constructor for a custom pattern
-	/// 
-	/// ## Parameters
-	/// * radiusList: defines the radii (in pixels) where the samples around a keypoint are taken (for
-	/// keypoint scale 1).
-	/// * numberList: defines the number of sampling points on the sampling circle. Must be the same
-	/// size as radiusList..
-	/// * dMax: threshold for the short pairings used for descriptor formation (in pixels for keypoint
-	/// scale 1).
-	/// * dMin: threshold for the long pairings used for orientation determination (in pixels for
-	/// keypoint scale 1).
-	/// * indexChange: index remapping of the bits.
-	/// 
 	/// ## C++ default parameters
 	/// * d_max: 5.85f
 	/// * d_min: 8.2f
@@ -1458,21 +1077,6 @@ impl BRISK {
 		Ok(ret)
 	}
 	
-	/// The BRISK constructor for a custom pattern, detection threshold and octaves
-	/// 
-	/// ## Parameters
-	/// * thresh: AGAST detection threshold score.
-	/// * octaves: detection octaves. Use 0 to do single scale.
-	/// * radiusList: defines the radii (in pixels) where the samples around a keypoint are taken (for
-	/// keypoint scale 1).
-	/// * numberList: defines the number of sampling points on the sampling circle. Must be the same
-	/// size as radiusList..
-	/// * dMax: threshold for the short pairings used for descriptor formation (in pixels for keypoint
-	/// scale 1).
-	/// * dMin: threshold for the long pairings used for orientation determination (in pixels for
-	/// keypoint scale 1).
-	/// * indexChange: index remapping of the bits.
-	/// 
 	/// ## C++ default parameters
 	/// * d_max: 5.85f
 	/// * d_min: 8.2f
@@ -1493,14 +1097,9 @@ boxed_cast_base! { BRISK, core::Algorithm, cv_BRISK_to_Algorithm }
 
 boxed_cast_base! { BRISK, crate::features2d::Feature2D, cv_BRISK_to_Feature2D }
 
-/// Abstract base class for matching keypoint descriptors.
-/// 
-/// It has two groups of match methods: for matching descriptors of an image with another image or with
-/// an image set.
 pub trait DescriptorMatcherConst: core::AlgorithmTraitConst {
 	fn as_raw_DescriptorMatcher(&self) -> *const c_void;
 
-	/// Returns a constant link to the train descriptor collection trainDescCollection .
 	#[inline]
 	fn get_train_descriptors(&self) -> Result<core::Vector<core::Mat>> {
 		return_send!(via ocvrs_return);
@@ -1511,7 +1110,6 @@ pub trait DescriptorMatcherConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns true if there are no train descriptors in the both collections.
 	#[inline]
 	fn empty(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -1521,7 +1119,6 @@ pub trait DescriptorMatcherConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns true if the descriptor matcher supports masking permissible matches.
 	#[inline]
 	fn is_mask_supported(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -1531,23 +1128,6 @@ pub trait DescriptorMatcherConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Finds the best match for each descriptor from a query set.
-	/// 
-	/// ## Parameters
-	/// * queryDescriptors: Query set of descriptors.
-	/// * trainDescriptors: Train set of descriptors. This set is not added to the train descriptors
-	/// collection stored in the class object.
-	/// * matches: Matches. If a query descriptor is masked out in mask , no match is added for this
-	/// descriptor. So, matches size may be smaller than the query descriptors count.
-	/// * mask: Mask specifying permissible matches between an input query and train matrices of
-	/// descriptors.
-	/// 
-	/// In the first variant of this method, the train descriptors are passed as an input argument. In the
-	/// second variant of the method, train descriptors collection that was set by DescriptorMatcher::add is
-	/// used. Optional mask (or masks) can be passed to specify which query and training descriptors can be
-	/// matched. Namely, queryDescriptors[i] can be matched with trainDescriptors[j] only if
-	/// mask.at\<uchar\>(i,j) is non-zero.
-	/// 
 	/// ## C++ default parameters
 	/// * mask: noArray()
 	#[inline]
@@ -1562,25 +1142,6 @@ pub trait DescriptorMatcherConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Finds the k best matches for each descriptor from a query set.
-	/// 
-	/// ## Parameters
-	/// * queryDescriptors: Query set of descriptors.
-	/// * trainDescriptors: Train set of descriptors. This set is not added to the train descriptors
-	/// collection stored in the class object.
-	/// * mask: Mask specifying permissible matches between an input query and train matrices of
-	/// descriptors.
-	/// * matches: Matches. Each matches[i] is k or less matches for the same query descriptor.
-	/// * k: Count of best matches found per each query descriptor or less if a query descriptor has
-	/// less than k possible matches in total.
-	/// * compactResult: Parameter used when the mask (or masks) is not empty. If compactResult is
-	/// false, the matches vector has the same size as queryDescriptors rows. If compactResult is true,
-	/// the matches vector does not contain matches for fully masked-out query descriptors.
-	/// 
-	/// These extended variants of DescriptorMatcher::match methods find several best matches for each query
-	/// descriptor. The matches are returned in the distance increasing order. See DescriptorMatcher::match
-	/// for the details about query and train descriptors.
-	/// 
 	/// ## C++ default parameters
 	/// * mask: noArray()
 	/// * compact_result: false
@@ -1596,26 +1157,6 @@ pub trait DescriptorMatcherConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// For each query descriptor, finds the training descriptors not farther than the specified distance.
-	/// 
-	/// ## Parameters
-	/// * queryDescriptors: Query set of descriptors.
-	/// * trainDescriptors: Train set of descriptors. This set is not added to the train descriptors
-	/// collection stored in the class object.
-	/// * matches: Found matches.
-	/// * compactResult: Parameter used when the mask (or masks) is not empty. If compactResult is
-	/// false, the matches vector has the same size as queryDescriptors rows. If compactResult is true,
-	/// the matches vector does not contain matches for fully masked-out query descriptors.
-	/// * maxDistance: Threshold for the distance between matched descriptors. Distance means here
-	/// metric distance (e.g. Hamming distance), not the distance between coordinates (which is measured
-	/// in Pixels)!
-	/// * mask: Mask specifying permissible matches between an input query and train matrices of
-	/// descriptors.
-	/// 
-	/// For each query descriptor, the methods find such training descriptors that the distance between the
-	/// query descriptor and the training descriptor is equal or smaller than maxDistance. Found matches are
-	/// returned in the distance increasing order.
-	/// 
 	/// ## C++ default parameters
 	/// * mask: noArray()
 	/// * compact_result: false
@@ -1650,13 +1191,6 @@ pub trait DescriptorMatcherConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Clones the matcher.
-	/// 
-	/// ## Parameters
-	/// * emptyTrainData: If emptyTrainData is false, the method creates a deep copy of the object,
-	/// that is, copies both parameters and train data. If emptyTrainData is true, the method creates an
-	/// object copy with the current parameters but with empty train data.
-	/// 
 	/// ## C++ default parameters
 	/// * empty_train_data: false
 	#[inline]
@@ -1687,14 +1221,6 @@ pub trait DescriptorMatcherConst: core::AlgorithmTraitConst {
 pub trait DescriptorMatcher: core::AlgorithmTrait + crate::features2d::DescriptorMatcherConst {
 	fn as_raw_mut_DescriptorMatcher(&mut self) -> *mut c_void;
 
-	/// Adds descriptors to train a CPU(trainDescCollectionis) or GPU(utrainDescCollectionis) descriptor
-	/// collection.
-	/// 
-	/// If the collection is not empty, the new descriptors are added to existing train descriptors.
-	/// 
-	/// ## Parameters
-	/// * descriptors: Descriptors to add. Each descriptors[i] is a set of descriptors from the same
-	/// train image.
 	#[inline]
 	fn add(&mut self, descriptors: &dyn core::ToInputArray) -> Result<()> {
 		input_array_arg!(descriptors);
@@ -1705,7 +1231,6 @@ pub trait DescriptorMatcher: core::AlgorithmTrait + crate::features2d::Descripto
 		Ok(ret)
 	}
 	
-	/// Clears the train descriptor collections.
 	#[inline]
 	fn clear(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1715,12 +1240,6 @@ pub trait DescriptorMatcher: core::AlgorithmTrait + crate::features2d::Descripto
 		Ok(ret)
 	}
 	
-	/// Trains a descriptor matcher
-	/// 
-	/// Trains a descriptor matcher (for example, the flann index). In all methods to match, the method
-	/// train() is run every time before matching. Some descriptor matchers (for example, BruteForceMatcher)
-	/// have an empty implementation of this method. Other matchers really train their inner structures (for
-	/// example, FlannBasedMatcher trains flann::Index ).
 	#[inline]
 	fn train(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1730,31 +1249,6 @@ pub trait DescriptorMatcher: core::AlgorithmTrait + crate::features2d::Descripto
 		Ok(ret)
 	}
 	
-	/// Finds the best match for each descriptor from a query set.
-	/// 
-	/// ## Parameters
-	/// * queryDescriptors: Query set of descriptors.
-	/// * trainDescriptors: Train set of descriptors. This set is not added to the train descriptors
-	/// collection stored in the class object.
-	/// * matches: Matches. If a query descriptor is masked out in mask , no match is added for this
-	/// descriptor. So, matches size may be smaller than the query descriptors count.
-	/// * mask: Mask specifying permissible matches between an input query and train matrices of
-	/// descriptors.
-	/// 
-	/// In the first variant of this method, the train descriptors are passed as an input argument. In the
-	/// second variant of the method, train descriptors collection that was set by DescriptorMatcher::add is
-	/// used. Optional mask (or masks) can be passed to specify which query and training descriptors can be
-	/// matched. Namely, queryDescriptors[i] can be matched with trainDescriptors[j] only if
-	/// mask.at\<uchar\>(i,j) is non-zero.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * queryDescriptors: Query set of descriptors.
-	/// * matches: Matches. If a query descriptor is masked out in mask , no match is added for this
-	///    descriptor. So, matches size may be smaller than the query descriptors count.
-	/// * masks: Set of masks. Each masks[i] specifies permissible matches between the input query
-	///    descriptors and stored train descriptors from the i-th image trainDescCollection[i].
-	/// 
 	/// ## C++ default parameters
 	/// * masks: noArray()
 	#[inline]
@@ -1768,37 +1262,6 @@ pub trait DescriptorMatcher: core::AlgorithmTrait + crate::features2d::Descripto
 		Ok(ret)
 	}
 	
-	/// Finds the k best matches for each descriptor from a query set.
-	/// 
-	/// ## Parameters
-	/// * queryDescriptors: Query set of descriptors.
-	/// * trainDescriptors: Train set of descriptors. This set is not added to the train descriptors
-	/// collection stored in the class object.
-	/// * mask: Mask specifying permissible matches between an input query and train matrices of
-	/// descriptors.
-	/// * matches: Matches. Each matches[i] is k or less matches for the same query descriptor.
-	/// * k: Count of best matches found per each query descriptor or less if a query descriptor has
-	/// less than k possible matches in total.
-	/// * compactResult: Parameter used when the mask (or masks) is not empty. If compactResult is
-	/// false, the matches vector has the same size as queryDescriptors rows. If compactResult is true,
-	/// the matches vector does not contain matches for fully masked-out query descriptors.
-	/// 
-	/// These extended variants of DescriptorMatcher::match methods find several best matches for each query
-	/// descriptor. The matches are returned in the distance increasing order. See DescriptorMatcher::match
-	/// for the details about query and train descriptors.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * queryDescriptors: Query set of descriptors.
-	/// * matches: Matches. Each matches[i] is k or less matches for the same query descriptor.
-	/// * k: Count of best matches found per each query descriptor or less if a query descriptor has
-	///    less than k possible matches in total.
-	/// * masks: Set of masks. Each masks[i] specifies permissible matches between the input query
-	///    descriptors and stored train descriptors from the i-th image trainDescCollection[i].
-	/// * compactResult: Parameter used when the mask (or masks) is not empty. If compactResult is
-	///    false, the matches vector has the same size as queryDescriptors rows. If compactResult is true,
-	///    the matches vector does not contain matches for fully masked-out query descriptors.
-	/// 
 	/// ## C++ default parameters
 	/// * masks: noArray()
 	/// * compact_result: false
@@ -1813,39 +1276,6 @@ pub trait DescriptorMatcher: core::AlgorithmTrait + crate::features2d::Descripto
 		Ok(ret)
 	}
 	
-	/// For each query descriptor, finds the training descriptors not farther than the specified distance.
-	/// 
-	/// ## Parameters
-	/// * queryDescriptors: Query set of descriptors.
-	/// * trainDescriptors: Train set of descriptors. This set is not added to the train descriptors
-	/// collection stored in the class object.
-	/// * matches: Found matches.
-	/// * compactResult: Parameter used when the mask (or masks) is not empty. If compactResult is
-	/// false, the matches vector has the same size as queryDescriptors rows. If compactResult is true,
-	/// the matches vector does not contain matches for fully masked-out query descriptors.
-	/// * maxDistance: Threshold for the distance between matched descriptors. Distance means here
-	/// metric distance (e.g. Hamming distance), not the distance between coordinates (which is measured
-	/// in Pixels)!
-	/// * mask: Mask specifying permissible matches between an input query and train matrices of
-	/// descriptors.
-	/// 
-	/// For each query descriptor, the methods find such training descriptors that the distance between the
-	/// query descriptor and the training descriptor is equal or smaller than maxDistance. Found matches are
-	/// returned in the distance increasing order.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * queryDescriptors: Query set of descriptors.
-	/// * matches: Found matches.
-	/// * maxDistance: Threshold for the distance between matched descriptors. Distance means here
-	///    metric distance (e.g. Hamming distance), not the distance between coordinates (which is measured
-	///    in Pixels)!
-	/// * masks: Set of masks. Each masks[i] specifies permissible matches between the input query
-	///    descriptors and stored train descriptors from the i-th image trainDescCollection[i].
-	/// * compactResult: Parameter used when the mask (or masks) is not empty. If compactResult is
-	///    false, the matches vector has the same size as queryDescriptors rows. If compactResult is true,
-	///    the matches vector does not contain matches for fully masked-out query descriptors.
-	/// 
 	/// ## C++ default parameters
 	/// * masks: noArray()
 	/// * compact_result: false
@@ -1882,17 +1312,6 @@ pub trait DescriptorMatcher: core::AlgorithmTrait + crate::features2d::Descripto
 }
 
 impl dyn DescriptorMatcher + '_ {
-	/// Creates a descriptor matcher of a given type with the default parameters (using default
-	/// constructor).
-	/// 
-	/// ## Parameters
-	/// * descriptorMatcherType: Descriptor matcher type. Now the following matcher types are
-	/// supported:
-	/// *   `BruteForce` (it uses L2 )
-	/// *   `BruteForce-L1`
-	/// *   `BruteForce-Hamming`
-	/// *   `BruteForce-Hamming(2)`
-	/// *   `FlannBased`
 	#[inline]
 	pub fn create(descriptor_matcher_type: &str) -> Result<core::Ptr<dyn crate::features2d::DescriptorMatcher>> {
 		extern_container_arg!(descriptor_matcher_type);
@@ -1915,7 +1334,6 @@ impl dyn DescriptorMatcher + '_ {
 	}
 	
 }
-/// Wrapping class for feature detection using the FAST method. :
 pub trait FastFeatureDetectorConst: crate::features2d::Feature2DTraitConst {
 	fn as_raw_FastFeatureDetector(&self) -> *const c_void;
 
@@ -2055,7 +1473,6 @@ pub trait Feature2DTraitConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Return true if detector object is empty
 	#[inline]
 	fn empty(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -2092,15 +1509,6 @@ pub trait Feature2DTraitConst: core::AlgorithmTraitConst {
 pub trait Feature2DTrait: core::AlgorithmTrait + crate::features2d::Feature2DTraitConst {
 	fn as_raw_mut_Feature2D(&mut self) -> *mut c_void;
 
-	/// Detects keypoints in an image (first variant) or image set (second variant).
-	/// 
-	/// ## Parameters
-	/// * image: Image.
-	/// * keypoints: The detected keypoints. In the second variant of the method keypoints[i] is a set
-	/// of keypoints detected in images[i] .
-	/// * mask: Mask specifying where to look for keypoints (optional). It must be a 8-bit integer
-	/// matrix with non-zero values in the region of interest.
-	/// 
 	/// ## C++ default parameters
 	/// * mask: noArray()
 	#[inline]
@@ -2114,23 +1522,6 @@ pub trait Feature2DTrait: core::AlgorithmTrait + crate::features2d::Feature2DTra
 		Ok(ret)
 	}
 	
-	/// Detects keypoints in an image (first variant) or image set (second variant).
-	/// 
-	/// ## Parameters
-	/// * image: Image.
-	/// * keypoints: The detected keypoints. In the second variant of the method keypoints[i] is a set
-	/// of keypoints detected in images[i] .
-	/// * mask: Mask specifying where to look for keypoints (optional). It must be a 8-bit integer
-	/// matrix with non-zero values in the region of interest.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * images: Image set.
-	/// * keypoints: The detected keypoints. In the second variant of the method keypoints[i] is a set
-	///    of keypoints detected in images[i] .
-	/// * masks: Masks for each input image specifying where to look for keypoints (optional).
-	///    masks[i] is a mask for images[i].
-	/// 
 	/// ## C++ default parameters
 	/// * masks: noArray()
 	#[inline]
@@ -2144,17 +1535,6 @@ pub trait Feature2DTrait: core::AlgorithmTrait + crate::features2d::Feature2DTra
 		Ok(ret)
 	}
 	
-	/// Computes the descriptors for a set of keypoints detected in an image (first variant) or image set
-	/// (second variant).
-	/// 
-	/// ## Parameters
-	/// * image: Image.
-	/// * keypoints: Input collection of keypoints. Keypoints for which a descriptor cannot be
-	/// computed are removed. Sometimes new keypoints can be added, for example: SIFT duplicates keypoint
-	/// with several dominant orientations (for each orientation).
-	/// * descriptors: Computed descriptors. In the second variant of the method descriptors[i] are
-	/// descriptors computed for a keypoints[i]. Row j is the keypoints (or keypoints[i]) is the
-	/// descriptor for keypoint j-th keypoint.
 	#[inline]
 	fn compute(&mut self, image: &dyn core::ToInputArray, keypoints: &mut core::Vector<core::KeyPoint>, descriptors: &mut dyn core::ToOutputArray) -> Result<()> {
 		input_array_arg!(image);
@@ -2166,28 +1546,6 @@ pub trait Feature2DTrait: core::AlgorithmTrait + crate::features2d::Feature2DTra
 		Ok(ret)
 	}
 	
-	/// Computes the descriptors for a set of keypoints detected in an image (first variant) or image set
-	/// (second variant).
-	/// 
-	/// ## Parameters
-	/// * image: Image.
-	/// * keypoints: Input collection of keypoints. Keypoints for which a descriptor cannot be
-	/// computed are removed. Sometimes new keypoints can be added, for example: SIFT duplicates keypoint
-	/// with several dominant orientations (for each orientation).
-	/// * descriptors: Computed descriptors. In the second variant of the method descriptors[i] are
-	/// descriptors computed for a keypoints[i]. Row j is the keypoints (or keypoints[i]) is the
-	/// descriptor for keypoint j-th keypoint.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// 
-	/// * images: Image set.
-	/// * keypoints: Input collection of keypoints. Keypoints for which a descriptor cannot be
-	///    computed are removed. Sometimes new keypoints can be added, for example: SIFT duplicates keypoint
-	///    with several dominant orientations (for each orientation).
-	/// * descriptors: Computed descriptors. In the second variant of the method descriptors[i] are
-	///    descriptors computed for a keypoints[i]. Row j is the keypoints (or keypoints[i]) is the
-	///    descriptor for keypoint j-th keypoint.
 	#[inline]
 	fn compute_multiple(&mut self, images: &dyn core::ToInputArray, keypoints: &mut core::Vector<core::Vector<core::KeyPoint>>, descriptors: &mut dyn core::ToOutputArray) -> Result<()> {
 		input_array_arg!(images);
@@ -2199,8 +1557,6 @@ pub trait Feature2DTrait: core::AlgorithmTrait + crate::features2d::Feature2DTra
 		Ok(ret)
 	}
 	
-	/// Detects keypoints and computes the descriptors
-	/// 
 	/// ## C++ default parameters
 	/// * use_provided_keypoints: false
 	#[inline]
@@ -2278,12 +1634,6 @@ boxed_cast_descendant! { Feature2D, crate::features2d::SimpleBlobDetector, cv_Fe
 
 boxed_cast_base! { Feature2D, core::Algorithm, cv_Feature2D_to_Algorithm }
 
-/// Flann-based descriptor matcher.
-/// 
-/// This matcher trains cv::flann::Index on a train descriptor collection and calls its nearest search
-/// methods to find the best matches. So, this matcher may be faster when matching a large train
-/// collection than the brute force matcher. FlannBasedMatcher does not support masking permissible
-/// matches of descriptor sets because flann::Index does not support this. :
 pub trait FlannBasedMatcherTraitConst: crate::features2d::DescriptorMatcherConst {
 	fn as_raw_FlannBasedMatcher(&self) -> *const c_void;
 
@@ -2362,12 +1712,6 @@ pub trait FlannBasedMatcherTrait: crate::features2d::DescriptorMatcher + crate::
 	
 }
 
-/// Flann-based descriptor matcher.
-/// 
-/// This matcher trains cv::flann::Index on a train descriptor collection and calls its nearest search
-/// methods to find the best matches. So, this matcher may be faster when matching a large train
-/// collection than the brute force matcher. FlannBasedMatcher does not support masking permissible
-/// matches of descriptor sets because flann::Index does not support this. :
 pub struct FlannBasedMatcher {
 	ptr: *mut c_void
 }
@@ -2435,7 +1779,6 @@ impl FlannBasedMatcher {
 
 boxed_cast_base! { FlannBasedMatcher, core::Algorithm, cv_FlannBasedMatcher_to_Algorithm }
 
-/// Wrapping class for feature detection using the goodFeaturesToTrack function. :
 pub trait GFTTDetectorConst: crate::features2d::Feature2DTraitConst {
 	fn as_raw_GFTTDetector(&self) -> *const c_void;
 
@@ -2596,12 +1939,6 @@ impl dyn GFTTDetector + '_ {
 	}
 	
 }
-/// Class implementing the KAZE keypoint detector and descriptor extractor, described in [ABD12](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_ABD12) .
-/// 
-/// 
-/// Note: AKAZE descriptor can only be used with KAZE or AKAZE keypoints .. [ABD12] KAZE Features. Pablo
-/// F. Alcantarilla, Adrien Bartoli and Andrew J. Davison. In European Conference on Computer Vision
-/// (ECCV), Fiorenze, Italy, October 2012.
 pub trait KAZEConst: crate::features2d::Feature2DTraitConst {
 	fn as_raw_KAZE(&self) -> *const c_void;
 
@@ -2731,17 +2068,6 @@ pub trait KAZE: crate::features2d::Feature2DTrait + crate::features2d::KAZEConst
 }
 
 impl dyn KAZE + '_ {
-	/// The KAZE constructor
-	/// 
-	/// ## Parameters
-	/// * extended: Set to enable extraction of extended (128-byte) descriptor.
-	/// * upright: Set to enable use of upright descriptors (non rotation-invariant).
-	/// * threshold: Detector response threshold to accept point
-	/// * nOctaves: Maximum octave evolution of the image
-	/// * nOctaveLayers: Default number of sublevels per scale level
-	/// * diffusivity: Diffusivity type. DIFF_PM_G1, DIFF_PM_G2, DIFF_WEICKERT or
-	/// DIFF_CHARBONNIER
-	/// 
 	/// ## C++ default parameters
 	/// * extended: false
 	/// * upright: false
@@ -2760,10 +2086,6 @@ impl dyn KAZE + '_ {
 	}
 	
 }
-/// A class filters a vector of keypoints.
-/// 
-/// Because now it is difficult to provide a convenient interface for all usage scenarios of the
-/// keypoints filter class, it has only several needed by now static methods.
 pub trait KeyPointsFilterTraitConst {
 	fn as_raw_KeyPointsFilter(&self) -> *const c_void;
 
@@ -2774,10 +2096,6 @@ pub trait KeyPointsFilterTrait: crate::features2d::KeyPointsFilterTraitConst {
 
 }
 
-/// A class filters a vector of keypoints.
-/// 
-/// Because now it is difficult to provide a convenient interface for all usage scenarios of the
-/// keypoints filter class, it has only several needed by now static methods.
 pub struct KeyPointsFilter {
 	ptr: *mut c_void
 }
@@ -2870,20 +2188,6 @@ impl KeyPointsFilter {
 	
 }
 
-/// Maximally stable extremal region extractor
-/// 
-/// The class encapsulates all the parameters of the %MSER extraction algorithm (see [wiki
-/// article](http://en.wikipedia.org/wiki/Maximally_stable_extremal_regions)).
-/// 
-/// - there are two different implementation of %MSER: one for grey image, one for color image
-/// 
-/// - the grey image algorithm is taken from: [nister2008linear](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_nister2008linear) ;  the paper claims to be faster
-/// than union-find method; it actually get 1.5~2m/s on my centrino L7200 1.2GHz laptop.
-/// 
-/// - the color image algorithm is taken from: [forssen2007maximally](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_forssen2007maximally) ; it should be much slower
-/// than grey image method ( 3~4 times )
-/// 
-/// - (Python) A complete example showing the use of the %MSER detector can be found at samples/python/mser.py
 pub trait MSERConst: crate::features2d::Feature2DTraitConst {
 	fn as_raw_MSER(&self) -> *const c_void;
 
@@ -2938,12 +2242,6 @@ pub trait MSERConst: crate::features2d::Feature2DTraitConst {
 pub trait MSER: crate::features2d::Feature2DTrait + crate::features2d::MSERConst {
 	fn as_raw_mut_MSER(&mut self) -> *mut c_void;
 
-	/// Detect %MSER regions
-	/// 
-	/// ## Parameters
-	/// * image: input image (8UC1, 8UC3 or 8UC4, must be greater or equal than 3x3)
-	/// * msers: resulting list of point sets
-	/// * bboxes: resulting bounding boxes
 	#[inline]
 	fn detect_regions(&mut self, image: &dyn core::ToInputArray, msers: &mut core::Vector<core::Vector<core::Point>>, bboxes: &mut core::Vector<core::Rect>) -> Result<()> {
 		input_array_arg!(image);
@@ -2993,19 +2291,6 @@ pub trait MSER: crate::features2d::Feature2DTrait + crate::features2d::MSERConst
 }
 
 impl dyn MSER + '_ {
-	/// Full constructor for %MSER detector
-	/// 
-	/// ## Parameters
-	/// * delta: it compares ![inline formula](https://latex.codecogs.com/png.latex?%28size%5F%7Bi%7D%2Dsize%5F%7Bi%2Ddelta%7D%29%2Fsize%5F%7Bi%2Ddelta%7D)
-	/// * min_area: prune the area which smaller than minArea
-	/// * max_area: prune the area which bigger than maxArea
-	/// * max_variation: prune the area have similar size to its children
-	/// * min_diversity: for color image, trace back to cut off mser with diversity less than min_diversity
-	/// * max_evolution: for color image, the evolution steps
-	/// * area_threshold: for color image, the area threshold to cause re-initialize
-	/// * min_margin: for color image, ignore too small margin
-	/// * edge_blur_size: for color image, the aperture size for edge blur
-	/// 
 	/// ## C++ default parameters
 	/// * delta: 5
 	/// * min_area: 60
@@ -3027,12 +2312,6 @@ impl dyn MSER + '_ {
 	}
 	
 }
-/// Class implementing the ORB (*oriented BRIEF*) keypoint detector and descriptor extractor
-/// 
-/// described in [RRKB11](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_RRKB11) . The algorithm uses FAST in pyramids to detect stable keypoints, selects
-/// the strongest features using FAST or Harris response, finds their orientation using first-order
-/// moments and computes the descriptors using BRIEF (where the coordinates of random point pairs (or
-/// k-tuples) are rotated according to the measured orientation).
 pub trait ORBConst: crate::features2d::Feature2DTraitConst {
 	fn as_raw_ORB(&self) -> *const c_void;
 
@@ -3217,38 +2496,6 @@ pub trait ORB: crate::features2d::Feature2DTrait + crate::features2d::ORBConst {
 
 impl dyn ORB + '_ {
 	pub const kBytes: i32 = 32;
-	/// The ORB constructor
-	/// 
-	/// ## Parameters
-	/// * nfeatures: The maximum number of features to retain.
-	/// * scaleFactor: Pyramid decimation ratio, greater than 1. scaleFactor==2 means the classical
-	/// pyramid, where each next level has 4x less pixels than the previous, but such a big scale factor
-	/// will degrade feature matching scores dramatically. On the other hand, too close to 1 scale factor
-	/// will mean that to cover certain scale range you will need more pyramid levels and so the speed
-	/// will suffer.
-	/// * nlevels: The number of pyramid levels. The smallest level will have linear size equal to
-	/// input_image_linear_size/pow(scaleFactor, nlevels - firstLevel).
-	/// * edgeThreshold: This is size of the border where the features are not detected. It should
-	/// roughly match the patchSize parameter.
-	/// * firstLevel: The level of pyramid to put source image to. Previous layers are filled
-	/// with upscaled source image.
-	/// * WTA_K: The number of points that produce each element of the oriented BRIEF descriptor. The
-	/// default value 2 means the BRIEF where we take a random point pair and compare their brightnesses,
-	/// so we get 0/1 response. Other possible values are 3 and 4. For example, 3 means that we take 3
-	/// random points (of course, those point coordinates are random, but they are generated from the
-	/// pre-defined seed, so each element of BRIEF descriptor is computed deterministically from the pixel
-	/// rectangle), find point of maximum brightness and output index of the winner (0, 1 or 2). Such
-	/// output will occupy 2 bits, and therefore it will need a special variant of Hamming distance,
-	/// denoted as NORM_HAMMING2 (2 bits per bin). When WTA_K=4, we take 4 random points to compute each
-	/// bin (that will also occupy 2 bits with possible values 0, 1, 2 or 3).
-	/// * scoreType: The default HARRIS_SCORE means that Harris algorithm is used to rank features
-	/// (the score is written to KeyPoint::score and is used to retain best nfeatures features);
-	/// FAST_SCORE is alternative value of the parameter that produces slightly less stable keypoints,
-	/// but it is a little faster to compute.
-	/// * patchSize: size of the patch used by the oriented BRIEF descriptor. Of course, on smaller
-	/// pyramid layers the perceived image area covered by a feature will be larger.
-	/// * fastThreshold: the fast threshold
-	/// 
 	/// ## C++ default parameters
 	/// * nfeatures: 500
 	/// * scale_factor: 1.2f
@@ -3270,8 +2517,6 @@ impl dyn ORB + '_ {
 	}
 	
 }
-/// Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform
-/// (SIFT) algorithm by D. Lowe [Lowe04](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Lowe04) .
 pub trait SIFTTraitConst: crate::features2d::Feature2DTraitConst {
 	fn as_raw_SIFT(&self) -> *const c_void;
 
@@ -3292,8 +2537,6 @@ pub trait SIFTTrait: crate::features2d::Feature2DTrait + crate::features2d::SIFT
 
 }
 
-/// Class for extracting keypoints and computing descriptors using the Scale Invariant Feature Transform
-/// (SIFT) algorithm by D. Lowe [Lowe04](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_Lowe04) .
 pub struct SIFT {
 	ptr: *mut c_void
 }
@@ -3334,28 +2577,6 @@ impl crate::features2d::SIFTTrait for SIFT {
 }
 
 impl SIFT {
-	/// ## Parameters
-	/// * nfeatures: The number of best features to retain. The features are ranked by their scores
-	/// (measured in SIFT algorithm as the local contrast)
-	/// 
-	/// * nOctaveLayers: The number of layers in each octave. 3 is the value used in D. Lowe paper. The
-	/// number of octaves is computed automatically from the image resolution.
-	/// 
-	/// * contrastThreshold: The contrast threshold used to filter out weak features in semi-uniform
-	/// (low-contrast) regions. The larger the threshold, the less features are produced by the detector.
-	/// 
-	/// 
-	/// Note: The contrast threshold will be divided by nOctaveLayers when the filtering is applied. When
-	/// nOctaveLayers is set to default and if you want to use the value used in D. Lowe paper, 0.03, set
-	/// this argument to 0.09.
-	/// 
-	/// * edgeThreshold: The threshold used to filter out edge-like features. Note that the its meaning
-	/// is different from the contrastThreshold, i.e. the larger the edgeThreshold, the less features are
-	/// filtered out (more features are retained).
-	/// 
-	/// * sigma: The sigma of the Gaussian applied to the input image at the octave \#0. If your image
-	/// is captured with a weak camera with soft lenses, you might want to reduce the number.
-	/// 
 	/// ## C++ default parameters
 	/// * nfeatures: 0
 	/// * n_octave_layers: 3
@@ -3372,30 +2593,6 @@ impl SIFT {
 		Ok(ret)
 	}
 	
-	/// Create SIFT with specified descriptorType.
-	/// ## Parameters
-	/// * nfeatures: The number of best features to retain. The features are ranked by their scores
-	/// (measured in SIFT algorithm as the local contrast)
-	/// 
-	/// * nOctaveLayers: The number of layers in each octave. 3 is the value used in D. Lowe paper. The
-	/// number of octaves is computed automatically from the image resolution.
-	/// 
-	/// * contrastThreshold: The contrast threshold used to filter out weak features in semi-uniform
-	/// (low-contrast) regions. The larger the threshold, the less features are produced by the detector.
-	/// 
-	/// 
-	/// Note: The contrast threshold will be divided by nOctaveLayers when the filtering is applied. When
-	/// nOctaveLayers is set to default and if you want to use the value used in D. Lowe paper, 0.03, set
-	/// this argument to 0.09.
-	/// 
-	/// * edgeThreshold: The threshold used to filter out edge-like features. Note that the its meaning
-	/// is different from the contrastThreshold, i.e. the larger the edgeThreshold, the less features are
-	/// filtered out (more features are retained).
-	/// 
-	/// * sigma: The sigma of the Gaussian applied to the input image at the octave \#0. If your image
-	/// is captured with a weak camera with soft lenses, you might want to reduce the number.
-	/// 
-	/// * descriptorType: The type of descriptors. Only CV_32F and CV_8U are supported.
 	#[inline]
 	pub fn create_1(nfeatures: i32, n_octave_layers: i32, contrast_threshold: f64, edge_threshold: f64, sigma: f64, descriptor_type: i32) -> Result<core::Ptr<crate::features2d::SIFT>> {
 		return_send!(via ocvrs_return);
@@ -3412,36 +2609,6 @@ boxed_cast_base! { SIFT, core::Algorithm, cv_SIFT_to_Algorithm }
 
 boxed_cast_base! { SIFT, crate::features2d::Feature2D, cv_SIFT_to_Feature2D }
 
-/// Class for extracting blobs from an image. :
-/// 
-/// The class implements a simple algorithm for extracting blobs from an image:
-/// 
-/// 1.  Convert the source image to binary images by applying thresholding with several thresholds from
-///    minThreshold (inclusive) to maxThreshold (exclusive) with distance thresholdStep between
-///    neighboring thresholds.
-/// 2.  Extract connected components from every binary image by findContours and calculate their
-///    centers.
-/// 3.  Group centers from several binary images by their coordinates. Close centers form one group that
-///    corresponds to one blob, which is controlled by the minDistBetweenBlobs parameter.
-/// 4.  From the groups, estimate final centers of blobs and their radiuses and return as locations and
-///    sizes of keypoints.
-/// 
-/// This class performs several filtrations of returned blobs. You should set filterBy\* to true/false
-/// to turn on/off corresponding filtration. Available filtrations:
-/// 
-/// *   **By color**. This filter compares the intensity of a binary image at the center of a blob to
-/// blobColor. If they differ, the blob is filtered out. Use blobColor = 0 to extract dark blobs
-/// and blobColor = 255 to extract light blobs.
-/// *   **By area**. Extracted blobs have an area between minArea (inclusive) and maxArea (exclusive).
-/// *   **By circularity**. Extracted blobs have circularity
-/// (![inline formula](https://latex.codecogs.com/png.latex?%5Cfrac%7B4%2A%5Cpi%2AArea%7D%7Bperimeter%20%2A%20perimeter%7D)) between minCircularity (inclusive) and
-/// maxCircularity (exclusive).
-/// *   **By ratio of the minimum inertia to maximum inertia**. Extracted blobs have this ratio
-/// between minInertiaRatio (inclusive) and maxInertiaRatio (exclusive).
-/// *   **By convexity**. Extracted blobs have convexity (area / area of blob convex hull) between
-/// minConvexity (inclusive) and maxConvexity (exclusive).
-/// 
-/// Default values of parameters are tuned to extract dark circular blobs.
 pub trait SimpleBlobDetectorTraitConst: crate::features2d::Feature2DTraitConst {
 	fn as_raw_SimpleBlobDetector(&self) -> *const c_void;
 
@@ -3462,36 +2629,6 @@ pub trait SimpleBlobDetectorTrait: crate::features2d::Feature2DTrait + crate::fe
 
 }
 
-/// Class for extracting blobs from an image. :
-/// 
-/// The class implements a simple algorithm for extracting blobs from an image:
-/// 
-/// 1.  Convert the source image to binary images by applying thresholding with several thresholds from
-///    minThreshold (inclusive) to maxThreshold (exclusive) with distance thresholdStep between
-///    neighboring thresholds.
-/// 2.  Extract connected components from every binary image by findContours and calculate their
-///    centers.
-/// 3.  Group centers from several binary images by their coordinates. Close centers form one group that
-///    corresponds to one blob, which is controlled by the minDistBetweenBlobs parameter.
-/// 4.  From the groups, estimate final centers of blobs and their radiuses and return as locations and
-///    sizes of keypoints.
-/// 
-/// This class performs several filtrations of returned blobs. You should set filterBy\* to true/false
-/// to turn on/off corresponding filtration. Available filtrations:
-/// 
-/// *   **By color**. This filter compares the intensity of a binary image at the center of a blob to
-/// blobColor. If they differ, the blob is filtered out. Use blobColor = 0 to extract dark blobs
-/// and blobColor = 255 to extract light blobs.
-/// *   **By area**. Extracted blobs have an area between minArea (inclusive) and maxArea (exclusive).
-/// *   **By circularity**. Extracted blobs have circularity
-/// (![inline formula](https://latex.codecogs.com/png.latex?%5Cfrac%7B4%2A%5Cpi%2AArea%7D%7Bperimeter%20%2A%20perimeter%7D)) between minCircularity (inclusive) and
-/// maxCircularity (exclusive).
-/// *   **By ratio of the minimum inertia to maximum inertia**. Extracted blobs have this ratio
-/// between minInertiaRatio (inclusive) and maxInertiaRatio (exclusive).
-/// *   **By convexity**. Extracted blobs have convexity (area / area of blob convex hull) between
-/// minConvexity (inclusive) and maxConvexity (exclusive).
-/// 
-/// Default values of parameters are tuned to extract dark circular blobs.
 pub struct SimpleBlobDetector {
 	ptr: *mut c_void
 }

@@ -8,7 +8,7 @@ use opencv::{
 		Point2f,
 		Scalar,
 		SparseMat_Hdr,
-		Vec4i,
+		Vec4i, Vector,
 	},
 	Error,
 	prelude::*,
@@ -259,6 +259,16 @@ fn capacity() {
 		assert!(!vec.is_empty());
 		assert!(vec.capacity() > 0);
 	}
+}
+
+#[test]
+fn resize() -> Result<()> {
+	// 6 Elements
+	let mut vec: Vector<u32> = Vector::from([1,2,3,4,5,6]);
+	// Resize the vector to 4
+	vec.resize(4);
+	// assert_eq!(vec.len())
+	Ok(())
 }
 
 #[test]

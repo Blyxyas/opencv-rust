@@ -82,16 +82,8 @@ pub mod prelude {
 	pub use { super::BinaryDescriptor_ParamsTraitConst, super::BinaryDescriptor_ParamsTrait, super::BinaryDescriptorTraitConst, super::BinaryDescriptorTrait, super::LSDDetectorTraitConst, super::LSDDetectorTrait, super::BinaryDescriptorMatcherTraitConst, super::BinaryDescriptorMatcherTrait };
 }
 
-/// Output image matrix will be created (Mat::create),
-/// i.e. existing memory of output image may be reused.
-/// Two source images, matches, and single keylines
-/// will be drawn.
 pub const DrawLinesMatchesFlags_DEFAULT: i32 = 0;
-/// Output image matrix will not be
-/// created (using Mat::create). Matches will be drawn
-/// on existing content of output image.
 pub const DrawLinesMatchesFlags_DRAW_OVER_OUTIMG: i32 = 1;
-/// Single keylines will not be drawn.
 pub const DrawLinesMatchesFlags_NOT_DRAW_SINGLE_LINES: i32 = 2;
 pub const MLN10: f64 = 2.30258509299404568402;
 pub const RELATIVE_ERROR_FACTOR: f64 = 100.0;
@@ -99,15 +91,6 @@ pub type uint16 = u16;
 pub type uint32 = u32;
 pub type uint64 = u64;
 pub type uint8 = u8;
-/// Draws keylines.
-/// 
-/// ## Parameters
-/// * image: input image
-/// * keylines: keylines to be drawn
-/// * outImage: output image to draw on
-/// * color: color of lines to be drawn (if set to defaul value, color is chosen randomly)
-/// * flags: drawing flags
-/// 
 /// ## C++ default parameters
 /// * color: Scalar::all(-1)
 /// * flags: DrawLinesMatchesFlags::DEFAULT
@@ -120,24 +103,6 @@ pub fn draw_keylines(image: &core::Mat, keylines: &core::Vector<crate::line_desc
 	Ok(ret)
 }
 
-/// Draws the found matches of keylines from two images.
-/// 
-/// ## Parameters
-/// * img1: first image
-/// * keylines1: keylines extracted from first image
-/// * img2: second image
-/// * keylines2: keylines extracted from second image
-/// * matches1to2: vector of matches
-/// * outImg: output matrix to draw on
-/// * matchColor: drawing color for matches (chosen randomly in case of default value)
-/// * singleLineColor: drawing color for keylines (chosen randomly in case of default value)
-/// * matchesMask: mask to indicate which matches must be drawn
-/// * flags: drawing flags, see DrawLinesMatchesFlags
-/// 
-/// 
-/// Note: If both *matchColor* and *singleLineColor* are set to their default values, function draws
-/// matched lines and line connecting them with same color
-/// 
 /// ## C++ default parameters
 /// * match_color: Scalar::all(-1)
 /// * single_line_color: Scalar::all(-1)
@@ -152,19 +117,9 @@ pub fn draw_line_matches(img1: &core::Mat, keylines1: &core::Vector<crate::line_
 	Ok(ret)
 }
 
-/// Class implements both functionalities for detection of lines and computation of their
-/// binary descriptor.
-/// 
-/// Class' interface is mainly based on the ones of classical detectors and extractors, such as
-/// Feature2d's @ref features2d_main and @ref features2d_match. Retrieved information about lines is
-/// stored in line_descriptor::KeyLine objects.
 pub trait BinaryDescriptorTraitConst: core::AlgorithmTraitConst {
 	fn as_raw_BinaryDescriptor(&self) -> *const c_void;
 
-	/// Store parameters to a FileStorage object
-	/// 
-	/// ## Parameters
-	/// * fs: output FileStorage file
 	#[inline]
 	fn write(&self, fs: &mut core::FileStorage) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -174,20 +129,6 @@ pub trait BinaryDescriptorTraitConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Requires line detection
-	/// 
-	/// ## Parameters
-	/// * image: input image
-	/// * keypoints: vector that will store extracted lines for one or more images
-	/// * mask: mask matrix to detect only KeyLines of interest
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// 
-	/// * images: input images
-	/// * keylines: set of vectors that will store extracted lines for one or more images
-	/// * masks: vector of mask matrices to detect only KeyLines of interest from each input image
-	/// 
 	/// ## C++ default parameters
 	/// * masks: std::vector<Mat>()
 	#[inline]
@@ -199,14 +140,6 @@ pub trait BinaryDescriptorTraitConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Requires descriptors computation
-	/// 
-	/// ## Parameters
-	/// * image: input image
-	/// * keylines: vector containing lines for which descriptors must be computed
-	/// * descriptors: 
-	/// * returnFloatDescr: flag (when set to true, original non-binary descriptors are returned)
-	/// 
 	/// ## C++ default parameters
 	/// * return_float_descr: false
 	#[inline]
@@ -218,22 +151,6 @@ pub trait BinaryDescriptorTraitConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Requires descriptors computation
-	/// 
-	/// ## Parameters
-	/// * image: input image
-	/// * keylines: vector containing lines for which descriptors must be computed
-	/// * descriptors: 
-	/// * returnFloatDescr: flag (when set to true, original non-binary descriptors are returned)
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// 
-	/// * images: input images
-	/// * keylines: set of vectors containing lines for which descriptors must be computed
-	/// * descriptors: 
-	/// * returnFloatDescr: flag (when set to true, original non-binary descriptors are returned)
-	/// 
 	/// ## C++ default parameters
 	/// * return_float_descr: false
 	#[inline]
@@ -245,7 +162,6 @@ pub trait BinaryDescriptorTraitConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Return descriptor size
 	#[inline]
 	fn descriptor_size(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -255,7 +171,6 @@ pub trait BinaryDescriptorTraitConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Return data type
 	#[inline]
 	fn descriptor_type(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -265,7 +180,6 @@ pub trait BinaryDescriptorTraitConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// returns norm mode
 	#[inline]
 	fn default_norm(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -280,7 +194,6 @@ pub trait BinaryDescriptorTraitConst: core::AlgorithmTraitConst {
 pub trait BinaryDescriptorTrait: core::AlgorithmTrait + crate::line_descriptor::BinaryDescriptorTraitConst {
 	fn as_raw_mut_BinaryDescriptor(&mut self) -> *mut c_void;
 
-	/// Get current number of octaves
 	#[inline]
 	fn get_num_of_octaves(&mut self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -290,9 +203,6 @@ pub trait BinaryDescriptorTrait: core::AlgorithmTrait + crate::line_descriptor::
 		Ok(ret)
 	}
 	
-	/// Set number of octaves
-	/// ## Parameters
-	/// * octaves: number of octaves
 	#[inline]
 	fn set_num_of_octaves(&mut self, octaves: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -302,7 +212,6 @@ pub trait BinaryDescriptorTrait: core::AlgorithmTrait + crate::line_descriptor::
 		Ok(ret)
 	}
 	
-	/// Get current width of bands
 	#[inline]
 	fn get_width_of_band(&mut self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -312,9 +221,6 @@ pub trait BinaryDescriptorTrait: core::AlgorithmTrait + crate::line_descriptor::
 		Ok(ret)
 	}
 	
-	/// Set width of bands
-	/// ## Parameters
-	/// * width: width of bands
 	#[inline]
 	fn set_width_of_band(&mut self, width: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -324,7 +230,6 @@ pub trait BinaryDescriptorTrait: core::AlgorithmTrait + crate::line_descriptor::
 		Ok(ret)
 	}
 	
-	/// Get current reduction ratio (used in Gaussian pyramids)
 	#[inline]
 	fn get_reduction_ratio(&mut self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -334,9 +239,6 @@ pub trait BinaryDescriptorTrait: core::AlgorithmTrait + crate::line_descriptor::
 		Ok(ret)
 	}
 	
-	/// Set reduction ratio (used in Gaussian pyramids)
-	/// ## Parameters
-	/// * rRatio: reduction ratio
 	#[inline]
 	fn set_reduction_ratio(&mut self, r_ratio: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -346,10 +248,6 @@ pub trait BinaryDescriptorTrait: core::AlgorithmTrait + crate::line_descriptor::
 		Ok(ret)
 	}
 	
-	/// Read parameters from a FileNode object and store them
-	/// 
-	/// ## Parameters
-	/// * fn: source FileNode file
 	#[inline]
 	fn read(&mut self, fn_: &core::FileNode) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -359,13 +257,6 @@ pub trait BinaryDescriptorTrait: core::AlgorithmTrait + crate::line_descriptor::
 		Ok(ret)
 	}
 	
-	/// Requires line detection
-	/// 
-	/// ## Parameters
-	/// * image: input image
-	/// * keypoints: vector that will store extracted lines for one or more images
-	/// * mask: mask matrix to detect only KeyLines of interest
-	/// 
 	/// ## C++ default parameters
 	/// * mask: Mat()
 	#[inline]
@@ -379,12 +270,6 @@ pub trait BinaryDescriptorTrait: core::AlgorithmTrait + crate::line_descriptor::
 	
 }
 
-/// Class implements both functionalities for detection of lines and computation of their
-/// binary descriptor.
-/// 
-/// Class' interface is mainly based on the ones of classical detectors and extractors, such as
-/// Feature2d's @ref features2d_main and @ref features2d_match. Retrieved information about lines is
-/// stored in line_descriptor::KeyLine objects.
 pub struct BinaryDescriptor {
 	ptr: *mut c_void
 }
@@ -417,14 +302,6 @@ impl crate::line_descriptor::BinaryDescriptorTrait for BinaryDescriptor {
 }
 
 impl BinaryDescriptor {
-	/// Constructor
-	/// 
-	/// ## Parameters
-	/// * parameters: configuration parameters BinaryDescriptor::Params
-	/// 
-	/// If no argument is provided, constructor sets default values (see comments in the code snippet in
-	/// previous section). Default values are strongly recommended.
-	/// 
 	/// ## C++ default parameters
 	/// * parameters: BinaryDescriptor::Params()
 	#[inline]
@@ -437,8 +314,6 @@ impl BinaryDescriptor {
 		Ok(ret)
 	}
 	
-	/// Create a BinaryDescriptor object with default parameters (or with the ones provided)
-	/// and return a smart pointer to it
 	#[inline]
 	pub fn create_binary_descriptor() -> Result<core::Ptr<crate::line_descriptor::BinaryDescriptor>> {
 		return_send!(via ocvrs_return);
@@ -463,25 +338,21 @@ impl BinaryDescriptor {
 
 boxed_cast_base! { BinaryDescriptor, core::Algorithm, cv_BinaryDescriptor_to_Algorithm }
 
-/// List of BinaryDescriptor parameters:
 pub trait BinaryDescriptor_ParamsTraitConst {
 	fn as_raw_BinaryDescriptor_Params(&self) -> *const c_void;
 
-	/// the number of image octaves (default = 1)
 	#[inline]
 	fn num_of_octave_(&self) -> i32 {
 		let ret = unsafe { sys::cv_line_descriptor_BinaryDescriptor_Params_getPropNumOfOctave__const(self.as_raw_BinaryDescriptor_Params()) };
 		ret
 	}
 	
-	/// the width of band; (default: 7)
 	#[inline]
 	fn width_of_band_(&self) -> i32 {
 		let ret = unsafe { sys::cv_line_descriptor_BinaryDescriptor_Params_getPropWidthOfBand__const(self.as_raw_BinaryDescriptor_Params()) };
 		ret
 	}
 	
-	/// image's reduction ratio in construction of Gaussian pyramids
 	#[inline]
 	fn reduction_ratio(&self) -> i32 {
 		let ret = unsafe { sys::cv_line_descriptor_BinaryDescriptor_Params_getPropReductionRatio_const(self.as_raw_BinaryDescriptor_Params()) };
@@ -494,7 +365,6 @@ pub trait BinaryDescriptor_ParamsTraitConst {
 		ret
 	}
 	
-	/// store parameters to a FileStorage object (struct function)
 	#[inline]
 	fn write(&self, fs: &mut core::FileStorage) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -509,21 +379,18 @@ pub trait BinaryDescriptor_ParamsTraitConst {
 pub trait BinaryDescriptor_ParamsTrait: crate::line_descriptor::BinaryDescriptor_ParamsTraitConst {
 	fn as_raw_mut_BinaryDescriptor_Params(&mut self) -> *mut c_void;
 
-	/// the number of image octaves (default = 1)
 	#[inline]
 	fn set_num_of_octave_(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_line_descriptor_BinaryDescriptor_Params_setPropNumOfOctave__int(self.as_raw_mut_BinaryDescriptor_Params(), val) };
 		ret
 	}
 	
-	/// the width of band; (default: 7)
 	#[inline]
 	fn set_width_of_band_(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_line_descriptor_BinaryDescriptor_Params_setPropWidthOfBand__int(self.as_raw_mut_BinaryDescriptor_Params(), val) };
 		ret
 	}
 	
-	/// image's reduction ratio in construction of Gaussian pyramids
 	#[inline]
 	fn set_reduction_ratio(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_line_descriptor_BinaryDescriptor_Params_setPropReductionRatio_int(self.as_raw_mut_BinaryDescriptor_Params(), val) };
@@ -536,7 +403,6 @@ pub trait BinaryDescriptor_ParamsTrait: crate::line_descriptor::BinaryDescriptor
 		ret
 	}
 	
-	/// read parameters from a FileNode object and store them (struct function)
 	#[inline]
 	fn read(&mut self, fn_: &core::FileNode) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -548,7 +414,6 @@ pub trait BinaryDescriptor_ParamsTrait: crate::line_descriptor::BinaryDescriptor
 	
 }
 
-/// List of BinaryDescriptor parameters:
 pub struct BinaryDescriptor_Params {
 	ptr: *mut c_void
 }
@@ -585,55 +450,9 @@ impl BinaryDescriptor_Params {
 	
 }
 
-/// furnishes all functionalities for querying a dataset provided by user or internal to
-/// class (that user must, anyway, populate) on the model of @ref features2d_match
-/// 
-/// 
-/// Once descriptors have been extracted from an image (both they represent lines and points), it
-/// becomes interesting to be able to match a descriptor with another one extracted from a different
-/// image and representing the same line or point, seen from a differente perspective or on a different
-/// scale. In reaching such goal, the main headache is designing an efficient search algorithm to
-/// associate a query descriptor to one extracted from a dataset. In the following, a matching modality
-/// based on *Multi-Index Hashing (MiHashing)* will be described.
-/// 
-/// Multi-Index Hashing
-/// -------------------
-/// 
-/// The theory described in this section is based on [MIH](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_MIH) . Given a dataset populated with binary
-/// codes, each code is indexed *m* times into *m* different hash tables, according to *m* substrings it
-/// has been divided into. Thus, given a query code, all the entries close to it at least in one
-/// substring are returned by search as *neighbor candidates*. Returned entries are then checked for
-/// validity by verifying that their full codes are not distant (in Hamming space) more than *r* bits
-/// from query code. In details, each binary code **h** composed of *b* bits is divided into *m*
-/// disjoint substrings ![inline formula](https://latex.codecogs.com/png.latex?%5Cmathbf%7Bh%7D%5E%7B%281%29%7D%2C%20%2E%2E%2E%2C%20%5Cmathbf%7Bh%7D%5E%7B%28m%29%7D), each with length
-/// ![inline formula](https://latex.codecogs.com/png.latex?%5Clfloor%20b%2Fm%20%5Crfloor) or ![inline formula](https://latex.codecogs.com/png.latex?%5Clceil%20b%2Fm%20%5Crceil) bits. Formally, when two codes **h** and **g** differ
-/// by at the most *r* bits, in at the least one of their *m* substrings they differ by at the most
-/// ![inline formula](https://latex.codecogs.com/png.latex?%5Clfloor%20r%2Fm%20%5Crfloor) bits. In particular, when ![inline formula](https://latex.codecogs.com/png.latex?%7C%7C%5Cmathbf%7Bh%7D%2D%5Cmathbf%7Bg%7D%7C%7C%5FH%20%5Cle%20r) (where ![inline formula](https://latex.codecogs.com/png.latex?%7C%7C%2E%7C%7C%5FH)
-/// is the Hamming norm), there must exist a substring *k* (with ![inline formula](https://latex.codecogs.com/png.latex?1%20%5Cle%20k%20%5Cle%20m)) such that
-/// 
-/// ![block formula](https://latex.codecogs.com/png.latex?%7C%7C%5Cmathbf%7Bh%7D%5E%7B%28k%29%7D%20%2D%20%5Cmathbf%7Bg%7D%5E%7B%28k%29%7D%7C%7C%5FH%20%5Cle%20%5Cleft%5Clfloor%20%5Cfrac%7Br%7D%7Bm%7D%20%5Cright%5Crfloor%20%2E)
-/// 
-/// That means that if Hamming distance between each of the *m* substring is strictly greater than
-/// ![inline formula](https://latex.codecogs.com/png.latex?%5Clfloor%20r%2Fm%20%5Crfloor), then ![inline formula](https://latex.codecogs.com/png.latex?%7C%7C%5Cmathbf%7Bh%7D%2D%5Cmathbf%7Bg%7D%7C%7C%5FH) must be larger that *r* and that is a
-/// contradiction. If the codes in dataset are divided into *m* substrings, then *m* tables will be
-/// built. Given a query **q** with substrings ![inline formula](https://latex.codecogs.com/png.latex?%5C%7B%5Cmathbf%7Bq%7D%5E%7B%28i%29%7D%5C%7D%5Em%5F%7Bi%3D1%7D), *i*-th hash table is
-/// searched for entries distant at the most ![inline formula](https://latex.codecogs.com/png.latex?%5Clfloor%20r%2Fm%20%5Crfloor) from ![inline formula](https://latex.codecogs.com/png.latex?%5Cmathbf%7Bq%7D%5E%7B%28i%29%7D) and a set of
-/// candidates ![inline formula](https://latex.codecogs.com/png.latex?%5Cmathcal%7BN%7D%5Fi%28%5Cmathbf%7Bq%7D%29) is obtained. The union of sets
-/// ![inline formula](https://latex.codecogs.com/png.latex?%5Cmathcal%7BN%7D%28%5Cmathbf%7Bq%7D%29%20%3D%20%5Cbigcup%5Fi%20%5Cmathcal%7BN%7D%5Fi%28%5Cmathbf%7Bq%7D%29) is a superset of the *r*-neighbors
-/// of **q**. Then, last step of algorithm is computing the Hamming distance between **q** and each
-/// element in ![inline formula](https://latex.codecogs.com/png.latex?%5Cmathcal%7BN%7D%28%5Cmathbf%7Bq%7D%29), deleting the codes that are distant more that *r* from **q**.
 pub trait BinaryDescriptorMatcherTraitConst: core::AlgorithmTraitConst {
 	fn as_raw_BinaryDescriptorMatcher(&self) -> *const c_void;
 
-	/// For every input query descriptor, retrieve the best matching one from a dataset provided from user
-	/// or from the one internal to class
-	/// 
-	/// ## Parameters
-	/// * queryDescriptors: query descriptors
-	/// * trainDescriptors: dataset of descriptors furnished by user
-	/// * matches: vector to host retrieved matches
-	/// * mask: mask to select which input descriptors must be matched to one in dataset
-	/// 
 	/// ## C++ default parameters
 	/// * mask: Mat()
 	#[inline]
@@ -645,18 +464,6 @@ pub trait BinaryDescriptorMatcherTraitConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// For every input query descriptor, retrieve the best *k* matching ones from a dataset provided from
-	/// user or from the one internal to class
-	/// 
-	/// ## Parameters
-	/// * queryDescriptors: query descriptors
-	/// * trainDescriptors: dataset of descriptors furnished by user
-	/// * matches: vector to host retrieved matches
-	/// * k: number of the closest descriptors to be returned for every input query
-	/// * mask: mask to select which input descriptors must be matched to ones in dataset
-	/// * compactResult: flag to obtain a compact result (if true, a vector that doesn't contain any
-	/// matches for a given query is not inserted in final result)
-	/// 
 	/// ## C++ default parameters
 	/// * mask: Mat()
 	/// * compact_result: false
@@ -669,18 +476,6 @@ pub trait BinaryDescriptorMatcherTraitConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// For every input query descriptor, retrieve, from a dataset provided from user or from the one
-	/// internal to class, all the descriptors that are not further than *maxDist* from input query
-	/// 
-	/// ## Parameters
-	/// * queryDescriptors: query descriptors
-	/// * trainDescriptors: dataset of descriptors furnished by user
-	/// * matches: vector to host retrieved matches
-	/// * maxDistance: search radius
-	/// * mask: mask to select which input descriptors must be matched to ones in dataset
-	/// * compactResult: flag to obtain a compact result (if true, a vector that doesn't contain any
-	/// matches for a given query is not inserted in final result)
-	/// 
 	/// ## C++ default parameters
 	/// * mask: Mat()
 	/// * compact_result: false
@@ -698,23 +493,6 @@ pub trait BinaryDescriptorMatcherTraitConst: core::AlgorithmTraitConst {
 pub trait BinaryDescriptorMatcherTrait: core::AlgorithmTrait + crate::line_descriptor::BinaryDescriptorMatcherTraitConst {
 	fn as_raw_mut_BinaryDescriptorMatcher(&mut self) -> *mut c_void;
 
-	/// For every input query descriptor, retrieve the best matching one from a dataset provided from user
-	/// or from the one internal to class
-	/// 
-	/// ## Parameters
-	/// * queryDescriptors: query descriptors
-	/// * trainDescriptors: dataset of descriptors furnished by user
-	/// * matches: vector to host retrieved matches
-	/// * mask: mask to select which input descriptors must be matched to one in dataset
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * queryDescriptors: query descriptors
-	/// * matches: vector to host retrieved matches
-	/// * masks: vector of masks to select which input descriptors must be matched to one in dataset
-	/// (the *i*-th mask in vector indicates whether each input query can be matched with descriptors in
-	/// dataset relative to *i*-th image)
-	/// 
 	/// ## C++ default parameters
 	/// * masks: std::vector<Mat>()
 	#[inline]
@@ -726,29 +504,6 @@ pub trait BinaryDescriptorMatcherTrait: core::AlgorithmTrait + crate::line_descr
 		Ok(ret)
 	}
 	
-	/// For every input query descriptor, retrieve the best *k* matching ones from a dataset provided from
-	/// user or from the one internal to class
-	/// 
-	/// ## Parameters
-	/// * queryDescriptors: query descriptors
-	/// * trainDescriptors: dataset of descriptors furnished by user
-	/// * matches: vector to host retrieved matches
-	/// * k: number of the closest descriptors to be returned for every input query
-	/// * mask: mask to select which input descriptors must be matched to ones in dataset
-	/// * compactResult: flag to obtain a compact result (if true, a vector that doesn't contain any
-	/// matches for a given query is not inserted in final result)
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * queryDescriptors: query descriptors
-	/// * matches: vector to host retrieved matches
-	/// * k: number of the closest descriptors to be returned for every input query
-	/// * masks: vector of masks to select which input descriptors must be matched to ones in dataset
-	/// (the *i*-th mask in vector indicates whether each input query can be matched with descriptors in
-	/// dataset relative to *i*-th image)
-	/// * compactResult: flag to obtain a compact result (if true, a vector that doesn't contain any
-	/// matches for a given query is not inserted in final result)
-	/// 
 	/// ## C++ default parameters
 	/// * masks: std::vector<Mat>()
 	/// * compact_result: false
@@ -761,29 +516,6 @@ pub trait BinaryDescriptorMatcherTrait: core::AlgorithmTrait + crate::line_descr
 		Ok(ret)
 	}
 	
-	/// For every input query descriptor, retrieve, from a dataset provided from user or from the one
-	/// internal to class, all the descriptors that are not further than *maxDist* from input query
-	/// 
-	/// ## Parameters
-	/// * queryDescriptors: query descriptors
-	/// * trainDescriptors: dataset of descriptors furnished by user
-	/// * matches: vector to host retrieved matches
-	/// * maxDistance: search radius
-	/// * mask: mask to select which input descriptors must be matched to ones in dataset
-	/// * compactResult: flag to obtain a compact result (if true, a vector that doesn't contain any
-	/// matches for a given query is not inserted in final result)
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * queryDescriptors: query descriptors
-	/// * matches: vector to host retrieved matches
-	/// * maxDistance: search radius
-	/// * masks: vector of masks to select which input descriptors must be matched to ones in dataset
-	/// (the *i*-th mask in vector indicates whether each input query can be matched with descriptors in
-	/// dataset relative to *i*-th image)
-	/// * compactResult: flag to obtain a compact result (if true, a vector that doesn't contain any
-	/// matches for a given query is not inserted in final result)
-	/// 
 	/// ## C++ default parameters
 	/// * masks: std::vector<Mat>()
 	/// * compact_result: false
@@ -796,14 +528,6 @@ pub trait BinaryDescriptorMatcherTrait: core::AlgorithmTrait + crate::line_descr
 		Ok(ret)
 	}
 	
-	/// Store locally new descriptors to be inserted in dataset, without updating dataset.
-	/// 
-	/// ## Parameters
-	/// * descriptors: matrices containing descriptors to be inserted into dataset
-	/// 
-	/// 
-	/// Note: Each matrix *i* in **descriptors** should contain descriptors relative to lines extracted from
-	/// *i*-th image.
 	#[inline]
 	fn add(&mut self, descriptors: &core::Vector<core::Mat>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -813,11 +537,6 @@ pub trait BinaryDescriptorMatcherTrait: core::AlgorithmTrait + crate::line_descr
 		Ok(ret)
 	}
 	
-	/// Update dataset by inserting into it all descriptors that were stored locally by *add* function.
-	/// 
-	/// 
-	/// Note: Every time this function is invoked, current dataset is deleted and locally stored descriptors
-	/// are inserted into dataset. The locally stored copy of just inserted descriptors is then removed.
 	#[inline]
 	fn train(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -827,7 +546,6 @@ pub trait BinaryDescriptorMatcherTrait: core::AlgorithmTrait + crate::line_descr
 		Ok(ret)
 	}
 	
-	/// Clear dataset and internal data
 	#[inline]
 	fn clear(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -839,43 +557,6 @@ pub trait BinaryDescriptorMatcherTrait: core::AlgorithmTrait + crate::line_descr
 	
 }
 
-/// furnishes all functionalities for querying a dataset provided by user or internal to
-/// class (that user must, anyway, populate) on the model of @ref features2d_match
-/// 
-/// 
-/// Once descriptors have been extracted from an image (both they represent lines and points), it
-/// becomes interesting to be able to match a descriptor with another one extracted from a different
-/// image and representing the same line or point, seen from a differente perspective or on a different
-/// scale. In reaching such goal, the main headache is designing an efficient search algorithm to
-/// associate a query descriptor to one extracted from a dataset. In the following, a matching modality
-/// based on *Multi-Index Hashing (MiHashing)* will be described.
-/// 
-/// Multi-Index Hashing
-/// -------------------
-/// 
-/// The theory described in this section is based on [MIH](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_MIH) . Given a dataset populated with binary
-/// codes, each code is indexed *m* times into *m* different hash tables, according to *m* substrings it
-/// has been divided into. Thus, given a query code, all the entries close to it at least in one
-/// substring are returned by search as *neighbor candidates*. Returned entries are then checked for
-/// validity by verifying that their full codes are not distant (in Hamming space) more than *r* bits
-/// from query code. In details, each binary code **h** composed of *b* bits is divided into *m*
-/// disjoint substrings ![inline formula](https://latex.codecogs.com/png.latex?%5Cmathbf%7Bh%7D%5E%7B%281%29%7D%2C%20%2E%2E%2E%2C%20%5Cmathbf%7Bh%7D%5E%7B%28m%29%7D), each with length
-/// ![inline formula](https://latex.codecogs.com/png.latex?%5Clfloor%20b%2Fm%20%5Crfloor) or ![inline formula](https://latex.codecogs.com/png.latex?%5Clceil%20b%2Fm%20%5Crceil) bits. Formally, when two codes **h** and **g** differ
-/// by at the most *r* bits, in at the least one of their *m* substrings they differ by at the most
-/// ![inline formula](https://latex.codecogs.com/png.latex?%5Clfloor%20r%2Fm%20%5Crfloor) bits. In particular, when ![inline formula](https://latex.codecogs.com/png.latex?%7C%7C%5Cmathbf%7Bh%7D%2D%5Cmathbf%7Bg%7D%7C%7C%5FH%20%5Cle%20r) (where ![inline formula](https://latex.codecogs.com/png.latex?%7C%7C%2E%7C%7C%5FH)
-/// is the Hamming norm), there must exist a substring *k* (with ![inline formula](https://latex.codecogs.com/png.latex?1%20%5Cle%20k%20%5Cle%20m)) such that
-/// 
-/// ![block formula](https://latex.codecogs.com/png.latex?%7C%7C%5Cmathbf%7Bh%7D%5E%7B%28k%29%7D%20%2D%20%5Cmathbf%7Bg%7D%5E%7B%28k%29%7D%7C%7C%5FH%20%5Cle%20%5Cleft%5Clfloor%20%5Cfrac%7Br%7D%7Bm%7D%20%5Cright%5Crfloor%20%2E)
-/// 
-/// That means that if Hamming distance between each of the *m* substring is strictly greater than
-/// ![inline formula](https://latex.codecogs.com/png.latex?%5Clfloor%20r%2Fm%20%5Crfloor), then ![inline formula](https://latex.codecogs.com/png.latex?%7C%7C%5Cmathbf%7Bh%7D%2D%5Cmathbf%7Bg%7D%7C%7C%5FH) must be larger that *r* and that is a
-/// contradiction. If the codes in dataset are divided into *m* substrings, then *m* tables will be
-/// built. Given a query **q** with substrings ![inline formula](https://latex.codecogs.com/png.latex?%5C%7B%5Cmathbf%7Bq%7D%5E%7B%28i%29%7D%5C%7D%5Em%5F%7Bi%3D1%7D), *i*-th hash table is
-/// searched for entries distant at the most ![inline formula](https://latex.codecogs.com/png.latex?%5Clfloor%20r%2Fm%20%5Crfloor) from ![inline formula](https://latex.codecogs.com/png.latex?%5Cmathbf%7Bq%7D%5E%7B%28i%29%7D) and a set of
-/// candidates ![inline formula](https://latex.codecogs.com/png.latex?%5Cmathcal%7BN%7D%5Fi%28%5Cmathbf%7Bq%7D%29) is obtained. The union of sets
-/// ![inline formula](https://latex.codecogs.com/png.latex?%5Cmathcal%7BN%7D%28%5Cmathbf%7Bq%7D%29%20%3D%20%5Cbigcup%5Fi%20%5Cmathcal%7BN%7D%5Fi%28%5Cmathbf%7Bq%7D%29) is a superset of the *r*-neighbors
-/// of **q**. Then, last step of algorithm is computing the Hamming distance between **q** and each
-/// element in ![inline formula](https://latex.codecogs.com/png.latex?%5Cmathcal%7BN%7D%28%5Cmathbf%7Bq%7D%29), deleting the codes that are distant more that *r* from **q**.
 pub struct BinaryDescriptorMatcher {
 	ptr: *mut c_void
 }
@@ -908,7 +589,6 @@ impl crate::line_descriptor::BinaryDescriptorMatcherTrait for BinaryDescriptorMa
 }
 
 impl BinaryDescriptorMatcher {
-	/// Create a BinaryDescriptorMatcher object and return a smart pointer to it.
 	#[inline]
 	pub fn create_binary_descriptor_matcher() -> Result<core::Ptr<crate::line_descriptor::BinaryDescriptorMatcher>> {
 		return_send!(via ocvrs_return);
@@ -919,9 +599,6 @@ impl BinaryDescriptorMatcher {
 		Ok(ret)
 	}
 	
-	/// Constructor.
-	/// 
-	/// The BinaryDescriptorMatcher constructed is able to store and manage 256-bits long entries.
 	#[inline]
 	pub fn default() -> Result<crate::line_descriptor::BinaryDescriptorMatcher> {
 		return_send!(via ocvrs_return);
@@ -936,7 +613,6 @@ impl BinaryDescriptorMatcher {
 
 boxed_cast_base! { BinaryDescriptorMatcher, core::Algorithm, cv_BinaryDescriptorMatcher_to_Algorithm }
 
-/// struct for drawing options
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub struct DrawLinesMatchesFlags {
@@ -948,64 +624,30 @@ opencv_type_simple! { crate::line_descriptor::DrawLinesMatchesFlags }
 impl DrawLinesMatchesFlags {
 }
 
-/// A class to represent a line
-/// 
-/// As aformentioned, it is been necessary to design a class that fully stores the information needed to
-/// characterize completely a line and plot it on image it was extracted from, when required.
-/// 
-/// *KeyLine* class has been created for such goal; it is mainly inspired to Feature2d's KeyPoint class,
-/// since KeyLine shares some of *KeyPoint*'s fields, even if a part of them assumes a different
-/// meaning, when speaking about lines. In particular:
-/// 
-/// *   the *class_id* field is used to gather lines extracted from different octaves which refer to
-///    same line inside original image (such lines and the one they represent in original image share
-///    the same *class_id* value)
-/// *   the *angle* field represents line's slope with respect to (positive) X axis
-/// *   the *pt* field represents line's midpoint
-/// *   the *response* field is computed as the ratio between the line's length and maximum between
-///    image's width and height
-/// *   the *size* field is the area of the smallest rectangle containing line
-/// 
-/// Apart from fields inspired to KeyPoint class, KeyLines stores information about extremes of line in
-/// original image and in octave it was extracted from, about line's length and number of pixels it
-/// covers.
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub struct KeyLine {
-	/// orientation of the line
 	pub angle: f32,
-	/// object ID, that can be used to cluster keylines by the line they represent
 	pub class_id: i32,
-	/// octave (pyramid layer), from which the keyline has been extracted
 	pub octave: i32,
-	/// coordinates of the middlepoint
 	pub pt: core::Point2f,
-	/// the response, by which the strongest keylines have been selected.
-	/// It's represented by the ratio between line's length and maximum between
-	/// image's width and height
 	pub response: f32,
-	/// minimum area containing line
 	pub size: f32,
-	/// lines's extremes in original image
 	pub start_point_x: f32,
 	pub start_point_y: f32,
 	pub end_point_x: f32,
 	pub end_point_y: f32,
-	/// line's extremes in image it was extracted from
 	pub s_point_in_octave_x: f32,
 	pub s_point_in_octave_y: f32,
 	pub e_point_in_octave_x: f32,
 	pub e_point_in_octave_y: f32,
-	/// the length of line
 	pub line_length: f32,
-	/// number of pixels covered by the line
 	pub num_of_pixels: i32,
 }
 
 opencv_type_simple! { crate::line_descriptor::KeyLine }
 
 impl KeyLine {
-	/// Returns the start point of the line in the original image
 	#[inline]
 	pub fn get_start_point(self) -> Result<core::Point2f> {
 		return_send!(via ocvrs_return);
@@ -1015,7 +657,6 @@ impl KeyLine {
 		Ok(ret)
 	}
 	
-	/// Returns the end point of the line in the original image
 	#[inline]
 	pub fn get_end_point(self) -> Result<core::Point2f> {
 		return_send!(via ocvrs_return);
@@ -1025,7 +666,6 @@ impl KeyLine {
 		Ok(ret)
 	}
 	
-	/// Returns the start point of the line in the octave it was extracted from
 	#[inline]
 	pub fn get_start_point_in_octave(self) -> Result<core::Point2f> {
 		return_send!(via ocvrs_return);
@@ -1035,7 +675,6 @@ impl KeyLine {
 		Ok(ret)
 	}
 	
-	/// Returns the end point of the line in the octave it was extracted from
 	#[inline]
 	pub fn get_end_point_in_octave(self) -> Result<core::Point2f> {
 		return_send!(via ocvrs_return);
@@ -1045,7 +684,6 @@ impl KeyLine {
 		Ok(ret)
 	}
 	
-	/// constructor
 	#[inline]
 	pub fn default() -> Result<crate::line_descriptor::KeyLine> {
 		return_send!(via ocvrs_return);
@@ -1060,23 +698,6 @@ impl KeyLine {
 pub trait LSDDetectorTraitConst: core::AlgorithmTraitConst {
 	fn as_raw_LSDDetector(&self) -> *const c_void;
 
-	/// Detect lines inside an image.
-	/// 
-	/// ## Parameters
-	/// * image: input image
-	/// * keypoints: vector that will store extracted lines for one or more images
-	/// * scale: scale factor used in pyramids generation
-	/// * numOctaves: number of octaves inside pyramid
-	/// * mask: mask matrix to detect only KeyLines of interest
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * images: input images
-	/// * keylines: set of vectors that will store extracted lines for one or more images
-	/// * scale: scale factor used in pyramids generation
-	/// * numOctaves: number of octaves inside pyramid
-	/// * masks: vector of mask matrices to detect only KeyLines of interest from each input image
-	/// 
 	/// ## C++ default parameters
 	/// * masks: std::vector<Mat>()
 	#[inline]
@@ -1093,15 +714,6 @@ pub trait LSDDetectorTraitConst: core::AlgorithmTraitConst {
 pub trait LSDDetectorTrait: core::AlgorithmTrait + crate::line_descriptor::LSDDetectorTraitConst {
 	fn as_raw_mut_LSDDetector(&mut self) -> *mut c_void;
 
-	/// Detect lines inside an image.
-	/// 
-	/// ## Parameters
-	/// * image: input image
-	/// * keypoints: vector that will store extracted lines for one or more images
-	/// * scale: scale factor used in pyramids generation
-	/// * numOctaves: number of octaves inside pyramid
-	/// * mask: mask matrix to detect only KeyLines of interest
-	/// 
 	/// ## C++ default parameters
 	/// * mask: Mat()
 	#[inline]
@@ -1167,7 +779,6 @@ impl LSDDetector {
 		Ok(ret)
 	}
 	
-	/// Creates ad LSDDetector object, using smart pointers.
 	#[inline]
 	pub fn create_lsd_detector() -> Result<core::Ptr<crate::line_descriptor::LSDDetector>> {
 		return_send!(via ocvrs_return);
@@ -1192,21 +803,6 @@ impl LSDDetector {
 
 boxed_cast_base! { LSDDetector, core::Algorithm, cv_LSDDetector_to_Algorithm }
 
-/// Lines extraction methodology
-/// ----------------------------
-/// 
-/// The lines extraction methodology described in the following is mainly based on [EDL](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_EDL) . The
-/// extraction starts with a Gaussian pyramid generated from an original image, downsampled N-1 times,
-/// blurred N times, to obtain N layers (one for each octave), with layer 0 corresponding to input
-/// image. Then, from each layer (octave) in the pyramid, lines are extracted using LSD algorithm.
-/// 
-/// Differently from EDLine lines extractor used in original article, LSD furnishes information only
-/// about lines extremes; thus, additional information regarding slope and equation of line are computed
-/// via analytic methods. The number of pixels is obtained using *LineIterator*. Extracted lines are
-/// returned in the form of KeyLine objects, but since extraction is based on a method different from
-/// the one used in *BinaryDescriptor* class, data associated to a line's extremes in original image and
-/// in octave it was extracted from, coincide. KeyLine's field *class_id* is used as an index to
-/// indicate the order of extraction of a line inside a single octave.
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub struct LSDParam {

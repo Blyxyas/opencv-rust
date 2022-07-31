@@ -24,9 +24,6 @@ pub const OdometryFrame_CACHE_SRC: i32 = 1;
 pub const Odometry_RIGID_BODY_MOTION: i32 = 4;
 pub const Odometry_ROTATION: i32 = 1;
 pub const Odometry_TRANSLATION: i32 = 2;
-/// NIL method is from
-/// ``Modeling Kinect Sensor Noise for Improved 3d Reconstruction and Tracking``
-/// by C. Nguyen, S. Izadi, D. Lovel
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum DepthCleaner_DEPTH_CLEANER_METHOD {
@@ -63,7 +60,6 @@ pub enum RgbdPlane_RGBD_PLANE_METHOD {
 
 opencv_type_enum! { crate::rgbd::RgbdPlane_RGBD_PLANE_METHOD }
 
-/// Backwards compatibility for old versions
 pub type Dynafu_Params = crate::rgbd::Kinfu_Params;
 #[inline]
 pub fn make_volume(_volume_type: crate::rgbd::Kinfu_VolumeType, _voxel_size: f32, _pose: core::Matx44f, _raycast_step_factor: f32, _trunc_dist: f32, _max_weight: i32, _truncate_threshold: f32, _resolution: core::Vec3i) -> Result<core::Ptr<dyn crate::rgbd::Kinfu_Volume>> {
@@ -75,7 +71,6 @@ pub fn make_volume(_volume_type: crate::rgbd::Kinfu_VolumeType, _voxel_size: f32
 	Ok(ret)
 }
 
-/// \brief Debug function to colormap a quantized image for viewing.
 #[inline]
 pub fn colormap(quantized: &core::Mat, dst: &mut core::Mat) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -85,13 +80,6 @@ pub fn colormap(quantized: &core::Mat, dst: &mut core::Mat) -> Result<()> {
 	Ok(ret)
 }
 
-/// \brief Debug function to draw linemod features
-/// ## Parameters
-/// * img: 
-/// * templates: see @ref Detector::addTemplate
-/// * tl: template bbox top-left offset see @ref Detector::addTemplate
-/// * size: marker size see @ref cv::drawMarker
-/// 
 /// ## C++ default parameters
 /// * size: 10
 #[inline]
@@ -104,9 +92,6 @@ pub fn draw_features(img: &mut dyn core::ToInputOutputArray, templates: &core::V
 	Ok(ret)
 }
 
-/// \brief Factory function for detector using LINE algorithm with color gradients.
-/// 
-/// Default parameter settings suitable for VGA images.
 #[inline]
 pub fn get_default_line() -> Result<core::Ptr<crate::rgbd::Linemod_Detector>> {
 	return_send!(via ocvrs_return);
@@ -117,10 +102,6 @@ pub fn get_default_line() -> Result<core::Ptr<crate::rgbd::Linemod_Detector>> {
 	Ok(ret)
 }
 
-/// \brief Factory function for detector using LINE-MOD algorithm with color gradients
-/// and depth normals.
-/// 
-/// Default parameter settings suitable for VGA images.
 #[inline]
 pub fn get_default_linemod() -> Result<core::Ptr<crate::rgbd::Linemod_Detector>> {
 	return_send!(via ocvrs_return);
@@ -131,11 +112,6 @@ pub fn get_default_linemod() -> Result<core::Ptr<crate::rgbd::Linemod_Detector>>
 	Ok(ret)
 }
 
-/// ## Parameters
-/// * depth: the depth image
-/// * in_K: 
-/// * in_points: the list of xy coordinates
-/// * points3d: the resulting 3d points
 #[inline]
 pub fn depth_to3d_sparse(depth: &dyn core::ToInputArray, in_k: &dyn core::ToInputArray, in_points: &dyn core::ToInputArray, points3d: &mut dyn core::ToOutputArray) -> Result<()> {
 	input_array_arg!(depth);
@@ -149,16 +125,6 @@ pub fn depth_to3d_sparse(depth: &dyn core::ToInputArray, in_k: &dyn core::ToInpu
 	Ok(ret)
 }
 
-/// Converts a depth image to an organized set of 3d points.
-/// The coordinate system is x pointing left, y down and z away from the camera
-/// ## Parameters
-/// * depth: the depth image (if given as short int CV_U, it is assumed to be the depth in millimeters
-///              (as done with the Microsoft Kinect), otherwise, if given as CV_32F or CV_64F, it is assumed in meters)
-/// * K: The calibration matrix
-/// * points3d: the resulting 3d points. They are of depth the same as `depth` if it is CV_32F or CV_64F, and the
-///        depth of `K` if `depth` is of depth CV_U
-/// * mask: the mask of the points to consider (can be empty)
-/// 
 /// ## C++ default parameters
 /// * mask: noArray()
 #[inline]
@@ -183,10 +149,6 @@ pub fn is_valid_depth_1(depth: &f64) -> Result<bool> {
 	Ok(ret)
 }
 
-/// Checks if the value is a valid depth. For CV_16U or CV_16S, the convention is to be invalid if it is
-/// a limit. For a float/double, we just check if it is a NaN
-/// ## Parameters
-/// * depth: the depth to check for validity
 #[inline]
 pub fn is_valid_depth(depth: &f32) -> Result<bool> {
 	return_send!(via ocvrs_return);
@@ -232,25 +194,6 @@ pub fn is_valid_depth_3(depth: &u16) -> Result<bool> {
 	Ok(ret)
 }
 
-/// Registers depth data to an external camera
-/// Registration is performed by creating a depth cloud, transforming the cloud by
-/// the rigid body transformation between the cameras, and then projecting the
-/// transformed points into the RGB camera.
-/// 
-/// uv_rgb = K_rgb * [R | t] * z * inv(K_ir) * uv_ir
-/// 
-/// Currently does not check for negative depth values.
-/// 
-/// ## Parameters
-/// * unregisteredCameraMatrix: the camera matrix of the depth camera
-/// * registeredCameraMatrix: the camera matrix of the external camera
-/// * registeredDistCoeffs: the distortion coefficients of the external camera
-/// * Rt: the rigid body transform between the cameras. Transforms points from depth camera frame to external camera frame.
-/// * unregisteredDepth: the input depth data
-/// * outputImagePlaneSize: the image plane dimensions of the external camera (width, height)
-/// * registeredDepth: the result of transforming the depth into the external camera
-/// * depthDilation: whether or not the depth is dilated to avoid holes and occlusion errors (optional)
-/// 
 /// ## C++ default parameters
 /// * depth_dilation: false
 #[inline]
@@ -268,16 +211,6 @@ pub fn register_depth(unregistered_camera_matrix: &dyn core::ToInputArray, regis
 	Ok(ret)
 }
 
-/// If the input image is of type CV_16UC1 (like the Kinect one), the image is converted to floats, divided
-/// by depth_factor to get a depth in meters, and the values 0 are converted to std::numeric_limits<float>::quiet_NaN()
-/// Otherwise, the image is simply converted to floats
-/// ## Parameters
-/// * in: the depth image (if given as short int CV_U, it is assumed to be the depth in millimeters
-///              (as done with the Microsoft Kinect), it is assumed in meters)
-/// * depth: the desired output depth (floats or double)
-/// * out: The rescaled float depth image
-/// * depth_factor: (optional) factor by which depth is converted to distance (by default = 1000.0 for Kinect sensor)
-/// 
 /// ## C++ default parameters
 /// * depth_factor: 1000.0
 #[inline]
@@ -291,20 +224,6 @@ pub fn rescale_depth(in_: &dyn core::ToInputArray, depth: i32, out: &mut dyn cor
 	Ok(ret)
 }
 
-/// Warp the image: compute 3d points from the depth, transform them using given transformation,
-/// then project color point cloud to an image plane.
-/// This function can be used to visualize results of the Odometry algorithm.
-/// ## Parameters
-/// * image: The image (of CV_8UC1 or CV_8UC3 type)
-/// * depth: The depth (of type used in depthTo3d fuction)
-/// * mask: The mask of used pixels (of CV_8UC1), it can be empty
-/// * Rt: The transformation that will be applied to the 3d points computed from the depth
-/// * cameraMatrix: Camera matrix
-/// * distCoeff: Distortion coefficients
-/// * warpedImage: The warped image.
-/// * warpedDepth: The warped depth.
-/// * warpedMask: The warped mask.
-/// 
 /// ## C++ default parameters
 /// * warped_depth: noArray()
 /// * warped_mask: noArray()
@@ -320,33 +239,9 @@ pub fn warp_frame(image: &core::Mat, depth: &core::Mat, mask: &core::Mat, rt: &c
 	Ok(ret)
 }
 
-/// KinectFusion implementation
-/// 
-/// This class implements a 3d reconstruction algorithm described in
-/// [kinectfusion](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_kinectfusion) paper.
-/// 
-/// It takes a sequence of depth images taken from depth sensor
-/// (or any depth images source such as stereo camera matching algorithm or even raymarching renderer).
-/// The output can be obtained as a vector of points and their normals
-/// or can be Phong-rendered from given camera pose.
-/// 
-/// An internal representation of a model is a voxel cuboid that keeps TSDF values
-/// which are a sort of distances to the surface (for details read the [kinectfusion](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_kinectfusion) article about TSDF).
-/// There is no interface to that representation yet.
-/// 
-/// KinFu uses OpenCL acceleration automatically if available.
-/// To enable or disable it explicitly use cv::setUseOptimized() or cv::ocl::setUseOpenCL().
-/// 
-/// This implementation is based on [kinfu-remake](https://github.com/Nerei/kinfu_remake).
-/// 
-/// Note that the KinectFusion algorithm was patented and its use may be restricted by
-/// the list of patents mentioned in README.md file in this module directory.
-/// 
-/// That's why you need to set the OPENCV_ENABLE_NONFREE option in CMake to use KinectFusion.
 pub trait ColoredKinfu_ColoredKinFuConst {
 	fn as_raw_ColoredKinfu_ColoredKinFu(&self) -> *const c_void;
 
-	/// Get current parameters
 	#[inline]
 	fn get_params(&self) -> Result<crate::rgbd::ColoredKinfu_Params> {
 		return_send!(via ocvrs_return);
@@ -357,13 +252,6 @@ pub trait ColoredKinfu_ColoredKinFuConst {
 		Ok(ret)
 	}
 	
-	/// Renders a volume into an image
-	/// 
-	/// Renders a 0-surface of TSDF using Phong shading into a CV_8UC4 Mat.
-	/// Light pose is fixed in KinFu params.
-	/// 
-	/// ## Parameters
-	/// * image: resulting image
 	#[inline]
 	fn render(&self, image: &mut dyn core::ToOutputArray) -> Result<()> {
 		output_array_arg!(image);
@@ -374,15 +262,6 @@ pub trait ColoredKinfu_ColoredKinFuConst {
 		Ok(ret)
 	}
 	
-	/// Renders a volume into an image
-	/// 
-	/// Renders a 0-surface of TSDF using Phong shading into a CV_8UC4 Mat.
-	/// Light pose is fixed in KinFu params.
-	/// 
-	/// ## Parameters
-	/// * image: resulting image
-	/// * cameraPose: pose of camera to render from. If empty then render from current pose
-	///   which is a last frame camera pose.
 	#[inline]
 	fn render_1(&self, image: &mut dyn core::ToOutputArray, camera_pose: core::Matx44f) -> Result<()> {
 		output_array_arg!(image);
@@ -393,16 +272,6 @@ pub trait ColoredKinfu_ColoredKinFuConst {
 		Ok(ret)
 	}
 	
-	/// Gets points, normals and colors of current 3d mesh
-	/// 
-	/// The order of normals corresponds to order of points.
-	/// The order of points is undefined.
-	/// 
-	/// ## Parameters
-	/// * points: vector of points which are 4-float vectors
-	/// * normals: vector of normals which are 4-float vectors
-	/// * colors: vector of colors which are 4-float vectors
-	/// 
 	/// ## C++ default parameters
 	/// * colors: noArray()
 	#[inline]
@@ -417,12 +286,6 @@ pub trait ColoredKinfu_ColoredKinFuConst {
 		Ok(ret)
 	}
 	
-	/// Gets points of current 3d mesh
-	/// 
-	/// The order of points is undefined.
-	/// 
-	/// ## Parameters
-	/// * points: vector of points which are 4-float vectors
 	#[inline]
 	fn get_points(&self, points: &mut dyn core::ToOutputArray) -> Result<()> {
 		output_array_arg!(points);
@@ -433,10 +296,6 @@ pub trait ColoredKinfu_ColoredKinFuConst {
 		Ok(ret)
 	}
 	
-	/// Calculates normals for given points
-	/// ## Parameters
-	/// * points: input vector of points which are 4-float vectors
-	/// * normals: output vector of corresponding normals which are 4-float vectors
 	#[inline]
 	fn get_normals(&self, points: &dyn core::ToInputArray, normals: &mut dyn core::ToOutputArray) -> Result<()> {
 		input_array_arg!(points);
@@ -448,7 +307,6 @@ pub trait ColoredKinfu_ColoredKinFuConst {
 		Ok(ret)
 	}
 	
-	/// Get current pose in voxel space
 	#[inline]
 	fn get_pose(&self) -> Result<core::Affine3f> {
 		return_send!(via ocvrs_return);
@@ -463,9 +321,6 @@ pub trait ColoredKinfu_ColoredKinFuConst {
 pub trait ColoredKinfu_ColoredKinFu: crate::rgbd::ColoredKinfu_ColoredKinFuConst {
 	fn as_raw_mut_ColoredKinfu_ColoredKinFu(&mut self) -> *mut c_void;
 
-	/// Resets the algorithm
-	/// 
-	/// Clears current model and resets a pose.
 	#[inline]
 	fn reset(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -475,13 +330,6 @@ pub trait ColoredKinfu_ColoredKinFu: crate::rgbd::ColoredKinfu_ColoredKinFuConst
 		Ok(ret)
 	}
 	
-	/// Process next depth frame
-	/// ## Parameters
-	/// * depth: input Mat of depth frame
-	/// * rgb: input Mat of rgb (colored) frame
-	/// 
-	/// ## Returns
-	/// true if succeeded to align new frame with current scene, false if opposite
 	#[inline]
 	fn update(&mut self, depth: &dyn core::ToInputArray, rgb: &dyn core::ToInputArray) -> Result<bool> {
 		input_array_arg!(depth);
@@ -510,7 +358,6 @@ impl dyn ColoredKinfu_ColoredKinFu + '_ {
 pub trait ColoredKinfu_ParamsTraitConst {
 	fn as_raw_ColoredKinfu_Params(&self) -> *const c_void;
 
-	/// frame size in pixels
 	#[inline]
 	fn frame_size(&self) -> core::Size {
 		return_send!(via ocvrs_return);
@@ -519,7 +366,6 @@ pub trait ColoredKinfu_ParamsTraitConst {
 		ret
 	}
 	
-	/// rgb frame size in pixels
 	#[inline]
 	fn rgb_frame_size(&self) -> core::Size {
 		return_send!(via ocvrs_return);
@@ -536,7 +382,6 @@ pub trait ColoredKinfu_ParamsTraitConst {
 		ret
 	}
 	
-	/// camera intrinsics
 	#[inline]
 	fn intr(&self) -> core::Matx33f {
 		return_send!(via ocvrs_return);
@@ -545,7 +390,6 @@ pub trait ColoredKinfu_ParamsTraitConst {
 		ret
 	}
 	
-	/// rgb camera intrinsics
 	#[inline]
 	fn rgb_intr(&self) -> core::Matx33f {
 		return_send!(via ocvrs_return);
@@ -554,49 +398,36 @@ pub trait ColoredKinfu_ParamsTraitConst {
 		ret
 	}
 	
-	/// pre-scale per 1 meter for input values
-	/// 
-	/// Typical values are:
-	///      * 5000 per 1 meter for the 16-bit PNG files of TUM database
-	///      * 1000 per 1 meter for Kinect 2 device
-	///      * 1 per 1 meter for the 32-bit float images in the ROS bag files
 	#[inline]
 	fn depth_factor(&self) -> f32 {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_getPropDepthFactor_const(self.as_raw_ColoredKinfu_Params()) };
 		ret
 	}
 	
-	/// Depth sigma in meters for bilateral smooth
 	#[inline]
 	fn bilateral_sigma_depth(&self) -> f32 {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_getPropBilateral_sigma_depth_const(self.as_raw_ColoredKinfu_Params()) };
 		ret
 	}
 	
-	/// Spatial sigma in pixels for bilateral smooth
 	#[inline]
 	fn bilateral_sigma_spatial(&self) -> f32 {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_getPropBilateral_sigma_spatial_const(self.as_raw_ColoredKinfu_Params()) };
 		ret
 	}
 	
-	/// Kernel size in pixels for bilateral smooth
 	#[inline]
 	fn bilateral_kernel_size(&self) -> i32 {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_getPropBilateral_kernel_size_const(self.as_raw_ColoredKinfu_Params()) };
 		ret
 	}
 	
-	/// Number of pyramid levels for ICP
 	#[inline]
 	fn pyramid_levels(&self) -> i32 {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_getPropPyramidLevels_const(self.as_raw_ColoredKinfu_Params()) };
 		ret
 	}
 	
-	/// Resolution of voxel space
-	/// 
-	/// Number of voxels in each dimension.
 	#[inline]
 	fn volume_dims(&self) -> core::Vec3i {
 		return_send!(via ocvrs_return);
@@ -605,23 +436,18 @@ pub trait ColoredKinfu_ParamsTraitConst {
 		ret
 	}
 	
-	/// Size of voxel in meters
 	#[inline]
 	fn voxel_size(&self) -> f32 {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_getPropVoxelSize_const(self.as_raw_ColoredKinfu_Params()) };
 		ret
 	}
 	
-	/// Minimal camera movement in meters
-	/// 
-	/// Integrate new depth frame only if camera movement exceeds this value.
 	#[inline]
 	fn tsdf_min_camera_movement(&self) -> f32 {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_getPropTsdf_min_camera_movement_const(self.as_raw_ColoredKinfu_Params()) };
 		ret
 	}
 	
-	/// initial volume pose in meters
 	#[inline]
 	fn volume_pose(&self) -> core::Affine3f {
 		return_send!(via ocvrs_return);
@@ -630,34 +456,24 @@ pub trait ColoredKinfu_ParamsTraitConst {
 		ret
 	}
 	
-	/// distance to truncate in meters
-	/// 
-	/// Distances to surface that exceed this value will be truncated to 1.0.
 	#[inline]
 	fn tsdf_trunc_dist(&self) -> f32 {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_getPropTsdf_trunc_dist_const(self.as_raw_ColoredKinfu_Params()) };
 		ret
 	}
 	
-	/// max number of frames per voxel
-	/// 
-	/// Each voxel keeps running average of distances no longer than this value.
 	#[inline]
 	fn tsdf_max_weight(&self) -> i32 {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_getPropTsdf_max_weight_const(self.as_raw_ColoredKinfu_Params()) };
 		ret
 	}
 	
-	/// A length of one raycast step
-	/// 
-	/// How much voxel sizes we skip each raycast step
 	#[inline]
 	fn raycast_step_factor(&self) -> f32 {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_getPropRaycast_step_factor_const(self.as_raw_ColoredKinfu_Params()) };
 		ret
 	}
 	
-	/// light pose for rendering in meters
 	#[inline]
 	fn light_pose(&self) -> core::Vec3f {
 		return_send!(via ocvrs_return);
@@ -666,21 +482,18 @@ pub trait ColoredKinfu_ParamsTraitConst {
 		ret
 	}
 	
-	/// distance theshold for ICP in meters
 	#[inline]
 	fn icp_dist_thresh(&self) -> f32 {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_getPropIcpDistThresh_const(self.as_raw_ColoredKinfu_Params()) };
 		ret
 	}
 	
-	/// angle threshold for ICP in radians
 	#[inline]
 	fn icp_angle_thresh(&self) -> f32 {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_getPropIcpAngleThresh_const(self.as_raw_ColoredKinfu_Params()) };
 		ret
 	}
 	
-	/// number of ICP iterations for each pyramid level
 	#[inline]
 	fn icp_iterations(&self) -> core::Vector<i32> {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_getPropIcpIterations_const(self.as_raw_ColoredKinfu_Params()) };
@@ -688,9 +501,6 @@ pub trait ColoredKinfu_ParamsTraitConst {
 		ret
 	}
 	
-	/// Threshold for depth truncation in meters
-	/// 
-	/// All depth values beyond this threshold will be set to zero
 	#[inline]
 	fn truncate_threshold(&self) -> f32 {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_getPropTruncateThreshold_const(self.as_raw_ColoredKinfu_Params()) };
@@ -702,14 +512,12 @@ pub trait ColoredKinfu_ParamsTraitConst {
 pub trait ColoredKinfu_ParamsTrait: crate::rgbd::ColoredKinfu_ParamsTraitConst {
 	fn as_raw_mut_ColoredKinfu_Params(&mut self) -> *mut c_void;
 
-	/// frame size in pixels
 	#[inline]
 	fn set_frame_size(&mut self, val: core::Size) {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_setPropFrameSize_Size(self.as_raw_mut_ColoredKinfu_Params(), val.opencv_as_extern()) };
 		ret
 	}
 	
-	/// rgb frame size in pixels
 	#[inline]
 	fn set_rgb_frame_size(&mut self, val: core::Size) {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_setPropRgb_frameSize_Size(self.as_raw_mut_ColoredKinfu_Params(), val.opencv_as_extern()) };
@@ -722,161 +530,120 @@ pub trait ColoredKinfu_ParamsTrait: crate::rgbd::ColoredKinfu_ParamsTraitConst {
 		ret
 	}
 	
-	/// camera intrinsics
 	#[inline]
 	fn set_intr(&mut self, val: core::Matx33f) {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_setPropIntr_Matx33f(self.as_raw_mut_ColoredKinfu_Params(), val.opencv_as_extern()) };
 		ret
 	}
 	
-	/// rgb camera intrinsics
 	#[inline]
 	fn set_rgb_intr(&mut self, val: core::Matx33f) {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_setPropRgb_intr_Matx33f(self.as_raw_mut_ColoredKinfu_Params(), val.opencv_as_extern()) };
 		ret
 	}
 	
-	/// pre-scale per 1 meter for input values
-	/// 
-	/// Typical values are:
-	///      * 5000 per 1 meter for the 16-bit PNG files of TUM database
-	///      * 1000 per 1 meter for Kinect 2 device
-	///      * 1 per 1 meter for the 32-bit float images in the ROS bag files
 	#[inline]
 	fn set_depth_factor(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_setPropDepthFactor_float(self.as_raw_mut_ColoredKinfu_Params(), val) };
 		ret
 	}
 	
-	/// Depth sigma in meters for bilateral smooth
 	#[inline]
 	fn set_bilateral_sigma_depth(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_setPropBilateral_sigma_depth_float(self.as_raw_mut_ColoredKinfu_Params(), val) };
 		ret
 	}
 	
-	/// Spatial sigma in pixels for bilateral smooth
 	#[inline]
 	fn set_bilateral_sigma_spatial(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_setPropBilateral_sigma_spatial_float(self.as_raw_mut_ColoredKinfu_Params(), val) };
 		ret
 	}
 	
-	/// Kernel size in pixels for bilateral smooth
 	#[inline]
 	fn set_bilateral_kernel_size(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_setPropBilateral_kernel_size_int(self.as_raw_mut_ColoredKinfu_Params(), val) };
 		ret
 	}
 	
-	/// Number of pyramid levels for ICP
 	#[inline]
 	fn set_pyramid_levels(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_setPropPyramidLevels_int(self.as_raw_mut_ColoredKinfu_Params(), val) };
 		ret
 	}
 	
-	/// Resolution of voxel space
-	/// 
-	/// Number of voxels in each dimension.
 	#[inline]
 	fn set_volume_dims(&mut self, val: core::Vec3i) {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_setPropVolumeDims_Vec3i(self.as_raw_mut_ColoredKinfu_Params(), val.opencv_as_extern()) };
 		ret
 	}
 	
-	/// Size of voxel in meters
 	#[inline]
 	fn set_voxel_size(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_setPropVoxelSize_float(self.as_raw_mut_ColoredKinfu_Params(), val) };
 		ret
 	}
 	
-	/// Minimal camera movement in meters
-	/// 
-	/// Integrate new depth frame only if camera movement exceeds this value.
 	#[inline]
 	fn set_tsdf_min_camera_movement(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_setPropTsdf_min_camera_movement_float(self.as_raw_mut_ColoredKinfu_Params(), val) };
 		ret
 	}
 	
-	/// initial volume pose in meters
 	#[inline]
 	fn set_volume_pose(&mut self, val: core::Affine3f) {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_setPropVolumePose_Affine3f(self.as_raw_mut_ColoredKinfu_Params(), val.opencv_as_extern()) };
 		ret
 	}
 	
-	/// distance to truncate in meters
-	/// 
-	/// Distances to surface that exceed this value will be truncated to 1.0.
 	#[inline]
 	fn set_tsdf_trunc_dist(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_setPropTsdf_trunc_dist_float(self.as_raw_mut_ColoredKinfu_Params(), val) };
 		ret
 	}
 	
-	/// max number of frames per voxel
-	/// 
-	/// Each voxel keeps running average of distances no longer than this value.
 	#[inline]
 	fn set_tsdf_max_weight(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_setPropTsdf_max_weight_int(self.as_raw_mut_ColoredKinfu_Params(), val) };
 		ret
 	}
 	
-	/// A length of one raycast step
-	/// 
-	/// How much voxel sizes we skip each raycast step
 	#[inline]
 	fn set_raycast_step_factor(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_setPropRaycast_step_factor_float(self.as_raw_mut_ColoredKinfu_Params(), val) };
 		ret
 	}
 	
-	/// light pose for rendering in meters
 	#[inline]
 	fn set_light_pose(&mut self, val: core::Vec3f) {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_setPropLightPose_Vec3f(self.as_raw_mut_ColoredKinfu_Params(), val.opencv_as_extern()) };
 		ret
 	}
 	
-	/// distance theshold for ICP in meters
 	#[inline]
 	fn set_icp_dist_thresh(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_setPropIcpDistThresh_float(self.as_raw_mut_ColoredKinfu_Params(), val) };
 		ret
 	}
 	
-	/// angle threshold for ICP in radians
 	#[inline]
 	fn set_icp_angle_thresh(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_setPropIcpAngleThresh_float(self.as_raw_mut_ColoredKinfu_Params(), val) };
 		ret
 	}
 	
-	/// number of ICP iterations for each pyramid level
 	#[inline]
 	fn set_icp_iterations(&mut self, mut val: core::Vector<i32>) {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_setPropIcpIterations_vector_int_(self.as_raw_mut_ColoredKinfu_Params(), val.as_raw_mut_VectorOfi32()) };
 		ret
 	}
 	
-	/// Threshold for depth truncation in meters
-	/// 
-	/// All depth values beyond this threshold will be set to zero
 	#[inline]
 	fn set_truncate_threshold(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_colored_kinfu_Params_setPropTruncateThreshold_float(self.as_raw_mut_ColoredKinfu_Params(), val) };
 		ret
 	}
 	
-	/// Set Initial Volume Pose
-	/// Sets the initial pose of the TSDF volume.
-	/// ## Parameters
-	/// * R: rotation matrix
-	/// * t: translation vector
 	#[inline]
 	fn set_initial_volume_pose(&mut self, r: core::Matx33f, t: core::Vec3f) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -886,10 +653,6 @@ pub trait ColoredKinfu_ParamsTrait: crate::rgbd::ColoredKinfu_ParamsTraitConst {
 		Ok(ret)
 	}
 	
-	/// Set Initial Volume Pose
-	/// Sets the initial pose of the TSDF volume.
-	/// ## Parameters
-	/// * homogen_tf: 4 by 4 Homogeneous Transform matrix to set the intial pose of TSDF volume
 	#[inline]
 	fn set_initial_volume_pose_1(&mut self, homogen_tf: core::Matx44f) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -935,11 +698,6 @@ impl ColoredKinfu_Params {
 		Ok(ret)
 	}
 	
-	/// Constructor for Params
-	/// Sets the initial pose of the TSDF volume.
-	/// ## Parameters
-	/// * volumeInitialPoseRot: rotation matrix
-	/// * volumeInitialPoseTransl: translation vector
 	#[inline]
 	pub fn new(volume_initial_pose_rot: core::Matx33f, volume_initial_pose_transl: core::Vec3f) -> Result<crate::rgbd::ColoredKinfu_Params> {
 		return_send!(via ocvrs_return);
@@ -950,10 +708,6 @@ impl ColoredKinfu_Params {
 		Ok(ret)
 	}
 	
-	/// Constructor for Params
-	/// Sets the initial pose of the TSDF volume.
-	/// ## Parameters
-	/// * volumeInitialPose: 4 by 4 Homogeneous Transform matrix to set the intial pose of TSDF volume
 	#[inline]
 	pub fn new_1(volume_initial_pose: core::Matx44f) -> Result<crate::rgbd::ColoredKinfu_Params> {
 		return_send!(via ocvrs_return);
@@ -964,8 +718,6 @@ impl ColoredKinfu_Params {
 		Ok(ret)
 	}
 	
-	/// Default parameters
-	/// A set of parameters which provides better model quality, can be very slow.
 	#[inline]
 	pub fn default_params() -> Result<core::Ptr<crate::rgbd::ColoredKinfu_Params>> {
 		return_send!(via ocvrs_return);
@@ -976,9 +728,6 @@ impl ColoredKinfu_Params {
 		Ok(ret)
 	}
 	
-	/// Coarse parameters
-	/// A set of parameters which provides better speed, can fail to match frames
-	/// in case of rapid sensor motion.
 	#[inline]
 	pub fn coarse_params() -> Result<core::Ptr<crate::rgbd::ColoredKinfu_Params>> {
 		return_send!(via ocvrs_return);
@@ -989,8 +738,6 @@ impl ColoredKinfu_Params {
 		Ok(ret)
 	}
 	
-	/// HashTSDF parameters
-	/// A set of parameters suitable for use with HashTSDFVolume
 	#[inline]
 	pub fn hash_tsdf_params(is_coarse: bool) -> Result<core::Ptr<crate::rgbd::ColoredKinfu_Params>> {
 		return_send!(via ocvrs_return);
@@ -1001,8 +748,6 @@ impl ColoredKinfu_Params {
 		Ok(ret)
 	}
 	
-	/// ColoredTSDF parameters
-	/// A set of parameters suitable for use with HashTSDFVolume
 	#[inline]
 	pub fn colored_tsdf_params(is_coarse: bool) -> Result<core::Ptr<crate::rgbd::ColoredKinfu_Params>> {
 		return_send!(via ocvrs_return);
@@ -1018,7 +763,6 @@ impl ColoredKinfu_Params {
 pub trait Dynafu_DynaFuConst {
 	fn as_raw_Dynafu_DynaFu(&self) -> *const c_void;
 
-	/// Get current parameters
 	#[inline]
 	fn get_params(&self) -> Result<crate::rgbd::Kinfu_Params> {
 		return_send!(via ocvrs_return);
@@ -1029,16 +773,6 @@ pub trait Dynafu_DynaFuConst {
 		Ok(ret)
 	}
 	
-	/// Renders a volume into an image
-	/// 
-	/// Renders a 0-surface of TSDF using Phong shading into a CV_8UC4 Mat.
-	/// Light pose is fixed in DynaFu params.
-	/// 
-	/// ## Parameters
-	/// * image: resulting image
-	/// * cameraPose: pose of camera to render from. If empty then render from current pose
-	///   which is a last frame camera pose.
-	/// 
 	/// ## C++ default parameters
 	/// * camera_pose: Matx44f::eye()
 	#[inline]
@@ -1051,14 +785,6 @@ pub trait Dynafu_DynaFuConst {
 		Ok(ret)
 	}
 	
-	/// Gets points and normals of current 3d mesh
-	/// 
-	/// The order of normals corresponds to order of points.
-	/// The order of points is undefined.
-	/// 
-	/// ## Parameters
-	/// * points: vector of points which are 4-float vectors
-	/// * normals: vector of normals which are 4-float vectors
 	#[inline]
 	fn get_cloud(&self, points: &mut dyn core::ToOutputArray, normals: &mut dyn core::ToOutputArray) -> Result<()> {
 		output_array_arg!(points);
@@ -1070,12 +796,6 @@ pub trait Dynafu_DynaFuConst {
 		Ok(ret)
 	}
 	
-	/// Gets points of current 3d mesh
-	/// 
-	/// The order of points is undefined.
-	/// 
-	/// ## Parameters
-	/// * points: vector of points which are 4-float vectors
 	#[inline]
 	fn get_points(&self, points: &mut dyn core::ToOutputArray) -> Result<()> {
 		output_array_arg!(points);
@@ -1086,10 +806,6 @@ pub trait Dynafu_DynaFuConst {
 		Ok(ret)
 	}
 	
-	/// Calculates normals for given points
-	/// ## Parameters
-	/// * points: input vector of points which are 4-float vectors
-	/// * normals: output vector of corresponding normals which are 4-float vectors
 	#[inline]
 	fn get_normals(&self, points: &dyn core::ToInputArray, normals: &mut dyn core::ToOutputArray) -> Result<()> {
 		input_array_arg!(points);
@@ -1101,7 +817,6 @@ pub trait Dynafu_DynaFuConst {
 		Ok(ret)
 	}
 	
-	/// Get current pose in voxel space
 	#[inline]
 	fn get_pose(&self) -> Result<core::Affine3f> {
 		return_send!(via ocvrs_return);
@@ -1137,9 +852,6 @@ pub trait Dynafu_DynaFuConst {
 pub trait Dynafu_DynaFu: crate::rgbd::Dynafu_DynaFuConst {
 	fn as_raw_mut_Dynafu_DynaFu(&mut self) -> *mut c_void;
 
-	/// Resets the algorithm
-	/// 
-	/// Clears current model and resets a pose.
 	#[inline]
 	fn reset(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1149,15 +861,6 @@ pub trait Dynafu_DynaFu: crate::rgbd::Dynafu_DynaFuConst {
 		Ok(ret)
 	}
 	
-	/// Process next depth frame
-	/// 
-	///   Integrates depth into voxel space with respect to its ICP-calculated pose.
-	///   Input image is converted to CV_32F internally if has another type.
-	/// 
-	/// ## Parameters
-	/// * depth: one-channel image which size and depth scale is described in algorithm's parameters
-	/// ## Returns
-	/// true if succeeded to align new frame with current scene, false if opposite
 	#[inline]
 	fn update(&mut self, depth: &dyn core::ToInputArray) -> Result<bool> {
 		input_array_arg!(depth);
@@ -1273,7 +976,6 @@ impl Kinfu_Intr {
 	
 }
 
-/// Projects camera space vector onto screen
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub struct Kinfu_Intr_Projector {
@@ -1297,8 +999,6 @@ impl Kinfu_Intr_Projector {
 	
 }
 
-/// Camera intrinsics
-/// Reprojects screen point to camera space given z coord.
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub struct Kinfu_Intr_Reprojector {
@@ -1331,33 +1031,9 @@ impl Kinfu_Intr_Reprojector {
 	
 }
 
-/// KinectFusion implementation
-/// 
-/// This class implements a 3d reconstruction algorithm described in
-/// [kinectfusion](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_kinectfusion) paper.
-/// 
-/// It takes a sequence of depth images taken from depth sensor
-/// (or any depth images source such as stereo camera matching algorithm or even raymarching renderer).
-/// The output can be obtained as a vector of points and their normals
-/// or can be Phong-rendered from given camera pose.
-/// 
-/// An internal representation of a model is a voxel cuboid that keeps TSDF values
-/// which are a sort of distances to the surface (for details read the [kinectfusion](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_kinectfusion) article about TSDF).
-/// There is no interface to that representation yet.
-/// 
-/// KinFu uses OpenCL acceleration automatically if available.
-/// To enable or disable it explicitly use cv::setUseOptimized() or cv::ocl::setUseOpenCL().
-/// 
-/// This implementation is based on [kinfu-remake](https://github.com/Nerei/kinfu_remake).
-/// 
-/// Note that the KinectFusion algorithm was patented and its use may be restricted by
-/// the list of patents mentioned in README.md file in this module directory.
-/// 
-/// That's why you need to set the OPENCV_ENABLE_NONFREE option in CMake to use KinectFusion.
 pub trait Kinfu_KinFuConst {
 	fn as_raw_Kinfu_KinFu(&self) -> *const c_void;
 
-	/// Get current parameters
 	#[inline]
 	fn get_params(&self) -> Result<crate::rgbd::Kinfu_Params> {
 		return_send!(via ocvrs_return);
@@ -1368,13 +1044,6 @@ pub trait Kinfu_KinFuConst {
 		Ok(ret)
 	}
 	
-	/// Renders a volume into an image
-	/// 
-	/// Renders a 0-surface of TSDF using Phong shading into a CV_8UC4 Mat.
-	/// Light pose is fixed in KinFu params.
-	/// 
-	/// ## Parameters
-	/// * image: resulting image
 	#[inline]
 	fn render(&self, image: &mut dyn core::ToOutputArray) -> Result<()> {
 		output_array_arg!(image);
@@ -1385,15 +1054,6 @@ pub trait Kinfu_KinFuConst {
 		Ok(ret)
 	}
 	
-	/// Renders a volume into an image
-	/// 
-	/// Renders a 0-surface of TSDF using Phong shading into a CV_8UC4 Mat.
-	/// Light pose is fixed in KinFu params.
-	/// 
-	/// ## Parameters
-	/// * image: resulting image
-	/// * cameraPose: pose of camera to render from. If empty then render from current pose
-	///   which is a last frame camera pose.
 	#[inline]
 	fn render_1(&self, image: &mut dyn core::ToOutputArray, camera_pose: core::Matx44f) -> Result<()> {
 		output_array_arg!(image);
@@ -1404,14 +1064,6 @@ pub trait Kinfu_KinFuConst {
 		Ok(ret)
 	}
 	
-	/// Gets points and normals of current 3d mesh
-	/// 
-	/// The order of normals corresponds to order of points.
-	/// The order of points is undefined.
-	/// 
-	/// ## Parameters
-	/// * points: vector of points which are 4-float vectors
-	/// * normals: vector of normals which are 4-float vectors
 	#[inline]
 	fn get_cloud(&self, points: &mut dyn core::ToOutputArray, normals: &mut dyn core::ToOutputArray) -> Result<()> {
 		output_array_arg!(points);
@@ -1423,12 +1075,6 @@ pub trait Kinfu_KinFuConst {
 		Ok(ret)
 	}
 	
-	/// Gets points of current 3d mesh
-	/// 
-	/// The order of points is undefined.
-	/// 
-	/// ## Parameters
-	/// * points: vector of points which are 4-float vectors
 	#[inline]
 	fn get_points(&self, points: &mut dyn core::ToOutputArray) -> Result<()> {
 		output_array_arg!(points);
@@ -1439,10 +1085,6 @@ pub trait Kinfu_KinFuConst {
 		Ok(ret)
 	}
 	
-	/// Calculates normals for given points
-	/// ## Parameters
-	/// * points: input vector of points which are 4-float vectors
-	/// * normals: output vector of corresponding normals which are 4-float vectors
 	#[inline]
 	fn get_normals(&self, points: &dyn core::ToInputArray, normals: &mut dyn core::ToOutputArray) -> Result<()> {
 		input_array_arg!(points);
@@ -1454,7 +1096,6 @@ pub trait Kinfu_KinFuConst {
 		Ok(ret)
 	}
 	
-	/// Get current pose in voxel space
 	#[inline]
 	fn get_pose(&self) -> Result<core::Affine3f> {
 		return_send!(via ocvrs_return);
@@ -1469,9 +1110,6 @@ pub trait Kinfu_KinFuConst {
 pub trait Kinfu_KinFu: crate::rgbd::Kinfu_KinFuConst {
 	fn as_raw_mut_Kinfu_KinFu(&mut self) -> *mut c_void;
 
-	/// Resets the algorithm
-	/// 
-	/// Clears current model and resets a pose.
 	#[inline]
 	fn reset(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1481,15 +1119,6 @@ pub trait Kinfu_KinFu: crate::rgbd::Kinfu_KinFuConst {
 		Ok(ret)
 	}
 	
-	/// Process next depth frame
-	/// 
-	///   Integrates depth into voxel space with respect to its ICP-calculated pose.
-	///   Input image is converted to CV_32F internally if has another type.
-	/// 
-	/// ## Parameters
-	/// * depth: one-channel image which size and depth scale is described in algorithm's parameters
-	/// ## Returns
-	/// true if succeeded to align new frame with current scene, false if opposite
 	#[inline]
 	fn update(&mut self, depth: &dyn core::ToInputArray) -> Result<bool> {
 		input_array_arg!(depth);
@@ -1517,7 +1146,6 @@ impl dyn Kinfu_KinFu + '_ {
 pub trait Kinfu_ParamsTraitConst {
 	fn as_raw_Kinfu_Params(&self) -> *const c_void;
 
-	/// frame size in pixels
 	#[inline]
 	fn frame_size(&self) -> core::Size {
 		return_send!(via ocvrs_return);
@@ -1526,7 +1154,6 @@ pub trait Kinfu_ParamsTraitConst {
 		ret
 	}
 	
-	/// rgb frame size in pixels
 	#[inline]
 	fn volume_type(&self) -> crate::rgbd::Kinfu_VolumeType {
 		return_send!(via ocvrs_return);
@@ -1535,7 +1162,6 @@ pub trait Kinfu_ParamsTraitConst {
 		ret
 	}
 	
-	/// camera intrinsics
 	#[inline]
 	fn intr(&self) -> core::Matx33f {
 		return_send!(via ocvrs_return);
@@ -1544,7 +1170,6 @@ pub trait Kinfu_ParamsTraitConst {
 		ret
 	}
 	
-	/// rgb camera intrinsics
 	#[inline]
 	fn rgb_intr(&self) -> core::Matx33f {
 		return_send!(via ocvrs_return);
@@ -1553,49 +1178,36 @@ pub trait Kinfu_ParamsTraitConst {
 		ret
 	}
 	
-	/// pre-scale per 1 meter for input values
-	/// 
-	/// Typical values are:
-	///      * 5000 per 1 meter for the 16-bit PNG files of TUM database
-	///      * 1000 per 1 meter for Kinect 2 device
-	///      * 1 per 1 meter for the 32-bit float images in the ROS bag files
 	#[inline]
 	fn depth_factor(&self) -> f32 {
 		let ret = unsafe { sys::cv_kinfu_Params_getPropDepthFactor_const(self.as_raw_Kinfu_Params()) };
 		ret
 	}
 	
-	/// Depth sigma in meters for bilateral smooth
 	#[inline]
 	fn bilateral_sigma_depth(&self) -> f32 {
 		let ret = unsafe { sys::cv_kinfu_Params_getPropBilateral_sigma_depth_const(self.as_raw_Kinfu_Params()) };
 		ret
 	}
 	
-	/// Spatial sigma in pixels for bilateral smooth
 	#[inline]
 	fn bilateral_sigma_spatial(&self) -> f32 {
 		let ret = unsafe { sys::cv_kinfu_Params_getPropBilateral_sigma_spatial_const(self.as_raw_Kinfu_Params()) };
 		ret
 	}
 	
-	/// Kernel size in pixels for bilateral smooth
 	#[inline]
 	fn bilateral_kernel_size(&self) -> i32 {
 		let ret = unsafe { sys::cv_kinfu_Params_getPropBilateral_kernel_size_const(self.as_raw_Kinfu_Params()) };
 		ret
 	}
 	
-	/// Number of pyramid levels for ICP
 	#[inline]
 	fn pyramid_levels(&self) -> i32 {
 		let ret = unsafe { sys::cv_kinfu_Params_getPropPyramidLevels_const(self.as_raw_Kinfu_Params()) };
 		ret
 	}
 	
-	/// Resolution of voxel space
-	/// 
-	/// Number of voxels in each dimension.
 	#[inline]
 	fn volume_dims(&self) -> core::Vec3i {
 		return_send!(via ocvrs_return);
@@ -1604,23 +1216,18 @@ pub trait Kinfu_ParamsTraitConst {
 		ret
 	}
 	
-	/// Size of voxel in meters
 	#[inline]
 	fn voxel_size(&self) -> f32 {
 		let ret = unsafe { sys::cv_kinfu_Params_getPropVoxelSize_const(self.as_raw_Kinfu_Params()) };
 		ret
 	}
 	
-	/// Minimal camera movement in meters
-	/// 
-	/// Integrate new depth frame only if camera movement exceeds this value.
 	#[inline]
 	fn tsdf_min_camera_movement(&self) -> f32 {
 		let ret = unsafe { sys::cv_kinfu_Params_getPropTsdf_min_camera_movement_const(self.as_raw_Kinfu_Params()) };
 		ret
 	}
 	
-	/// initial volume pose in meters
 	#[inline]
 	fn volume_pose(&self) -> core::Affine3f {
 		return_send!(via ocvrs_return);
@@ -1629,34 +1236,24 @@ pub trait Kinfu_ParamsTraitConst {
 		ret
 	}
 	
-	/// distance to truncate in meters
-	/// 
-	/// Distances to surface that exceed this value will be truncated to 1.0.
 	#[inline]
 	fn tsdf_trunc_dist(&self) -> f32 {
 		let ret = unsafe { sys::cv_kinfu_Params_getPropTsdf_trunc_dist_const(self.as_raw_Kinfu_Params()) };
 		ret
 	}
 	
-	/// max number of frames per voxel
-	/// 
-	/// Each voxel keeps running average of distances no longer than this value.
 	#[inline]
 	fn tsdf_max_weight(&self) -> i32 {
 		let ret = unsafe { sys::cv_kinfu_Params_getPropTsdf_max_weight_const(self.as_raw_Kinfu_Params()) };
 		ret
 	}
 	
-	/// A length of one raycast step
-	/// 
-	/// How much voxel sizes we skip each raycast step
 	#[inline]
 	fn raycast_step_factor(&self) -> f32 {
 		let ret = unsafe { sys::cv_kinfu_Params_getPropRaycast_step_factor_const(self.as_raw_Kinfu_Params()) };
 		ret
 	}
 	
-	/// light pose for rendering in meters
 	#[inline]
 	fn light_pose(&self) -> core::Vec3f {
 		return_send!(via ocvrs_return);
@@ -1665,21 +1262,18 @@ pub trait Kinfu_ParamsTraitConst {
 		ret
 	}
 	
-	/// distance theshold for ICP in meters
 	#[inline]
 	fn icp_dist_thresh(&self) -> f32 {
 		let ret = unsafe { sys::cv_kinfu_Params_getPropIcpDistThresh_const(self.as_raw_Kinfu_Params()) };
 		ret
 	}
 	
-	/// angle threshold for ICP in radians
 	#[inline]
 	fn icp_angle_thresh(&self) -> f32 {
 		let ret = unsafe { sys::cv_kinfu_Params_getPropIcpAngleThresh_const(self.as_raw_Kinfu_Params()) };
 		ret
 	}
 	
-	/// number of ICP iterations for each pyramid level
 	#[inline]
 	fn icp_iterations(&self) -> core::Vector<i32> {
 		let ret = unsafe { sys::cv_kinfu_Params_getPropIcpIterations_const(self.as_raw_Kinfu_Params()) };
@@ -1687,9 +1281,6 @@ pub trait Kinfu_ParamsTraitConst {
 		ret
 	}
 	
-	/// Threshold for depth truncation in meters
-	/// 
-	/// All depth values beyond this threshold will be set to zero
 	#[inline]
 	fn truncate_threshold(&self) -> f32 {
 		let ret = unsafe { sys::cv_kinfu_Params_getPropTruncateThreshold_const(self.as_raw_Kinfu_Params()) };
@@ -1701,175 +1292,132 @@ pub trait Kinfu_ParamsTraitConst {
 pub trait Kinfu_ParamsTrait: crate::rgbd::Kinfu_ParamsTraitConst {
 	fn as_raw_mut_Kinfu_Params(&mut self) -> *mut c_void;
 
-	/// frame size in pixels
 	#[inline]
 	fn set_frame_size(&mut self, val: core::Size) {
 		let ret = unsafe { sys::cv_kinfu_Params_setPropFrameSize_Size(self.as_raw_mut_Kinfu_Params(), val.opencv_as_extern()) };
 		ret
 	}
 	
-	/// rgb frame size in pixels
 	#[inline]
 	fn set_volume_type(&mut self, val: crate::rgbd::Kinfu_VolumeType) {
 		let ret = unsafe { sys::cv_kinfu_Params_setPropVolumeType_VolumeType(self.as_raw_mut_Kinfu_Params(), val) };
 		ret
 	}
 	
-	/// camera intrinsics
 	#[inline]
 	fn set_intr(&mut self, val: core::Matx33f) {
 		let ret = unsafe { sys::cv_kinfu_Params_setPropIntr_Matx33f(self.as_raw_mut_Kinfu_Params(), val.opencv_as_extern()) };
 		ret
 	}
 	
-	/// rgb camera intrinsics
 	#[inline]
 	fn set_rgb_intr(&mut self, val: core::Matx33f) {
 		let ret = unsafe { sys::cv_kinfu_Params_setPropRgb_intr_Matx33f(self.as_raw_mut_Kinfu_Params(), val.opencv_as_extern()) };
 		ret
 	}
 	
-	/// pre-scale per 1 meter for input values
-	/// 
-	/// Typical values are:
-	///      * 5000 per 1 meter for the 16-bit PNG files of TUM database
-	///      * 1000 per 1 meter for Kinect 2 device
-	///      * 1 per 1 meter for the 32-bit float images in the ROS bag files
 	#[inline]
 	fn set_depth_factor(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_kinfu_Params_setPropDepthFactor_float(self.as_raw_mut_Kinfu_Params(), val) };
 		ret
 	}
 	
-	/// Depth sigma in meters for bilateral smooth
 	#[inline]
 	fn set_bilateral_sigma_depth(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_kinfu_Params_setPropBilateral_sigma_depth_float(self.as_raw_mut_Kinfu_Params(), val) };
 		ret
 	}
 	
-	/// Spatial sigma in pixels for bilateral smooth
 	#[inline]
 	fn set_bilateral_sigma_spatial(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_kinfu_Params_setPropBilateral_sigma_spatial_float(self.as_raw_mut_Kinfu_Params(), val) };
 		ret
 	}
 	
-	/// Kernel size in pixels for bilateral smooth
 	#[inline]
 	fn set_bilateral_kernel_size(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_kinfu_Params_setPropBilateral_kernel_size_int(self.as_raw_mut_Kinfu_Params(), val) };
 		ret
 	}
 	
-	/// Number of pyramid levels for ICP
 	#[inline]
 	fn set_pyramid_levels(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_kinfu_Params_setPropPyramidLevels_int(self.as_raw_mut_Kinfu_Params(), val) };
 		ret
 	}
 	
-	/// Resolution of voxel space
-	/// 
-	/// Number of voxels in each dimension.
 	#[inline]
 	fn set_volume_dims(&mut self, val: core::Vec3i) {
 		let ret = unsafe { sys::cv_kinfu_Params_setPropVolumeDims_Vec3i(self.as_raw_mut_Kinfu_Params(), val.opencv_as_extern()) };
 		ret
 	}
 	
-	/// Size of voxel in meters
 	#[inline]
 	fn set_voxel_size(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_kinfu_Params_setPropVoxelSize_float(self.as_raw_mut_Kinfu_Params(), val) };
 		ret
 	}
 	
-	/// Minimal camera movement in meters
-	/// 
-	/// Integrate new depth frame only if camera movement exceeds this value.
 	#[inline]
 	fn set_tsdf_min_camera_movement(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_kinfu_Params_setPropTsdf_min_camera_movement_float(self.as_raw_mut_Kinfu_Params(), val) };
 		ret
 	}
 	
-	/// initial volume pose in meters
 	#[inline]
 	fn set_volume_pose(&mut self, val: core::Affine3f) {
 		let ret = unsafe { sys::cv_kinfu_Params_setPropVolumePose_Affine3f(self.as_raw_mut_Kinfu_Params(), val.opencv_as_extern()) };
 		ret
 	}
 	
-	/// distance to truncate in meters
-	/// 
-	/// Distances to surface that exceed this value will be truncated to 1.0.
 	#[inline]
 	fn set_tsdf_trunc_dist(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_kinfu_Params_setPropTsdf_trunc_dist_float(self.as_raw_mut_Kinfu_Params(), val) };
 		ret
 	}
 	
-	/// max number of frames per voxel
-	/// 
-	/// Each voxel keeps running average of distances no longer than this value.
 	#[inline]
 	fn set_tsdf_max_weight(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_kinfu_Params_setPropTsdf_max_weight_int(self.as_raw_mut_Kinfu_Params(), val) };
 		ret
 	}
 	
-	/// A length of one raycast step
-	/// 
-	/// How much voxel sizes we skip each raycast step
 	#[inline]
 	fn set_raycast_step_factor(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_kinfu_Params_setPropRaycast_step_factor_float(self.as_raw_mut_Kinfu_Params(), val) };
 		ret
 	}
 	
-	/// light pose for rendering in meters
 	#[inline]
 	fn set_light_pose(&mut self, val: core::Vec3f) {
 		let ret = unsafe { sys::cv_kinfu_Params_setPropLightPose_Vec3f(self.as_raw_mut_Kinfu_Params(), val.opencv_as_extern()) };
 		ret
 	}
 	
-	/// distance theshold for ICP in meters
 	#[inline]
 	fn set_icp_dist_thresh(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_kinfu_Params_setPropIcpDistThresh_float(self.as_raw_mut_Kinfu_Params(), val) };
 		ret
 	}
 	
-	/// angle threshold for ICP in radians
 	#[inline]
 	fn set_icp_angle_thresh(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_kinfu_Params_setPropIcpAngleThresh_float(self.as_raw_mut_Kinfu_Params(), val) };
 		ret
 	}
 	
-	/// number of ICP iterations for each pyramid level
 	#[inline]
 	fn set_icp_iterations(&mut self, mut val: core::Vector<i32>) {
 		let ret = unsafe { sys::cv_kinfu_Params_setPropIcpIterations_vector_int_(self.as_raw_mut_Kinfu_Params(), val.as_raw_mut_VectorOfi32()) };
 		ret
 	}
 	
-	/// Threshold for depth truncation in meters
-	/// 
-	/// All depth values beyond this threshold will be set to zero
 	#[inline]
 	fn set_truncate_threshold(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_kinfu_Params_setPropTruncateThreshold_float(self.as_raw_mut_Kinfu_Params(), val) };
 		ret
 	}
 	
-	/// Set Initial Volume Pose
-	/// Sets the initial pose of the TSDF volume.
-	/// ## Parameters
-	/// * R: rotation matrix
-	/// * t: translation vector
 	#[inline]
 	fn set_initial_volume_pose(&mut self, r: core::Matx33f, t: core::Vec3f) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1879,10 +1427,6 @@ pub trait Kinfu_ParamsTrait: crate::rgbd::Kinfu_ParamsTraitConst {
 		Ok(ret)
 	}
 	
-	/// Set Initial Volume Pose
-	/// Sets the initial pose of the TSDF volume.
-	/// ## Parameters
-	/// * homogen_tf: 4 by 4 Homogeneous Transform matrix to set the intial pose of TSDF volume
 	#[inline]
 	fn set_initial_volume_pose_1(&mut self, homogen_tf: core::Matx44f) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -1928,11 +1472,6 @@ impl Kinfu_Params {
 		Ok(ret)
 	}
 	
-	/// Constructor for Params
-	/// Sets the initial pose of the TSDF volume.
-	/// ## Parameters
-	/// * volumeInitialPoseRot: rotation matrix
-	/// * volumeInitialPoseTransl: translation vector
 	#[inline]
 	pub fn new(volume_initial_pose_rot: core::Matx33f, volume_initial_pose_transl: core::Vec3f) -> Result<crate::rgbd::Kinfu_Params> {
 		return_send!(via ocvrs_return);
@@ -1943,10 +1482,6 @@ impl Kinfu_Params {
 		Ok(ret)
 	}
 	
-	/// Constructor for Params
-	/// Sets the initial pose of the TSDF volume.
-	/// ## Parameters
-	/// * volumeInitialPose: 4 by 4 Homogeneous Transform matrix to set the intial pose of TSDF volume
 	#[inline]
 	pub fn new_1(volume_initial_pose: core::Matx44f) -> Result<crate::rgbd::Kinfu_Params> {
 		return_send!(via ocvrs_return);
@@ -1957,8 +1492,6 @@ impl Kinfu_Params {
 		Ok(ret)
 	}
 	
-	/// Default parameters
-	/// A set of parameters which provides better model quality, can be very slow.
 	#[inline]
 	pub fn default_params() -> Result<core::Ptr<crate::rgbd::Kinfu_Params>> {
 		return_send!(via ocvrs_return);
@@ -1969,9 +1502,6 @@ impl Kinfu_Params {
 		Ok(ret)
 	}
 	
-	/// Coarse parameters
-	/// A set of parameters which provides better speed, can fail to match frames
-	/// in case of rapid sensor motion.
 	#[inline]
 	pub fn coarse_params() -> Result<core::Ptr<crate::rgbd::Kinfu_Params>> {
 		return_send!(via ocvrs_return);
@@ -1982,8 +1512,6 @@ impl Kinfu_Params {
 		Ok(ret)
 	}
 	
-	/// HashTSDF parameters
-	/// A set of parameters suitable for use with HashTSDFVolume
 	#[inline]
 	pub fn hash_tsdf_params(is_coarse: bool) -> Result<core::Ptr<crate::rgbd::Kinfu_Params>> {
 		return_send!(via ocvrs_return);
@@ -1994,8 +1522,6 @@ impl Kinfu_Params {
 		Ok(ret)
 	}
 	
-	/// ColoredTSDF parameters
-	/// A set of parameters suitable for use with ColoredTSDFVolume
 	#[inline]
 	pub fn colored_tsdf_params(is_coarse: bool) -> Result<core::Ptr<crate::rgbd::Kinfu_Params>> {
 		return_send!(via ocvrs_return);
@@ -2138,8 +1664,6 @@ pub trait Kinfu_Volume: crate::rgbd::Kinfu_VolumeConst {
 pub trait Kinfu_VolumeParamsTraitConst {
 	fn as_raw_Kinfu_VolumeParams(&self) -> *const c_void;
 
-	/// Type of Volume
-	/// Values can be TSDF (single volume) or HASHTSDF (hashtable of volume units)
 	#[inline]
 	fn typ(&self) -> crate::rgbd::Kinfu_VolumeType {
 		return_send!(via ocvrs_return);
@@ -2148,10 +1672,6 @@ pub trait Kinfu_VolumeParamsTraitConst {
 		ret
 	}
 	
-	/// Resolution of voxel space
-	/// Number of voxels in each dimension.
-	/// Applicable only for TSDF Volume.
-	/// HashTSDF volume only supports equal resolution in all three dimensions
 	#[inline]
 	fn resolution(&self) -> core::Vec3i {
 		return_send!(via ocvrs_return);
@@ -2160,16 +1680,12 @@ pub trait Kinfu_VolumeParamsTraitConst {
 		ret
 	}
 	
-	/// Resolution of volumeUnit in voxel space
-	/// Number of voxels in each dimension for volumeUnit
-	/// Applicable only for hashTSDF.
 	#[inline]
 	fn unit_resolution(&self) -> i32 {
 		let ret = unsafe { sys::cv_kinfu_VolumeParams_getPropUnitResolution_const(self.as_raw_Kinfu_VolumeParams()) };
 		ret
 	}
 	
-	/// Initial pose of the volume in meters
 	#[inline]
 	fn pose(&self) -> core::Affine3f {
 		return_send!(via ocvrs_return);
@@ -2178,40 +1694,30 @@ pub trait Kinfu_VolumeParamsTraitConst {
 		ret
 	}
 	
-	/// Length of voxels in meters
 	#[inline]
 	fn voxel_size(&self) -> f32 {
 		let ret = unsafe { sys::cv_kinfu_VolumeParams_getPropVoxelSize_const(self.as_raw_Kinfu_VolumeParams()) };
 		ret
 	}
 	
-	/// TSDF truncation distance
-	/// Distances greater than value from surface will be truncated to 1.0
 	#[inline]
 	fn tsdf_trunc_dist(&self) -> f32 {
 		let ret = unsafe { sys::cv_kinfu_VolumeParams_getPropTsdfTruncDist_const(self.as_raw_Kinfu_VolumeParams()) };
 		ret
 	}
 	
-	/// Max number of frames to integrate per voxel
-	/// Represents the max number of frames over which a running average
-	/// of the TSDF is calculated for a voxel
 	#[inline]
 	fn max_weight(&self) -> i32 {
 		let ret = unsafe { sys::cv_kinfu_VolumeParams_getPropMaxWeight_const(self.as_raw_Kinfu_VolumeParams()) };
 		ret
 	}
 	
-	/// Threshold for depth truncation in meters
-	/// Truncates the depth greater than threshold to 0
 	#[inline]
 	fn depth_trunc_threshold(&self) -> f32 {
 		let ret = unsafe { sys::cv_kinfu_VolumeParams_getPropDepthTruncThreshold_const(self.as_raw_Kinfu_VolumeParams()) };
 		ret
 	}
 	
-	/// Length of single raycast step
-	/// Describes the percentage of voxel length that is skipped per march
 	#[inline]
 	fn raycast_step_factor(&self) -> f32 {
 		let ret = unsafe { sys::cv_kinfu_VolumeParams_getPropRaycastStepFactor_const(self.as_raw_Kinfu_VolumeParams()) };
@@ -2223,28 +1729,18 @@ pub trait Kinfu_VolumeParamsTraitConst {
 pub trait Kinfu_VolumeParamsTrait: crate::rgbd::Kinfu_VolumeParamsTraitConst {
 	fn as_raw_mut_Kinfu_VolumeParams(&mut self) -> *mut c_void;
 
-	/// Type of Volume
-	/// Values can be TSDF (single volume) or HASHTSDF (hashtable of volume units)
 	#[inline]
 	fn set_type(&mut self, val: crate::rgbd::Kinfu_VolumeType) {
 		let ret = unsafe { sys::cv_kinfu_VolumeParams_setPropType_VolumeType(self.as_raw_mut_Kinfu_VolumeParams(), val) };
 		ret
 	}
 	
-	/// Resolution of voxel space
-	/// Number of voxels in each dimension.
-	/// Applicable only for TSDF Volume.
-	/// HashTSDF volume only supports equal resolution in all three dimensions
 	#[inline]
 	fn set_resolution(&mut self, val: core::Vec3i) {
 		let ret = unsafe { sys::cv_kinfu_VolumeParams_setPropResolution_Vec3i(self.as_raw_mut_Kinfu_VolumeParams(), val.opencv_as_extern()) };
 		ret
 	}
 	
-	/// Resolution of volumeUnit in voxel space
-	/// Number of voxels in each dimension for volumeUnit
-	/// Applicable only for hashTSDF.
-	/// 
 	/// ## C++ default parameters
 	/// * val: {0}
 	#[inline]
@@ -2253,47 +1749,36 @@ pub trait Kinfu_VolumeParamsTrait: crate::rgbd::Kinfu_VolumeParamsTraitConst {
 		ret
 	}
 	
-	/// Initial pose of the volume in meters
 	#[inline]
 	fn set_pose(&mut self, val: core::Affine3f) {
 		let ret = unsafe { sys::cv_kinfu_VolumeParams_setPropPose_Affine3f(self.as_raw_mut_Kinfu_VolumeParams(), val.opencv_as_extern()) };
 		ret
 	}
 	
-	/// Length of voxels in meters
 	#[inline]
 	fn set_voxel_size(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_kinfu_VolumeParams_setPropVoxelSize_float(self.as_raw_mut_Kinfu_VolumeParams(), val) };
 		ret
 	}
 	
-	/// TSDF truncation distance
-	/// Distances greater than value from surface will be truncated to 1.0
 	#[inline]
 	fn set_tsdf_trunc_dist(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_kinfu_VolumeParams_setPropTsdfTruncDist_float(self.as_raw_mut_Kinfu_VolumeParams(), val) };
 		ret
 	}
 	
-	/// Max number of frames to integrate per voxel
-	/// Represents the max number of frames over which a running average
-	/// of the TSDF is calculated for a voxel
 	#[inline]
 	fn set_max_weight(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_kinfu_VolumeParams_setPropMaxWeight_int(self.as_raw_mut_Kinfu_VolumeParams(), val) };
 		ret
 	}
 	
-	/// Threshold for depth truncation in meters
-	/// Truncates the depth greater than threshold to 0
 	#[inline]
 	fn set_depth_trunc_threshold(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_kinfu_VolumeParams_setPropDepthTruncThreshold_float(self.as_raw_mut_Kinfu_VolumeParams(), val) };
 		ret
 	}
 	
-	/// Length of single raycast step
-	/// Describes the percentage of voxel length that is skipped per march
 	#[inline]
 	fn set_raycast_step_factor(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_kinfu_VolumeParams_setPropRaycastStepFactor_float(self.as_raw_mut_Kinfu_VolumeParams(), val) };
@@ -2326,8 +1811,6 @@ impl crate::rgbd::Kinfu_VolumeParamsTrait for Kinfu_VolumeParams {
 }
 
 impl Kinfu_VolumeParams {
-	/// Default set of parameters that provide higher quality reconstruction
-	/// at the cost of slow performance.
 	#[inline]
 	pub fn default_params(_volume_type: crate::rgbd::Kinfu_VolumeType) -> Result<core::Ptr<crate::rgbd::Kinfu_VolumeParams>> {
 		return_send!(via ocvrs_return);
@@ -2338,8 +1821,6 @@ impl Kinfu_VolumeParams {
 		Ok(ret)
 	}
 	
-	/// Coarse set of parameters that provides relatively higher performance
-	/// at the cost of reconstrution quality.
 	#[inline]
 	pub fn coarse_params(_volume_type: crate::rgbd::Kinfu_VolumeType) -> Result<core::Ptr<crate::rgbd::Kinfu_VolumeParams>> {
 		return_send!(via ocvrs_return);
@@ -2505,35 +1986,6 @@ impl dyn Kinfu_Detail_PoseGraph + '_ {
 	}
 	
 }
-/// Large Scale Dense Depth Fusion implementation
-/// 
-/// This class implements a 3d reconstruction algorithm for larger environments using
-/// Spatially hashed TSDF volume "Submaps".
-/// It also runs a periodic posegraph optimization to minimize drift in tracking over long sequences.
-/// Currently the algorithm does not implement a relocalization or loop closure module.
-/// Potentially a Bag of words implementation or RGBD relocalization as described in
-/// Glocker et al. ISMAR 2013 will be implemented
-/// 
-/// It takes a sequence of depth images taken from depth sensor
-/// (or any depth images source such as stereo camera matching algorithm or even raymarching
-/// renderer). The output can be obtained as a vector of points and their normals or can be
-/// Phong-rendered from given camera pose.
-/// 
-/// An internal representation of a model is a spatially hashed voxel cube that stores TSDF values
-/// which represent the distance to the closest surface (for details read the [kinectfusion](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_kinectfusion) article
-/// about TSDF). There is no interface to that representation yet.
-/// 
-/// For posegraph optimization, a Submap abstraction over the Volume class is created.
-/// New submaps are added to the model when there is low visibility overlap between current viewing frustrum
-/// and the existing volume/model. Multiple submaps are simultaneously tracked and a posegraph is created and
-/// optimized periodically.
-/// 
-/// LargeKinfu does not use any OpenCL acceleration yet.
-/// To enable or disable it explicitly use cv::setUseOptimized() or cv::ocl::setUseOpenCL().
-/// 
-/// This implementation is inspired from Kintinuous, InfiniTAM and other SOTA algorithms
-/// 
-/// You need to set the OPENCV_ENABLE_NONFREE option in CMake to use KinectFusion.
 pub trait LargeKinfuConst {
 	fn as_raw_LargeKinfu(&self) -> *const c_void;
 
@@ -2649,7 +2101,6 @@ impl dyn LargeKinfu + '_ {
 pub trait ParamsTraitConst {
 	fn as_raw_Params(&self) -> *const c_void;
 
-	/// frame size in pixels
 	#[inline]
 	fn frame_size(&self) -> core::Size {
 		return_send!(via ocvrs_return);
@@ -2658,7 +2109,6 @@ pub trait ParamsTraitConst {
 		ret
 	}
 	
-	/// camera intrinsics
 	#[inline]
 	fn intr(&self) -> core::Matx33f {
 		return_send!(via ocvrs_return);
@@ -2667,7 +2117,6 @@ pub trait ParamsTraitConst {
 		ret
 	}
 	
-	/// rgb camera intrinsics
 	#[inline]
 	fn rgb_intr(&self) -> core::Matx33f {
 		return_send!(via ocvrs_return);
@@ -2676,54 +2125,42 @@ pub trait ParamsTraitConst {
 		ret
 	}
 	
-	/// pre-scale per 1 meter for input values
-	/// Typical values are:
-	///      * 5000 per 1 meter for the 16-bit PNG files of TUM database
-	///      * 1000 per 1 meter for Kinect 2 device
-	///      * 1 per 1 meter for the 32-bit float images in the ROS bag files
 	#[inline]
 	fn depth_factor(&self) -> f32 {
 		let ret = unsafe { sys::cv_large_kinfu_Params_getPropDepthFactor_const(self.as_raw_Params()) };
 		ret
 	}
 	
-	/// Depth sigma in meters for bilateral smooth
 	#[inline]
 	fn bilateral_sigma_depth(&self) -> f32 {
 		let ret = unsafe { sys::cv_large_kinfu_Params_getPropBilateral_sigma_depth_const(self.as_raw_Params()) };
 		ret
 	}
 	
-	/// Spatial sigma in pixels for bilateral smooth
 	#[inline]
 	fn bilateral_sigma_spatial(&self) -> f32 {
 		let ret = unsafe { sys::cv_large_kinfu_Params_getPropBilateral_sigma_spatial_const(self.as_raw_Params()) };
 		ret
 	}
 	
-	/// Kernel size in pixels for bilateral smooth
 	#[inline]
 	fn bilateral_kernel_size(&self) -> i32 {
 		let ret = unsafe { sys::cv_large_kinfu_Params_getPropBilateral_kernel_size_const(self.as_raw_Params()) };
 		ret
 	}
 	
-	/// Number of pyramid levels for ICP
 	#[inline]
 	fn pyramid_levels(&self) -> i32 {
 		let ret = unsafe { sys::cv_large_kinfu_Params_getPropPyramidLevels_const(self.as_raw_Params()) };
 		ret
 	}
 	
-	/// Minimal camera movement in meters
-	/// Integrate new depth frame only if camera movement exceeds this value.
 	#[inline]
 	fn tsdf_min_camera_movement(&self) -> f32 {
 		let ret = unsafe { sys::cv_large_kinfu_Params_getPropTsdf_min_camera_movement_const(self.as_raw_Params()) };
 		ret
 	}
 	
-	/// light pose for rendering in meters
 	#[inline]
 	fn light_pose(&self) -> core::Vec3f {
 		return_send!(via ocvrs_return);
@@ -2732,21 +2169,18 @@ pub trait ParamsTraitConst {
 		ret
 	}
 	
-	/// distance theshold for ICP in meters
 	#[inline]
 	fn icp_dist_thresh(&self) -> f32 {
 		let ret = unsafe { sys::cv_large_kinfu_Params_getPropIcpDistThresh_const(self.as_raw_Params()) };
 		ret
 	}
 	
-	/// angle threshold for ICP in radians
 	#[inline]
 	fn icp_angle_thresh(&self) -> f32 {
 		let ret = unsafe { sys::cv_large_kinfu_Params_getPropIcpAngleThresh_const(self.as_raw_Params()) };
 		ret
 	}
 	
-	/// number of ICP iterations for each pyramid level
 	#[inline]
 	fn icp_iterations(&self) -> core::Vector<i32> {
 		let ret = unsafe { sys::cv_large_kinfu_Params_getPropIcpIterations_const(self.as_raw_Params()) };
@@ -2754,15 +2188,12 @@ pub trait ParamsTraitConst {
 		ret
 	}
 	
-	/// Threshold for depth truncation in meters
-	/// All depth values beyond this threshold will be set to zero
 	#[inline]
 	fn truncate_threshold(&self) -> f32 {
 		let ret = unsafe { sys::cv_large_kinfu_Params_getPropTruncateThreshold_const(self.as_raw_Params()) };
 		ret
 	}
 	
-	/// Volume parameters
 	#[inline]
 	fn volume_params(&self) -> crate::rgbd::Kinfu_VolumeParams {
 		let ret = unsafe { sys::cv_large_kinfu_Params_getPropVolumeParams_const(self.as_raw_Params()) };
@@ -2775,111 +2206,90 @@ pub trait ParamsTraitConst {
 pub trait ParamsTrait: crate::rgbd::ParamsTraitConst {
 	fn as_raw_mut_Params(&mut self) -> *mut c_void;
 
-	/// frame size in pixels
 	#[inline]
 	fn set_frame_size(&mut self, val: core::Size) {
 		let ret = unsafe { sys::cv_large_kinfu_Params_setPropFrameSize_Size(self.as_raw_mut_Params(), val.opencv_as_extern()) };
 		ret
 	}
 	
-	/// camera intrinsics
 	#[inline]
 	fn set_intr(&mut self, val: core::Matx33f) {
 		let ret = unsafe { sys::cv_large_kinfu_Params_setPropIntr_Matx33f(self.as_raw_mut_Params(), val.opencv_as_extern()) };
 		ret
 	}
 	
-	/// rgb camera intrinsics
 	#[inline]
 	fn set_rgb_intr(&mut self, val: core::Matx33f) {
 		let ret = unsafe { sys::cv_large_kinfu_Params_setPropRgb_intr_Matx33f(self.as_raw_mut_Params(), val.opencv_as_extern()) };
 		ret
 	}
 	
-	/// pre-scale per 1 meter for input values
-	/// Typical values are:
-	///      * 5000 per 1 meter for the 16-bit PNG files of TUM database
-	///      * 1000 per 1 meter for Kinect 2 device
-	///      * 1 per 1 meter for the 32-bit float images in the ROS bag files
 	#[inline]
 	fn set_depth_factor(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_large_kinfu_Params_setPropDepthFactor_float(self.as_raw_mut_Params(), val) };
 		ret
 	}
 	
-	/// Depth sigma in meters for bilateral smooth
 	#[inline]
 	fn set_bilateral_sigma_depth(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_large_kinfu_Params_setPropBilateral_sigma_depth_float(self.as_raw_mut_Params(), val) };
 		ret
 	}
 	
-	/// Spatial sigma in pixels for bilateral smooth
 	#[inline]
 	fn set_bilateral_sigma_spatial(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_large_kinfu_Params_setPropBilateral_sigma_spatial_float(self.as_raw_mut_Params(), val) };
 		ret
 	}
 	
-	/// Kernel size in pixels for bilateral smooth
 	#[inline]
 	fn set_bilateral_kernel_size(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_large_kinfu_Params_setPropBilateral_kernel_size_int(self.as_raw_mut_Params(), val) };
 		ret
 	}
 	
-	/// Number of pyramid levels for ICP
 	#[inline]
 	fn set_pyramid_levels(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_large_kinfu_Params_setPropPyramidLevels_int(self.as_raw_mut_Params(), val) };
 		ret
 	}
 	
-	/// Minimal camera movement in meters
-	/// Integrate new depth frame only if camera movement exceeds this value.
 	#[inline]
 	fn set_tsdf_min_camera_movement(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_large_kinfu_Params_setPropTsdf_min_camera_movement_float(self.as_raw_mut_Params(), val) };
 		ret
 	}
 	
-	/// light pose for rendering in meters
 	#[inline]
 	fn set_light_pose(&mut self, val: core::Vec3f) {
 		let ret = unsafe { sys::cv_large_kinfu_Params_setPropLightPose_Vec3f(self.as_raw_mut_Params(), val.opencv_as_extern()) };
 		ret
 	}
 	
-	/// distance theshold for ICP in meters
 	#[inline]
 	fn set_icp_dist_thresh(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_large_kinfu_Params_setPropIcpDistThresh_float(self.as_raw_mut_Params(), val) };
 		ret
 	}
 	
-	/// angle threshold for ICP in radians
 	#[inline]
 	fn set_icp_angle_thresh(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_large_kinfu_Params_setPropIcpAngleThresh_float(self.as_raw_mut_Params(), val) };
 		ret
 	}
 	
-	/// number of ICP iterations for each pyramid level
 	#[inline]
 	fn set_icp_iterations(&mut self, mut val: core::Vector<i32>) {
 		let ret = unsafe { sys::cv_large_kinfu_Params_setPropIcpIterations_vector_int_(self.as_raw_mut_Params(), val.as_raw_mut_VectorOfi32()) };
 		ret
 	}
 	
-	/// Threshold for depth truncation in meters
-	/// All depth values beyond this threshold will be set to zero
 	#[inline]
 	fn set_truncate_threshold(&mut self, val: f32) {
 		let ret = unsafe { sys::cv_large_kinfu_Params_setPropTruncateThreshold_float(self.as_raw_mut_Params(), val) };
 		ret
 	}
 	
-	/// Volume parameters
 	#[inline]
 	fn set_volume_params(&mut self, mut val: crate::rgbd::Kinfu_VolumeParams) {
 		let ret = unsafe { sys::cv_large_kinfu_Params_setPropVolumeParams_VolumeParams(self.as_raw_mut_Params(), val.as_raw_mut_Kinfu_VolumeParams()) };
@@ -2912,8 +2322,6 @@ impl crate::rgbd::ParamsTrait for Params {
 }
 
 impl Params {
-	/// Default parameters
-	/// A set of parameters which provides better model quality, can be very slow.
 	#[inline]
 	pub fn default_params() -> Result<core::Ptr<crate::rgbd::Params>> {
 		return_send!(via ocvrs_return);
@@ -2924,9 +2332,6 @@ impl Params {
 		Ok(ret)
 	}
 	
-	/// Coarse parameters
-	/// A set of parameters which provides better speed, can fail to match frames
-	/// in case of rapid sensor motion.
 	#[inline]
 	pub fn coarse_params() -> Result<core::Ptr<crate::rgbd::Params>> {
 		return_send!(via ocvrs_return);
@@ -2937,8 +2342,6 @@ impl Params {
 		Ok(ret)
 	}
 	
-	/// HashTSDF parameters
-	/// A set of parameters suitable for use with HashTSDFVolume
 	#[inline]
 	pub fn hash_tsdf_params(is_coarse: bool) -> Result<core::Ptr<crate::rgbd::Params>> {
 		return_send!(via ocvrs_return);
@@ -2951,7 +2354,6 @@ impl Params {
 	
 }
 
-/// \brief Modality that computes quantized gradient orientations from a color image.
 pub trait Linemod_ColorGradientTraitConst: crate::rgbd::Linemod_ModalityConst {
 	fn as_raw_Linemod_ColorGradient(&self) -> *const c_void;
 
@@ -3026,7 +2428,6 @@ pub trait Linemod_ColorGradientTrait: crate::rgbd::Linemod_ColorGradientTraitCon
 	
 }
 
-/// \brief Modality that computes quantized gradient orientations from a color image.
 pub struct Linemod_ColorGradient {
 	ptr: *mut c_void
 }
@@ -3059,7 +2460,6 @@ impl crate::rgbd::Linemod_ColorGradientTrait for Linemod_ColorGradient {
 }
 
 impl Linemod_ColorGradient {
-	/// \brief Default constructor. Uses reasonable default parameter values.
 	#[inline]
 	pub fn default() -> Result<crate::rgbd::Linemod_ColorGradient> {
 		return_send!(via ocvrs_return);
@@ -3070,12 +2470,6 @@ impl Linemod_ColorGradient {
 		Ok(ret)
 	}
 	
-	/// \brief Constructor.
-	/// 
-	/// \param weak_threshold   When quantizing, discard gradients with magnitude less than this.
-	/// \param num_features     How many features a template must contain.
-	/// \param strong_threshold Consider as candidate features only gradients whose norms are
-	///                         larger than this.
 	#[inline]
 	pub fn new(weak_threshold: f32, num_features: size_t, strong_threshold: f32) -> Result<crate::rgbd::Linemod_ColorGradient> {
 		return_send!(via ocvrs_return);
@@ -3098,7 +2492,6 @@ impl Linemod_ColorGradient {
 	
 }
 
-/// \brief Modality that computes quantized surface normals from a dense depth map.
 pub trait Linemod_DepthNormalTraitConst: crate::rgbd::Linemod_ModalityConst {
 	fn as_raw_Linemod_DepthNormal(&self) -> *const c_void;
 
@@ -3185,7 +2578,6 @@ pub trait Linemod_DepthNormalTrait: crate::rgbd::Linemod_DepthNormalTraitConst +
 	
 }
 
-/// \brief Modality that computes quantized surface normals from a dense depth map.
 pub struct Linemod_DepthNormal {
 	ptr: *mut c_void
 }
@@ -3218,7 +2610,6 @@ impl crate::rgbd::Linemod_DepthNormalTrait for Linemod_DepthNormal {
 }
 
 impl Linemod_DepthNormal {
-	/// \brief Default constructor. Uses reasonable default parameter values.
 	#[inline]
 	pub fn default() -> Result<crate::rgbd::Linemod_DepthNormal> {
 		return_send!(via ocvrs_return);
@@ -3229,14 +2620,6 @@ impl Linemod_DepthNormal {
 		Ok(ret)
 	}
 	
-	/// \brief Constructor.
-	/// 
-	/// \param distance_threshold   Ignore pixels beyond this distance.
-	/// \param difference_threshold When computing normals, ignore contributions of pixels whose
-	///                             depth difference with the central pixel is above this threshold.
-	/// \param num_features         How many features a template must contain.
-	/// \param extract_threshold    Consider as candidate feature only if there are no differing
-	///                             orientations within a distance of extract_threshold.
 	#[inline]
 	pub fn new(distance_threshold: i32, difference_threshold: i32, num_features: size_t, extract_threshold: i32) -> Result<crate::rgbd::Linemod_DepthNormal> {
 		return_send!(via ocvrs_return);
@@ -3259,25 +2642,9 @@ impl Linemod_DepthNormal {
 	
 }
 
-/// \brief Object detector using the LINE template matching algorithm with any set of
-/// modalities.
 pub trait Linemod_DetectorTraitConst {
 	fn as_raw_Linemod_Detector(&self) -> *const c_void;
 
-	/// \brief Detect objects by template matching.
-	/// 
-	/// Matches globally at the lowest pyramid level, then refines locally stepping up the pyramid.
-	/// 
-	/// \param      sources   Source images, one for each modality.
-	/// \param      threshold Similarity threshold, a percentage between 0 and 100.
-	/// \param[out] matches   Template matches, sorted by similarity score.
-	/// \param      class_ids If non-empty, only search for the desired object classes.
-	/// \param[out] quantized_images Optionally return vector<Mat> of quantized images.
-	/// \param      masks     The masks for consideration during matching. The masks should be CV_8UC1
-	///                       where 255 represents a valid pixel.  If non-empty, the vector must be
-	///                       the same size as sources.  Each element must be
-	///                       empty or the same size as its corresponding source.
-	/// 
 	/// ## C++ default parameters
 	/// * class_ids: std::vector<String>()
 	/// * quantized_images: noArray()
@@ -3292,10 +2659,6 @@ pub trait Linemod_DetectorTraitConst {
 		Ok(ret)
 	}
 	
-	/// \brief Get the modalities used by this detector.
-	/// 
-	/// You are not permitted to add/remove modalities, but you may dynamic_cast them to
-	/// tweak parameters.
 	#[inline]
 	fn get_modalities(&self) -> Result<core::Vector<core::Ptr<dyn crate::rgbd::Linemod_Modality>>> {
 		return_send!(via ocvrs_return);
@@ -3306,7 +2669,6 @@ pub trait Linemod_DetectorTraitConst {
 		Ok(ret)
 	}
 	
-	/// \brief Get sampling step T at pyramid_level.
 	#[inline]
 	fn get_t(&self, pyramid_level: i32) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -3316,7 +2678,6 @@ pub trait Linemod_DetectorTraitConst {
 		Ok(ret)
 	}
 	
-	/// \brief Get number of pyramid levels used by this detector.
 	#[inline]
 	fn pyramid_levels(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -3326,10 +2687,6 @@ pub trait Linemod_DetectorTraitConst {
 		Ok(ret)
 	}
 	
-	/// \brief Get the template pyramid identified by template_id.
-	/// 
-	/// For example, with 2 modalities (Gradient, Normal) and two pyramid levels
-	/// (L0, L1), the order is (GradientL0, NormalL0, GradientL1, NormalL1).
 	#[inline]
 	fn get_templates(&self, class_id: &str, template_id: i32) -> Result<core::Vector<crate::rgbd::Linemod_Template>> {
 		extern_container_arg!(class_id);
@@ -3415,15 +2772,6 @@ pub trait Linemod_DetectorTraitConst {
 pub trait Linemod_DetectorTrait: crate::rgbd::Linemod_DetectorTraitConst {
 	fn as_raw_mut_Linemod_Detector(&mut self) -> *mut c_void;
 
-	/// \brief Add new object template.
-	/// 
-	/// \param      sources      Source images, one for each modality.
-	/// \param      class_id     Object class ID.
-	/// \param      object_mask  Mask separating object from background.
-	/// \param[out] bounding_box Optionally return bounding box of the extracted features.
-	/// 
-	/// \return Template ID, or -1 if failed to extract a valid template.
-	/// 
 	/// ## C++ default parameters
 	/// * bounding_box: NULL
 	#[inline]
@@ -3436,7 +2784,6 @@ pub trait Linemod_DetectorTrait: crate::rgbd::Linemod_DetectorTraitConst {
 		Ok(ret)
 	}
 	
-	/// \brief Add a new object template computed by external means.
 	#[inline]
 	fn add_synthetic_template(&mut self, templates: &core::Vector<crate::rgbd::Linemod_Template>, class_id: &str) -> Result<i32> {
 		extern_container_arg!(class_id);
@@ -3483,8 +2830,6 @@ pub trait Linemod_DetectorTrait: crate::rgbd::Linemod_DetectorTraitConst {
 	
 }
 
-/// \brief Object detector using the LINE template matching algorithm with any set of
-/// modalities.
 pub struct Linemod_Detector {
 	ptr: *mut c_void
 }
@@ -3509,7 +2854,6 @@ impl crate::rgbd::Linemod_DetectorTrait for Linemod_Detector {
 }
 
 impl Linemod_Detector {
-	/// \brief Empty constructor, initialize with read().
 	#[inline]
 	pub fn default() -> Result<crate::rgbd::Linemod_Detector> {
 		return_send!(via ocvrs_return);
@@ -3520,11 +2864,6 @@ impl Linemod_Detector {
 		Ok(ret)
 	}
 	
-	/// \brief Constructor.
-	/// 
-	/// \param modalities       Modalities to use (color gradients, depth normals, ...).
-	/// \param T_pyramid        Value of the sampling step T at each pyramid level. The
-	///                         number of pyramid levels is T_pyramid.size().
 	#[inline]
 	pub fn new(modalities: &core::Vector<core::Ptr<dyn crate::rgbd::Linemod_Modality>>, t_pyramid: &core::Vector<i32>) -> Result<crate::rgbd::Linemod_Detector> {
 		return_send!(via ocvrs_return);
@@ -3537,15 +2876,11 @@ impl Linemod_Detector {
 	
 }
 
-/// \brief Discriminant feature described by its location and label.
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub struct Linemod_Feature {
-	/// x offset
 	pub x: i32,
-	/// y offset
 	pub y: i32,
-	/// Quantization
 	pub label: i32,
 }
 
@@ -3590,7 +2925,6 @@ impl Linemod_Feature {
 	
 }
 
-/// \brief Represents a successful template match.
 pub trait Linemod_MatchTraitConst {
 	fn as_raw_Linemod_Match(&self) -> *const c_void;
 
@@ -3672,7 +3006,6 @@ pub trait Linemod_MatchTrait: crate::rgbd::Linemod_MatchTraitConst {
 	
 }
 
-/// \brief Represents a successful template match.
 pub struct Linemod_Match {
 	ptr: *mut c_void
 }
@@ -3720,18 +3053,9 @@ impl Linemod_Match {
 	
 }
 
-/// \brief Interface for modalities that plug into the LINE template matching representation.
-/// 
-/// \todo Max response, to allow optimization of summing (255/MAX) features as uint8
 pub trait Linemod_ModalityConst {
 	fn as_raw_Linemod_Modality(&self) -> *const c_void;
 
-	/// \brief Form a quantized image pyramid from a source image.
-	/// 
-	/// \param[in] src  The source image. Type depends on the modality.
-	/// \param[in] mask Optional mask. If not empty, unmasked pixels are set to zero
-	///                in quantized image and cannot be extracted as features.
-	/// 
 	/// ## C++ default parameters
 	/// * mask: Mat()
 	#[inline]
@@ -3780,11 +3104,6 @@ pub trait Linemod_Modality: crate::rgbd::Linemod_ModalityConst {
 }
 
 impl dyn Linemod_Modality + '_ {
-	/// \brief Create modality by name.
-	/// 
-	/// The following modality types are supported:
-	/// - "ColorGradient"
-	/// - "DepthNormal"
 	#[inline]
 	pub fn create(modality_type: &str) -> Result<core::Ptr<dyn crate::rgbd::Linemod_Modality>> {
 		extern_container_arg!(modality_type);
@@ -3796,7 +3115,6 @@ impl dyn Linemod_Modality + '_ {
 		Ok(ret)
 	}
 	
-	/// \brief Load a modality from file.
 	#[inline]
 	pub fn create_1(fn_: &core::FileNode) -> Result<core::Ptr<dyn crate::rgbd::Linemod_Modality>> {
 		return_send!(via ocvrs_return);
@@ -3808,14 +3126,9 @@ impl dyn Linemod_Modality + '_ {
 	}
 	
 }
-/// \brief Represents a modality operating over an image pyramid.
 pub trait Linemod_QuantizedPyramidConst {
 	fn as_raw_Linemod_QuantizedPyramid(&self) -> *const c_void;
 
-	/// \brief Compute quantized image at current pyramid level for online detection.
-	/// 
-	/// \param[out] dst The destination 8-bit image. For each pixel at most one bit is set,
-	///                representing its classification.
 	#[inline]
 	fn quantize(&self, dst: &mut core::Mat) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -3825,9 +3138,6 @@ pub trait Linemod_QuantizedPyramidConst {
 		Ok(ret)
 	}
 	
-	/// \brief Extract most discriminant features at current pyramid level to form a new template.
-	/// 
-	/// \param[out] templ The new template.
 	#[inline]
 	fn extract_template(&self, templ: &mut crate::rgbd::Linemod_Template) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -3842,9 +3152,6 @@ pub trait Linemod_QuantizedPyramidConst {
 pub trait Linemod_QuantizedPyramid: crate::rgbd::Linemod_QuantizedPyramidConst {
 	fn as_raw_mut_Linemod_QuantizedPyramid(&mut self) -> *mut c_void;
 
-	/// \brief Go to the next pyramid level.
-	/// 
-	/// \todo Allow pyramid scale factor other than 2
 	#[inline]
 	fn pyr_down(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -3959,12 +3266,9 @@ impl crate::rgbd::Linemod_TemplateTrait for Linemod_Template {
 impl Linemod_Template {
 }
 
-/// Object that can clean a noisy depth image
 pub trait DepthCleanerTraitConst: core::AlgorithmTraitConst {
 	fn as_raw_DepthCleaner(&self) -> *const c_void;
 
-	/// Initializes some data that is cached for later computation
-	/// If that function is not called, it will be called the first time normals are computed
 	#[inline]
 	fn initialize(&self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -4035,7 +3339,6 @@ pub trait DepthCleanerTrait: core::AlgorithmTrait + crate::rgbd::DepthCleanerTra
 	
 }
 
-/// Object that can clean a noisy depth image
 pub struct DepthCleaner {
 	ptr: *mut c_void
 }
@@ -4078,12 +3381,6 @@ impl DepthCleaner {
 		Ok(ret)
 	}
 	
-	/// Constructor
-	/// ## Parameters
-	/// * depth: the depth of the normals (only CV_32F or CV_64F)
-	/// * window_size: the window size to compute the normals: can only be 1,3,5 or 7
-	/// * method: one of the methods to use: RGBD_NORMALS_METHOD_SRI, RGBD_NORMALS_METHOD_FALS
-	/// 
 	/// ## C++ default parameters
 	/// * window_size: 5
 	/// * method: DepthCleaner::DEPTH_CLEANER_NIL
@@ -4114,16 +3411,6 @@ impl DepthCleaner {
 
 boxed_cast_base! { DepthCleaner, core::Algorithm, cv_DepthCleaner_to_Algorithm }
 
-/// A faster version of ICPOdometry which is used in KinectFusion implementation
-/// Partial list of differences:
-/// - Works in parallel
-/// - Written in universal intrinsics
-/// - Filters points by angle
-/// - Interpolates points and normals
-/// - Doesn't use masks or min/max depth filtering
-/// - Doesn't use random subsets of points
-/// - Supports only Rt transform type
-/// - Supports only 4-float vectors as input type
 pub trait FastICPOdometryTraitConst: crate::rgbd::OdometryConst {
 	fn as_raw_FastICPOdometry(&self) -> *const c_void;
 
@@ -4289,16 +3576,6 @@ pub trait FastICPOdometryTrait: crate::rgbd::FastICPOdometryTraitConst + crate::
 	
 }
 
-/// A faster version of ICPOdometry which is used in KinectFusion implementation
-/// Partial list of differences:
-/// - Works in parallel
-/// - Written in universal intrinsics
-/// - Filters points by angle
-/// - Interpolates points and normals
-/// - Doesn't use masks or min/max depth filtering
-/// - Doesn't use random subsets of points
-/// - Supports only Rt transform type
-/// - Supports only 4-float vectors as input type
 pub struct FastICPOdometry {
 	ptr: *mut c_void
 }
@@ -4349,18 +3626,6 @@ impl FastICPOdometry {
 		Ok(ret)
 	}
 	
-	/// Constructor.
-	/// ## Parameters
-	/// * cameraMatrix: Camera matrix
-	/// * maxDistDiff: Correspondences between pixels of two given frames will be filtered out
-	///                    if their depth difference is larger than maxDepthDiff
-	/// * angleThreshold: Correspondence will be filtered out
-	///                    if an angle between their normals is bigger than threshold
-	/// * sigmaDepth: Depth sigma in meters for bilateral smooth
-	/// * sigmaSpatial: Spatial sigma in pixels for bilateral smooth
-	/// * kernelSize: Kernel size in pixels for bilateral smooth
-	/// * iterCounts: Count of iterations on each pyramid level
-	/// 
 	/// ## C++ default parameters
 	/// * max_dist_diff: Odometry::DEFAULT_MAX_DEPTH_DIFF()
 	/// * angle_threshold: (float)(30.*CV_PI/180.)
@@ -4399,8 +3664,6 @@ impl FastICPOdometry {
 
 boxed_cast_base! { FastICPOdometry, core::Algorithm, cv_FastICPOdometry_to_Algorithm }
 
-/// Odometry based on the paper "KinectFusion: Real-Time Dense Surface Mapping and Tracking",
-/// Richard A. Newcombe, Andrew Fitzgibbon, at al, SIGGRAPH, 2011.
 pub trait ICPOdometryTraitConst: crate::rgbd::OdometryConst {
 	fn as_raw_ICPOdometry(&self) -> *const c_void;
 
@@ -4594,8 +3857,6 @@ pub trait ICPOdometryTrait: crate::rgbd::ICPOdometryTraitConst + crate::rgbd::Od
 	
 }
 
-/// Odometry based on the paper "KinectFusion: Real-Time Dense Surface Mapping and Tracking",
-/// Richard A. Newcombe, Andrew Fitzgibbon, at al, SIGGRAPH, 2011.
 pub struct ICPOdometry {
 	ptr: *mut c_void
 }
@@ -4646,17 +3907,6 @@ impl ICPOdometry {
 		Ok(ret)
 	}
 	
-	/// Constructor.
-	/// ## Parameters
-	/// * cameraMatrix: Camera matrix
-	/// * minDepth: Pixels with depth less than minDepth will not be used
-	/// * maxDepth: Pixels with depth larger than maxDepth will not be used
-	/// * maxDepthDiff: Correspondences between pixels of two given frames will be filtered out
-	///                    if their depth difference is larger than maxDepthDiff
-	/// * maxPointsPart: The method uses a random pixels subset of size frameWidth x frameHeight x pointsPart
-	/// * iterCounts: Count of iterations on each pyramid level.
-	/// * transformType: Class of trasformation
-	/// 
 	/// ## C++ default parameters
 	/// * min_depth: Odometry::DEFAULT_MIN_DEPTH()
 	/// * max_depth: Odometry::DEFAULT_MAX_DEPTH()
@@ -4696,29 +3946,9 @@ impl ICPOdometry {
 
 boxed_cast_base! { ICPOdometry, core::Algorithm, cv_ICPOdometry_to_Algorithm }
 
-/// Base class for computation of odometry.
 pub trait OdometryConst: core::AlgorithmTraitConst {
 	fn as_raw_Odometry(&self) -> *const c_void;
 
-	/// Method to compute a transformation from the source frame to the destination one.
-	/// Some odometry algorithms do not used some data of frames (eg. ICP does not use images).
-	/// In such case corresponding arguments can be set as empty Mat.
-	/// The method returns true if all internal computations were possible (e.g. there were enough correspondences,
-	/// system of equations has a solution, etc) and resulting transformation satisfies some test if it's provided
-	/// by the Odometry inheritor implementation (e.g. thresholds for maximum translation and rotation).
-	/// ## Parameters
-	/// * srcImage: Image data of the source frame (CV_8UC1)
-	/// * srcDepth: Depth data of the source frame (CV_32FC1, in meters)
-	/// * srcMask: Mask that sets which pixels have to be used from the source frame (CV_8UC1)
-	/// * dstImage: Image data of the destination frame (CV_8UC1)
-	/// * dstDepth: Depth data of the destination frame (CV_32FC1, in meters)
-	/// * dstMask: Mask that sets which pixels have to be used from the destination frame (CV_8UC1)
-	/// * Rt: Resulting transformation from the source frame to the destination one (rigid body motion):
-	///   dst_p = Rt * src_p, where dst_p is a homogeneous point in the destination frame and src_p is
-	///   homogeneous point in the source frame,
-	///   Rt is 4x4 matrix of CV_64FC1 type.
-	/// * initRt: Initial transformation from the source frame to the destination one (optional)
-	/// 
 	/// ## C++ default parameters
 	/// * init_rt: Mat()
 	#[inline]
@@ -4731,9 +3961,6 @@ pub trait OdometryConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// One more method to compute a transformation from the source frame to the destination one.
-	/// It is designed to save on computing the frame data (image pyramids, normals, etc.).
-	/// 
 	/// ## C++ default parameters
 	/// * init_rt: Mat()
 	#[inline]
@@ -4746,12 +3973,6 @@ pub trait OdometryConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Prepare a cache for the frame. The function checks the precomputed/passed data (throws the error if this data
-	/// does not satisfy) and computes all remaining cache data needed for the frame. Returned size is a resolution
-	/// of the prepared frame.
-	/// ## Parameters
-	/// * frame: The odometry which will process the frame.
-	/// * cacheType: The cache type: CACHE_SRC, CACHE_DST or CACHE_ALL.
 	#[inline]
 	fn prepare_frame_cache(&self, frame: &mut core::Ptr<crate::rgbd::OdometryFrame>, cache_type: i32) -> Result<core::Size> {
 		return_send!(via ocvrs_return);
@@ -4761,8 +3982,6 @@ pub trait OdometryConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setCameraMatrix
 	#[inline]
 	fn get_camera_matrix(&self) -> Result<core::Mat> {
 		return_send!(via ocvrs_return);
@@ -4773,8 +3992,6 @@ pub trait OdometryConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setTransformType
 	#[inline]
 	fn get_transform_type(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -4789,8 +4006,6 @@ pub trait OdometryConst: core::AlgorithmTraitConst {
 pub trait Odometry: core::AlgorithmTrait + crate::rgbd::OdometryConst {
 	fn as_raw_mut_Odometry(&mut self) -> *mut c_void;
 
-	/// ## See also
-	/// setCameraMatrix getCameraMatrix
 	#[inline]
 	fn set_camera_matrix(&mut self, val: &core::Mat) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -4800,8 +4015,6 @@ pub trait Odometry: core::AlgorithmTrait + crate::rgbd::OdometryConst {
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setTransformType getTransformType
 	#[inline]
 	fn set_transform_type(&mut self, val: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -4880,9 +4093,6 @@ impl dyn Odometry + '_ {
 	}
 	
 }
-/// Object that contains a frame data that is possibly needed for the Odometry.
-/// It's used for the efficiency (to pass precomputed/cached data of the frame that participates
-/// in the Odometry processing several times).
 pub trait OdometryFrameTraitConst: crate::rgbd::RgbdFrameTraitConst {
 	fn as_raw_OdometryFrame(&self) -> *const c_void;
 
@@ -5028,9 +4238,6 @@ pub trait OdometryFrameTrait: crate::rgbd::OdometryFrameTraitConst + crate::rgbd
 	
 }
 
-/// Object that contains a frame data that is possibly needed for the Odometry.
-/// It's used for the efficiency (to pass precomputed/cached data of the frame that participates
-/// in the Odometry processing several times).
 pub struct OdometryFrame {
 	ptr: *mut c_void
 }
@@ -5107,7 +4314,6 @@ impl OdometryFrame {
 
 boxed_cast_base! { OdometryFrame, crate::rgbd::RgbdFrame, cv_OdometryFrame_to_RgbdFrame }
 
-/// Object that contains a frame data.
 pub trait RgbdFrameTraitConst {
 	fn as_raw_RgbdFrame(&self) -> *const c_void;
 
@@ -5191,7 +4397,6 @@ pub trait RgbdFrameTrait: crate::rgbd::RgbdFrameTraitConst {
 	
 }
 
-/// Object that contains a frame data.
 pub struct RgbdFrame {
 	ptr: *mut c_void
 }
@@ -5260,7 +4465,6 @@ impl RgbdFrame {
 
 boxed_cast_descendant! { RgbdFrame, crate::rgbd::OdometryFrame, cv_RgbdFrame_to_OdometryFrame }
 
-/// Odometry that merges RgbdOdometry and ICPOdometry by minimize sum of their energy functions.
 pub trait RgbdICPOdometryTraitConst: crate::rgbd::OdometryConst {
 	fn as_raw_RgbdICPOdometry(&self) -> *const c_void;
 
@@ -5473,7 +4677,6 @@ pub trait RgbdICPOdometryTrait: crate::rgbd::Odometry + crate::rgbd::RgbdICPOdom
 	
 }
 
-/// Odometry that merges RgbdOdometry and ICPOdometry by minimize sum of their energy functions.
 pub struct RgbdICPOdometry {
 	ptr: *mut c_void
 }
@@ -5524,19 +4727,6 @@ impl RgbdICPOdometry {
 		Ok(ret)
 	}
 	
-	/// Constructor.
-	/// ## Parameters
-	/// * cameraMatrix: Camera matrix
-	/// * minDepth: Pixels with depth less than minDepth will not be used
-	/// * maxDepth: Pixels with depth larger than maxDepth will not be used
-	/// * maxDepthDiff: Correspondences between pixels of two given frames will be filtered out
-	///                    if their depth difference is larger than maxDepthDiff
-	/// * maxPointsPart: The method uses a random pixels subset of size frameWidth x frameHeight x pointsPart
-	/// * iterCounts: Count of iterations on each pyramid level.
-	/// * minGradientMagnitudes: For each pyramid level the pixels will be filtered out
-	///                              if they have gradient magnitude less than minGradientMagnitudes[level].
-	/// * transformType: Class of trasformation
-	/// 
 	/// ## C++ default parameters
 	/// * min_depth: Odometry::DEFAULT_MIN_DEPTH()
 	/// * max_depth: Odometry::DEFAULT_MAX_DEPTH()
@@ -5578,20 +4768,9 @@ impl RgbdICPOdometry {
 
 boxed_cast_base! { RgbdICPOdometry, core::Algorithm, cv_RgbdICPOdometry_to_Algorithm }
 
-/// Object that can compute the normals in an image.
-/// It is an object as it can cache data for speed efficiency
-/// The implemented methods are either:
-/// - FALS (the fastest) and SRI from
-/// ``Fast and Accurate Computation of Surface Normals from Range Images``
-/// by H. Badino, D. Huber, Y. Park and T. Kanade
-/// - the normals with bilateral filtering on a depth image from
-/// ``Gradient Response Maps for Real-Time Detection of Texture-Less Objects``
-/// by S. Hinterstoisser, C. Cagniart, S. Ilic, P. Sturm, N. Navab, P. Fua, and V. Lepetit
 pub trait RgbdNormalsTraitConst: core::AlgorithmTraitConst {
 	fn as_raw_RgbdNormals(&self) -> *const c_void;
 
-	/// Initializes some data that is cached for later computation
-	/// If that function is not called, it will be called the first time normals are computed
 	#[inline]
 	fn initialize(&self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -5717,15 +4896,6 @@ pub trait RgbdNormalsTrait: core::AlgorithmTrait + crate::rgbd::RgbdNormalsTrait
 	
 }
 
-/// Object that can compute the normals in an image.
-/// It is an object as it can cache data for speed efficiency
-/// The implemented methods are either:
-/// - FALS (the fastest) and SRI from
-/// ``Fast and Accurate Computation of Surface Normals from Range Images``
-/// by H. Badino, D. Huber, Y. Park and T. Kanade
-/// - the normals with bilateral filtering on a depth image from
-/// ``Gradient Response Maps for Real-Time Detection of Texture-Less Objects``
-/// by S. Hinterstoisser, C. Cagniart, S. Ilic, P. Sturm, N. Navab, P. Fua, and V. Lepetit
 pub struct RgbdNormals {
 	ptr: *mut c_void
 }
@@ -5768,15 +4938,6 @@ impl RgbdNormals {
 		Ok(ret)
 	}
 	
-	/// Constructor
-	/// ## Parameters
-	/// * rows: the number of rows of the depth image normals will be computed on
-	/// * cols: the number of cols of the depth image normals will be computed on
-	/// * depth: the depth of the normals (only CV_32F or CV_64F)
-	/// * K: the calibration matrix to use
-	/// * window_size: the window size to compute the normals: can only be 1,3,5 or 7
-	/// * method: one of the methods to use: RGBD_NORMALS_METHOD_SRI, RGBD_NORMALS_METHOD_FALS
-	/// 
 	/// ## C++ default parameters
 	/// * window_size: 5
 	/// * method: RgbdNormals::RGBD_NORMALS_METHOD_FALS
@@ -5809,8 +4970,6 @@ impl RgbdNormals {
 
 boxed_cast_base! { RgbdNormals, core::Algorithm, cv_RgbdNormals_to_Algorithm }
 
-/// Odometry based on the paper "Real-Time Visual Odometry from Dense RGB-D Images",
-/// F. Steinbucker, J. Strum, D. Cremers, ICCV, 2011.
 pub trait RgbdOdometryTraitConst: crate::rgbd::OdometryConst {
 	fn as_raw_RgbdOdometry(&self) -> *const c_void;
 
@@ -6013,8 +5172,6 @@ pub trait RgbdOdometryTrait: crate::rgbd::Odometry + crate::rgbd::RgbdOdometryTr
 	
 }
 
-/// Odometry based on the paper "Real-Time Visual Odometry from Dense RGB-D Images",
-/// F. Steinbucker, J. Strum, D. Cremers, ICCV, 2011.
 pub struct RgbdOdometry {
 	ptr: *mut c_void
 }
@@ -6065,19 +5222,6 @@ impl RgbdOdometry {
 		Ok(ret)
 	}
 	
-	/// Constructor.
-	/// ## Parameters
-	/// * cameraMatrix: Camera matrix
-	/// * minDepth: Pixels with depth less than minDepth will not be used (in meters)
-	/// * maxDepth: Pixels with depth larger than maxDepth will not be used (in meters)
-	/// * maxDepthDiff: Correspondences between pixels of two given frames will be filtered out
-	///                    if their depth difference is larger than maxDepthDiff (in meters)
-	/// * iterCounts: Count of iterations on each pyramid level.
-	/// * minGradientMagnitudes: For each pyramid level the pixels will be filtered out
-	///                              if they have gradient magnitude less than minGradientMagnitudes[level].
-	/// * maxPointsPart: The method uses a random pixels subset of size frameWidth x frameHeight x pointsPart
-	/// * transformType: Class of transformation
-	/// 
 	/// ## C++ default parameters
 	/// * min_depth: Odometry::DEFAULT_MIN_DEPTH()
 	/// * max_depth: Odometry::DEFAULT_MAX_DEPTH()
@@ -6119,7 +5263,6 @@ impl RgbdOdometry {
 
 boxed_cast_base! { RgbdOdometry, core::Algorithm, cv_RgbdOdometry_to_Algorithm }
 
-/// Object that can compute planes in an image
 pub trait RgbdPlaneTraitConst: core::AlgorithmTraitConst {
 	fn as_raw_RgbdPlane(&self) -> *const c_void;
 
@@ -6256,7 +5399,6 @@ pub trait RgbdPlaneTrait: core::AlgorithmTrait + crate::rgbd::RgbdPlaneTraitCons
 	
 }
 
-/// Object that can compute planes in an image
 pub struct RgbdPlane {
 	ptr: *mut c_void
 }
@@ -6301,16 +5443,6 @@ impl RgbdPlane {
 		Ok(ret)
 	}
 	
-	/// Constructor
-	/// ## Parameters
-	/// * block_size: The size of the blocks to look at for a stable MSE
-	/// * min_size: The minimum size of a cluster to be considered a plane
-	/// * threshold: The maximum distance of a point from a plane to belong to it (in meters)
-	/// * sensor_error_a: coefficient of the sensor error. 0 by default, 0.0075 for a Kinect
-	/// * sensor_error_b: coefficient of the sensor error. 0 by default
-	/// * sensor_error_c: coefficient of the sensor error. 0 by default
-	/// * method: The method to use to compute the planes.
-	/// 
 	/// ## C++ default parameters
 	/// * sensor_error_a: 0
 	/// * sensor_error_b: 0

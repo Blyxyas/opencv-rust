@@ -29,17 +29,8 @@ pub const CV_DNN_INFERENCE_ENGINE_VPU_TYPE_MYRIAD_2: &str = "Myriad2";
 pub const CV_DNN_INFERENCE_ENGINE_VPU_TYPE_MYRIAD_X: &str = "MyriadX";
 pub const CV_DNN_INFERENCE_ENGINE_VPU_TYPE_UNSPECIFIED: &str = "";
 pub const DNN_BACKEND_CUDA: i32 = 5;
-/// DNN_BACKEND_DEFAULT equals to DNN_BACKEND_INFERENCE_ENGINE if
-/// OpenCV is built with Intel's Inference Engine library or
-/// DNN_BACKEND_OPENCV otherwise.
 pub const DNN_BACKEND_DEFAULT: i32 = 0;
-/// DNN_BACKEND_DEFAULT equals to DNN_BACKEND_INFERENCE_ENGINE if
-/// OpenCV is built with Intel's Inference Engine library or
-/// DNN_BACKEND_OPENCV otherwise.
 pub const DNN_BACKEND_HALIDE: i32 = 1;
-/// Intel's Inference Engine computational backend
-/// ## See also
-/// setInferenceEngineBackendType
 pub const DNN_BACKEND_INFERENCE_ENGINE: i32 = 2;
 pub const DNN_BACKEND_OPENCV: i32 = 3;
 pub const DNN_BACKEND_TIMVX: i32 = 7;
@@ -48,7 +39,6 @@ pub const DNN_BACKEND_WEBNN: i32 = 6;
 pub const DNN_TARGET_CPU: i32 = 0;
 pub const DNN_TARGET_CUDA: i32 = 6;
 pub const DNN_TARGET_CUDA_FP16: i32 = 7;
-/// FPGA device with CPU fallbacks using Inference Engine's Heterogeneous plugin.
 pub const DNN_TARGET_FPGA: i32 = 5;
 pub const DNN_TARGET_HDDL: i32 = 8;
 pub const DNN_TARGET_MYRIAD: i32 = 3;
@@ -59,23 +49,11 @@ pub const DNN_TARGET_VULKAN: i32 = 4;
 pub const OPENCV_DNN_API_VERSION: i32 = 20220524;
 pub const SoftNMSMethod_SOFTNMS_GAUSSIAN: i32 = 2;
 pub const SoftNMSMethod_SOFTNMS_LINEAR: i32 = 1;
-/// Enum of computation backends supported by layers.
-/// ## See also
-/// Net::setPreferableBackend
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum Backend {
-	/// DNN_BACKEND_DEFAULT equals to DNN_BACKEND_INFERENCE_ENGINE if
-	/// OpenCV is built with Intel's Inference Engine library or
-	/// DNN_BACKEND_OPENCV otherwise.
 	DNN_BACKEND_DEFAULT = 0,
-	/// DNN_BACKEND_DEFAULT equals to DNN_BACKEND_INFERENCE_ENGINE if
-	/// OpenCV is built with Intel's Inference Engine library or
-	/// DNN_BACKEND_OPENCV otherwise.
 	DNN_BACKEND_HALIDE = 1,
-	/// Intel's Inference Engine computational backend
-	/// ## See also
-	/// setInferenceEngineBackendType
 	DNN_BACKEND_INFERENCE_ENGINE = 2,
 	DNN_BACKEND_OPENCV = 3,
 	DNN_BACKEND_VKCOM = 4,
@@ -86,9 +64,6 @@ pub enum Backend {
 
 opencv_type_enum! { crate::dnn::Backend }
 
-/// Enum of Soft NMS methods.
-/// ## See also
-/// softNMSBoxes
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum SoftNMSMethod {
@@ -98,9 +73,6 @@ pub enum SoftNMSMethod {
 
 opencv_type_enum! { crate::dnn::SoftNMSMethod }
 
-/// Enum of target devices for computations.
-/// ## See also
-/// Net::setPreferableTarget
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum Target {
@@ -109,7 +81,6 @@ pub enum Target {
 	DNN_TARGET_OPENCL_FP16 = 2,
 	DNN_TARGET_MYRIAD = 3,
 	DNN_TARGET_VULKAN = 4,
-	/// FPGA device with CPU fallbacks using Inference Engine's Heterogeneous plugin.
 	DNN_TARGET_FPGA = 5,
 	DNN_TARGET_CUDA = 6,
 	DNN_TARGET_CUDA_FP16 = 7,
@@ -119,14 +90,8 @@ pub enum Target {
 
 opencv_type_enum! { crate::dnn::Target }
 
-/// Each Layer class must provide this function to the factory
 pub type LayerFactory_Constructor = Option<unsafe extern "C" fn(*mut c_void) -> *mut c_void>;
 pub type MatShape = core::Vector<i32>;
-/// Container for strings and integers.
-/// 
-/// 
-/// **Deprecated**: Use getLayerId() with int result.
-#[deprecated = "Use getLayerId() with int result."]
 pub type Net_LayerId = crate::dnn::DictValue;
 /// ## C++ default parameters
 /// * eta: 1.f
@@ -140,17 +105,6 @@ pub fn nms_boxes_f64(bboxes: &core::Vector<core::Rect2d>, scores: &core::Vector<
 	Ok(ret)
 }
 
-/// Performs non maximum suppression given boxes and corresponding scores.
-/// 
-/// ## Parameters
-/// * bboxes: a set of bounding boxes to apply NMS.
-/// * scores: a set of corresponding confidences.
-/// * score_threshold: a threshold used to filter boxes by score.
-/// * nms_threshold: a threshold used in non maximum suppression.
-/// * indices: the kept indices of bboxes after NMS.
-/// * eta: a coefficient in adaptive threshold formula: ![inline formula](https://latex.codecogs.com/png.latex?nms%5C%5Fthreshold%5F%7Bi%2B1%7D%3Deta%5Ccdot%20nms%5C%5Fthreshold%5Fi).
-/// * top_k: if `>0`, keep at most @p top_k picked indices.
-/// 
 /// ## C++ default parameters
 /// * eta: 1.f
 /// * top_k: 0
@@ -175,10 +129,6 @@ pub fn nms_boxes_rotated(bboxes: &core::Vector<core::RotatedRect>, scores: &core
 	Ok(ret)
 }
 
-/// Creates 4-dimensional blob from image.
-/// @details This is an overloaded member function, provided for convenience.
-///          It differs from the above function only in what argument(s) it accepts.
-/// 
 /// ## C++ default parameters
 /// * scalefactor: 1.0
 /// * size: Size()
@@ -197,24 +147,6 @@ pub fn blob_from_image_to(image: &dyn core::ToInputArray, blob: &mut dyn core::T
 	Ok(ret)
 }
 
-/// Creates 4-dimensional blob from image. Optionally resizes and crops @p image from center,
-/// subtract @p mean values, scales values by @p scalefactor, swap Blue and Red channels.
-/// ## Parameters
-/// * image: input image (with 1-, 3- or 4-channels).
-/// * size: spatial size for output image
-/// * mean: scalar with mean values which are subtracted from channels. Values are intended
-/// to be in (mean-R, mean-G, mean-B) order if @p image has BGR ordering and @p swapRB is true.
-/// * scalefactor: multiplier for @p image values.
-/// * swapRB: flag which indicates that swap first and last channels
-/// in 3-channel image is necessary.
-/// * crop: flag which indicates whether image will be cropped after resize or not
-/// * ddepth: Depth of output blob. Choose CV_32F or CV_8U.
-/// @details if @p crop is true, input image is resized so one side after resize is equal to corresponding
-/// dimension in @p size and another one is equal or larger. Then, crop from the center is performed.
-/// If @p crop is false, direct resize without cropping and preserving aspect ratio is performed.
-/// ## Returns
-/// 4-dimensional Mat with NCHW dimensions order.
-/// 
 /// ## C++ default parameters
 /// * scalefactor: 1.0
 /// * size: Size()
@@ -233,10 +165,6 @@ pub fn blob_from_image(image: &dyn core::ToInputArray, scalefactor: f64, size: c
 	Ok(ret)
 }
 
-/// Creates 4-dimensional blob from series of images.
-/// @details This is an overloaded member function, provided for convenience.
-///          It differs from the above function only in what argument(s) it accepts.
-/// 
 /// ## C++ default parameters
 /// * scalefactor: 1.0
 /// * size: Size()
@@ -255,25 +183,6 @@ pub fn blob_from_images_to(images: &dyn core::ToInputArray, blob: &mut dyn core:
 	Ok(ret)
 }
 
-/// Creates 4-dimensional blob from series of images. Optionally resizes and
-/// crops @p images from center, subtract @p mean values, scales values by @p scalefactor,
-/// swap Blue and Red channels.
-/// ## Parameters
-/// * images: input images (all with 1-, 3- or 4-channels).
-/// * size: spatial size for output image
-/// * mean: scalar with mean values which are subtracted from channels. Values are intended
-/// to be in (mean-R, mean-G, mean-B) order if @p image has BGR ordering and @p swapRB is true.
-/// * scalefactor: multiplier for @p images values.
-/// * swapRB: flag which indicates that swap first and last channels
-/// in 3-channel image is necessary.
-/// * crop: flag which indicates whether image will be cropped after resize or not
-/// * ddepth: Depth of output blob. Choose CV_32F or CV_8U.
-/// @details if @p crop is true, input image is resized so one side after resize is equal to corresponding
-/// dimension in @p size and another one is equal or larger. Then, crop from the center is performed.
-/// If @p crop is false, direct resize without cropping and preserving aspect ratio is performed.
-/// ## Returns
-/// 4-dimensional Mat with NCHW dimensions order.
-/// 
 /// ## C++ default parameters
 /// * scalefactor: 1.0
 /// * size: Size()
@@ -302,16 +211,6 @@ pub fn concat(a: &crate::dnn::MatShape, b: &crate::dnn::MatShape) -> Result<core
 	Ok(ret)
 }
 
-/// Enables detailed logging of the DNN model loading with CV DNN API.
-/// ## Parameters
-/// * isDiagnosticsMode: Indicates whether diagnostic mode should be set.
-/// 
-/// Diagnostic mode provides detailed logging of the model loading stage to explore
-/// potential problems (ex.: not implemented layer type).
-/// 
-/// 
-/// Note: In diagnostic mode series of assertions will be skipped, it can lead to the
-/// expected application crash.
 #[inline]
 pub fn enable_model_diagnostics(is_diagnostics_mode: bool) -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -331,13 +230,6 @@ pub fn get_available_targets(be: crate::dnn::Backend) -> Result<core::Vector<cra
 	Ok(ret)
 }
 
-/// Returns Inference Engine internal backend API.
-/// 
-/// See values of `CV_DNN_BACKEND_INFERENCE_ENGINE_*` macros.
-/// 
-/// `OPENCV_DNN_BACKEND_INFERENCE_ENGINE_TYPE` runtime parameter (environment variable) is ignored since 4.6.0.
-/// 
-/// @deprecated
 #[inline]
 pub fn get_inference_engine_backend_type() -> Result<String> {
 	return_send!(via ocvrs_return);
@@ -348,9 +240,6 @@ pub fn get_inference_engine_backend_type() -> Result<String> {
 	Ok(ret)
 }
 
-/// Returns Inference Engine CPU type.
-/// 
-/// Specify OpenVINO plugin: CPU or ARM.
 #[inline]
 pub fn get_inference_engine_cpu_type() -> Result<String> {
 	return_send!(via ocvrs_return);
@@ -361,9 +250,6 @@ pub fn get_inference_engine_cpu_type() -> Result<String> {
 	Ok(ret)
 }
 
-/// Returns Inference Engine VPU type.
-/// 
-/// See values of `CV_DNN_INFERENCE_ENGINE_VPU_TYPE_*` macros.
 #[inline]
 pub fn get_inference_engine_vpu_type() -> Result<String> {
 	return_send!(via ocvrs_return);
@@ -384,14 +270,6 @@ pub fn get_plane(m: &core::Mat, n: i32, cn: i32) -> Result<core::Mat> {
 	Ok(ret)
 }
 
-/// Parse a 4D blob and output the images it contains as 2D arrays through a simpler data structure
-/// (std::vector<cv::Mat>).
-/// ## Parameters
-/// * blob_: 4 dimensional array (images, channels, height, width) in floating point precision (CV_32F) from
-/// which you would like to extract the images.
-/// * images_:[out] array of 2D Mat containing the images extracted from the blob in floating point precision
-/// (CV_32F). They are non normalized neither mean added. The number of returned images equals the first dimension
-/// of the blob (batch size). Every image has a number of channels equals to the second dimension of the blob (depth).
 #[inline]
 pub fn images_from_blob(blob_: &core::Mat, images_: &mut dyn core::ToOutputArray) -> Result<()> {
 	output_array_arg!(images_);
@@ -402,13 +280,6 @@ pub fn images_from_blob(blob_: &core::Mat, images_: &mut dyn core::ToOutputArray
 	Ok(ret)
 }
 
-/// Reads a network model stored in <a href="http://caffe.berkeleyvision.org">Caffe</a> framework's format.
-/// ## Parameters
-/// * prototxt: path to the .prototxt file with text description of the network architecture.
-/// * caffeModel: path to the .caffemodel file with learned network.
-/// ## Returns
-/// Net object.
-/// 
 /// ## C++ default parameters
 /// * caffe_model: String()
 #[inline]
@@ -423,17 +294,6 @@ pub fn read_net_from_caffe(prototxt: &str, caffe_model: &str) -> Result<crate::d
 	Ok(ret)
 }
 
-/// Reads a network model stored in Caffe model in memory.
-/// @details This is an overloaded member function, provided for convenience.
-/// It differs from the above function only in what argument(s) it accepts.
-/// ## Parameters
-/// * bufferProto: buffer containing the content of the .prototxt file
-/// * lenProto: length of bufferProto
-/// * bufferModel: buffer containing the content of the .caffemodel file
-/// * lenModel: length of bufferModel
-/// ## Returns
-/// Net object.
-/// 
 /// ## C++ default parameters
 /// * buffer_model: NULL
 /// * len_model: 0
@@ -449,13 +309,6 @@ pub fn read_net_from_caffe_str(buffer_proto: &str, len_proto: size_t, buffer_mod
 	Ok(ret)
 }
 
-/// Reads a network model stored in Caffe model in memory.
-/// ## Parameters
-/// * bufferProto: buffer containing the content of the .prototxt file
-/// * bufferModel: buffer containing the content of the .caffemodel file
-/// ## Returns
-/// Net object.
-/// 
 /// ## C++ default parameters
 /// * buffer_model: std::vector<uchar>()
 #[inline]
@@ -468,15 +321,6 @@ pub fn read_net_from_caffe_buffer(buffer_proto: &core::Vector<u8>, buffer_model:
 	Ok(ret)
 }
 
-/// Reads a network model stored in <a href="https://pjreddie.com/darknet/">Darknet</a> model files.
-/// ## Parameters
-/// * cfgFile: path to the .cfg file with text description of the network architecture.
-/// * darknetModel: path to the .weights file with learned network.
-/// ## Returns
-/// Network object that ready to do forward, throw an exception in failure cases.
-/// ## Returns
-/// Net object.
-/// 
 /// ## C++ default parameters
 /// * darknet_model: String()
 #[inline]
@@ -491,15 +335,6 @@ pub fn read_net_from_darknet(cfg_file: &str, darknet_model: &str) -> Result<crat
 	Ok(ret)
 }
 
-/// Reads a network model stored in <a href="https://pjreddie.com/darknet/">Darknet</a> model files.
-/// ## Parameters
-/// * bufferCfg: A buffer contains a content of .cfg file with text description of the network architecture.
-/// * lenCfg: Number of bytes to read from bufferCfg
-/// * bufferModel: A buffer contains a content of .weights file with learned network.
-/// * lenModel: Number of bytes to read from bufferModel
-/// ## Returns
-/// Net object.
-/// 
 /// ## C++ default parameters
 /// * buffer_model: NULL
 /// * len_model: 0
@@ -515,13 +350,6 @@ pub fn read_net_from_darknet_str(buffer_cfg: &str, len_cfg: size_t, buffer_model
 	Ok(ret)
 }
 
-/// Reads a network model stored in <a href="https://pjreddie.com/darknet/">Darknet</a> model files.
-/// ## Parameters
-/// * bufferCfg: A buffer contains a content of .cfg file with text description of the network architecture.
-/// * bufferModel: A buffer contains a content of .weights file with learned network.
-/// ## Returns
-/// Net object.
-/// 
 /// ## C++ default parameters
 /// * buffer_model: std::vector<uchar>()
 #[inline]
@@ -534,14 +362,6 @@ pub fn read_net_from_darknet_buffer(buffer_cfg: &core::Vector<u8>, buffer_model:
 	Ok(ret)
 }
 
-/// Load a network from Intel's Model Optimizer intermediate representation.
-/// ## Parameters
-/// * xml: XML configuration file with network's topology.
-/// * bin: Binary file with trained weights.
-/// ## Returns
-/// Net object.
-/// Networks imported from Intel's Model Optimizer are launched in Intel's Inference Engine
-/// backend.
 #[inline]
 pub fn read_net_from_model_optimizer(xml: &str, bin: &str) -> Result<crate::dnn::Net> {
 	extern_container_arg!(xml);
@@ -554,16 +374,6 @@ pub fn read_net_from_model_optimizer(xml: &str, bin: &str) -> Result<crate::dnn:
 	Ok(ret)
 }
 
-/// Load a network from Intel's Model Optimizer intermediate representation.
-/// ## Parameters
-/// * bufferModelConfigPtr: Pointer to buffer which contains XML configuration with network's topology.
-/// * bufferModelConfigSize: Binary size of XML configuration data.
-/// * bufferWeightsPtr: Pointer to buffer which contains binary data with trained weights.
-/// * bufferWeightsSize: Binary size of trained weights data.
-/// ## Returns
-/// Net object.
-/// Networks imported from Intel's Model Optimizer are launched in Intel's Inference Engine
-/// backend.
 #[inline]
 pub fn read_net_from_model_optimizer_2(buffer_model_config_ptr: &u8, buffer_model_config_size: size_t, buffer_weights_ptr: &u8, buffer_weights_size: size_t) -> Result<crate::dnn::Net> {
 	return_send!(via ocvrs_return);
@@ -574,14 +384,6 @@ pub fn read_net_from_model_optimizer_2(buffer_model_config_ptr: &u8, buffer_mode
 	Ok(ret)
 }
 
-/// Load a network from Intel's Model Optimizer intermediate representation.
-/// ## Parameters
-/// * bufferModelConfig: Buffer contains XML configuration with network's topology.
-/// * bufferWeights: Buffer contains binary data with trained weights.
-/// ## Returns
-/// Net object.
-/// Networks imported from Intel's Model Optimizer are launched in Intel's Inference Engine
-/// backend.
 #[inline]
 pub fn read_net_from_model_optimizer_1(buffer_model_config: &core::Vector<u8>, buffer_weights: &core::Vector<u8>) -> Result<crate::dnn::Net> {
 	return_send!(via ocvrs_return);
@@ -592,11 +394,6 @@ pub fn read_net_from_model_optimizer_1(buffer_model_config: &core::Vector<u8>, b
 	Ok(ret)
 }
 
-/// Reads a network model <a href="https://onnx.ai/">ONNX</a>.
-/// ## Parameters
-/// * onnxFile: path to the .onnx file with text description of the network architecture.
-/// ## Returns
-/// Network object that ready to do forward, throw an exception in failure cases.
 #[inline]
 pub fn read_net_from_onnx(onnx_file: &str) -> Result<crate::dnn::Net> {
 	extern_container_arg!(onnx_file);
@@ -608,14 +405,6 @@ pub fn read_net_from_onnx(onnx_file: &str) -> Result<crate::dnn::Net> {
 	Ok(ret)
 }
 
-/// Reads a network model from <a href="https://onnx.ai/">ONNX</a>
-///        in-memory buffer.
-/// ## Parameters
-/// * buffer: memory address of the first byte of the buffer.
-/// * sizeBuffer: size of the buffer.
-/// ## Returns
-/// Network object that ready to do forward, throw an exception
-///       in failure cases.
 #[inline]
 pub fn read_net_from_onnx_str(buffer: &str, size_buffer: size_t) -> Result<crate::dnn::Net> {
 	extern_container_arg!(buffer);
@@ -627,13 +416,6 @@ pub fn read_net_from_onnx_str(buffer: &str, size_buffer: size_t) -> Result<crate
 	Ok(ret)
 }
 
-/// Reads a network model from <a href="https://onnx.ai/">ONNX</a>
-///        in-memory buffer.
-/// ## Parameters
-/// * buffer: in-memory buffer that stores the ONNX model bytes.
-/// ## Returns
-/// Network object that ready to do forward, throw an exception
-///       in failure cases.
 #[inline]
 pub fn read_net_from_onnx_buffer(buffer: &core::Vector<u8>) -> Result<crate::dnn::Net> {
 	return_send!(via ocvrs_return);
@@ -644,15 +426,6 @@ pub fn read_net_from_onnx_buffer(buffer: &core::Vector<u8>) -> Result<crate::dnn
 	Ok(ret)
 }
 
-/// Reads a network model stored in <a href="https://www.tensorflow.org/">TensorFlow</a> framework's format.
-/// ## Parameters
-/// * model: path to the .pb file with binary protobuf description of the network architecture
-/// * config: path to the .pbtxt file that contains text graph definition in protobuf format.
-///               Resulting Net object is built by text graph using weights from a binary one that
-///               let us make it more flexible.
-/// ## Returns
-/// Net object.
-/// 
 /// ## C++ default parameters
 /// * config: String()
 #[inline]
@@ -667,15 +440,6 @@ pub fn read_net_from_tensorflow(model: &str, config: &str) -> Result<crate::dnn:
 	Ok(ret)
 }
 
-/// Reads a network model stored in <a href="https://www.tensorflow.org/">TensorFlow</a> framework's format.
-/// @details This is an overloaded member function, provided for convenience.
-/// It differs from the above function only in what argument(s) it accepts.
-/// ## Parameters
-/// * bufferModel: buffer containing the content of the pb file
-/// * lenModel: length of bufferModel
-/// * bufferConfig: buffer containing the content of the pbtxt file
-/// * lenConfig: length of bufferConfig
-/// 
 /// ## C++ default parameters
 /// * buffer_config: NULL
 /// * len_config: 0
@@ -691,13 +455,6 @@ pub fn read_net_from_tensorflow_str(buffer_model: &str, len_model: size_t, buffe
 	Ok(ret)
 }
 
-/// Reads a network model stored in <a href="https://www.tensorflow.org/">TensorFlow</a> framework's format.
-/// ## Parameters
-/// * bufferModel: buffer containing the content of the pb file
-/// * bufferConfig: buffer containing the content of the pbtxt file
-/// ## Returns
-/// Net object.
-/// 
 /// ## C++ default parameters
 /// * buffer_config: std::vector<uchar>()
 #[inline]
@@ -710,34 +467,6 @@ pub fn read_net_from_tensorflow_buffer(buffer_model: &core::Vector<u8>, buffer_c
 	Ok(ret)
 }
 
-/// Reads a network model stored in <a href="http://torch.ch">Torch7</a> framework's format.
-/// ## Parameters
-/// * model: path to the file, dumped from Torch by using torch.save() function.
-/// * isBinary: specifies whether the network was serialized in ascii mode or binary.
-/// * evaluate: specifies testing phase of network. If true, it's similar to evaluate() method in Torch.
-/// ## Returns
-/// Net object.
-/// 
-///  
-/// Note: Ascii mode of Torch serializer is more preferable, because binary mode extensively use `long` type of C language,
-///  which has various bit-length on different systems.
-/// 
-/// The loading file must contain serialized <a href="https://github.com/torch/nn/blob/master/doc/module.md">nn.Module</a> object
-/// with importing network. Try to eliminate a custom objects from serialazing data to avoid importing errors.
-/// 
-/// List of supported layers (i.e. object instances derived from Torch nn.Module class):
-/// - nn.Sequential
-/// - nn.Parallel
-/// - nn.Concat
-/// - nn.Linear
-/// - nn.SpatialConvolution
-/// - nn.SpatialMaxPooling, nn.SpatialAveragePooling
-/// - nn.ReLU, nn.TanH, nn.Sigmoid
-/// - nn.Reshape
-/// - nn.SoftMax, nn.LogSoftMax
-/// 
-/// Also some equivalents of these classes from cunn, cudnn, and fbcunn may be successfully imported.
-/// 
 /// ## C++ default parameters
 /// * is_binary: true
 /// * evaluate: true
@@ -752,31 +481,6 @@ pub fn read_net_from_torch(model: &str, is_binary: bool, evaluate: bool) -> Resu
 	Ok(ret)
 }
 
-/// Read deep learning network represented in one of the supported formats.
-/// ## Parameters
-/// * model: Binary file contains trained weights. The following file
-///                  extensions are expected for models from different frameworks:
-///                  * `*.caffemodel` (Caffe, http://caffe.berkeleyvision.org/)
-///                  * `*.pb` (TensorFlow, https://www.tensorflow.org/)
-///                  * `*.t7` | `*.net` (Torch, http://torch.ch/)
-///                  * `*.weights` (Darknet, https://pjreddie.com/darknet/)
-///                  * `*.bin` (DLDT, https://software.intel.com/openvino-toolkit)
-///                  * `*.onnx` (ONNX, https://onnx.ai/)
-/// * config: Text file contains network configuration. It could be a
-///                   file with the following extensions:
-///                  * `*.prototxt` (Caffe, http://caffe.berkeleyvision.org/)
-///                  * `*.pbtxt` (TensorFlow, https://www.tensorflow.org/)
-///                  * `*.cfg` (Darknet, https://pjreddie.com/darknet/)
-///                  * `*.xml` (DLDT, https://software.intel.com/openvino-toolkit)
-/// * framework: Explicit framework name tag to determine a format.
-/// ## Returns
-/// Net object.
-/// 
-/// This function automatically detects an origin framework of trained model
-/// and calls an appropriate function such @ref readNetFromCaffe, @ref readNetFromTensorflow,
-/// @ref readNetFromTorch or @ref readNetFromDarknet. An order of @p model and @p config
-/// arguments does not matter.
-/// 
 /// ## C++ default parameters
 /// * config: ""
 /// * framework: ""
@@ -793,16 +497,6 @@ pub fn read_net(model: &str, config: &str, framework: &str) -> Result<crate::dnn
 	Ok(ret)
 }
 
-/// Read deep learning network represented in one of the supported formats.
-/// @details This is an overloaded member function, provided for convenience.
-///          It differs from the above function only in what argument(s) it accepts.
-/// ## Parameters
-/// * framework: Name of origin framework.
-/// * bufferModel: A buffer with a content of binary file with weights
-/// * bufferConfig: A buffer with a content of text file contains network configuration.
-/// ## Returns
-/// Net object.
-/// 
 /// ## C++ default parameters
 /// * buffer_config: std::vector<uchar>()
 #[inline]
@@ -816,11 +510,6 @@ pub fn read_net_1(framework: &str, buffer_model: &core::Vector<u8>, buffer_confi
 	Ok(ret)
 }
 
-/// Creates blob from .pb file.
-/// ## Parameters
-/// * path: to the .pb file with input tensor.
-/// ## Returns
-/// Mat.
 #[inline]
 pub fn read_tensor_from_onnx(path: &str) -> Result<core::Mat> {
 	extern_container_arg!(path);
@@ -832,9 +521,6 @@ pub fn read_tensor_from_onnx(path: &str) -> Result<core::Mat> {
 	Ok(ret)
 }
 
-/// Loads blob which was serialized as torch.Tensor object of Torch7 framework.
-/// @warning This function has the same limitations as readNetFromTorch().
-/// 
 /// ## C++ default parameters
 /// * is_binary: true
 #[inline]
@@ -848,7 +534,6 @@ pub fn read_torch_blob(filename: &str, is_binary: bool) -> Result<core::Mat> {
 	Ok(ret)
 }
 
-/// Release a HDDL plugin.
 #[inline]
 pub fn release_hddl_plugin() -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -858,10 +543,6 @@ pub fn release_hddl_plugin() -> Result<()> {
 	Ok(ret)
 }
 
-/// Release a Myriad device (binded by OpenCV).
-/// 
-/// Single Myriad device cannot be shared across multiple processes which uses
-/// Inference Engine's Myriad plugin.
 #[inline]
 pub fn reset_myriad_device() -> Result<()> {
 	return_send!(via ocvrs_return);
@@ -871,14 +552,6 @@ pub fn reset_myriad_device() -> Result<()> {
 	Ok(ret)
 }
 
-/// Specify Inference Engine internal backend API.
-/// 
-/// See values of `CV_DNN_BACKEND_INFERENCE_ENGINE_*` macros.
-/// 
-/// ## Returns
-/// previous value of internal backend API
-/// 
-/// @deprecated
 #[inline]
 pub fn set_inference_engine_backend_type(new_backend_type: &str) -> Result<String> {
 	extern_container_arg!(new_backend_type);
@@ -944,21 +617,6 @@ pub fn shape_4(a0: i32, a1: i32, a2: i32, a3: i32) -> Result<core::Vector<i32>> 
 	Ok(ret)
 }
 
-/// Convert all weights of Caffe network to half precision floating point.
-/// ## Parameters
-/// * src: Path to origin model from Caffe framework contains single
-///            precision floating point weights (usually has `.caffemodel` extension).
-/// * dst: Path to destination model with updated weights.
-/// * layersTypes: Set of layers types which parameters will be converted.
-///                    By default, converts only Convolutional and Fully-Connected layers'
-///                    weights.
-/// 
-/// 
-/// Note: Shrinked model has no origin float32 weights so it can't be used
-///       in origin Caffe framework anymore. However the structure of data
-///       is taken from NVidia's Caffe fork: https://github.com/NVIDIA/caffe.
-///       So the resulting model may be used there.
-/// 
 /// ## C++ default parameters
 /// * layers_types: std::vector<String>()
 #[inline]
@@ -1012,21 +670,6 @@ pub fn slice_3(m: &core::Mat, r0: &crate::dnn::_Range, r1: &crate::dnn::_Range, 
 	Ok(ret)
 }
 
-/// Performs soft non maximum suppression given boxes and corresponding scores.
-/// Reference: https://arxiv.org/abs/1704.04503
-/// ## Parameters
-/// * bboxes: a set of bounding boxes to apply Soft NMS.
-/// * scores: a set of corresponding confidences.
-/// * updated_scores: a set of corresponding updated confidences.
-/// * score_threshold: a threshold used to filter boxes by score.
-/// * nms_threshold: a threshold used in non maximum suppression.
-/// * indices: the kept indices of bboxes after NMS.
-/// * top_k: keep at most @p top_k picked indices.
-/// * sigma: parameter of Gaussian weighting.
-/// * method: Gaussian or linear.
-/// ## See also
-/// SoftNMSMethod
-/// 
 /// ## C++ default parameters
 /// * top_k: 0
 /// * sigma: 0.5
@@ -1052,13 +695,6 @@ pub fn total(shape: &crate::dnn::MatShape, start: i32, end: i32) -> Result<i32> 
 	Ok(ret)
 }
 
-/// Create a text representation for a binary network stored in protocol buffer format.
-/// ## Parameters
-/// * model: A path to binary network.
-/// * output: A path to output text file to be created.
-/// 
-/// 
-/// Note: To reduce output file size, trained weights are not included.
 #[inline]
 pub fn write_text_graph(model: &str, output: &str) -> Result<()> {
 	extern_container_arg!(model);
@@ -1598,9 +1234,6 @@ boxed_cast_base! { ActivationLayerInt8, core::Algorithm, cv_ActivationLayerInt8_
 
 boxed_cast_base! { ActivationLayerInt8, crate::dnn::Layer, cv_ActivationLayerInt8_to_Layer }
 
-/// ArgMax/ArgMin layer
-/// 
-/// Note: returns indices as floats, which means the supported range is [-2^24; 2^24]
 pub trait ArgLayerTraitConst: crate::dnn::LayerTraitConst {
 	fn as_raw_ArgLayer(&self) -> *const c_void;
 
@@ -1611,9 +1244,6 @@ pub trait ArgLayerTrait: crate::dnn::ArgLayerTraitConst + crate::dnn::LayerTrait
 
 }
 
-/// ArgMax/ArgMin layer
-/// 
-/// Note: returns indices as floats, which means the supported range is [-2^24; 2^24]
 pub struct ArgLayer {
 	ptr: *mut c_void
 }
@@ -2050,11 +1680,9 @@ boxed_cast_base! { BNLLLayer, core::Algorithm, cv_BNLLLayer_to_Algorithm }
 
 boxed_cast_base! { BNLLLayer, crate::dnn::Layer, cv_BNLLLayer_to_Layer }
 
-/// Derivatives of this class encapsulates functions of certain backends.
 pub trait BackendNodeTraitConst {
 	fn as_raw_BackendNode(&self) -> *const c_void;
 
-	/// Backend identifier.
 	#[inline]
 	fn backend_id(&self) -> i32 {
 		let ret = unsafe { sys::cv_dnn_BackendNode_getPropBackendId_const(self.as_raw_BackendNode()) };
@@ -2066,7 +1694,6 @@ pub trait BackendNodeTraitConst {
 pub trait BackendNodeTrait: crate::dnn::BackendNodeTraitConst {
 	fn as_raw_mut_BackendNode(&mut self) -> *mut c_void;
 
-	/// Backend identifier.
 	#[inline]
 	fn set_backend_id(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_dnn_BackendNode_setPropBackendId_int(self.as_raw_mut_BackendNode(), val) };
@@ -2075,7 +1702,6 @@ pub trait BackendNodeTrait: crate::dnn::BackendNodeTraitConst {
 	
 }
 
-/// Derivatives of this class encapsulates functions of certain backends.
 pub struct BackendNode {
 	ptr: *mut c_void
 }
@@ -2102,18 +1728,15 @@ impl crate::dnn::BackendNodeTrait for BackendNode {
 impl BackendNode {
 }
 
-/// Derivatives of this class wraps cv::Mat for different backends and targets.
 pub trait BackendWrapperConst {
 	fn as_raw_BackendWrapper(&self) -> *const c_void;
 
-	/// Backend identifier.
 	#[inline]
 	fn backend_id(&self) -> i32 {
 		let ret = unsafe { sys::cv_dnn_BackendWrapper_getPropBackendId_const(self.as_raw_BackendWrapper()) };
 		ret
 	}
 	
-	/// Target identifier.
 	#[inline]
 	fn target_id(&self) -> i32 {
 		let ret = unsafe { sys::cv_dnn_BackendWrapper_getPropTargetId_const(self.as_raw_BackendWrapper()) };
@@ -2125,21 +1748,18 @@ pub trait BackendWrapperConst {
 pub trait BackendWrapper: crate::dnn::BackendWrapperConst {
 	fn as_raw_mut_BackendWrapper(&mut self) -> *mut c_void;
 
-	/// Backend identifier.
 	#[inline]
 	fn set_backend_id(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_dnn_BackendWrapper_setPropBackendId_int(self.as_raw_mut_BackendWrapper(), val) };
 		ret
 	}
 	
-	/// Target identifier.
 	#[inline]
 	fn set_target_id(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_dnn_BackendWrapper_setPropTargetId_int(self.as_raw_mut_BackendWrapper(), val) };
 		ret
 	}
 	
-	/// Transfer data to CPU host memory.
 	#[inline]
 	fn copy_to_host(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2149,7 +1769,6 @@ pub trait BackendWrapper: crate::dnn::BackendWrapperConst {
 		Ok(ret)
 	}
 	
-	/// Indicate that an actual data is on CPU.
 	#[inline]
 	fn set_host_dirty(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -2637,25 +2256,6 @@ boxed_cast_base! { BatchNormLayerInt8, crate::dnn::BatchNormLayer, cv_BatchNormL
 
 boxed_cast_base! { BatchNormLayerInt8, crate::dnn::Layer, cv_BatchNormLayerInt8_to_Layer }
 
-/// # Partial List of Implemented Layers
-/// This subsection of dnn module contains information about built-in layers and their descriptions.
-/// 
-/// Classes listed here, in fact, provides C++ API for creating instances of built-in layers.
-/// In addition to this way of layers instantiation, there is a more common factory API (see @ref dnnLayerFactory), it allows to create layers dynamically (by name) and register new ones.
-/// You can use both API, but factory API is less convenient for native C++ programming and basically designed for use inside importers (see @ref readNetFromCaffe(), @ref readNetFromTorch(), @ref readNetFromTensorflow()).
-/// 
-/// Built-in layers partially reproduce functionality of corresponding Caffe and Torch7 layers.
-/// In particular, the following layers and Caffe importer were tested to reproduce <a href="http://caffe.berkeleyvision.org/tutorial/layers.html">Caffe</a> functionality:
-/// - Convolution
-/// - Deconvolution
-/// - Pooling
-/// - InnerProduct
-/// - TanH, ReLU, Sigmoid, BNLL, Power, AbsVal
-/// - Softmax
-/// - Reshape, Flatten, Slice, Split
-/// - LRN
-/// - MVN
-/// - Dropout (since it does nothing on forward pass -))
 pub trait BlankLayerTraitConst: crate::dnn::LayerTraitConst {
 	fn as_raw_BlankLayer(&self) -> *const c_void;
 
@@ -2666,25 +2266,6 @@ pub trait BlankLayerTrait: crate::dnn::BlankLayerTraitConst + crate::dnn::LayerT
 
 }
 
-/// # Partial List of Implemented Layers
-/// This subsection of dnn module contains information about built-in layers and their descriptions.
-/// 
-/// Classes listed here, in fact, provides C++ API for creating instances of built-in layers.
-/// In addition to this way of layers instantiation, there is a more common factory API (see @ref dnnLayerFactory), it allows to create layers dynamically (by name) and register new ones.
-/// You can use both API, but factory API is less convenient for native C++ programming and basically designed for use inside importers (see @ref readNetFromCaffe(), @ref readNetFromTorch(), @ref readNetFromTensorflow()).
-/// 
-/// Built-in layers partially reproduce functionality of corresponding Caffe and Torch7 layers.
-/// In particular, the following layers and Caffe importer were tested to reproduce <a href="http://caffe.berkeleyvision.org/tutorial/layers.html">Caffe</a> functionality:
-/// - Convolution
-/// - Deconvolution
-/// - Pooling
-/// - InnerProduct
-/// - TanH, ReLU, Sigmoid, BNLL, Power, AbsVal
-/// - Softmax
-/// - Reshape, Flatten, Slice, Split
-/// - LRN
-/// - MVN
-/// - Dropout (since it does nothing on forward pass -))
 pub struct BlankLayer {
 	ptr: *mut c_void
 }
@@ -2981,17 +2562,9 @@ boxed_cast_base! { ChannelsPReLULayer, core::Algorithm, cv_ChannelsPReLULayer_to
 
 boxed_cast_base! { ChannelsPReLULayer, crate::dnn::Layer, cv_ChannelsPReLULayer_to_Layer }
 
-/// This class represents high-level API for classification models.
-/// 
-/// ClassificationModel allows to set params for preprocessing input image.
-/// ClassificationModel creates net from file with trained weights and config,
-/// sets preprocessing input, runs forward pass and return top-1 prediction.
 pub trait ClassificationModelTraitConst: crate::dnn::ModelTraitConst {
 	fn as_raw_ClassificationModel(&self) -> *const c_void;
 
-	/// Get enable/disable softmax post processing option.
-	/// 
-	/// This option defaults to false, softmax post processing is not applied within the classify() function.
 	#[inline]
 	fn get_enable_softmax_post_processing(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -3006,14 +2579,6 @@ pub trait ClassificationModelTraitConst: crate::dnn::ModelTraitConst {
 pub trait ClassificationModelTrait: crate::dnn::ClassificationModelTraitConst + crate::dnn::ModelTrait {
 	fn as_raw_mut_ClassificationModel(&mut self) -> *mut c_void;
 
-	/// Set enable/disable softmax post processing option.
-	/// 
-	/// If this option is true, softmax is applied after forward inference within the classify() function
-	/// to convert the confidences range to [0.0-1.0].
-	/// This function allows you to toggle this behavior.
-	/// Please turn true when not contain softmax layer in model.
-	/// ## Parameters
-	/// * enable: Set enable softmax post processing within the classify() function.
 	#[inline]
 	fn set_enable_softmax_post_processing(&mut self, enable: bool) -> Result<crate::dnn::ClassificationModel> {
 		return_send!(via ocvrs_return);
@@ -3024,11 +2589,6 @@ pub trait ClassificationModelTrait: crate::dnn::ClassificationModelTraitConst + 
 		Ok(ret)
 	}
 	
-	/// Given the @p input frame, create input blob, run net and return top-1 prediction.
-	/// ## Parameters
-	/// * frame: The input image.
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn classify(&mut self, frame: &dyn core::ToInputArray, class_id: &mut i32, conf: &mut f32) -> Result<()> {
 		input_array_arg!(frame);
@@ -3041,11 +2601,6 @@ pub trait ClassificationModelTrait: crate::dnn::ClassificationModelTraitConst + 
 	
 }
 
-/// This class represents high-level API for classification models.
-/// 
-/// ClassificationModel allows to set params for preprocessing input image.
-/// ClassificationModel creates net from file with trained weights and config,
-/// sets preprocessing input, runs forward pass and return top-1 prediction.
 pub struct ClassificationModel {
 	ptr: *mut c_void
 }
@@ -3088,12 +2643,6 @@ impl ClassificationModel {
 		Ok(ret)
 	}
 	
-	/// Create classification model from network represented in one of the supported formats.
-	/// An order of @p model and @p config arguments does not matter.
-	/// ## Parameters
-	/// * model: Binary file contains trained weights.
-	/// * config: Text file contains network configuration.
-	/// 
 	/// ## C++ default parameters
 	/// * config: ""
 	#[inline]
@@ -3108,9 +2657,6 @@ impl ClassificationModel {
 		Ok(ret)
 	}
 	
-	/// Create model from deep learning network.
-	/// ## Parameters
-	/// * network: Net object.
 	#[inline]
 	pub fn new_1(network: &crate::dnn::Net) -> Result<crate::dnn::ClassificationModel> {
 		return_send!(via ocvrs_return);
@@ -3200,10 +2746,6 @@ pub trait ConcatLayerTraitConst: crate::dnn::LayerTraitConst {
 		ret
 	}
 	
-	/// Add zero padding in case of concatenation of blobs with different
-	/// spatial sizes.
-	/// 
-	/// Details: https://github.com/torch/nn/blob/master/doc/containers.md#depthconcat
 	#[inline]
 	fn padding(&self) -> bool {
 		let ret = unsafe { sys::cv_dnn_ConcatLayer_getPropPadding_const(self.as_raw_ConcatLayer()) };
@@ -3227,10 +2769,6 @@ pub trait ConcatLayerTrait: crate::dnn::ConcatLayerTraitConst + crate::dnn::Laye
 		ret
 	}
 	
-	/// Add zero padding in case of concatenation of blobs with different
-	/// spatial sizes.
-	/// 
-	/// Details: https://github.com/torch/nn/blob/master/doc/containers.md#depthconcat
 	#[inline]
 	fn set_padding(&mut self, val: bool) {
 		let ret = unsafe { sys::cv_dnn_ConcatLayer_setPropPadding_bool(self.as_raw_mut_ConcatLayer(), val) };
@@ -3301,7 +2839,6 @@ boxed_cast_base! { ConcatLayer, core::Algorithm, cv_ConcatLayer_to_Algorithm }
 
 boxed_cast_base! { ConcatLayer, crate::dnn::Layer, cv_ConcatLayer_to_Layer }
 
-/// Constant layer produces the same data blob at an every forward pass.
 pub trait ConstLayerTraitConst: crate::dnn::LayerTraitConst {
 	fn as_raw_ConstLayer(&self) -> *const c_void;
 
@@ -3312,7 +2849,6 @@ pub trait ConstLayerTrait: crate::dnn::ConstLayerTraitConst + crate::dnn::LayerT
 
 }
 
-/// Constant layer produces the same data blob at an every forward pass.
 pub struct ConstLayer {
 	ptr: *mut c_void
 }
@@ -4241,12 +3777,6 @@ boxed_cast_base! { DequantizeLayer, core::Algorithm, cv_DequantizeLayer_to_Algor
 
 boxed_cast_base! { DequantizeLayer, crate::dnn::Layer, cv_DequantizeLayer_to_Layer }
 
-/// This class represents high-level API for object detection networks.
-/// 
-/// DetectionModel allows to set params for preprocessing input image.
-/// DetectionModel creates net from file with trained weights and config,
-/// sets preprocessing input, runs forward pass and return result detections.
-/// For DetectionModel SSD, Faster R-CNN, YOLO topologies are supported.
 pub trait DetectionModelTraitConst: crate::dnn::ModelTraitConst {
 	fn as_raw_DetectionModel(&self) -> *const c_void;
 
@@ -4255,11 +3785,6 @@ pub trait DetectionModelTraitConst: crate::dnn::ModelTraitConst {
 pub trait DetectionModelTrait: crate::dnn::DetectionModelTraitConst + crate::dnn::ModelTrait {
 	fn as_raw_mut_DetectionModel(&mut self) -> *mut c_void;
 
-	/// nmsAcrossClasses defaults to false,
-	/// such that when non max suppression is used during the detect() function, it will do so per-class.
-	/// This function allows you to toggle this behaviour.
-	/// ## Parameters
-	/// * value: The new value for nmsAcrossClasses
 	#[inline]
 	fn set_nms_across_classes(&mut self, value: bool) -> Result<crate::dnn::DetectionModel> {
 		return_send!(via ocvrs_return);
@@ -4270,8 +3795,6 @@ pub trait DetectionModelTrait: crate::dnn::DetectionModelTraitConst + crate::dnn
 		Ok(ret)
 	}
 	
-	/// Getter for nmsAcrossClasses. This variable defaults to false,
-	/// such that when non max suppression is used during the detect() function, it will do so only per-class
 	#[inline]
 	fn get_nms_across_classes(&mut self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -4281,15 +3804,6 @@ pub trait DetectionModelTrait: crate::dnn::DetectionModelTraitConst + crate::dnn
 		Ok(ret)
 	}
 	
-	/// Given the @p input frame, create input blob, run net and return result detections.
-	/// ## Parameters
-	/// * frame: The input image.
-	/// * classIds:[out] Class indexes in result detection.
-	/// * confidences:[out] A set of corresponding confidences.
-	/// * boxes:[out] A set of bounding boxes.
-	/// * confThreshold: A threshold used to filter boxes by confidences.
-	/// * nmsThreshold: A threshold used in non maximum suppression.
-	/// 
 	/// ## C++ default parameters
 	/// * conf_threshold: 0.5f
 	/// * nms_threshold: 0.0f
@@ -4305,12 +3819,6 @@ pub trait DetectionModelTrait: crate::dnn::DetectionModelTraitConst + crate::dnn
 	
 }
 
-/// This class represents high-level API for object detection networks.
-/// 
-/// DetectionModel allows to set params for preprocessing input image.
-/// DetectionModel creates net from file with trained weights and config,
-/// sets preprocessing input, runs forward pass and return result detections.
-/// For DetectionModel SSD, Faster R-CNN, YOLO topologies are supported.
 pub struct DetectionModel {
 	ptr: *mut c_void
 }
@@ -4343,12 +3851,6 @@ impl crate::dnn::DetectionModelTrait for DetectionModel {
 }
 
 impl DetectionModel {
-	/// Create detection model from network represented in one of the supported formats.
-	/// An order of @p model and @p config arguments does not matter.
-	/// ## Parameters
-	/// * model: Binary file contains trained weights.
-	/// * config: Text file contains network configuration.
-	/// 
 	/// ## C++ default parameters
 	/// * config: ""
 	#[inline]
@@ -4363,9 +3865,6 @@ impl DetectionModel {
 		Ok(ret)
 	}
 	
-	/// Create model from deep learning network.
-	/// ## Parameters
-	/// * network: Net object.
 	#[inline]
 	pub fn new_1(network: &crate::dnn::Net) -> Result<crate::dnn::DetectionModel> {
 		return_send!(via ocvrs_return);
@@ -4390,12 +3889,6 @@ impl DetectionModel {
 
 boxed_cast_base! { DetectionModel, crate::dnn::Model, cv_DetectionModel_to_Model }
 
-/// Detection output layer.
-/// 
-/// The layer size is: @f$ (1 \times 1 \times N \times 7) @f$
-///    where N is [keep_top_k] parameter multiplied by batch size. Each row is:
-///    [image_id, label, confidence, xmin, ymin, xmax, ymax]
-///    where image_id is the index of image input in the batch.
 pub trait DetectionOutputLayerTraitConst: crate::dnn::LayerTraitConst {
 	fn as_raw_DetectionOutputLayer(&self) -> *const c_void;
 
@@ -4406,12 +3899,6 @@ pub trait DetectionOutputLayerTrait: crate::dnn::DetectionOutputLayerTraitConst 
 
 }
 
-/// Detection output layer.
-/// 
-/// The layer size is: @f$ (1 \times 1 \times N \times 7) @f$
-///    where N is [keep_top_k] parameter multiplied by batch size. Each row is:
-///    [image_id, label, confidence, xmin, ymin, xmax, ymax]
-///    where image_id is the index of image input in the batch.
 pub struct DetectionOutputLayer {
 	ptr: *mut c_void
 }
@@ -4468,11 +3955,9 @@ boxed_cast_base! { DetectionOutputLayer, core::Algorithm, cv_DetectionOutputLaye
 
 boxed_cast_base! { DetectionOutputLayer, crate::dnn::Layer, cv_DetectionOutputLayer_to_Layer }
 
-/// This class implements name-value dictionary, values are instances of DictValue.
 pub trait DictTraitConst {
 	fn as_raw_Dict(&self) -> *const c_void;
 
-	/// Checks a presence of the @p key in the dictionary.
 	#[inline]
 	fn has(&self, key: &str) -> Result<bool> {
 		extern_container_arg!(key);
@@ -4483,9 +3968,6 @@ pub trait DictTraitConst {
 		Ok(ret)
 	}
 	
-	/// If the @p key in the dictionary then returns pointer to its value, else returns NULL.
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	unsafe fn ptr(&self, key: &str) -> Result<crate::dnn::DictValue> {
 		extern_container_arg!(key);
@@ -4497,7 +3979,6 @@ pub trait DictTraitConst {
 		Ok(ret)
 	}
 	
-	/// If the @p key in the dictionary then returns its value, else an error will be generated.
 	#[inline]
 	fn get(&self, key: &str) -> Result<crate::dnn::DictValue> {
 		extern_container_arg!(key);
@@ -4514,7 +3995,6 @@ pub trait DictTraitConst {
 pub trait DictTrait: crate::dnn::DictTraitConst {
 	fn as_raw_mut_Dict(&mut self) -> *mut c_void;
 
-	/// If the @p key in the dictionary then returns pointer to its value, else returns NULL.
 	#[inline]
 	unsafe fn ptr_mut(&mut self, key: &str) -> Result<crate::dnn::DictValue> {
 		extern_container_arg!(key);
@@ -4526,7 +4006,6 @@ pub trait DictTrait: crate::dnn::DictTraitConst {
 		Ok(ret)
 	}
 	
-	/// Sets new @p value for the @p key, or adds new key-value pair into the dictionary.
 	#[inline]
 	fn set_str(&mut self, key: &str, value: &str) -> Result<String> {
 		extern_container_arg!(key);
@@ -4539,7 +4018,6 @@ pub trait DictTrait: crate::dnn::DictTraitConst {
 		Ok(ret)
 	}
 	
-	/// Sets new @p value for the @p key, or adds new key-value pair into the dictionary.
 	#[inline]
 	fn set(&mut self, key: &str, value: &crate::dnn::DictValue) -> Result<crate::dnn::DictValue> {
 		extern_container_arg!(key);
@@ -4551,7 +4029,6 @@ pub trait DictTrait: crate::dnn::DictTraitConst {
 		Ok(ret)
 	}
 	
-	/// Sets new @p value for the @p key, or adds new key-value pair into the dictionary.
 	#[inline]
 	fn set_f64(&mut self, key: &str, value: &f64) -> Result<f64> {
 		extern_container_arg!(key);
@@ -4562,7 +4039,6 @@ pub trait DictTrait: crate::dnn::DictTraitConst {
 		Ok(ret)
 	}
 	
-	/// Sets new @p value for the @p key, or adds new key-value pair into the dictionary.
 	#[inline]
 	fn set_i64(&mut self, key: &str, value: &i64) -> Result<i64> {
 		extern_container_arg!(key);
@@ -4573,7 +4049,6 @@ pub trait DictTrait: crate::dnn::DictTraitConst {
 		Ok(ret)
 	}
 	
-	/// Erase @p key from the dictionary.
 	#[inline]
 	fn erase(&mut self, key: &str) -> Result<()> {
 		extern_container_arg!(key);
@@ -4586,7 +4061,6 @@ pub trait DictTrait: crate::dnn::DictTraitConst {
 	
 }
 
-/// This class implements name-value dictionary, values are instances of DictValue.
 pub struct Dict {
 	ptr: *mut c_void
 }
@@ -4613,8 +4087,6 @@ impl crate::dnn::DictTrait for Dict {
 impl Dict {
 }
 
-/// This struct stores the scalar value (or array) of one of the following type: double, cv::String or int64.
-/// @todo Maybe int64 is useless because double type exactly stores at least 2^52 integers.
 pub trait DictValueTraitConst {
 	fn as_raw_DictValue(&self) -> *const c_void;
 
@@ -4740,8 +4212,6 @@ pub trait DictValueTrait: crate::dnn::DictValueTraitConst {
 
 }
 
-/// This struct stores the scalar value (or array) of one of the following type: double, cv::String or int64.
-/// @todo Maybe int64 is useless because double type exactly stores at least 2^52 integers.
 pub struct DictValue {
 	ptr: *mut c_void
 }
@@ -4929,12 +4399,6 @@ boxed_cast_base! { ELULayer, core::Algorithm, cv_ELULayer_to_Algorithm }
 
 boxed_cast_base! { ELULayer, crate::dnn::Layer, cv_ELULayer_to_Layer }
 
-/// Element wise operation on inputs
-/// 
-/// Extra optional parameters:
-/// - "operation" as string. Values are "sum" (default), "prod", "max", "div", "min"
-/// - "coeff" as float array. Specify weights of inputs for SUM operation
-/// - "output_channels_mode" as string. Values are "same" (default, all input must have the same layout), "input_0", "input_0_truncate", "max_input_channels"
 pub trait EltwiseLayerTraitConst: crate::dnn::LayerTraitConst {
 	fn as_raw_EltwiseLayer(&self) -> *const c_void;
 
@@ -4945,12 +4409,6 @@ pub trait EltwiseLayerTrait: crate::dnn::EltwiseLayerTraitConst + crate::dnn::La
 
 }
 
-/// Element wise operation on inputs
-/// 
-/// Extra optional parameters:
-/// - "operation" as string. Values are "sum" (default), "prod", "max", "div", "min"
-/// - "coeff" as float array. Specify weights of inputs for SUM operation
-/// - "output_channels_mode" as string. Values are "same" (default, all input must have the same layout), "input_0", "input_0_truncate", "max_input_channels"
 pub struct EltwiseLayer {
 	ptr: *mut c_void
 }
@@ -5469,32 +4927,6 @@ boxed_cast_base! { FlowWarpLayer, core::Algorithm, cv_FlowWarpLayer_to_Algorithm
 
 boxed_cast_base! { FlowWarpLayer, crate::dnn::Layer, cv_FlowWarpLayer_to_Layer }
 
-/// GRU recurrent one-layer
-/// 
-/// Accepts input sequence and computes the final hidden state for each element in the batch.
-/// 
-/// - input[0] containing the features of the input sequence.
-/// input[0] should have shape [`T`, `N`, `data_dims`] where `T` is sequence length, `N` is batch size, `data_dims` is input size
-/// - output would have shape [`T`, `N`, `D` * `hidden_size`] where `D = 2` if layer is bidirectional otherwise `D = 1`
-/// 
-/// Depends on the following attributes:
-/// - hidden_size - Number of neurons in the hidden layer
-/// - direction - RNN could be bidirectional or forward
-/// 
-/// The final hidden state @f$ h_t @f$ computes by the following formulas:
-/// 
-///   @f{eqnarray*}{
-///   r_t = \sigma(W_{ir} x_t + b_{ir} + W_{hr} h_{(t-1)} + b_{hr}) \\
-///   z_t = \sigma(W_{iz} x_t + b_{iz} + W_{hz} h_{(t-1)} + b_{hz}) \\
-///   n_t = \tanh(W_{in} x_t + b_{in} + r_t \odot (W_{hn} h_{(t-1)}+ b_{hn})) \\
-///   h_t = (1 - z_t) \odot n_t + z_t \odot h_{(t-1)} \\
-///   @f}
-/// Where @f$x_t@f$ is current input, @f$h_{(t-1)}@f$ is previous or initial hidden state.
-/// 
-/// @f$W_{x?}@f$, @f$W_{h?}@f$ and @f$b_{?}@f$ are learned weights represented as matrices:
-/// @f$W_{x?} \in R^{N_h \times N_x}@f$, @f$W_{h?} \in R^{N_h \times N_h}@f$, @f$b_? \in R^{N_h}@f$.
-/// 
-/// @f$\odot@f$ is per-element multiply operation.
 pub trait GRULayerTraitConst: crate::dnn::LayerTraitConst {
 	fn as_raw_GRULayer(&self) -> *const c_void;
 
@@ -5505,32 +4937,6 @@ pub trait GRULayerTrait: crate::dnn::GRULayerTraitConst + crate::dnn::LayerTrait
 
 }
 
-/// GRU recurrent one-layer
-/// 
-/// Accepts input sequence and computes the final hidden state for each element in the batch.
-/// 
-/// - input[0] containing the features of the input sequence.
-/// input[0] should have shape [`T`, `N`, `data_dims`] where `T` is sequence length, `N` is batch size, `data_dims` is input size
-/// - output would have shape [`T`, `N`, `D` * `hidden_size`] where `D = 2` if layer is bidirectional otherwise `D = 1`
-/// 
-/// Depends on the following attributes:
-/// - hidden_size - Number of neurons in the hidden layer
-/// - direction - RNN could be bidirectional or forward
-/// 
-/// The final hidden state @f$ h_t @f$ computes by the following formulas:
-/// 
-///   @f{eqnarray*}{
-///   r_t = \sigma(W_{ir} x_t + b_{ir} + W_{hr} h_{(t-1)} + b_{hr}) \\
-///   z_t = \sigma(W_{iz} x_t + b_{iz} + W_{hz} h_{(t-1)} + b_{hz}) \\
-///   n_t = \tanh(W_{in} x_t + b_{in} + r_t \odot (W_{hn} h_{(t-1)}+ b_{hn})) \\
-///   h_t = (1 - z_t) \odot n_t + z_t \odot h_{(t-1)} \\
-///   @f}
-/// Where @f$x_t@f$ is current input, @f$h_{(t-1)}@f$ is previous or initial hidden state.
-/// 
-/// @f$W_{x?}@f$, @f$W_{h?}@f$ and @f$b_{?}@f$ are learned weights represented as matrices:
-/// @f$W_{x?} \in R^{N_h \times N_x}@f$, @f$W_{h?} \in R^{N_h \times N_h}@f$, @f$b_? \in R^{N_h}@f$.
-/// 
-/// @f$\odot@f$ is per-element multiply operation.
 pub struct GRULayer {
 	ptr: *mut c_void
 }
@@ -5571,7 +4977,6 @@ impl crate::dnn::GRULayerTrait for GRULayer {
 }
 
 impl GRULayer {
-	/// Creates instance of GRU layer
 	#[inline]
 	pub fn create(params: &crate::dnn::LayerParams) -> Result<core::Ptr<crate::dnn::GRULayer>> {
 		return_send!(via ocvrs_return);
@@ -5966,9 +5371,6 @@ boxed_cast_base! { InnerProductLayerInt8, crate::dnn::InnerProductLayer, cv_Inne
 
 boxed_cast_base! { InnerProductLayerInt8, crate::dnn::Layer, cv_InnerProductLayerInt8_to_Layer }
 
-/// Bilinear resize layer from https://github.com/cdmh/deeplab-public-ver2
-/// 
-/// It differs from @ref ResizeLayer in output shape and resize scales computations.
 pub trait InterpLayerTraitConst: crate::dnn::LayerTraitConst {
 	fn as_raw_InterpLayer(&self) -> *const c_void;
 
@@ -5979,9 +5381,6 @@ pub trait InterpLayerTrait: crate::dnn::InterpLayerTraitConst + crate::dnn::Laye
 
 }
 
-/// Bilinear resize layer from https://github.com/cdmh/deeplab-public-ver2
-/// 
-/// It differs from @ref ResizeLayer in output shape and resize scales computations.
 pub struct InterpLayer {
 	ptr: *mut c_void
 }
@@ -6038,11 +5437,6 @@ boxed_cast_base! { InterpLayer, core::Algorithm, cv_InterpLayer_to_Algorithm }
 
 boxed_cast_base! { InterpLayer, crate::dnn::Layer, cv_InterpLayer_to_Layer }
 
-/// This class represents high-level API for keypoints models
-/// 
-/// KeypointsModel allows to set params for preprocessing input image.
-/// KeypointsModel creates net from file with trained weights and config,
-/// sets preprocessing input, runs forward pass and returns the x and y coordinates of each detected keypoint
 pub trait KeypointsModelTraitConst: crate::dnn::ModelTraitConst {
 	fn as_raw_KeypointsModel(&self) -> *const c_void;
 
@@ -6051,13 +5445,6 @@ pub trait KeypointsModelTraitConst: crate::dnn::ModelTraitConst {
 pub trait KeypointsModelTrait: crate::dnn::KeypointsModelTraitConst + crate::dnn::ModelTrait {
 	fn as_raw_mut_KeypointsModel(&mut self) -> *mut c_void;
 
-	/// Given the @p input frame, create input blob, run net
-	/// ## Parameters
-	/// * frame: The input image.
-	/// * thresh: minimum confidence threshold to select a keypoint
-	/// ## Returns
-	/// a vector holding the x and y coordinates of each detected keypoint
-	/// 
 	/// ## C++ default parameters
 	/// * thresh: 0.5
 	#[inline]
@@ -6073,11 +5460,6 @@ pub trait KeypointsModelTrait: crate::dnn::KeypointsModelTraitConst + crate::dnn
 	
 }
 
-/// This class represents high-level API for keypoints models
-/// 
-/// KeypointsModel allows to set params for preprocessing input image.
-/// KeypointsModel creates net from file with trained weights and config,
-/// sets preprocessing input, runs forward pass and returns the x and y coordinates of each detected keypoint
 pub struct KeypointsModel {
 	ptr: *mut c_void
 }
@@ -6110,12 +5492,6 @@ impl crate::dnn::KeypointsModelTrait for KeypointsModel {
 }
 
 impl KeypointsModel {
-	/// Create keypoints model from network represented in one of the supported formats.
-	/// An order of @p model and @p config arguments does not matter.
-	/// ## Parameters
-	/// * model: Binary file contains trained weights.
-	/// * config: Text file contains network configuration.
-	/// 
 	/// ## C++ default parameters
 	/// * config: ""
 	#[inline]
@@ -6130,9 +5506,6 @@ impl KeypointsModel {
 		Ok(ret)
 	}
 	
-	/// Create model from deep learning network.
-	/// ## Parameters
-	/// * network: Net object.
 	#[inline]
 	pub fn new_1(network: &crate::dnn::Net) -> Result<crate::dnn::KeypointsModel> {
 		return_send!(via ocvrs_return);
@@ -6285,7 +5658,6 @@ boxed_cast_base! { LRNLayer, core::Algorithm, cv_LRNLayer_to_Algorithm }
 
 boxed_cast_base! { LRNLayer, crate::dnn::Layer, cv_LRNLayer_to_Layer }
 
-/// LSTM recurrent layer
 pub trait LSTMLayerConst: crate::dnn::LayerTraitConst {
 	fn as_raw_LSTMLayer(&self) -> *const c_void;
 
@@ -6294,40 +5666,6 @@ pub trait LSTMLayerConst: crate::dnn::LayerTraitConst {
 pub trait LSTMLayer: crate::dnn::LSTMLayerConst + crate::dnn::LayerTrait {
 	fn as_raw_mut_LSTMLayer(&mut self) -> *mut c_void;
 
-	/// 
-	/// **Deprecated**: Use LayerParams::blobs instead.
-	/// Set trained weights for LSTM layer.
-	/// 
-	/// LSTM behavior on each step is defined by current input, previous output, previous cell state and learned weights.
-	/// 
-	/// Let @f$x_t@f$ be current input, @f$h_t@f$ be current output, @f$c_t@f$ be current state.
-	/// Than current output and current cell state is computed as follows:
-	/// @f{eqnarray*}{
-	/// h_t &= o_t \odot tanh(c_t),               \\
-	/// c_t &= f_t \odot c_{t-1} + i_t \odot g_t, \\
-	/// @f}
-	/// where @f$\odot@f$ is per-element multiply operation and @f$i_t, f_t, o_t, g_t@f$ is internal gates that are computed using learned weights.
-	/// 
-	/// Gates are computed as follows:
-	/// @f{eqnarray*}{
-	/// i_t &= sigmoid&(W_{xi} x_t + W_{hi} h_{t-1} + b_i), \\
-	/// f_t &= sigmoid&(W_{xf} x_t + W_{hf} h_{t-1} + b_f), \\
-	/// o_t &= sigmoid&(W_{xo} x_t + W_{ho} h_{t-1} + b_o), \\
-	/// g_t &= tanh   &(W_{xg} x_t + W_{hg} h_{t-1} + b_g), \\
-	/// @f}
-	/// where @f$W_{x?}@f$, @f$W_{h?}@f$ and @f$b_{?}@f$ are learned weights represented as matrices:
-	/// @f$W_{x?} \in R^{N_h \times N_x}@f$, @f$W_{h?} \in R^{N_h \times N_h}@f$, @f$b_? \in R^{N_h}@f$.
-	/// 
-	/// For simplicity and performance purposes we use @f$ W_x = [W_{xi}; W_{xf}; W_{xo}, W_{xg}] @f$
-	/// (i.e. @f$W_x@f$ is vertical concatenation of @f$ W_{x?} @f$), @f$ W_x \in R^{4N_h \times N_x} @f$.
-	/// The same for @f$ W_h = [W_{hi}; W_{hf}; W_{ho}, W_{hg}], W_h \in R^{4N_h \times N_h} @f$
-	/// and for @f$ b = [b_i; b_f, b_o, b_g]@f$, @f$b \in R^{4N_h} @f$.
-	/// 
-	/// ## Parameters
-	/// * Wh: is matrix defining how previous output is transformed to internal gates (i.e. according to above mentioned notation is @f$ W_h @f$)
-	/// * Wx: is matrix defining how current input is transformed to internal gates (i.e. according to above mentioned notation is @f$ W_x @f$)
-	/// * b: is bias vector (i.e. according to above mentioned notation is @f$ b @f$)
-	#[deprecated = "Use LayerParams::blobs instead."]
 	#[inline]
 	fn set_weights(&mut self, wh: &core::Mat, wx: &core::Mat, b: &core::Mat) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -6337,10 +5675,6 @@ pub trait LSTMLayer: crate::dnn::LSTMLayerConst + crate::dnn::LayerTrait {
 		Ok(ret)
 	}
 	
-	/// Specifies shape of output blob which will be [[`T`], `N`] + @p outTailShape.
-	/// @details If this parameter is empty or unset then @p outTailShape = [`Wh`.size(0)] will be used,
-	/// where `Wh` is parameter from setWeights().
-	/// 
 	/// ## C++ default parameters
 	/// * out_tail_shape: MatShape()
 	#[inline]
@@ -6352,19 +5686,8 @@ pub trait LSTMLayer: crate::dnn::LSTMLayerConst + crate::dnn::LayerTrait {
 		Ok(ret)
 	}
 	
-	/// 
-	/// **Deprecated**: Use flag `produce_cell_output` in LayerParams.
-	/// Specifies either interpret first dimension of input blob as timestamp dimension either as sample.
-	/// 
-	/// If flag is set to true then shape of input blob will be interpreted as [`T`, `N`, `[data dims]`] where `T` specifies number of timestamps, `N` is number of independent streams.
-	/// In this case each forward() call will iterate through `T` timestamps and update layer's state `T` times.
-	/// 
-	/// If flag is set to false then shape of input blob will be interpreted as [`N`, `[data dims]`].
-	/// In this case each forward() call will make one iteration and produce one timestamp with shape [`N`, `[out dims]`].
-	/// 
 	/// ## C++ default parameters
 	/// * use_: true
-	#[deprecated = "Use flag `produce_cell_output` in LayerParams."]
 	#[inline]
 	fn set_use_timstamps_dim(&mut self, use_: bool) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -6374,14 +5697,8 @@ pub trait LSTMLayer: crate::dnn::LSTMLayerConst + crate::dnn::LayerTrait {
 		Ok(ret)
 	}
 	
-	/// 
-	/// **Deprecated**: Use flag `use_timestamp_dim` in LayerParams.
-	/// If this flag is set to true then layer will produce @f$ c_t @f$ as second output.
-	/// @details Shape of the second output is the same as first output.
-	/// 
 	/// ## C++ default parameters
 	/// * produce: false
-	#[deprecated = "Use flag `use_timestamp_dim` in LayerParams."]
 	#[inline]
 	fn set_produce_cell_output(&mut self, produce: bool) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -6414,7 +5731,6 @@ pub trait LSTMLayer: crate::dnn::LSTMLayerConst + crate::dnn::LayerTrait {
 }
 
 impl dyn LSTMLayer + '_ {
-	/// Creates instance of LSTM layer
 	#[inline]
 	pub fn create(params: &crate::dnn::LayerParams) -> Result<core::Ptr<dyn crate::dnn::LSTMLayer>> {
 		return_send!(via ocvrs_return);
@@ -6426,14 +5742,9 @@ impl dyn LSTMLayer + '_ {
 	}
 	
 }
-/// This interface class allows to build new Layers - are building blocks of networks.
-/// 
-/// Each class, derived from Layer, must implement allocate() methods to declare own outputs and forward() to compute outputs.
-/// Also before using the new layer into networks you must register your layer by using one of @ref dnnLayerFactory "LayerFactory" macros.
 pub trait LayerTraitConst: core::AlgorithmTraitConst {
 	fn as_raw_Layer(&self) -> *const c_void;
 
-	/// List of learned parameters must be stored here to allow read them by using Net::getParam().
 	#[inline]
 	fn blobs(&self) -> core::Vector<core::Mat> {
 		let ret = unsafe { sys::cv_dnn_Layer_getPropBlobs_const(self.as_raw_Layer()) };
@@ -6441,7 +5752,6 @@ pub trait LayerTraitConst: core::AlgorithmTraitConst {
 		ret
 	}
 	
-	/// Name of the layer instance, can be used for logging or other internal purposes.
 	#[inline]
 	fn name(&self) -> String {
 		let ret = unsafe { sys::cv_dnn_Layer_getPropName_const(self.as_raw_Layer()) };
@@ -6449,7 +5759,6 @@ pub trait LayerTraitConst: core::AlgorithmTraitConst {
 		ret
 	}
 	
-	/// Type name which was used for creating layer by layer factory.
 	#[inline]
 	fn typ(&self) -> String {
 		let ret = unsafe { sys::cv_dnn_Layer_getPropType_const(self.as_raw_Layer()) };
@@ -6457,24 +5766,12 @@ pub trait LayerTraitConst: core::AlgorithmTraitConst {
 		ret
 	}
 	
-	/// prefer target for layer forwarding
 	#[inline]
 	fn preferable_target(&self) -> i32 {
 		let ret = unsafe { sys::cv_dnn_Layer_getPropPreferableTarget_const(self.as_raw_Layer()) };
 		ret
 	}
 	
-	/// Automatic Halide scheduling based on layer hyper-parameters.
-	/// ## Parameters
-	/// * node: Backend node with Halide functions.
-	/// * inputs: Blobs that will be used in forward invocations.
-	/// * outputs: Blobs that will be used in forward invocations.
-	/// * targetId: Target identifier
-	/// ## See also
-	/// BackendNode, Target
-	/// 
-	/// Layer don't use own Halide::Func members because we can have applied
-	/// layers fusing. In this way the fused function should be scheduled.
 	#[inline]
 	fn apply_halide_scheduler(&self, node: &mut core::Ptr<crate::dnn::BackendNode>, inputs: &core::Vector<core::Mat>, outputs: &core::Vector<core::Mat>, target_id: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -6484,18 +5781,6 @@ pub trait LayerTraitConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns parameters of layers with channel-wise multiplication and addition.
-	/// ## Parameters
-	/// * scale:[out] Channel-wise multipliers. Total number of values should
-	///                   be equal to number of channels.
-	/// * shift:[out] Channel-wise offsets. Total number of values should
-	///                   be equal to number of channels.
-	/// 
-	/// Some layers can fuse their transformations with further layers.
-	/// In example, convolution + batch normalization. This way base layer
-	/// use weights from layer after it. Fused layer is skipped.
-	/// By default, @p scale and @p shift are empty that means layer has no
-	/// element-wise multiplications or additions.
 	#[inline]
 	fn get_scale_shift(&self, scale: &mut core::Mat, shift: &mut core::Mat) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -6505,12 +5790,6 @@ pub trait LayerTraitConst: core::AlgorithmTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns scale and zeropoint of layers
-	/// ## Parameters
-	/// * scale:[out] Output scale
-	/// * zeropoint:[out] Output zeropoint
-	/// 
-	/// By default, @p scale is 1 and @p zeropoint is 0.
 	#[inline]
 	fn get_scale_zeropoint(&self, scale: &mut f32, zeropoint: &mut i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -6543,14 +5822,12 @@ pub trait LayerTraitConst: core::AlgorithmTraitConst {
 pub trait LayerTrait: core::AlgorithmTrait + crate::dnn::LayerTraitConst {
 	fn as_raw_mut_Layer(&mut self) -> *mut c_void;
 
-	/// List of learned parameters must be stored here to allow read them by using Net::getParam().
 	#[inline]
 	fn set_blobs(&mut self, mut val: core::Vector<core::Mat>) {
 		let ret = unsafe { sys::cv_dnn_Layer_setPropBlobs_vector_Mat_(self.as_raw_mut_Layer(), val.as_raw_mut_VectorOfMat()) };
 		ret
 	}
 	
-	/// Name of the layer instance, can be used for logging or other internal purposes.
 	#[inline]
 	fn set_name(&mut self, val: &str) {
 		extern_container_arg!(nofail mut val);
@@ -6558,7 +5835,6 @@ pub trait LayerTrait: core::AlgorithmTrait + crate::dnn::LayerTraitConst {
 		ret
 	}
 	
-	/// Type name which was used for creating layer by layer factory.
 	#[inline]
 	fn set_type(&mut self, val: &str) {
 		extern_container_arg!(nofail mut val);
@@ -6566,20 +5842,12 @@ pub trait LayerTrait: core::AlgorithmTrait + crate::dnn::LayerTraitConst {
 		ret
 	}
 	
-	/// prefer target for layer forwarding
 	#[inline]
 	fn set_preferable_target(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_dnn_Layer_setPropPreferableTarget_int(self.as_raw_mut_Layer(), val) };
 		ret
 	}
 	
-	/// Computes and sets internal parameters according to inputs, outputs and blobs.
-	/// ## Parameters
-	/// * inputs: vector of already allocated input blobs
-	/// * outputs:[out] vector of already allocated output blobs
-	/// 
-	/// If this method is called after network has allocated all memory for input and output blobs
-	/// and before inferencing.
 	#[inline]
 	fn finalize(&mut self, inputs: &dyn core::ToInputArray, outputs: &mut dyn core::ToOutputArray) -> Result<()> {
 		input_array_arg!(inputs);
@@ -6591,14 +5859,6 @@ pub trait LayerTrait: core::AlgorithmTrait + crate::dnn::LayerTraitConst {
 		Ok(ret)
 	}
 	
-	/// Given the @p input blobs, computes the output @p blobs.
-	/// 
-	/// **Deprecated**: Use Layer::forward(InputArrayOfArrays, OutputArrayOfArrays, OutputArrayOfArrays) instead
-	/// ## Parameters
-	/// * input: the input blobs.
-	/// * output:[out] allocated output blobs, which will store results of the computation.
-	/// * internals:[out] allocated internal blobs
-	#[deprecated = "Use Layer::forward(InputArrayOfArrays, OutputArrayOfArrays, OutputArrayOfArrays) instead"]
 	#[inline]
 	fn forward_mat(&mut self, input: &mut core::Vector<core::Mat>, output: &mut core::Vector<core::Mat>, internals: &mut core::Vector<core::Mat>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -6608,11 +5868,6 @@ pub trait LayerTrait: core::AlgorithmTrait + crate::dnn::LayerTraitConst {
 		Ok(ret)
 	}
 	
-	/// Given the @p input blobs, computes the output @p blobs.
-	/// ## Parameters
-	/// * inputs: the input blobs.
-	/// * outputs:[out] allocated output blobs, which will store results of the computation.
-	/// * internals:[out] allocated internal blobs
 	#[inline]
 	fn forward(&mut self, inputs: &dyn core::ToInputArray, outputs: &mut dyn core::ToOutputArray, internals: &mut dyn core::ToOutputArray) -> Result<()> {
 		input_array_arg!(inputs);
@@ -6625,13 +5880,6 @@ pub trait LayerTrait: core::AlgorithmTrait + crate::dnn::LayerTraitConst {
 		Ok(ret)
 	}
 	
-	/// Tries to quantize the given layer and compute the quantization parameters required for fixed point implementation.
-	/// ## Parameters
-	/// * scales: input and output scales.
-	/// * zeropoints: input and output zeropoints.
-	/// * params:[out] Quantized parameters required for fixed point implementation of that layer.
-	/// ## Returns
-	/// True if layer can be quantized.
 	#[inline]
 	fn try_quantize(&mut self, scales: &core::Vector<core::Vector<f32>>, zeropoints: &core::Vector<core::Vector<i32>>, params: &mut crate::dnn::LayerParams) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -6641,11 +5889,6 @@ pub trait LayerTrait: core::AlgorithmTrait + crate::dnn::LayerTraitConst {
 		Ok(ret)
 	}
 	
-	/// Given the @p input blobs, computes the output @p blobs.
-	/// ## Parameters
-	/// * inputs: the input blobs.
-	/// * outputs:[out] allocated output blobs, which will store results of the computation.
-	/// * internals:[out] allocated internal blobs
 	#[inline]
 	fn forward_fallback(&mut self, inputs: &dyn core::ToInputArray, outputs: &mut dyn core::ToOutputArray, internals: &mut dyn core::ToOutputArray) -> Result<()> {
 		input_array_arg!(inputs);
@@ -6658,20 +5901,6 @@ pub trait LayerTrait: core::AlgorithmTrait + crate::dnn::LayerTraitConst {
 		Ok(ret)
 	}
 	
-	/// 
-	///  Computes and sets internal parameters according to inputs, outputs and blobs.
-	/// ## Parameters
-	/// * inputs: vector of already allocated input blobs
-	/// * outputs:[out] vector of already allocated output blobs
-	/// 
-	/// If this method is called after network has allocated all memory for input and output blobs
-	/// and before inferencing.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// 
-	/// **Deprecated**: Use Layer::finalize(InputArrayOfArrays, OutputArrayOfArrays) instead
-	#[deprecated = "Use Layer::finalize(InputArrayOfArrays, OutputArrayOfArrays) instead"]
 	#[inline]
 	fn finalize_mat_to(&mut self, inputs: &core::Vector<core::Mat>, outputs: &mut core::Vector<core::Mat>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -6681,20 +5910,6 @@ pub trait LayerTrait: core::AlgorithmTrait + crate::dnn::LayerTraitConst {
 		Ok(ret)
 	}
 	
-	/// 
-	///  Computes and sets internal parameters according to inputs, outputs and blobs.
-	/// ## Parameters
-	/// * inputs: vector of already allocated input blobs
-	/// * outputs:[out] vector of already allocated output blobs
-	/// 
-	/// If this method is called after network has allocated all memory for input and output blobs
-	/// and before inferencing.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// 
-	/// **Deprecated**: Use Layer::finalize(InputArrayOfArrays, OutputArrayOfArrays) instead
-	#[deprecated = "Use Layer::finalize(InputArrayOfArrays, OutputArrayOfArrays) instead"]
 	#[inline]
 	fn finalize_mat(&mut self, inputs: &core::Vector<core::Mat>) -> Result<core::Vector<core::Mat>> {
 		return_send!(via ocvrs_return);
@@ -6705,10 +5920,6 @@ pub trait LayerTrait: core::AlgorithmTrait + crate::dnn::LayerTraitConst {
 		Ok(ret)
 	}
 	
-	/// Allocates layer and computes output.
-	/// 
-	/// **Deprecated**: This method will be removed in the future release.
-	#[deprecated = "This method will be removed in the future release."]
 	#[inline]
 	fn run(&mut self, inputs: &core::Vector<core::Mat>, outputs: &mut core::Vector<core::Mat>, internals: &mut core::Vector<core::Mat>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -6718,12 +5929,6 @@ pub trait LayerTrait: core::AlgorithmTrait + crate::dnn::LayerTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns index of input blob into the input array.
-	/// ## Parameters
-	/// * inputName: label of input blob
-	/// 
-	/// Each layer input and output can be labeled to easily identify them using "%<layer_name%>[.output_name]" notation.
-	/// This method maps label of input blob to its index into input vector.
 	#[inline]
 	fn input_name_to_index(&mut self, input_name: &str) -> Result<i32> {
 		extern_container_arg!(mut input_name);
@@ -6734,9 +5939,6 @@ pub trait LayerTrait: core::AlgorithmTrait + crate::dnn::LayerTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns index of output blob in output array.
-	/// ## See also
-	/// inputNameToIndex()
 	#[inline]
 	fn output_name_to_index(&mut self, output_name: &str) -> Result<i32> {
 		extern_container_arg!(output_name);
@@ -6747,11 +5949,6 @@ pub trait LayerTrait: core::AlgorithmTrait + crate::dnn::LayerTraitConst {
 		Ok(ret)
 	}
 	
-	/// Ask layer if it support specific backend for doing computations.
-	/// ## Parameters
-	/// * backendId: computation backend identifier.
-	/// ## See also
-	/// Backend
 	#[inline]
 	fn support_backend(&mut self, backend_id: i32) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -6761,16 +5958,6 @@ pub trait LayerTrait: core::AlgorithmTrait + crate::dnn::LayerTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns Halide backend node.
-	/// ## Parameters
-	/// * inputs: Input Halide buffers.
-	/// ## See also
-	/// BackendNode, BackendWrapper
-	/// 
-	/// Input buffers should be exactly the same that will be used in forward invocations.
-	/// Despite we can use Halide::ImageParam based on input shape only,
-	/// it helps prevent some memory management issues (if something wrong,
-	/// Halide tests will be failed).
 	#[inline]
 	fn init_halide(&mut self, inputs: &core::Vector<core::Ptr<dyn crate::dnn::BackendWrapper>>) -> Result<core::Ptr<crate::dnn::BackendNode>> {
 		return_send!(via ocvrs_return);
@@ -6811,12 +5998,6 @@ pub trait LayerTrait: core::AlgorithmTrait + crate::dnn::LayerTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns a CUDA backend node
-	/// 
-	/// ## Parameters
-	/// * context: void pointer to CSLContext object
-	/// * inputs: layer inputs
-	/// * outputs: layer outputs
 	#[inline]
 	unsafe fn init_cuda(&mut self, context: *mut c_void, inputs: &core::Vector<core::Ptr<dyn crate::dnn::BackendWrapper>>, outputs: &core::Vector<core::Ptr<dyn crate::dnn::BackendWrapper>>) -> Result<core::Ptr<crate::dnn::BackendNode>> {
 		return_send!(via ocvrs_return);
@@ -6827,13 +6008,6 @@ pub trait LayerTrait: core::AlgorithmTrait + crate::dnn::LayerTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns a TimVX backend node
-	/// 
-	/// ## Parameters
-	/// * timVxInfo: void pointer to CSLContext object
-	/// * inputsWrapper: layer inputs
-	/// * outputsWrapper: layer outputs
-	/// * isLast: if the node is the last one of the TimVX Graph.
 	#[inline]
 	unsafe fn init_tim_vx(&mut self, tim_vx_info: *mut c_void, inputs_wrapper: &core::Vector<core::Ptr<dyn crate::dnn::BackendWrapper>>, outputs_wrapper: &core::Vector<core::Ptr<dyn crate::dnn::BackendWrapper>>, is_last: bool) -> Result<core::Ptr<crate::dnn::BackendNode>> {
 		return_send!(via ocvrs_return);
@@ -6844,15 +6018,6 @@ pub trait LayerTrait: core::AlgorithmTrait + crate::dnn::LayerTraitConst {
 		Ok(ret)
 	}
 	
-	/// Implement layers fusing.
-	/// ## Parameters
-	/// * node: Backend node of bottom layer.
-	/// ## See also
-	/// BackendNode
-	/// 
-	/// Actual for graph-based backends. If layer attached successfully,
-	/// returns non-empty cv::Ptr to node of the same backend.
-	/// Fuse only over the last function.
 	#[inline]
 	fn try_attach(&mut self, node: &core::Ptr<crate::dnn::BackendNode>) -> Result<core::Ptr<crate::dnn::BackendNode>> {
 		return_send!(via ocvrs_return);
@@ -6863,11 +6028,6 @@ pub trait LayerTrait: core::AlgorithmTrait + crate::dnn::LayerTraitConst {
 		Ok(ret)
 	}
 	
-	/// Tries to attach to the layer the subsequent activation layer, i.e. do the layer fusion in a partial case.
-	/// ## Parameters
-	/// * layer: The subsequent activation layer.
-	/// 
-	/// Returns true if the activation layer has been attached successfully.
 	#[inline]
 	fn set_activation(&mut self, layer: &core::Ptr<crate::dnn::ActivationLayer>) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -6877,11 +6037,6 @@ pub trait LayerTrait: core::AlgorithmTrait + crate::dnn::LayerTraitConst {
 		Ok(ret)
 	}
 	
-	/// Try to fuse current layer with a next one
-	/// ## Parameters
-	/// * top: Next layer to be fused.
-	/// ## Returns
-	/// True if fusion was performed.
 	#[inline]
 	fn try_fuse(&mut self, top: &mut core::Ptr<crate::dnn::Layer>) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -6891,7 +6046,6 @@ pub trait LayerTrait: core::AlgorithmTrait + crate::dnn::LayerTraitConst {
 		Ok(ret)
 	}
 	
-	/// "Detaches" all the layers, attached to particular layer.
 	#[inline]
 	fn unset_attached(&mut self) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -6921,10 +6075,6 @@ pub trait LayerTrait: core::AlgorithmTrait + crate::dnn::LayerTraitConst {
 	
 }
 
-/// This interface class allows to build new Layers - are building blocks of networks.
-/// 
-/// Each class, derived from Layer, must implement allocate() methods to declare own outputs and forward() to compute outputs.
-/// Also before using the new layer into networks you must register your layer by using one of @ref dnnLayerFactory "LayerFactory" macros.
 pub struct Layer {
 	ptr: *mut c_void
 }
@@ -7071,7 +6221,6 @@ boxed_cast_descendant! { Layer, crate::dnn::SplitLayer, cv_Layer_to_SplitLayer }
 
 boxed_cast_base! { Layer, core::Algorithm, cv_Layer_to_Algorithm }
 
-/// %Layer factory allows to create instances of registered layers.
 pub trait LayerFactoryTraitConst {
 	fn as_raw_LayerFactory(&self) -> *const c_void;
 
@@ -7082,7 +6231,6 @@ pub trait LayerFactoryTrait: crate::dnn::LayerFactoryTraitConst {
 
 }
 
-/// %Layer factory allows to create instances of registered layers.
 pub struct LayerFactory {
 	ptr: *mut c_void
 }
@@ -7107,7 +6255,6 @@ impl crate::dnn::LayerFactoryTrait for LayerFactory {
 }
 
 impl LayerFactory {
-	/// Registers the layer class with typename @p type and specified @p constructor. Thread-safe.
 	#[inline]
 	pub fn register_layer(typ: &str, constructor: crate::dnn::LayerFactory_Constructor) -> Result<()> {
 		extern_container_arg!(typ);
@@ -7118,7 +6265,6 @@ impl LayerFactory {
 		Ok(ret)
 	}
 	
-	/// Unregisters registered layer with specified type name. Thread-safe.
 	#[inline]
 	pub fn unregister_layer(typ: &str) -> Result<()> {
 		extern_container_arg!(typ);
@@ -7129,7 +6275,6 @@ impl LayerFactory {
 		Ok(ret)
 	}
 	
-	/// Check if layer is registered.
 	#[inline]
 	pub fn is_layer_registered(typ: &str) -> Result<bool> {
 		extern_container_arg!(typ);
@@ -7140,12 +6285,6 @@ impl LayerFactory {
 		Ok(ret)
 	}
 	
-	/// Creates instance of registered layer.
-	/// ## Parameters
-	/// * type: type name of creating layer.
-	/// * params: parameters which will be used for layer initialization.
-	/// 
-	/// Note: Thread-safe.
 	#[inline]
 	pub fn create_layer_instance(typ: &str, params: &mut crate::dnn::LayerParams) -> Result<core::Ptr<crate::dnn::Layer>> {
 		extern_container_arg!(typ);
@@ -7159,14 +6298,9 @@ impl LayerFactory {
 	
 }
 
-/// This class provides all data needed to initialize layer.
-/// 
-/// It includes dictionary with scalar params (which can be read by using Dict interface),
-/// blob params #blobs and optional meta information: #name and #type of layer instance.
 pub trait LayerParamsTraitConst: crate::dnn::DictTraitConst {
 	fn as_raw_LayerParams(&self) -> *const c_void;
 
-	/// List of learned parameters stored as blobs.
 	#[inline]
 	fn blobs(&self) -> core::Vector<core::Mat> {
 		let ret = unsafe { sys::cv_dnn_LayerParams_getPropBlobs_const(self.as_raw_LayerParams()) };
@@ -7174,7 +6308,6 @@ pub trait LayerParamsTraitConst: crate::dnn::DictTraitConst {
 		ret
 	}
 	
-	/// Name of the layer instance (optional, can be used internal purposes).
 	#[inline]
 	fn name(&self) -> String {
 		let ret = unsafe { sys::cv_dnn_LayerParams_getPropName_const(self.as_raw_LayerParams()) };
@@ -7182,7 +6315,6 @@ pub trait LayerParamsTraitConst: crate::dnn::DictTraitConst {
 		ret
 	}
 	
-	/// Type name which was used for creating layer by layer factory (optional).
 	#[inline]
 	fn typ(&self) -> String {
 		let ret = unsafe { sys::cv_dnn_LayerParams_getPropType_const(self.as_raw_LayerParams()) };
@@ -7195,14 +6327,12 @@ pub trait LayerParamsTraitConst: crate::dnn::DictTraitConst {
 pub trait LayerParamsTrait: crate::dnn::DictTrait + crate::dnn::LayerParamsTraitConst {
 	fn as_raw_mut_LayerParams(&mut self) -> *mut c_void;
 
-	/// List of learned parameters stored as blobs.
 	#[inline]
 	fn set_blobs(&mut self, mut val: core::Vector<core::Mat>) {
 		let ret = unsafe { sys::cv_dnn_LayerParams_setPropBlobs_vector_Mat_(self.as_raw_mut_LayerParams(), val.as_raw_mut_VectorOfMat()) };
 		ret
 	}
 	
-	/// Name of the layer instance (optional, can be used internal purposes).
 	#[inline]
 	fn set_name(&mut self, val: &str) {
 		extern_container_arg!(nofail mut val);
@@ -7210,7 +6340,6 @@ pub trait LayerParamsTrait: crate::dnn::DictTrait + crate::dnn::LayerParamsTrait
 		ret
 	}
 	
-	/// Type name which was used for creating layer by layer factory (optional).
 	#[inline]
 	fn set_type(&mut self, val: &str) {
 		extern_container_arg!(nofail mut val);
@@ -7220,10 +6349,6 @@ pub trait LayerParamsTrait: crate::dnn::DictTrait + crate::dnn::LayerParamsTrait
 	
 }
 
-/// This class provides all data needed to initialize layer.
-/// 
-/// It includes dictionary with scalar params (which can be read by using Dict interface),
-/// blob params #blobs and optional meta information: #name and #type of layer instance.
 pub struct LayerParams {
 	ptr: *mut c_void
 }
@@ -7622,18 +6747,9 @@ boxed_cast_base! { MishLayer, core::Algorithm, cv_MishLayer_to_Algorithm }
 
 boxed_cast_base! { MishLayer, crate::dnn::Layer, cv_MishLayer_to_Layer }
 
-/// This class is presented high-level API for neural networks.
-/// 
-/// Model allows to set params for preprocessing input image.
-/// Model creates net from file with trained weights and config,
-/// sets preprocessing input and runs forward pass.
 pub trait ModelTraitConst {
 	fn as_raw_Model(&self) -> *const c_void;
 
-	/// Given the @p input frame, create input blob, run net and return the output @p blobs.
-	/// ## Parameters
-	/// * frame: The input image.
-	/// * outs:[out] Allocated output blobs, which will store results of the computation.
 	#[inline]
 	fn predict(&self, frame: &dyn core::ToInputArray, outs: &mut dyn core::ToOutputArray) -> Result<()> {
 		input_array_arg!(frame);
@@ -7660,11 +6776,6 @@ pub trait ModelTraitConst {
 pub trait ModelTrait: crate::dnn::ModelTraitConst {
 	fn as_raw_mut_Model(&mut self) -> *mut c_void;
 
-	/// Set input size for frame.
-	/// ## Parameters
-	/// * size: New input size.
-	/// 
-	/// Note: If shape of the new blob less than 0, then frame size not change.
 	#[inline]
 	fn set_input_size(&mut self, size: core::Size) -> Result<crate::dnn::Model> {
 		return_send!(via ocvrs_return);
@@ -7675,16 +6786,6 @@ pub trait ModelTrait: crate::dnn::ModelTraitConst {
 		Ok(ret)
 	}
 	
-	/// Set input size for frame.
-	/// ## Parameters
-	/// * size: New input size.
-	/// 
-	/// Note: If shape of the new blob less than 0, then frame size not change.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// * width: New input width.
-	/// * height: New input height.
 	#[inline]
 	fn set_input_size_1(&mut self, width: i32, height: i32) -> Result<crate::dnn::Model> {
 		return_send!(via ocvrs_return);
@@ -7695,9 +6796,6 @@ pub trait ModelTrait: crate::dnn::ModelTraitConst {
 		Ok(ret)
 	}
 	
-	/// Set mean value for frame.
-	/// ## Parameters
-	/// * mean: Scalar with mean values which are subtracted from channels.
 	#[inline]
 	fn set_input_mean(&mut self, mean: core::Scalar) -> Result<crate::dnn::Model> {
 		return_send!(via ocvrs_return);
@@ -7708,9 +6806,6 @@ pub trait ModelTrait: crate::dnn::ModelTraitConst {
 		Ok(ret)
 	}
 	
-	/// Set scalefactor value for frame.
-	/// ## Parameters
-	/// * scale: Multiplier for frame values.
 	#[inline]
 	fn set_input_scale(&mut self, scale: f64) -> Result<crate::dnn::Model> {
 		return_send!(via ocvrs_return);
@@ -7721,9 +6816,6 @@ pub trait ModelTrait: crate::dnn::ModelTraitConst {
 		Ok(ret)
 	}
 	
-	/// Set flag crop for frame.
-	/// ## Parameters
-	/// * crop: Flag which indicates whether image will be cropped after resize or not.
 	#[inline]
 	fn set_input_crop(&mut self, crop: bool) -> Result<crate::dnn::Model> {
 		return_send!(via ocvrs_return);
@@ -7734,9 +6826,6 @@ pub trait ModelTrait: crate::dnn::ModelTraitConst {
 		Ok(ret)
 	}
 	
-	/// Set flag swapRB for frame.
-	/// ## Parameters
-	/// * swapRB: Flag which indicates that swap first and last channels.
 	#[inline]
 	fn set_input_swap_rb(&mut self, swap_rb: bool) -> Result<crate::dnn::Model> {
 		return_send!(via ocvrs_return);
@@ -7747,15 +6836,6 @@ pub trait ModelTrait: crate::dnn::ModelTraitConst {
 		Ok(ret)
 	}
 	
-	/// Set preprocessing parameters for frame.
-	/// ## Parameters
-	/// * size: New input size.
-	/// * mean: Scalar with mean values which are subtracted from channels.
-	/// * scale: Multiplier for frame values.
-	/// * swapRB: Flag which indicates that swap first and last channels.
-	/// * crop: Flag which indicates whether image will be cropped after resize or not.
-	/// blob(n, c, y, x) = scale * resize( frame(y, x, c) ) - mean(c) )
-	/// 
 	/// ## C++ default parameters
 	/// * scale: 1.0
 	/// * size: Size()
@@ -7771,8 +6851,6 @@ pub trait ModelTrait: crate::dnn::ModelTraitConst {
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// Net::setPreferableBackend
 	#[inline]
 	fn set_preferable_backend(&mut self, backend_id: crate::dnn::Backend) -> Result<crate::dnn::Model> {
 		return_send!(via ocvrs_return);
@@ -7783,8 +6861,6 @@ pub trait ModelTrait: crate::dnn::ModelTraitConst {
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// Net::setPreferableTarget
 	#[inline]
 	fn set_preferable_target(&mut self, target_id: crate::dnn::Target) -> Result<crate::dnn::Model> {
 		return_send!(via ocvrs_return);
@@ -7807,11 +6883,6 @@ pub trait ModelTrait: crate::dnn::ModelTraitConst {
 	
 }
 
-/// This class is presented high-level API for neural networks.
-/// 
-/// Model allows to set params for preprocessing input image.
-/// Model creates net from file with trained weights and config,
-/// sets preprocessing input and runs forward pass.
 pub struct Model {
 	ptr: *mut c_void
 }
@@ -7860,12 +6931,6 @@ impl Model {
 		ret
 	}
 	
-	/// Create model from deep learning network represented in one of the supported formats.
-	/// An order of @p model and @p config arguments does not matter.
-	/// ## Parameters
-	/// * model: Binary file contains trained weights.
-	/// * config: Text file contains network configuration.
-	/// 
 	/// ## C++ default parameters
 	/// * config: ""
 	#[inline]
@@ -7880,9 +6945,6 @@ impl Model {
 		Ok(ret)
 	}
 	
-	/// Create model from deep learning network.
-	/// ## Parameters
-	/// * network: Net object.
 	#[inline]
 	pub fn new_1(network: &crate::dnn::Net) -> Result<crate::dnn::Model> {
 		return_send!(via ocvrs_return);
@@ -7895,19 +6957,9 @@ impl Model {
 	
 }
 
-/// This class allows to create and manipulate comprehensive artificial neural networks.
-/// 
-/// Neural network is presented as directed acyclic graph (DAG), where vertices are Layer instances,
-/// and edges specify relationships between layers inputs and outputs.
-/// 
-/// Each network layer has unique integer id and unique string name inside its network.
-/// LayerId can store either layer name or layer id.
-/// 
-/// This class supports reference counting of its instances, i. e. copies point to the same instance.
 pub trait NetTraitConst {
 	fn as_raw_Net(&self) -> *const c_void;
 
-	/// Returns true if there are no layers in the network.
 	#[inline]
 	fn empty(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -7917,9 +6969,6 @@ pub trait NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Converts string name of the layer to the integer identifier.
-	/// ## Returns
-	/// id of the layer, or -1 if the layer wasn't found.
 	#[inline]
 	fn get_layer_id(&self, layer: &str) -> Result<i32> {
 		extern_container_arg!(layer);
@@ -7940,7 +6989,6 @@ pub trait NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns pointer to layer with specified id or name which the network use.
 	#[inline]
 	fn get_layer(&self, layer_id: i32) -> Result<core::Ptr<crate::dnn::Layer>> {
 		return_send!(via ocvrs_return);
@@ -7951,13 +6999,6 @@ pub trait NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns pointer to layer with specified id or name which the network use.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// 
-	/// **Deprecated**: Use int getLayerId(const String &layer)
-	#[deprecated = "Use int getLayerId(const String &layer)"]
 	#[inline]
 	fn get_layer_1(&self, layer_name: &str) -> Result<core::Ptr<crate::dnn::Layer>> {
 		extern_container_arg!(layer_name);
@@ -7969,13 +7010,6 @@ pub trait NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns pointer to layer with specified id or name which the network use.
-	/// 
-	/// ## Overloaded parameters
-	/// 
-	/// 
-	/// **Deprecated**: to be removed
-	#[deprecated = "to be removed"]
 	#[inline]
 	fn get_layer_2(&self, layer_id: &crate::dnn::Net_LayerId) -> Result<core::Ptr<crate::dnn::Layer>> {
 		return_send!(via ocvrs_return);
@@ -7986,7 +7020,6 @@ pub trait NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns pointers to input layers of specific layer.
 	#[inline]
 	fn get_layer_inputs(&self, layer_id: i32) -> Result<core::Vector<core::Ptr<crate::dnn::Layer>>> {
 		return_send!(via ocvrs_return);
@@ -7997,10 +7030,6 @@ pub trait NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns input scale and zeropoint for a quantized Net.
-	/// ## Parameters
-	/// * scales: output parameter for returning input scales.
-	/// * zeropoints: output parameter for returning input zeropoints.
 	#[inline]
 	fn get_input_details(&self, scales: &mut core::Vector<f32>, zeropoints: &mut core::Vector<i32>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -8010,10 +7039,6 @@ pub trait NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns output scale and zeropoint for a quantized Net.
-	/// ## Parameters
-	/// * scales: output parameter for returning output scales.
-	/// * zeropoints: output parameter for returning output zeropoints.
 	#[inline]
 	fn get_output_details(&self, scales: &mut core::Vector<f32>, zeropoints: &mut core::Vector<i32>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -8023,13 +7048,6 @@ pub trait NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns parameter blob of the layer.
-	/// ## Parameters
-	/// * layer: name or id of the layer.
-	/// * numParam: index of the layer parameter in the Layer::blobs array.
-	/// ## See also
-	/// Layer::blobs
-	/// 
 	/// ## C++ default parameters
 	/// * num_param: 0
 	#[inline]
@@ -8055,9 +7073,6 @@ pub trait NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns indexes of layers with unconnected outputs.
-	/// 
-	/// FIXIT: Rework API to registerOutput() approach, deprecate this call
 	#[inline]
 	fn get_unconnected_out_layers(&self) -> Result<core::Vector<i32>> {
 		return_send!(via ocvrs_return);
@@ -8068,9 +7083,6 @@ pub trait NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns names of layers with unconnected outputs.
-	/// 
-	/// FIXIT: Rework API to registerOutput() approach, deprecate this call
 	#[inline]
 	fn get_unconnected_out_layers_names(&self) -> Result<core::Vector<String>> {
 		return_send!(via ocvrs_return);
@@ -8081,15 +7093,6 @@ pub trait NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns input and output shapes for all layers in loaded model;
-	///  preliminary inferencing isn't necessary.
-	/// ## Parameters
-	/// * netInputShapes: shapes for all input blobs in net input layer.
-	/// * layersIds: output parameter for layer IDs.
-	/// * inLayersShapes: output parameter for input layers shapes;
-	/// order is the same as in layersIds
-	/// * outLayersShapes: output parameter for output layers shapes;
-	/// order is the same as in layersIds
 	#[inline]
 	fn get_layers_shapes(&self, net_input_shapes: &core::Vector<crate::dnn::MatShape>, layers_ids: &mut core::Vector<i32>, in_layers_shapes: &mut core::Vector<core::Vector<crate::dnn::MatShape>>, out_layers_shapes: &mut core::Vector<core::Vector<crate::dnn::MatShape>>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -8099,17 +7102,6 @@ pub trait NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns input and output shapes for all layers in loaded model;
-	///  preliminary inferencing isn't necessary.
-	/// ## Parameters
-	/// * netInputShapes: shapes for all input blobs in net input layer.
-	/// * layersIds: output parameter for layer IDs.
-	/// * inLayersShapes: output parameter for input layers shapes;
-	/// order is the same as in layersIds
-	/// * outLayersShapes: output parameter for output layers shapes;
-	/// order is the same as in layersIds
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn get_layers_shapes_1(&self, net_input_shape: &crate::dnn::MatShape, layers_ids: &mut core::Vector<i32>, in_layers_shapes: &mut core::Vector<core::Vector<crate::dnn::MatShape>>, out_layers_shapes: &mut core::Vector<core::Vector<crate::dnn::MatShape>>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -8119,15 +7111,6 @@ pub trait NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns input and output shapes for layer with specified
-	/// id in loaded model; preliminary inferencing isn't necessary.
-	/// ## Parameters
-	/// * netInputShape: shape input blob in net input layer.
-	/// * layerId: id for layer.
-	/// * inLayerShapes: output parameter for input layers shapes;
-	/// order is the same as in layersIds
-	/// * outLayerShapes: output parameter for output layers shapes;
-	/// order is the same as in layersIds
 	#[inline]
 	fn get_layer_shapes(&self, net_input_shape: &crate::dnn::MatShape, layer_id: i32, in_layer_shapes: &mut core::Vector<crate::dnn::MatShape>, out_layer_shapes: &mut core::Vector<crate::dnn::MatShape>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -8137,17 +7120,6 @@ pub trait NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns input and output shapes for layer with specified
-	/// id in loaded model; preliminary inferencing isn't necessary.
-	/// ## Parameters
-	/// * netInputShape: shape input blob in net input layer.
-	/// * layerId: id for layer.
-	/// * inLayerShapes: output parameter for input layers shapes;
-	/// order is the same as in layersIds
-	/// * outLayerShapes: output parameter for output layers shapes;
-	/// order is the same as in layersIds
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn get_layer_shapes_1(&self, net_input_shapes: &core::Vector<crate::dnn::MatShape>, layer_id: i32, in_layer_shapes: &mut core::Vector<crate::dnn::MatShape>, out_layer_shapes: &mut core::Vector<crate::dnn::MatShape>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -8157,11 +7129,6 @@ pub trait NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Computes FLOP for whole loaded model with specified input shapes.
-	/// ## Parameters
-	/// * netInputShapes: vector of shapes for all net inputs.
-	/// ## Returns
-	/// computed FLOP.
 	#[inline]
 	fn get_flops(&self, net_input_shapes: &core::Vector<crate::dnn::MatShape>) -> Result<i64> {
 		return_send!(via ocvrs_return);
@@ -8171,13 +7138,6 @@ pub trait NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Computes FLOP for whole loaded model with specified input shapes.
-	/// ## Parameters
-	/// * netInputShapes: vector of shapes for all net inputs.
-	/// ## Returns
-	/// computed FLOP.
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn get_flops_1(&self, net_input_shape: &crate::dnn::MatShape) -> Result<i64> {
 		return_send!(via ocvrs_return);
@@ -8187,13 +7147,6 @@ pub trait NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Computes FLOP for whole loaded model with specified input shapes.
-	/// ## Parameters
-	/// * netInputShapes: vector of shapes for all net inputs.
-	/// ## Returns
-	/// computed FLOP.
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn get_flops_2(&self, layer_id: i32, net_input_shapes: &core::Vector<crate::dnn::MatShape>) -> Result<i64> {
 		return_send!(via ocvrs_return);
@@ -8203,13 +7156,6 @@ pub trait NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Computes FLOP for whole loaded model with specified input shapes.
-	/// ## Parameters
-	/// * netInputShapes: vector of shapes for all net inputs.
-	/// ## Returns
-	/// computed FLOP.
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn get_flops_3(&self, layer_id: i32, net_input_shape: &crate::dnn::MatShape) -> Result<i64> {
 		return_send!(via ocvrs_return);
@@ -8219,9 +7165,6 @@ pub trait NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns list of types for layer used in model.
-	/// ## Parameters
-	/// * layersTypes: output parameter for returning types.
 	#[inline]
 	fn get_layer_types(&self, layers_types: &mut core::Vector<String>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -8231,11 +7174,6 @@ pub trait NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns count of layers of specified type.
-	/// ## Parameters
-	/// * layerType: type.
-	/// ## Returns
-	/// count of layers
 	#[inline]
 	fn get_layers_count(&self, layer_type: &str) -> Result<i32> {
 		extern_container_arg!(layer_type);
@@ -8246,12 +7184,6 @@ pub trait NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Computes bytes number which are required to store
-	/// all weights and intermediate blobs for model.
-	/// ## Parameters
-	/// * netInputShapes: vector of shapes for all net inputs.
-	/// * weights: output parameter to store resulting bytes for weights.
-	/// * blobs: output parameter to store resulting bytes for intermediate blobs.
 	#[inline]
 	fn get_memory_consumption(&self, net_input_shapes: &core::Vector<crate::dnn::MatShape>, weights: &mut size_t, blobs: &mut size_t) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -8261,14 +7193,6 @@ pub trait NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Computes bytes number which are required to store
-	/// all weights and intermediate blobs for model.
-	/// ## Parameters
-	/// * netInputShapes: vector of shapes for all net inputs.
-	/// * weights: output parameter to store resulting bytes for weights.
-	/// * blobs: output parameter to store resulting bytes for intermediate blobs.
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn get_memory_consumption_1(&self, net_input_shape: &crate::dnn::MatShape, weights: &mut size_t, blobs: &mut size_t) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -8278,14 +7202,6 @@ pub trait NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Computes bytes number which are required to store
-	/// all weights and intermediate blobs for model.
-	/// ## Parameters
-	/// * netInputShapes: vector of shapes for all net inputs.
-	/// * weights: output parameter to store resulting bytes for weights.
-	/// * blobs: output parameter to store resulting bytes for intermediate blobs.
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn get_memory_consumption_for_layer(&self, layer_id: i32, net_input_shapes: &core::Vector<crate::dnn::MatShape>, weights: &mut size_t, blobs: &mut size_t) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -8295,14 +7211,6 @@ pub trait NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Computes bytes number which are required to store
-	/// all weights and intermediate blobs for model.
-	/// ## Parameters
-	/// * netInputShapes: vector of shapes for all net inputs.
-	/// * weights: output parameter to store resulting bytes for weights.
-	/// * blobs: output parameter to store resulting bytes for intermediate blobs.
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn get_memory_consumption_2(&self, layer_id: i32, net_input_shape: &crate::dnn::MatShape, weights: &mut size_t, blobs: &mut size_t) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -8312,13 +7220,6 @@ pub trait NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Computes bytes number which are required to store
-	/// all weights and intermediate blobs for each layer.
-	/// ## Parameters
-	/// * netInputShapes: vector of shapes for all net inputs.
-	/// * layerIds: output vector to save layer IDs.
-	/// * weights: output parameter to store resulting bytes for weights.
-	/// * blobs: output parameter to store resulting bytes for intermediate blobs.
 	#[inline]
 	fn get_memory_consumption_for_layers(&self, net_input_shapes: &core::Vector<crate::dnn::MatShape>, layer_ids: &mut core::Vector<i32>, weights: &mut core::Vector<size_t>, blobs: &mut core::Vector<size_t>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -8328,15 +7229,6 @@ pub trait NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Computes bytes number which are required to store
-	/// all weights and intermediate blobs for each layer.
-	/// ## Parameters
-	/// * netInputShapes: vector of shapes for all net inputs.
-	/// * layerIds: output vector to save layer IDs.
-	/// * weights: output parameter to store resulting bytes for weights.
-	/// * blobs: output parameter to store resulting bytes for intermediate blobs.
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn get_memory_consumption_3(&self, net_input_shape: &crate::dnn::MatShape, layer_ids: &mut core::Vector<i32>, weights: &mut core::Vector<size_t>, blobs: &mut core::Vector<size_t>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -8351,10 +7243,6 @@ pub trait NetTraitConst {
 pub trait NetTrait: crate::dnn::NetTraitConst {
 	fn as_raw_mut_Net(&mut self) -> *mut c_void;
 
-	/// Dump net to String
-	/// ## Returns
-	/// String with structure, hyperparameters, backend, target and fusion
-	/// Call method after setInput(). To see correct backend, target and fusion run after forward().
 	#[inline]
 	fn dump(&mut self) -> Result<String> {
 		return_send!(via ocvrs_return);
@@ -8365,11 +7253,6 @@ pub trait NetTrait: crate::dnn::NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Dump net structure, hyperparameters, backend, target and fusion to dot file
-	/// ## Parameters
-	/// * path: path to output file with .dot extension
-	/// ## See also
-	/// dump()
 	#[inline]
 	fn dump_to_file(&mut self, path: &str) -> Result<()> {
 		extern_container_arg!(path);
@@ -8380,14 +7263,6 @@ pub trait NetTrait: crate::dnn::NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Adds new layer to the net.
-	/// ## Parameters
-	/// * name: unique name of the adding layer.
-	/// * type: typename of the adding layer (type must be registered in LayerRegister).
-	/// * dtype: datatype of output blobs.
-	/// * params: parameters which will be used to initialize the creating layer.
-	/// ## Returns
-	/// unique identifier of created layer, or -1 if a failure will happen.
 	#[inline]
 	fn add_layer_type(&mut self, name: &str, typ: &str, dtype: &i32, params: &mut crate::dnn::LayerParams) -> Result<i32> {
 		extern_container_arg!(name);
@@ -8399,17 +7274,6 @@ pub trait NetTrait: crate::dnn::NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Adds new layer to the net.
-	/// ## Parameters
-	/// * name: unique name of the adding layer.
-	/// * type: typename of the adding layer (type must be registered in LayerRegister).
-	/// * dtype: datatype of output blobs.
-	/// * params: parameters which will be used to initialize the creating layer.
-	/// ## Returns
-	/// unique identifier of created layer, or -1 if a failure will happen.
-	/// 
-	/// ## Overloaded parameters
-	///  Datatype of output blobs set to default CV_32F
 	#[inline]
 	fn add_layer(&mut self, name: &str, typ: &str, params: &mut crate::dnn::LayerParams) -> Result<i32> {
 		extern_container_arg!(name);
@@ -8421,9 +7285,6 @@ pub trait NetTrait: crate::dnn::NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Adds new layer and connects its first input to the first output of previously added layer.
-	/// ## See also
-	/// addLayer()
 	#[inline]
 	fn add_layer_to_prev_type(&mut self, name: &str, typ: &str, dtype: &i32, params: &mut crate::dnn::LayerParams) -> Result<i32> {
 		extern_container_arg!(name);
@@ -8435,11 +7296,6 @@ pub trait NetTrait: crate::dnn::NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Adds new layer and connects its first input to the first output of previously added layer.
-	/// ## See also
-	/// addLayer()
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn add_layer_to_prev(&mut self, name: &str, typ: &str, params: &mut crate::dnn::LayerParams) -> Result<i32> {
 		extern_container_arg!(name);
@@ -8451,19 +7307,6 @@ pub trait NetTrait: crate::dnn::NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Connects output of the first layer to input of the second layer.
-	/// ## Parameters
-	/// * outPin: descriptor of the first layer output.
-	/// * inpPin: descriptor of the second layer input.
-	/// 
-	/// Descriptors have the following template <DFN>&lt;layer_name&gt;[.input_number]</DFN>:
-	/// - the first part of the template <DFN>layer_name</DFN> is string name of the added layer.
-	///   If this part is empty then the network input pseudo layer will be used;
-	/// - the second optional part of the template <DFN>input_number</DFN>
-	///   is either number of the layer input, either label one.
-	///   If this part is omitted then the first layer input will be used.
-	/// ## See also
-	/// setNetInputs(), Layer::inputNameToIndex(), Layer::outputNameToIndex()
 	#[inline]
 	fn connect_first_second(&mut self, out_pin: &str, inp_pin: &str) -> Result<()> {
 		extern_container_arg!(mut out_pin);
@@ -8475,12 +7318,6 @@ pub trait NetTrait: crate::dnn::NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Connects #@p outNum output of the first layer to #@p inNum input of the second layer.
-	/// ## Parameters
-	/// * outLayerId: identifier of the first layer
-	/// * outNum: number of the first layer output
-	/// * inpLayerId: identifier of the second layer
-	/// * inpNum: number of the second layer input
 	#[inline]
 	fn connect(&mut self, out_layer_id: i32, out_num: i32, inp_layer_id: i32, inp_num: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -8490,17 +7327,6 @@ pub trait NetTrait: crate::dnn::NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Registers network output with name
-	/// 
-	/// Function may create additional 'Identity' layer.
-	/// 
-	/// ## Parameters
-	/// * outputName: identifier of the output
-	/// * layerId: identifier of the second layer
-	/// * outputPort: number of the second layer input
-	/// 
-	/// ## Returns
-	/// index of bound layer (the same as layerId or newly created)
 	#[inline]
 	fn register_output(&mut self, output_name: &str, layer_id: i32, output_port: i32) -> Result<i32> {
 		extern_container_arg!(output_name);
@@ -8511,12 +7337,6 @@ pub trait NetTrait: crate::dnn::NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Sets outputs names of the network input pseudo layer.
-	/// 
-	/// Each net always has special own the network input pseudo layer with id=0.
-	/// This layer stores the user blobs only and don't make any computations.
-	/// In fact, this layer provides the only way to pass user data into the network.
-	/// As any other layer, this layer can label its outputs and this function provides an easy way to do this.
 	#[inline]
 	fn set_inputs_names(&mut self, input_blob_names: &core::Vector<String>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -8526,7 +7346,6 @@ pub trait NetTrait: crate::dnn::NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Specify shape of network input.
 	#[inline]
 	fn set_input_shape(&mut self, input_name: &str, shape: &crate::dnn::MatShape) -> Result<()> {
 		extern_container_arg!(input_name);
@@ -8537,13 +7356,6 @@ pub trait NetTrait: crate::dnn::NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Runs forward pass to compute output of layer with name @p outputName.
-	/// ## Parameters
-	/// * outputName: name for layer which output is needed to get
-	/// ## Returns
-	/// blob for first output of specified layer.
-	/// @details By default runs forward pass for the whole network.
-	/// 
 	/// ## C++ default parameters
 	/// * output_name: String()
 	#[inline]
@@ -8557,14 +7369,6 @@ pub trait NetTrait: crate::dnn::NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Runs forward pass to compute output of layer with name @p outputName.
-	/// ## Parameters
-	/// * outputName: name for layer which output is needed to get
-	/// @details By default runs forward pass for the whole network.
-	/// 
-	/// This is an asynchronous version of forward(const String&).
-	/// dnn::DNN_BACKEND_INFERENCE_ENGINE backend is required.
-	/// 
 	/// ## C++ default parameters
 	/// * output_name: String()
 	#[inline]
@@ -8578,12 +7382,6 @@ pub trait NetTrait: crate::dnn::NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Runs forward pass to compute output of layer with name @p outputName.
-	/// ## Parameters
-	/// * outputBlobs: contains all output blobs for specified layer.
-	/// * outputName: name for layer which output is needed to get
-	/// @details If @p outputName is empty, runs forward pass for the whole network.
-	/// 
 	/// ## C++ default parameters
 	/// * output_name: String()
 	#[inline]
@@ -8597,10 +7395,6 @@ pub trait NetTrait: crate::dnn::NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Runs forward pass to compute outputs of layers listed in @p outBlobNames.
-	/// ## Parameters
-	/// * outputBlobs: contains blobs for first outputs of specified layers.
-	/// * outBlobNames: names for layers which outputs are needed to get
 	#[inline]
 	fn forward(&mut self, output_blobs: &mut dyn core::ToOutputArray, out_blob_names: &core::Vector<String>) -> Result<()> {
 		output_array_arg!(output_blobs);
@@ -8611,10 +7405,6 @@ pub trait NetTrait: crate::dnn::NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Runs forward pass to compute outputs of layers listed in @p outBlobNames.
-	/// ## Parameters
-	/// * outputBlobs: contains all output blobs for each layer specified in @p outBlobNames.
-	/// * outBlobNames: names for layers which outputs are needed to get
 	#[inline]
 	fn forward_and_retrieve(&mut self, output_blobs: &mut core::Vector<core::Vector<core::Mat>>, out_blob_names: &core::Vector<String>) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -8624,11 +7414,6 @@ pub trait NetTrait: crate::dnn::NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns a quantized Net from a floating-point Net.
-	/// ## Parameters
-	/// * calibData: Calibration data to compute the quantization parameters.
-	/// * inputsDtype: Datatype of quantized net's inputs. Can be CV_32F or CV_8S.
-	/// * outputsDtype: Datatype of quantized net's outputs. Can be CV_32F or CV_8S.
 	#[inline]
 	fn quantize(&mut self, calib_data: &dyn core::ToInputArray, inputs_dtype: i32, outputs_dtype: i32) -> Result<crate::dnn::Net> {
 		input_array_arg!(calib_data);
@@ -8640,15 +7425,6 @@ pub trait NetTrait: crate::dnn::NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Compile Halide layers.
-	/// ## Parameters
-	/// * scheduler: Path to YAML file with scheduling directives.
-	/// ## See also
-	/// setPreferableBackend
-	/// 
-	/// Schedule layers that support Halide backend. Then compile them for
-	/// specific target. For layers that not represented in scheduling file
-	/// or if no manual scheduling used at all, automatic scheduling will be applied.
 	#[inline]
 	fn set_halide_scheduler(&mut self, scheduler: &str) -> Result<()> {
 		extern_container_arg!(scheduler);
@@ -8659,14 +7435,6 @@ pub trait NetTrait: crate::dnn::NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Ask network to use specific computation backend where it supported.
-	/// ## Parameters
-	/// * backendId: backend identifier.
-	/// ## See also
-	/// Backend
-	/// 
-	/// If OpenCV is compiled with Intel's Inference Engine library, DNN_BACKEND_DEFAULT
-	/// means DNN_BACKEND_INFERENCE_ENGINE. Otherwise it equals to DNN_BACKEND_OPENCV.
 	#[inline]
 	fn set_preferable_backend(&mut self, backend_id: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -8676,23 +7444,6 @@ pub trait NetTrait: crate::dnn::NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Ask network to make computations on specific target device.
-	/// ## Parameters
-	/// * targetId: target identifier.
-	/// ## See also
-	/// Target
-	/// 
-	/// List of supported combinations backend / target:
-	/// |                        | DNN_BACKEND_OPENCV | DNN_BACKEND_INFERENCE_ENGINE | DNN_BACKEND_HALIDE |  DNN_BACKEND_CUDA |
-	/// |------------------------|--------------------|------------------------------|--------------------|-------------------|
-	/// | DNN_TARGET_CPU         |                  + |                            + |                  + |                   |
-	/// | DNN_TARGET_OPENCL      |                  + |                            + |                  + |                   |
-	/// | DNN_TARGET_OPENCL_FP16 |                  + |                            + |                    |                   |
-	/// | DNN_TARGET_MYRIAD      |                    |                            + |                    |                   |
-	/// | DNN_TARGET_FPGA        |                    |                            + |                    |                   |
-	/// | DNN_TARGET_CUDA        |                    |                              |                    |                 + |
-	/// | DNN_TARGET_CUDA_FP16   |                    |                              |                    |                 + |
-	/// | DNN_TARGET_HDDL        |                    |                            + |                    |                   |
 	#[inline]
 	fn set_preferable_target(&mut self, target_id: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -8702,19 +7453,6 @@ pub trait NetTrait: crate::dnn::NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Sets the new input value for the network
-	/// ## Parameters
-	/// * blob: A new blob. Should have CV_32F or CV_8U depth.
-	/// * name: A name of input layer.
-	/// * scalefactor: An optional normalization scale.
-	/// * mean: An optional mean subtraction values.
-	/// ## See also
-	/// connect(String, String) to know format of the descriptor.
-	/// 
-	///  If scale or mean values are specified, a final input blob is computed
-	///  as:
-	/// ![block formula](https://latex.codecogs.com/png.latex?input%28n%2Cc%2Ch%2Cw%29%20%3D%20scalefactor%20%5Ctimes%20%28blob%28n%2Cc%2Ch%2Cw%29%20%2D%20mean%5Fc%29)
-	/// 
 	/// ## C++ default parameters
 	/// * name: ""
 	/// * scalefactor: 1.0
@@ -8730,16 +7468,6 @@ pub trait NetTrait: crate::dnn::NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Sets the new value for the learned param of the layer.
-	/// ## Parameters
-	/// * layer: name or id of the layer.
-	/// * numParam: index of the layer parameter in the Layer::blobs array.
-	/// * blob: the new value.
-	/// ## See also
-	/// Layer::blobs
-	/// 
-	/// Note: If shape of the new blob differs from the previous shape,
-	/// then the following forward pass may fail.
 	#[inline]
 	fn set_param(&mut self, layer: i32, num_param: i32, blob: &core::Mat) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -8759,9 +7487,6 @@ pub trait NetTrait: crate::dnn::NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Enables or disables layer fusion in the network.
-	/// ## Parameters
-	/// * fusion: true to enable the fusion, false to disable. The fusion is enabled by default.
 	#[inline]
 	fn enable_fusion(&mut self, fusion: bool) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -8771,15 +7496,6 @@ pub trait NetTrait: crate::dnn::NetTraitConst {
 		Ok(ret)
 	}
 	
-	/// Returns overall time for inference and timings (in ticks) for layers.
-	/// 
-	/// Indexes in returned vector correspond to layers ids. Some layers can be fused with others,
-	/// in this case zero ticks count will be return for that skipped layers. Supported by DNN_BACKEND_OPENCV on DNN_TARGET_CPU only.
-	/// 
-	/// ## Parameters
-	/// * timings:[out] vector for tick timings for all layers.
-	/// ## Returns
-	/// overall ticks for model inference.
 	#[inline]
 	fn get_perf_profile(&mut self, timings: &mut core::Vector<f64>) -> Result<i64> {
 		return_send!(via ocvrs_return);
@@ -8791,15 +7507,6 @@ pub trait NetTrait: crate::dnn::NetTraitConst {
 	
 }
 
-/// This class allows to create and manipulate comprehensive artificial neural networks.
-/// 
-/// Neural network is presented as directed acyclic graph (DAG), where vertices are Layer instances,
-/// and edges specify relationships between layers inputs and outputs.
-/// 
-/// Each network layer has unique integer id and unique string name inside its network.
-/// LayerId can store either layer name or layer id.
-/// 
-/// This class supports reference counting of its instances, i. e. copies point to the same instance.
 pub struct Net {
 	ptr: *mut c_void
 }
@@ -8834,12 +7541,6 @@ impl Net {
 		Ok(ret)
 	}
 	
-	/// Create a network from Intel's Model Optimizer intermediate representation (IR).
-	/// ## Parameters
-	/// * xml: XML configuration file with network's topology.
-	/// * bin: Binary file with trained weights.
-	/// Networks imported from Intel's Model Optimizer are launched in Intel's Inference Engine
-	/// backend.
 	#[inline]
 	pub fn read_from_model_optimizer(xml: &str, bin: &str) -> Result<crate::dnn::Net> {
 		extern_container_arg!(xml);
@@ -8852,12 +7553,6 @@ impl Net {
 		Ok(ret)
 	}
 	
-	/// Create a network from Intel's Model Optimizer in-memory buffers with intermediate representation (IR).
-	/// ## Parameters
-	/// * bufferModelConfig: buffer with model's configuration.
-	/// * bufferWeights: buffer with model's trained weights.
-	/// ## Returns
-	/// Net object.
 	#[inline]
 	pub fn read_from_model_optimizer_1(buffer_model_config: &core::Vector<u8>, buffer_weights: &core::Vector<u8>) -> Result<crate::dnn::Net> {
 		return_send!(via ocvrs_return);
@@ -8868,14 +7563,6 @@ impl Net {
 		Ok(ret)
 	}
 	
-	/// Create a network from Intel's Model Optimizer in-memory buffers with intermediate representation (IR).
-	/// ## Parameters
-	/// * bufferModelConfigPtr: buffer pointer of model's configuration.
-	/// * bufferModelConfigSize: buffer size of model's configuration.
-	/// * bufferWeightsPtr: buffer pointer of model's trained weights.
-	/// * bufferWeightsSize: buffer size of model's trained weights.
-	/// ## Returns
-	/// Net object.
 	#[inline]
 	pub fn read_from_model_optimizer_2(buffer_model_config_ptr: &u8, buffer_model_config_size: size_t, buffer_weights_ptr: &u8, buffer_weights_size: size_t) -> Result<crate::dnn::Net> {
 		return_send!(via ocvrs_return);
@@ -8888,30 +7575,6 @@ impl Net {
 	
 }
 
-/// ![inline formula](https://latex.codecogs.com/png.latex?%20L%5Fp%20) - normalization layer.
-/// ## Parameters
-/// * p: Normalization factor. The most common `p = 1` for ![inline formula](https://latex.codecogs.com/png.latex?%20L%5F1%20) -
-///          normalization or `p = 2` for ![inline formula](https://latex.codecogs.com/png.latex?%20L%5F2%20) - normalization or a custom one.
-/// * eps: Parameter ![inline formula](https://latex.codecogs.com/png.latex?%20%5Cepsilon%20) to prevent a division by zero.
-/// * across_spatial: If true, normalize an input across all non-batch dimensions.
-///                       Otherwise normalize an every channel separately.
-/// 
-/// Across spatial:
-/// @f[
-/// norm = \sqrt[p]{\epsilon + \sum_{x, y, c} |src(x, y, c)|^p } \\
-/// dst(x, y, c) = \frac{ src(x, y, c) }{norm}
-/// @f]
-/// 
-/// Channel wise normalization:
-/// @f[
-/// norm(c) = \sqrt[p]{\epsilon + \sum_{x, y} |src(x, y, c)|^p } \\
-/// dst(x, y, c) = \frac{ src(x, y, c) }{norm(c)}
-/// @f]
-/// 
-/// Where `x, y` - spatial coordinates, `c` - channel.
-/// 
-/// An every sample in the batch is normalized separately. Optionally,
-/// output is scaled by the trained parameters.
 pub trait NormalizeBBoxLayerTraitConst: crate::dnn::LayerTraitConst {
 	fn as_raw_NormalizeBBoxLayer(&self) -> *const c_void;
 
@@ -8958,30 +7621,6 @@ pub trait NormalizeBBoxLayerTrait: crate::dnn::LayerTrait + crate::dnn::Normaliz
 	
 }
 
-/// ![inline formula](https://latex.codecogs.com/png.latex?%20L%5Fp%20) - normalization layer.
-/// ## Parameters
-/// * p: Normalization factor. The most common `p = 1` for ![inline formula](https://latex.codecogs.com/png.latex?%20L%5F1%20) -
-///          normalization or `p = 2` for ![inline formula](https://latex.codecogs.com/png.latex?%20L%5F2%20) - normalization or a custom one.
-/// * eps: Parameter ![inline formula](https://latex.codecogs.com/png.latex?%20%5Cepsilon%20) to prevent a division by zero.
-/// * across_spatial: If true, normalize an input across all non-batch dimensions.
-///                       Otherwise normalize an every channel separately.
-/// 
-/// Across spatial:
-/// @f[
-/// norm = \sqrt[p]{\epsilon + \sum_{x, y, c} |src(x, y, c)|^p } \\
-/// dst(x, y, c) = \frac{ src(x, y, c) }{norm}
-/// @f]
-/// 
-/// Channel wise normalization:
-/// @f[
-/// norm(c) = \sqrt[p]{\epsilon + \sum_{x, y} |src(x, y, c)|^p } \\
-/// dst(x, y, c) = \frac{ src(x, y, c) }{norm(c)}
-/// @f]
-/// 
-/// Where `x, y` - spatial coordinates, `c` - channel.
-/// 
-/// An every sample in the batch is normalized separately. Optionally,
-/// output is scaled by the trained parameters.
 pub struct NormalizeBBoxLayer {
 	ptr: *mut c_void
 }
@@ -9114,26 +7753,6 @@ boxed_cast_base! { NotLayer, core::Algorithm, cv_NotLayer_to_Algorithm }
 
 boxed_cast_base! { NotLayer, crate::dnn::Layer, cv_NotLayer_to_Layer }
 
-/// Adds extra values for specific axes.
-/// ## Parameters
-/// * paddings: Vector of paddings in format
-///                ```ignore
-///                [ pad_before, pad_after,  // [0]th dimension
-///                   pad_before, pad_after,  // [1]st dimension
-///                   ...
-///                   pad_before, pad_after ] // [n]th dimension
-///                ```
-/// 
-///                that represents number of padded values at every dimension
-///                starting from the first one. The rest of dimensions won't
-///                be padded.
-/// * value: Value to be padded. Defaults to zero.
-/// * type: Padding type: 'constant', 'reflect'
-/// * input_dims: Torch's parameter. If @p input_dims is not equal to the
-///                   actual input dimensionality then the `[0]th` dimension
-///                   is considered as a batch dimension and @p paddings are shifted
-///                   to a one dimension. Defaults to `-1` that means padding
-///                   corresponding to @p paddings.
 pub trait PaddingLayerTraitConst: crate::dnn::LayerTraitConst {
 	fn as_raw_PaddingLayer(&self) -> *const c_void;
 
@@ -9144,26 +7763,6 @@ pub trait PaddingLayerTrait: crate::dnn::LayerTrait + crate::dnn::PaddingLayerTr
 
 }
 
-/// Adds extra values for specific axes.
-/// ## Parameters
-/// * paddings: Vector of paddings in format
-///                ```ignore
-///                [ pad_before, pad_after,  // [0]th dimension
-///                   pad_before, pad_after,  // [1]st dimension
-///                   ...
-///                   pad_before, pad_after ] // [n]th dimension
-///                ```
-/// 
-///                that represents number of padded values at every dimension
-///                starting from the first one. The rest of dimensions won't
-///                be padded.
-/// * value: Value to be padded. Defaults to zero.
-/// * type: Padding type: 'constant', 'reflect'
-/// * input_dims: Torch's parameter. If @p input_dims is not equal to the
-///                   actual input dimensionality then the `[0]th` dimension
-///                   is considered as a batch dimension and @p paddings are shifted
-///                   to a one dimension. Defaults to `-1` that means padding
-///                   corresponding to @p paddings.
 pub struct PaddingLayer {
 	ptr: *mut c_void
 }
@@ -9323,7 +7922,6 @@ pub trait PoolingLayerTraitConst: crate::dnn::LayerTraitConst {
 		ret
 	}
 	
-	/// Flag is true if at least one of the axes is global pooled.
 	#[inline]
 	fn global_pooling(&self) -> bool {
 		let ret = unsafe { sys::cv_dnn_PoolingLayer_getPropGlobalPooling_const(self.as_raw_PoolingLayer()) };
@@ -9417,7 +8015,6 @@ pub trait PoolingLayerTrait: crate::dnn::LayerTrait + crate::dnn::PoolingLayerTr
 		ret
 	}
 	
-	/// Flag is true if at least one of the axes is global pooled.
 	#[inline]
 	fn set_global_pooling(&mut self, val: bool) {
 		let ret = unsafe { sys::cv_dnn_PoolingLayer_setPropGlobalPooling_bool(self.as_raw_mut_PoolingLayer(), val) };
@@ -9989,18 +8586,6 @@ boxed_cast_base! { QuantizeLayer, core::Algorithm, cv_QuantizeLayer_to_Algorithm
 
 boxed_cast_base! { QuantizeLayer, crate::dnn::Layer, cv_QuantizeLayer_to_Layer }
 
-/// Classical recurrent layer
-/// 
-/// Accepts two inputs @f$x_t@f$ and @f$h_{t-1}@f$ and compute two outputs @f$o_t@f$ and @f$h_t@f$.
-/// 
-/// - input: should contain packed input @f$x_t@f$.
-/// - output: should contain output @f$o_t@f$ (and @f$h_t@f$ if setProduceHiddenOutput() is set to true).
-/// 
-/// input[0] should have shape [`T`, `N`, `data_dims`] where `T` and `N` is number of timestamps and number of independent samples of @f$x_t@f$ respectively.
-/// 
-/// output[0] will have shape [`T`, `N`, @f$N_o@f$], where @f$N_o@f$ is number of rows in @f$ W_{xo} @f$ matrix.
-/// 
-/// If setProduceHiddenOutput() is set to true then @p output[1] will contain a Mat with shape [`T`, `N`, @f$N_h@f$], where @f$N_h@f$ is number of rows in @f$ W_{hh} @f$ matrix.
 pub trait RNNLayerConst: crate::dnn::LayerTraitConst {
 	fn as_raw_RNNLayer(&self) -> *const c_void;
 
@@ -10009,20 +8594,6 @@ pub trait RNNLayerConst: crate::dnn::LayerTraitConst {
 pub trait RNNLayer: crate::dnn::LayerTrait + crate::dnn::RNNLayerConst {
 	fn as_raw_mut_RNNLayer(&mut self) -> *mut c_void;
 
-	/// Setups learned weights.
-	/// 
-	/// Recurrent-layer behavior on each step is defined by current input @f$ x_t @f$, previous state @f$ h_t @f$ and learned weights as follows:
-	/// @f{eqnarray*}{
-	/// h_t &= tanh&(W_{hh} h_{t-1} + W_{xh} x_t + b_h),  \\
-	/// o_t &= tanh&(W_{ho} h_t + b_o),
-	/// @f}
-	/// 
-	/// ## Parameters
-	/// * Wxh: is @f$ W_{xh} @f$ matrix
-	/// * bh: is @f$ b_{h}  @f$ vector
-	/// * Whh: is @f$ W_{hh} @f$ matrix
-	/// * Who: is @f$ W_{xo} @f$ matrix
-	/// * bo: is @f$ b_{o}  @f$ vector
 	#[inline]
 	fn set_weights(&mut self, wxh: &core::Mat, bh: &core::Mat, whh: &core::Mat, who: &core::Mat, bo: &core::Mat) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -10032,9 +8603,6 @@ pub trait RNNLayer: crate::dnn::LayerTrait + crate::dnn::RNNLayerConst {
 		Ok(ret)
 	}
 	
-	/// If this flag is set to true then layer will produce @f$ h_t @f$ as second output.
-	/// @details Shape of the second output is the same as first output.
-	/// 
 	/// ## C++ default parameters
 	/// * produce: false
 	#[inline]
@@ -10049,7 +8617,6 @@ pub trait RNNLayer: crate::dnn::LayerTrait + crate::dnn::RNNLayerConst {
 }
 
 impl dyn RNNLayer + '_ {
-	/// Creates instance of RNNLayer
 	#[inline]
 	pub fn create(params: &crate::dnn::LayerParams) -> Result<core::Ptr<dyn crate::dnn::RNNLayer>> {
 		return_send!(via ocvrs_return);
@@ -10818,9 +9385,6 @@ boxed_cast_base! { ReshapeLayer, core::Algorithm, cv_ReshapeLayer_to_Algorithm }
 
 boxed_cast_base! { ReshapeLayer, crate::dnn::Layer, cv_ReshapeLayer_to_Layer }
 
-/// Resize input 4-dimensional blob by nearest neighbor or bilinear strategy.
-/// 
-/// Layer is used to support TensorFlow's resize_nearest_neighbor and resize_bilinear ops.
 pub trait ResizeLayerTraitConst: crate::dnn::LayerTraitConst {
 	fn as_raw_ResizeLayer(&self) -> *const c_void;
 
@@ -10831,9 +9395,6 @@ pub trait ResizeLayerTrait: crate::dnn::LayerTrait + crate::dnn::ResizeLayerTrai
 
 }
 
-/// Resize input 4-dimensional blob by nearest neighbor or bilinear strategy.
-/// 
-/// Layer is used to support TensorFlow's resize_nearest_neighbor and resize_bilinear ops.
 pub struct ResizeLayer {
 	ptr: *mut c_void
 }
@@ -11170,11 +9731,6 @@ boxed_cast_base! { ScaleLayerInt8, crate::dnn::Layer, cv_ScaleLayerInt8_to_Layer
 
 boxed_cast_base! { ScaleLayerInt8, crate::dnn::ScaleLayer, cv_ScaleLayerInt8_to_ScaleLayer }
 
-/// This class represents high-level API for segmentation  models
-/// 
-/// SegmentationModel allows to set params for preprocessing input image.
-/// SegmentationModel creates net from file with trained weights and config,
-/// sets preprocessing input, runs forward pass and returns the class prediction for each pixel.
 pub trait SegmentationModelTraitConst: crate::dnn::ModelTraitConst {
 	fn as_raw_SegmentationModel(&self) -> *const c_void;
 
@@ -11183,10 +9739,6 @@ pub trait SegmentationModelTraitConst: crate::dnn::ModelTraitConst {
 pub trait SegmentationModelTrait: crate::dnn::ModelTrait + crate::dnn::SegmentationModelTraitConst {
 	fn as_raw_mut_SegmentationModel(&mut self) -> *mut c_void;
 
-	/// Given the @p input frame, create input blob, run net
-	/// ## Parameters
-	/// * frame: The input image.
-	/// * mask:[out] Allocated class prediction for each pixel
 	#[inline]
 	fn segment(&mut self, frame: &dyn core::ToInputArray, mask: &mut dyn core::ToOutputArray) -> Result<()> {
 		input_array_arg!(frame);
@@ -11200,11 +9752,6 @@ pub trait SegmentationModelTrait: crate::dnn::ModelTrait + crate::dnn::Segmentat
 	
 }
 
-/// This class represents high-level API for segmentation  models
-/// 
-/// SegmentationModel allows to set params for preprocessing input image.
-/// SegmentationModel creates net from file with trained weights and config,
-/// sets preprocessing input, runs forward pass and returns the class prediction for each pixel.
 pub struct SegmentationModel {
 	ptr: *mut c_void
 }
@@ -11237,12 +9784,6 @@ impl crate::dnn::SegmentationModelTrait for SegmentationModel {
 }
 
 impl SegmentationModel {
-	/// Create segmentation model from network represented in one of the supported formats.
-	/// An order of @p model and @p config arguments does not matter.
-	/// ## Parameters
-	/// * model: Binary file contains trained weights.
-	/// * config: Text file contains network configuration.
-	/// 
 	/// ## C++ default parameters
 	/// * config: ""
 	#[inline]
@@ -11257,9 +9798,6 @@ impl SegmentationModel {
 		Ok(ret)
 	}
 	
-	/// Create model from deep learning network.
-	/// ## Parameters
-	/// * network: Net object.
 	#[inline]
 	pub fn new_1(network: &crate::dnn::Net) -> Result<crate::dnn::SegmentationModel> {
 		return_send!(via ocvrs_return);
@@ -11606,14 +10144,6 @@ boxed_cast_base! { ShrinkLayer, core::Algorithm, cv_ShrinkLayer_to_Algorithm }
 
 boxed_cast_base! { ShrinkLayer, crate::dnn::Layer, cv_ShrinkLayer_to_Layer }
 
-/// Permute channels of 4-dimensional input blob.
-/// ## Parameters
-/// * group: Number of groups to split input channels and pick in turns
-///              into output blob.
-/// 
-/// ![block formula](https://latex.codecogs.com/png.latex?%20groupSize%20%3D%20%5Cfrac%7Bnumber%5C%20of%5C%20channels%7D%7Bgroup%7D%20)
-/// ![block formula](https://latex.codecogs.com/png.latex?%20output%28n%2C%20c%2C%20h%2C%20w%29%20%3D%20input%28n%2C%20groupSize%20%5Ctimes%20%28c%20%5C%25%20group%29%20%2B%20%5Clfloor%20%5Cfrac%7Bc%7D%7Bgroup%7D%20%5Crfloor%2C%20h%2C%20w%29%20)
-/// Read more at https://arxiv.org/pdf/1707.01083.pdf
 pub trait ShuffleChannelLayerTraitConst: crate::dnn::LayerTraitConst {
 	fn as_raw_ShuffleChannelLayer(&self) -> *const c_void;
 
@@ -11636,14 +10166,6 @@ pub trait ShuffleChannelLayerTrait: crate::dnn::LayerTrait + crate::dnn::Shuffle
 	
 }
 
-/// Permute channels of 4-dimensional input blob.
-/// ## Parameters
-/// * group: Number of groups to split input channels and pick in turns
-///              into output blob.
-/// 
-/// ![block formula](https://latex.codecogs.com/png.latex?%20groupSize%20%3D%20%5Cfrac%7Bnumber%5C%20of%5C%20channels%7D%7Bgroup%7D%20)
-/// ![block formula](https://latex.codecogs.com/png.latex?%20output%28n%2C%20c%2C%20h%2C%20w%29%20%3D%20input%28n%2C%20groupSize%20%5Ctimes%20%28c%20%5C%25%20group%29%20%2B%20%5Clfloor%20%5Cfrac%7Bc%7D%7Bgroup%7D%20%5Crfloor%2C%20h%2C%20w%29%20)
-/// Read more at https://arxiv.org/pdf/1707.01083.pdf
 pub struct ShuffleChannelLayer {
 	ptr: *mut c_void
 }
@@ -12004,36 +10526,9 @@ boxed_cast_base! { SinhLayer, core::Algorithm, cv_SinhLayer_to_Algorithm }
 
 boxed_cast_base! { SinhLayer, crate::dnn::Layer, cv_SinhLayer_to_Layer }
 
-/// Slice layer has several modes:
-/// 1. Caffe mode
-/// ## Parameters
-/// * axis: Axis of split operation
-/// * slice_point: Array of split points
-/// 
-/// Number of output blobs equals to number of split points plus one. The
-/// first blob is a slice on input from 0 to @p slice_point[0] - 1 by @p axis,
-/// the second output blob is a slice of input from @p slice_point[0] to
-/// @p slice_point[1] - 1 by @p axis and the last output blob is a slice of
-/// input from @p slice_point[-1] up to the end of @p axis size.
-/// 
-/// 2. TensorFlow mode
-/// * begin: Vector of start indices
-/// * size: Vector of sizes
-/// 
-/// More convenient numpy-like slice. One and only output blob
-/// is a slice `input[begin[0]:begin[0]+size[0], begin[1]:begin[1]+size[1], ...]`
-/// 
-/// 3. Torch mode
-/// * axis: Axis of split operation
-/// 
-/// Split input blob on the equal parts by @p axis.
 pub trait SliceLayerTraitConst: crate::dnn::LayerTraitConst {
 	fn as_raw_SliceLayer(&self) -> *const c_void;
 
-	/// Vector of slice ranges.
-	/// 
-	/// The first dimension equals number of output blobs.
-	/// Inner vector has slice ranges for the first number of input dimensions.
 	#[inline]
 	fn slice_ranges(&self) -> core::Vector<core::Vector<core::Range>> {
 		let ret = unsafe { sys::cv_dnn_SliceLayer_getPropSliceRanges_const(self.as_raw_SliceLayer()) };
@@ -12065,10 +10560,6 @@ pub trait SliceLayerTraitConst: crate::dnn::LayerTraitConst {
 pub trait SliceLayerTrait: crate::dnn::LayerTrait + crate::dnn::SliceLayerTraitConst {
 	fn as_raw_mut_SliceLayer(&mut self) -> *mut c_void;
 
-	/// Vector of slice ranges.
-	/// 
-	/// The first dimension equals number of output blobs.
-	/// Inner vector has slice ranges for the first number of input dimensions.
 	#[inline]
 	fn set_slice_ranges(&mut self, mut val: core::Vector<core::Vector<core::Range>>) {
 		let ret = unsafe { sys::cv_dnn_SliceLayer_setPropSliceRanges_vector_vector_Range__(self.as_raw_mut_SliceLayer(), val.as_raw_mut_VectorOfVectorOfRange()) };
@@ -12095,29 +10586,6 @@ pub trait SliceLayerTrait: crate::dnn::LayerTrait + crate::dnn::SliceLayerTraitC
 	
 }
 
-/// Slice layer has several modes:
-/// 1. Caffe mode
-/// ## Parameters
-/// * axis: Axis of split operation
-/// * slice_point: Array of split points
-/// 
-/// Number of output blobs equals to number of split points plus one. The
-/// first blob is a slice on input from 0 to @p slice_point[0] - 1 by @p axis,
-/// the second output blob is a slice of input from @p slice_point[0] to
-/// @p slice_point[1] - 1 by @p axis and the last output blob is a slice of
-/// input from @p slice_point[-1] up to the end of @p axis size.
-/// 
-/// 2. TensorFlow mode
-/// * begin: Vector of start indices
-/// * size: Vector of sizes
-/// 
-/// More convenient numpy-like slice. One and only output blob
-/// is a slice `input[begin[0]:begin[0]+size[0], begin[1]:begin[1]+size[1], ...]`
-/// 
-/// 3. Torch mode
-/// * axis: Axis of split operation
-/// 
-/// Split input blob on the equal parts by @p axis.
 pub struct SliceLayer {
 	ptr: *mut c_void
 }
@@ -12507,7 +10975,6 @@ boxed_cast_base! { SoftsignLayer, crate::dnn::Layer, cv_SoftsignLayer_to_Layer }
 pub trait SplitLayerTraitConst: crate::dnn::LayerTraitConst {
 	fn as_raw_SplitLayer(&self) -> *const c_void;
 
-	/// Number of copies that will be produced (is ignored when negative).
 	#[inline]
 	fn outputs_count(&self) -> i32 {
 		let ret = unsafe { sys::cv_dnn_SplitLayer_getPropOutputsCount_const(self.as_raw_SplitLayer()) };
@@ -12519,7 +10986,6 @@ pub trait SplitLayerTraitConst: crate::dnn::LayerTraitConst {
 pub trait SplitLayerTrait: crate::dnn::LayerTrait + crate::dnn::SplitLayerTraitConst {
 	fn as_raw_mut_SplitLayer(&mut self) -> *mut c_void;
 
-	/// Number of copies that will be produced (is ignored when negative).
 	#[inline]
 	fn set_outputs_count(&mut self, val: i32) {
 		let ret = unsafe { sys::cv_dnn_SplitLayer_setPropOutputsCount_int(self.as_raw_mut_SplitLayer(), val) };
@@ -12888,29 +11354,9 @@ boxed_cast_base! { TanLayer, core::Algorithm, cv_TanLayer_to_Algorithm }
 
 boxed_cast_base! { TanLayer, crate::dnn::Layer, cv_TanLayer_to_Layer }
 
-/// Base class for text detection networks
 pub trait TextDetectionModelTraitConst: crate::dnn::ModelTraitConst {
 	fn as_raw_TextDetectionModel(&self) -> *const c_void;
 
-	/// Performs detection
-	/// 
-	/// Given the input @p frame, prepare network input, run network inference, post-process network output and return result detections.
-	/// 
-	/// Each result is quadrangle's 4 points in this order:
-	/// - bottom-left
-	/// - top-left
-	/// - top-right
-	/// - bottom-right
-	/// 
-	/// Use cv::getPerspectiveTransform function to retrieve image region without perspective transformations.
-	/// 
-	/// 
-	/// Note: If DL model doesn't support that kind of output then result may be derived from detectTextRectangles() output.
-	/// 
-	/// ## Parameters
-	/// * frame: The input image
-	/// * detections:[out] array with detections' quadrangles (4 points per result)
-	/// * confidences:[out] array with detection confidences
 	#[inline]
 	fn detect_with_confidences(&self, frame: &dyn core::ToInputArray, detections: &mut core::Vector<core::Vector<core::Point>>, confidences: &mut core::Vector<f32>) -> Result<()> {
 		input_array_arg!(frame);
@@ -12921,27 +11367,6 @@ pub trait TextDetectionModelTraitConst: crate::dnn::ModelTraitConst {
 		Ok(ret)
 	}
 	
-	/// Performs detection
-	/// 
-	/// Given the input @p frame, prepare network input, run network inference, post-process network output and return result detections.
-	/// 
-	/// Each result is quadrangle's 4 points in this order:
-	/// - bottom-left
-	/// - top-left
-	/// - top-right
-	/// - bottom-right
-	/// 
-	/// Use cv::getPerspectiveTransform function to retrieve image region without perspective transformations.
-	/// 
-	/// 
-	/// Note: If DL model doesn't support that kind of output then result may be derived from detectTextRectangles() output.
-	/// 
-	/// ## Parameters
-	/// * frame: The input image
-	/// * detections:[out] array with detections' quadrangles (4 points per result)
-	/// * confidences:[out] array with detection confidences
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn detect(&self, frame: &dyn core::ToInputArray, detections: &mut core::Vector<core::Vector<core::Point>>) -> Result<()> {
 		input_array_arg!(frame);
@@ -12952,19 +11377,6 @@ pub trait TextDetectionModelTraitConst: crate::dnn::ModelTraitConst {
 		Ok(ret)
 	}
 	
-	/// Performs detection
-	/// 
-	/// Given the input @p frame, prepare network input, run network inference, post-process network output and return result detections.
-	/// 
-	/// Each result is rotated rectangle.
-	/// 
-	/// 
-	/// Note: Result may be inaccurate in case of strong perspective transformations.
-	/// 
-	/// ## Parameters
-	/// * frame: the input image
-	/// * detections:[out] array with detections' RotationRect results
-	/// * confidences:[out] array with detection confidences
 	#[inline]
 	fn detect_text_rectangles(&self, frame: &dyn core::ToInputArray, detections: &mut core::Vector<core::RotatedRect>, confidences: &mut core::Vector<f32>) -> Result<()> {
 		input_array_arg!(frame);
@@ -12975,21 +11387,6 @@ pub trait TextDetectionModelTraitConst: crate::dnn::ModelTraitConst {
 		Ok(ret)
 	}
 	
-	/// Performs detection
-	/// 
-	/// Given the input @p frame, prepare network input, run network inference, post-process network output and return result detections.
-	/// 
-	/// Each result is rotated rectangle.
-	/// 
-	/// 
-	/// Note: Result may be inaccurate in case of strong perspective transformations.
-	/// 
-	/// ## Parameters
-	/// * frame: the input image
-	/// * detections:[out] array with detections' RotationRect results
-	/// * confidences:[out] array with detection confidences
-	/// 
-	/// ## Overloaded parameters
 	#[inline]
 	fn detect_text_rectangles_1(&self, frame: &dyn core::ToInputArray, detections: &mut core::Vector<core::RotatedRect>) -> Result<()> {
 		input_array_arg!(frame);
@@ -13007,7 +11404,6 @@ pub trait TextDetectionModelTrait: crate::dnn::ModelTrait + crate::dnn::TextDete
 
 }
 
-/// Base class for text detection networks
 pub struct TextDetectionModel {
 	ptr: *mut c_void
 }
@@ -13044,17 +11440,6 @@ impl TextDetectionModel {
 
 boxed_cast_base! { TextDetectionModel, crate::dnn::Model, cv_TextDetectionModel_to_Model }
 
-/// This class represents high-level API for text detection DL networks compatible with DB model.
-/// 
-/// Related publications: [liao2020real](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_liao2020real)
-/// Paper: https://arxiv.org/abs/1911.08947
-/// For more information about the hyper-parameters setting, please refer to https://github.com/MhLiao/DB
-/// 
-/// Configurable parameters:
-/// - (float) binaryThreshold - The threshold of the binary map. It is usually set to 0.3.
-/// - (float) polygonThreshold - The threshold of text polygons. It is usually set to 0.5, 0.6, and 0.7. Default is 0.5f
-/// - (double) unclipRatio - The unclip ratio of the detected text region, which determines the output size. It is usually set to 2.0.
-/// - (int) maxCandidates - The max number of the output results.
 pub trait TextDetectionModel_DBTraitConst: crate::dnn::TextDetectionModelTraitConst {
 	fn as_raw_TextDetectionModel_DB(&self) -> *const c_void;
 
@@ -13141,17 +11526,6 @@ pub trait TextDetectionModel_DBTrait: crate::dnn::TextDetectionModelTrait + crat
 	
 }
 
-/// This class represents high-level API for text detection DL networks compatible with DB model.
-/// 
-/// Related publications: [liao2020real](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_liao2020real)
-/// Paper: https://arxiv.org/abs/1911.08947
-/// For more information about the hyper-parameters setting, please refer to https://github.com/MhLiao/DB
-/// 
-/// Configurable parameters:
-/// - (float) binaryThreshold - The threshold of the binary map. It is usually set to 0.3.
-/// - (float) polygonThreshold - The threshold of text polygons. It is usually set to 0.5, 0.6, and 0.7. Default is 0.5f
-/// - (double) unclipRatio - The unclip ratio of the detected text region, which determines the output size. It is usually set to 2.0.
-/// - (int) maxCandidates - The max number of the output results.
 pub struct TextDetectionModel_DB {
 	ptr: *mut c_void
 }
@@ -13202,9 +11576,6 @@ impl TextDetectionModel_DB {
 		Ok(ret)
 	}
 	
-	/// Create text detection algorithm from deep learning network.
-	/// ## Parameters
-	/// * network: Net object.
 	#[inline]
 	pub fn new(network: &crate::dnn::Net) -> Result<crate::dnn::TextDetectionModel_DB> {
 		return_send!(via ocvrs_return);
@@ -13215,12 +11586,6 @@ impl TextDetectionModel_DB {
 		Ok(ret)
 	}
 	
-	/// Create text detection model from network represented in one of the supported formats.
-	/// An order of @p model and @p config arguments does not matter.
-	/// ## Parameters
-	/// * model: Binary file contains trained weights.
-	/// * config: Text file contains network configuration.
-	/// 
 	/// ## C++ default parameters
 	/// * config: ""
 	#[inline]
@@ -13241,15 +11606,9 @@ boxed_cast_base! { TextDetectionModel_DB, crate::dnn::Model, cv_TextDetectionMod
 
 boxed_cast_base! { TextDetectionModel_DB, crate::dnn::TextDetectionModel, cv_TextDetectionModel_DB_to_TextDetectionModel }
 
-/// This class represents high-level API for text detection DL networks compatible with EAST model.
-/// 
-/// Configurable parameters:
-/// - (float) confThreshold - used to filter boxes by confidences, default: 0.5f
-/// - (float) nmsThreshold - used in non maximum suppression, default: 0.0f
 pub trait TextDetectionModel_EASTTraitConst: crate::dnn::TextDetectionModelTraitConst {
 	fn as_raw_TextDetectionModel_EAST(&self) -> *const c_void;
 
-	/// Get the detection confidence threshold
 	#[inline]
 	fn get_confidence_threshold(&self) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -13259,7 +11618,6 @@ pub trait TextDetectionModel_EASTTraitConst: crate::dnn::TextDetectionModelTrait
 		Ok(ret)
 	}
 	
-	/// Get the detection confidence threshold
 	#[inline]
 	fn get_nms_threshold(&self) -> Result<f32> {
 		return_send!(via ocvrs_return);
@@ -13274,9 +11632,6 @@ pub trait TextDetectionModel_EASTTraitConst: crate::dnn::TextDetectionModelTrait
 pub trait TextDetectionModel_EASTTrait: crate::dnn::TextDetectionModelTrait + crate::dnn::TextDetectionModel_EASTTraitConst {
 	fn as_raw_mut_TextDetectionModel_EAST(&mut self) -> *mut c_void;
 
-	/// Set the detection confidence threshold
-	/// ## Parameters
-	/// * confThreshold: A threshold used to filter boxes by confidences
 	#[inline]
 	fn set_confidence_threshold(&mut self, conf_threshold: f32) -> Result<crate::dnn::TextDetectionModel_EAST> {
 		return_send!(via ocvrs_return);
@@ -13287,9 +11642,6 @@ pub trait TextDetectionModel_EASTTrait: crate::dnn::TextDetectionModelTrait + cr
 		Ok(ret)
 	}
 	
-	/// Set the detection NMS filter threshold
-	/// ## Parameters
-	/// * nmsThreshold: A threshold used in non maximum suppression
 	#[inline]
 	fn set_nms_threshold(&mut self, nms_threshold: f32) -> Result<crate::dnn::TextDetectionModel_EAST> {
 		return_send!(via ocvrs_return);
@@ -13302,11 +11654,6 @@ pub trait TextDetectionModel_EASTTrait: crate::dnn::TextDetectionModelTrait + cr
 	
 }
 
-/// This class represents high-level API for text detection DL networks compatible with EAST model.
-/// 
-/// Configurable parameters:
-/// - (float) confThreshold - used to filter boxes by confidences, default: 0.5f
-/// - (float) nmsThreshold - used in non maximum suppression, default: 0.0f
 pub struct TextDetectionModel_EAST {
 	ptr: *mut c_void
 }
@@ -13357,9 +11704,6 @@ impl TextDetectionModel_EAST {
 		Ok(ret)
 	}
 	
-	/// Create text detection algorithm from deep learning network
-	/// ## Parameters
-	/// * network: Net object
 	#[inline]
 	pub fn new(network: &crate::dnn::Net) -> Result<crate::dnn::TextDetectionModel_EAST> {
 		return_send!(via ocvrs_return);
@@ -13370,12 +11714,6 @@ impl TextDetectionModel_EAST {
 		Ok(ret)
 	}
 	
-	/// Create text detection model from network represented in one of the supported formats.
-	/// An order of @p model and @p config arguments does not matter.
-	/// ## Parameters
-	/// * model: Binary file contains trained weights.
-	/// * config: Text file contains network configuration.
-	/// 
 	/// ## C++ default parameters
 	/// * config: ""
 	#[inline]
@@ -13396,18 +11734,9 @@ boxed_cast_base! { TextDetectionModel_EAST, crate::dnn::Model, cv_TextDetectionM
 
 boxed_cast_base! { TextDetectionModel_EAST, crate::dnn::TextDetectionModel, cv_TextDetectionModel_EAST_to_TextDetectionModel }
 
-/// This class represents high-level API for text recognition networks.
-/// 
-/// TextRecognitionModel allows to set params for preprocessing input image.
-/// TextRecognitionModel creates net from file with trained weights and config,
-/// sets preprocessing input, runs forward pass and return recognition result.
-/// For TextRecognitionModel, CRNN-CTC is supported.
 pub trait TextRecognitionModelTraitConst: crate::dnn::ModelTraitConst {
 	fn as_raw_TextRecognitionModel(&self) -> *const c_void;
 
-	/// Get the decoding method
-	/// ## Returns
-	/// the decoding method
 	#[inline]
 	fn get_decode_type(&self) -> Result<String> {
 		return_send!(via ocvrs_return);
@@ -13418,9 +11747,6 @@ pub trait TextRecognitionModelTraitConst: crate::dnn::ModelTraitConst {
 		Ok(ret)
 	}
 	
-	/// Get the vocabulary for recognition.
-	/// ## Returns
-	/// vocabulary the associated vocabulary
 	#[inline]
 	fn get_vocabulary(&self) -> Result<core::Vector<String>> {
 		return_send!(via ocvrs_return);
@@ -13431,11 +11757,6 @@ pub trait TextRecognitionModelTraitConst: crate::dnn::ModelTraitConst {
 		Ok(ret)
 	}
 	
-	/// Given the @p input frame, create input blob, run net and return recognition result
-	/// ## Parameters
-	/// * frame: The input image
-	/// ## Returns
-	/// The text recognition result
 	#[inline]
 	fn recognize(&self, frame: &dyn core::ToInputArray) -> Result<String> {
 		input_array_arg!(frame);
@@ -13447,11 +11768,6 @@ pub trait TextRecognitionModelTraitConst: crate::dnn::ModelTraitConst {
 		Ok(ret)
 	}
 	
-	/// Given the @p input frame, create input blob, run net and return recognition result
-	/// ## Parameters
-	/// * frame: The input image
-	/// * roiRects: List of text detection regions of interest (cv::Rect, CV_32SC4). ROIs is be cropped as the network inputs
-	/// * results:[out] A set of text recognition results.
 	#[inline]
 	fn recognize_1(&self, frame: &dyn core::ToInputArray, roi_rects: &dyn core::ToInputArray, results: &mut core::Vector<String>) -> Result<()> {
 		input_array_arg!(frame);
@@ -13468,11 +11784,6 @@ pub trait TextRecognitionModelTraitConst: crate::dnn::ModelTraitConst {
 pub trait TextRecognitionModelTrait: crate::dnn::ModelTrait + crate::dnn::TextRecognitionModelTraitConst {
 	fn as_raw_mut_TextRecognitionModel(&mut self) -> *mut c_void;
 
-	/// Set the decoding method of translating the network output into string
-	/// ## Parameters
-	/// * decodeType: The decoding method of translating the network output into string, currently supported type:
-	///    - `"CTC-greedy"` greedy decoding for the output of CTC-based methods
-	///    - `"CTC-prefix-beam-search"` Prefix beam search decoding for the output of CTC-based methods
 	#[inline]
 	fn set_decode_type(&mut self, decode_type: &str) -> Result<crate::dnn::TextRecognitionModel> {
 		extern_container_arg!(decode_type);
@@ -13484,12 +11795,6 @@ pub trait TextRecognitionModelTrait: crate::dnn::ModelTrait + crate::dnn::TextRe
 		Ok(ret)
 	}
 	
-	/// Set the decoding method options for `"CTC-prefix-beam-search"` decode usage
-	/// ## Parameters
-	/// * beamSize: Beam size for search
-	/// * vocPruneSize: Parameter to optimize big vocabulary search,
-	/// only take top @p vocPruneSize tokens in each search step, @p vocPruneSize <= 0 stands for disable this prune.
-	/// 
 	/// ## C++ default parameters
 	/// * voc_prune_size: 0
 	#[inline]
@@ -13502,9 +11807,6 @@ pub trait TextRecognitionModelTrait: crate::dnn::ModelTrait + crate::dnn::TextRe
 		Ok(ret)
 	}
 	
-	/// Set the vocabulary for recognition.
-	/// ## Parameters
-	/// * vocabulary: the associated vocabulary of the network.
 	#[inline]
 	fn set_vocabulary(&mut self, vocabulary: &core::Vector<String>) -> Result<crate::dnn::TextRecognitionModel> {
 		return_send!(via ocvrs_return);
@@ -13517,12 +11819,6 @@ pub trait TextRecognitionModelTrait: crate::dnn::ModelTrait + crate::dnn::TextRe
 	
 }
 
-/// This class represents high-level API for text recognition networks.
-/// 
-/// TextRecognitionModel allows to set params for preprocessing input image.
-/// TextRecognitionModel creates net from file with trained weights and config,
-/// sets preprocessing input, runs forward pass and return recognition result.
-/// For TextRecognitionModel, CRNN-CTC is supported.
 pub struct TextRecognitionModel {
 	ptr: *mut c_void
 }
@@ -13565,10 +11861,6 @@ impl TextRecognitionModel {
 		Ok(ret)
 	}
 	
-	/// Create Text Recognition model from deep learning network
-	/// Call setDecodeType() and setVocabulary() after constructor to initialize the decoding method
-	/// ## Parameters
-	/// * network: Net object
 	#[inline]
 	pub fn new(network: &crate::dnn::Net) -> Result<crate::dnn::TextRecognitionModel> {
 		return_send!(via ocvrs_return);
@@ -13579,12 +11871,6 @@ impl TextRecognitionModel {
 		Ok(ret)
 	}
 	
-	/// Create text recognition model from network represented in one of the supported formats
-	/// Call setDecodeType() and setVocabulary() after constructor to initialize the decoding method
-	/// ## Parameters
-	/// * model: Binary file contains trained weights
-	/// * config: Text file contains network configuration
-	/// 
 	/// ## C++ default parameters
 	/// * config: ""
 	#[inline]

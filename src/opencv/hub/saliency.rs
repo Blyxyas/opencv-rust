@@ -45,7 +45,6 @@ pub mod prelude {
 	pub use { super::SaliencyConst, super::Saliency, super::StaticSaliencyConst, super::StaticSaliency, super::MotionSaliencyConst, super::MotionSaliency, super::ObjectnessConst, super::Objectness, super::StaticSaliencySpectralResidualTraitConst, super::StaticSaliencySpectralResidualTrait, super::StaticSaliencyFineGrainedTraitConst, super::StaticSaliencyFineGrainedTrait, super::MotionSaliencyBinWangApr2014TraitConst, super::MotionSaliencyBinWangApr2014Trait, super::ObjectnessBINGTraitConst, super::ObjectnessBINGTrait };
 }
 
-/// ********************************* Motion Saliency Base Class ***********************************
 pub trait MotionSaliencyConst: crate::saliency::SaliencyConst {
 	fn as_raw_MotionSaliency(&self) -> *const c_void;
 
@@ -56,14 +55,6 @@ pub trait MotionSaliency: crate::saliency::MotionSaliencyConst + crate::saliency
 
 }
 
-/// !
-///  * A Fast Self-tuning Background Subtraction Algorithm.
-///  *
-///  * This background subtraction algorithm is inspired to the work of B. Wang and P. Dudek [2]
-///  * [2]  B. Wang and P. Dudek "A Fast Self-tuning Background Subtraction Algorithm", in proc of IEEE Workshop on Change Detection, 2014
-///  *
-/// 
-/// the Fast Self-tuning Background Subtraction Algorithm from [BinWangApr2014](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_BinWangApr2014)
 pub trait MotionSaliencyBinWangApr2014TraitConst: crate::saliency::MotionSaliencyConst {
 	fn as_raw_MotionSaliencyBinWangApr2014(&self) -> *const c_void;
 
@@ -101,11 +92,6 @@ pub trait MotionSaliencyBinWangApr2014Trait: crate::saliency::MotionSaliency + c
 		Ok(ret)
 	}
 	
-	/// This is a utility function that allows to set the correct size (taken from the input image) in the
-	/// corresponding variables that will be used to size the data structures of the algorithm.
-	/// ## Parameters
-	/// * W: width of input image
-	/// * H: height of input image
 	#[inline]
 	fn set_imagesize(&mut self, w: i32, h: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -115,8 +101,6 @@ pub trait MotionSaliencyBinWangApr2014Trait: crate::saliency::MotionSaliency + c
 		Ok(ret)
 	}
 	
-	/// This function allows the correct initialization of all data structures that will be used by the
-	/// algorithm.
 	#[inline]
 	fn init(&mut self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -146,14 +130,6 @@ pub trait MotionSaliencyBinWangApr2014Trait: crate::saliency::MotionSaliency + c
 	
 }
 
-/// !
-///  * A Fast Self-tuning Background Subtraction Algorithm.
-///  *
-///  * This background subtraction algorithm is inspired to the work of B. Wang and P. Dudek [2]
-///  * [2]  B. Wang and P. Dudek "A Fast Self-tuning Background Subtraction Algorithm", in proc of IEEE Workshop on Change Detection, 2014
-///  *
-/// 
-/// the Fast Self-tuning Background Subtraction Algorithm from [BinWangApr2014](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_BinWangApr2014)
 pub struct MotionSaliencyBinWangApr2014 {
 	ptr: *mut c_void
 }
@@ -226,7 +202,6 @@ impl MotionSaliencyBinWangApr2014 {
 
 boxed_cast_base! { MotionSaliencyBinWangApr2014, core::Algorithm, cv_MotionSaliencyBinWangApr2014_to_Algorithm }
 
-/// ********************************* Objectness Base Class ***********************************
 pub trait ObjectnessConst: crate::saliency::SaliencyConst {
 	fn as_raw_Objectness(&self) -> *const c_void;
 
@@ -237,7 +212,6 @@ pub trait Objectness: crate::saliency::ObjectnessConst + crate::saliency::Salien
 
 }
 
-/// the Binarized normed gradients algorithm from [BING](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_BING)
 pub trait ObjectnessBINGTraitConst: crate::saliency::ObjectnessConst {
 	fn as_raw_ObjectnessBING(&self) -> *const c_void;
 
@@ -302,11 +276,6 @@ pub trait ObjectnessBINGTrait: crate::saliency::Objectness + crate::saliency::Ob
 		Ok(ret)
 	}
 	
-	/// Return the list of the rectangles' objectness value,
-	/// 
-	/// in the same order as the *vector\<Vec4i\> objectnessBoundingBox* returned by the algorithm (in
-	/// computeSaliencyImpl function). The bigger value these scores are, it is more likely to be an
-	/// object window.
 	#[inline]
 	fn getobjectness_values(&mut self) -> Result<core::Vector<f32>> {
 		return_send!(via ocvrs_return);
@@ -317,10 +286,6 @@ pub trait ObjectnessBINGTrait: crate::saliency::Objectness + crate::saliency::Ob
 		Ok(ret)
 	}
 	
-	/// This is a utility function that allows to set the correct path from which the algorithm will load
-	/// the trained model.
-	/// ## Parameters
-	/// * trainingPath: trained model path
 	#[inline]
 	fn set_training_path(&mut self, training_path: &str) -> Result<()> {
 		extern_container_arg!(training_path);
@@ -331,13 +296,6 @@ pub trait ObjectnessBINGTrait: crate::saliency::Objectness + crate::saliency::Ob
 		Ok(ret)
 	}
 	
-	/// This is a utility function that allows to set an arbitrary path in which the algorithm will save the
-	/// optional results
-	/// 
-	/// (ie writing on file the total number and the list of rectangles returned by objectess, one for
-	/// each row).
-	/// ## Parameters
-	/// * resultsDir: results' folder path
 	#[inline]
 	fn set_bb_res_dir(&mut self, results_dir: &str) -> Result<()> {
 		extern_container_arg!(results_dir);
@@ -377,7 +335,6 @@ pub trait ObjectnessBINGTrait: crate::saliency::Objectness + crate::saliency::Ob
 	
 }
 
-/// the Binarized normed gradients algorithm from [BING](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_BING)
 pub struct ObjectnessBING {
 	ptr: *mut c_void
 }
@@ -450,7 +407,6 @@ impl ObjectnessBING {
 
 boxed_cast_base! { ObjectnessBING, core::Algorithm, cv_ObjectnessBING_to_Algorithm }
 
-/// ********************************* Saliency Base Class ***********************************
 pub trait SaliencyConst: core::AlgorithmTraitConst {
 	fn as_raw_Saliency(&self) -> *const c_void;
 
@@ -459,10 +415,6 @@ pub trait SaliencyConst: core::AlgorithmTraitConst {
 pub trait Saliency: core::AlgorithmTrait + crate::saliency::SaliencyConst {
 	fn as_raw_mut_Saliency(&mut self) -> *mut c_void;
 
-	/// \brief Compute the saliency
-	/// \param image        The image.
-	/// \param saliencyMap      The computed saliency map.
-	/// \return true if the saliency map is computed, false otherwise
 	#[inline]
 	fn compute_saliency(&mut self, image: &dyn core::ToInputArray, saliency_map: &mut dyn core::ToOutputArray) -> Result<bool> {
 		input_array_arg!(image);
@@ -476,7 +428,6 @@ pub trait Saliency: core::AlgorithmTrait + crate::saliency::SaliencyConst {
 	
 }
 
-/// ********************************* Static Saliency Base Class ***********************************
 pub trait StaticSaliencyConst: crate::saliency::SaliencyConst {
 	fn as_raw_StaticSaliency(&self) -> *const c_void;
 
@@ -485,21 +436,6 @@ pub trait StaticSaliencyConst: crate::saliency::SaliencyConst {
 pub trait StaticSaliency: crate::saliency::Saliency + crate::saliency::StaticSaliencyConst {
 	fn as_raw_mut_StaticSaliency(&mut self) -> *mut c_void;
 
-	/// This function perform a binary map of given saliency map. This is obtained in this
-	/// way:
-	/// 
-	/// In a first step, to improve the definition of interest areas and facilitate identification of
-	/// targets, a segmentation by clustering is performed, using *K-means algorithm*. Then, to gain a
-	/// binary representation of clustered saliency map, since values of the map can vary according to
-	/// the characteristics of frame under analysis, it is not convenient to use a fixed threshold. So,
-	/// *Otsu's algorithm* is used, which assumes that the image to be thresholded contains two classes
-	/// of pixels or bi-modal histograms (e.g. foreground and back-ground pixels); later on, the
-	/// algorithm calculates the optimal threshold separating those two classes, so that their
-	/// intra-class variance is minimal.
-	/// 
-	/// ## Parameters
-	/// * _saliencyMap: the saliency map obtained through one of the specialized algorithms
-	/// * _binaryMap: the binary map
 	#[inline]
 	fn compute_binary_map(&mut self, _saliency_map: &dyn core::ToInputArray, _binary_map: &mut dyn core::ToOutputArray) -> Result<bool> {
 		input_array_arg!(_saliency_map);
@@ -513,10 +449,6 @@ pub trait StaticSaliency: crate::saliency::Saliency + crate::saliency::StaticSal
 	
 }
 
-/// the Fine Grained Saliency approach from [FGS](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_FGS)
-/// 
-/// This method calculates saliency based on center-surround differences.
-/// High resolution saliency maps are generated in real time by using integral images.
 pub trait StaticSaliencyFineGrainedTraitConst: crate::saliency::StaticSaliencyConst {
 	fn as_raw_StaticSaliencyFineGrained(&self) -> *const c_void;
 
@@ -538,10 +470,6 @@ pub trait StaticSaliencyFineGrainedTrait: crate::saliency::StaticSaliency + crat
 	
 }
 
-/// the Fine Grained Saliency approach from [FGS](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_FGS)
-/// 
-/// This method calculates saliency based on center-surround differences.
-/// High resolution saliency maps are generated in real time by using integral images.
 pub struct StaticSaliencyFineGrained {
 	ptr: *mut c_void
 }
@@ -614,12 +542,6 @@ impl StaticSaliencyFineGrained {
 
 boxed_cast_base! { StaticSaliencyFineGrained, core::Algorithm, cv_StaticSaliencyFineGrained_to_Algorithm }
 
-/// the Spectral Residual approach from  [SR](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_SR)
-/// 
-/// Starting from the principle of natural image statistics, this method simulate the behavior of
-/// pre-attentive visual search. The algorithm analyze the log spectrum of each image and obtain the
-/// spectral residual. Then transform the spectral residual to spatial domain to obtain the saliency
-/// map, which suggests the positions of proto-objects.
 pub trait StaticSaliencySpectralResidualTraitConst: crate::saliency::StaticSaliencyConst {
 	fn as_raw_StaticSaliencySpectralResidual(&self) -> *const c_void;
 
@@ -695,12 +617,6 @@ pub trait StaticSaliencySpectralResidualTrait: crate::saliency::StaticSaliency +
 	
 }
 
-/// the Spectral Residual approach from  [SR](https://docs.opencv.org/4.6.0/d0/de3/citelist.html#CITEREF_SR)
-/// 
-/// Starting from the principle of natural image statistics, this method simulate the behavior of
-/// pre-attentive visual search. The algorithm analyze the log spectrum of each image and obtain the
-/// spectral residual. Then transform the spectral residual to spatial domain to obtain the saliency
-/// map, which suggests the positions of proto-objects.
 pub struct StaticSaliencySpectralResidual {
 	ptr: *mut c_void
 }

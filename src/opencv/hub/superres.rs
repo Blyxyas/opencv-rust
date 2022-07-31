@@ -162,9 +162,6 @@ pub fn create_super_resolution_btvl1_cuda() -> Result<core::Ptr<dyn crate::super
 pub trait Superres_BroxOpticalFlowConst: crate::superres::Superres_DenseOpticalFlowExtConst {
 	fn as_raw_Superres_BroxOpticalFlow(&self) -> *const c_void;
 
-	/// Flow smoothness
-	/// ## See also
-	/// setAlpha
 	#[inline]
 	fn get_alpha(&self) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -174,9 +171,6 @@ pub trait Superres_BroxOpticalFlowConst: crate::superres::Superres_DenseOpticalF
 		Ok(ret)
 	}
 	
-	/// Gradient constancy importance
-	/// ## See also
-	/// setGamma
 	#[inline]
 	fn get_gamma(&self) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -186,9 +180,6 @@ pub trait Superres_BroxOpticalFlowConst: crate::superres::Superres_DenseOpticalF
 		Ok(ret)
 	}
 	
-	/// Pyramid scale factor
-	/// ## See also
-	/// setScaleFactor
 	#[inline]
 	fn get_scale_factor(&self) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -198,9 +189,6 @@ pub trait Superres_BroxOpticalFlowConst: crate::superres::Superres_DenseOpticalF
 		Ok(ret)
 	}
 	
-	/// Number of lagged non-linearity iterations (inner loop)
-	/// ## See also
-	/// setInnerIterations
 	#[inline]
 	fn get_inner_iterations(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -210,9 +198,6 @@ pub trait Superres_BroxOpticalFlowConst: crate::superres::Superres_DenseOpticalF
 		Ok(ret)
 	}
 	
-	/// Number of warping iterations (number of pyramid levels)
-	/// ## See also
-	/// setOuterIterations
 	#[inline]
 	fn get_outer_iterations(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -222,9 +207,6 @@ pub trait Superres_BroxOpticalFlowConst: crate::superres::Superres_DenseOpticalF
 		Ok(ret)
 	}
 	
-	/// Number of linear system solver iterations
-	/// ## See also
-	/// setSolverIterations
 	#[inline]
 	fn get_solver_iterations(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -239,9 +221,6 @@ pub trait Superres_BroxOpticalFlowConst: crate::superres::Superres_DenseOpticalF
 pub trait Superres_BroxOpticalFlow: crate::superres::Superres_BroxOpticalFlowConst + crate::superres::Superres_DenseOpticalFlowExt {
 	fn as_raw_mut_Superres_BroxOpticalFlow(&mut self) -> *mut c_void;
 
-	/// Flow smoothness
-	/// ## See also
-	/// setAlpha getAlpha
 	#[inline]
 	fn set_alpha(&mut self, val: f64) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -251,9 +230,6 @@ pub trait Superres_BroxOpticalFlow: crate::superres::Superres_BroxOpticalFlowCon
 		Ok(ret)
 	}
 	
-	/// Gradient constancy importance
-	/// ## See also
-	/// setGamma getGamma
 	#[inline]
 	fn set_gamma(&mut self, val: f64) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -263,9 +239,6 @@ pub trait Superres_BroxOpticalFlow: crate::superres::Superres_BroxOpticalFlowCon
 		Ok(ret)
 	}
 	
-	/// Pyramid scale factor
-	/// ## See also
-	/// setScaleFactor getScaleFactor
 	#[inline]
 	fn set_scale_factor(&mut self, val: f64) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -275,9 +248,6 @@ pub trait Superres_BroxOpticalFlow: crate::superres::Superres_BroxOpticalFlowCon
 		Ok(ret)
 	}
 	
-	/// Number of lagged non-linearity iterations (inner loop)
-	/// ## See also
-	/// setInnerIterations getInnerIterations
 	#[inline]
 	fn set_inner_iterations(&mut self, val: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -287,9 +257,6 @@ pub trait Superres_BroxOpticalFlow: crate::superres::Superres_BroxOpticalFlowCon
 		Ok(ret)
 	}
 	
-	/// Number of warping iterations (number of pyramid levels)
-	/// ## See also
-	/// setOuterIterations getOuterIterations
 	#[inline]
 	fn set_outer_iterations(&mut self, val: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -299,9 +266,6 @@ pub trait Superres_BroxOpticalFlow: crate::superres::Superres_BroxOpticalFlowCon
 		Ok(ret)
 	}
 	
-	/// Number of linear system solver iterations
-	/// ## See also
-	/// setSolverIterations getSolverIterations
 	#[inline]
 	fn set_solver_iterations(&mut self, val: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -350,8 +314,6 @@ pub trait Superres_DenseOpticalFlowExt: core::AlgorithmTrait + crate::superres::
 pub trait Superres_DualTVL1OpticalFlowConst: crate::superres::Superres_DenseOpticalFlowExtConst {
 	fn as_raw_Superres_DualTVL1OpticalFlow(&self) -> *const c_void;
 
-	/// ## See also
-	/// setTau
 	#[inline]
 	fn get_tau(&self) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -361,8 +323,6 @@ pub trait Superres_DualTVL1OpticalFlowConst: crate::superres::Superres_DenseOpti
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setLambda
 	#[inline]
 	fn get_lambda(&self) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -372,8 +332,6 @@ pub trait Superres_DualTVL1OpticalFlowConst: crate::superres::Superres_DenseOpti
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setTheta
 	#[inline]
 	fn get_theta(&self) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -383,8 +341,6 @@ pub trait Superres_DualTVL1OpticalFlowConst: crate::superres::Superres_DenseOpti
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setScalesNumber
 	#[inline]
 	fn get_scales_number(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -394,8 +350,6 @@ pub trait Superres_DualTVL1OpticalFlowConst: crate::superres::Superres_DenseOpti
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setWarpingsNumber
 	#[inline]
 	fn get_warpings_number(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -405,8 +359,6 @@ pub trait Superres_DualTVL1OpticalFlowConst: crate::superres::Superres_DenseOpti
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setEpsilon
 	#[inline]
 	fn get_epsilon(&self) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -416,8 +368,6 @@ pub trait Superres_DualTVL1OpticalFlowConst: crate::superres::Superres_DenseOpti
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setIterations
 	#[inline]
 	fn get_iterations(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -427,8 +377,6 @@ pub trait Superres_DualTVL1OpticalFlowConst: crate::superres::Superres_DenseOpti
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setUseInitialFlow
 	#[inline]
 	fn get_use_initial_flow(&self) -> Result<bool> {
 		return_send!(via ocvrs_return);
@@ -443,8 +391,6 @@ pub trait Superres_DualTVL1OpticalFlowConst: crate::superres::Superres_DenseOpti
 pub trait Superres_DualTVL1OpticalFlow: crate::superres::Superres_DenseOpticalFlowExt + crate::superres::Superres_DualTVL1OpticalFlowConst {
 	fn as_raw_mut_Superres_DualTVL1OpticalFlow(&mut self) -> *mut c_void;
 
-	/// ## See also
-	/// setTau getTau
 	#[inline]
 	fn set_tau(&mut self, val: f64) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -454,8 +400,6 @@ pub trait Superres_DualTVL1OpticalFlow: crate::superres::Superres_DenseOpticalFl
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setLambda getLambda
 	#[inline]
 	fn set_lambda(&mut self, val: f64) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -465,8 +409,6 @@ pub trait Superres_DualTVL1OpticalFlow: crate::superres::Superres_DenseOpticalFl
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setTheta getTheta
 	#[inline]
 	fn set_theta(&mut self, val: f64) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -476,8 +418,6 @@ pub trait Superres_DualTVL1OpticalFlow: crate::superres::Superres_DenseOpticalFl
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setScalesNumber getScalesNumber
 	#[inline]
 	fn set_scales_number(&mut self, val: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -487,8 +427,6 @@ pub trait Superres_DualTVL1OpticalFlow: crate::superres::Superres_DenseOpticalFl
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setWarpingsNumber getWarpingsNumber
 	#[inline]
 	fn set_warpings_number(&mut self, val: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -498,8 +436,6 @@ pub trait Superres_DualTVL1OpticalFlow: crate::superres::Superres_DenseOpticalFl
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setEpsilon getEpsilon
 	#[inline]
 	fn set_epsilon(&mut self, val: f64) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -509,8 +445,6 @@ pub trait Superres_DualTVL1OpticalFlow: crate::superres::Superres_DenseOpticalFl
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setIterations getIterations
 	#[inline]
 	fn set_iterations(&mut self, val: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -520,8 +454,6 @@ pub trait Superres_DualTVL1OpticalFlow: crate::superres::Superres_DenseOpticalFl
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setUseInitialFlow getUseInitialFlow
 	#[inline]
 	fn set_use_initial_flow(&mut self, val: bool) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -536,8 +468,6 @@ pub trait Superres_DualTVL1OpticalFlow: crate::superres::Superres_DenseOpticalFl
 pub trait Superres_FarnebackOpticalFlowConst: crate::superres::Superres_DenseOpticalFlowExtConst {
 	fn as_raw_Superres_FarnebackOpticalFlow(&self) -> *const c_void;
 
-	/// ## See also
-	/// setPyrScale
 	#[inline]
 	fn get_pyr_scale(&self) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -547,8 +477,6 @@ pub trait Superres_FarnebackOpticalFlowConst: crate::superres::Superres_DenseOpt
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setLevelsNumber
 	#[inline]
 	fn get_levels_number(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -558,8 +486,6 @@ pub trait Superres_FarnebackOpticalFlowConst: crate::superres::Superres_DenseOpt
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setWindowSize
 	#[inline]
 	fn get_window_size(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -569,8 +495,6 @@ pub trait Superres_FarnebackOpticalFlowConst: crate::superres::Superres_DenseOpt
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setIterations
 	#[inline]
 	fn get_iterations(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -580,8 +504,6 @@ pub trait Superres_FarnebackOpticalFlowConst: crate::superres::Superres_DenseOpt
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setPolyN
 	#[inline]
 	fn get_poly_n(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -591,8 +513,6 @@ pub trait Superres_FarnebackOpticalFlowConst: crate::superres::Superres_DenseOpt
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setPolySigma
 	#[inline]
 	fn get_poly_sigma(&self) -> Result<f64> {
 		return_send!(via ocvrs_return);
@@ -602,8 +522,6 @@ pub trait Superres_FarnebackOpticalFlowConst: crate::superres::Superres_DenseOpt
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setFlags
 	#[inline]
 	fn get_flags(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -618,8 +536,6 @@ pub trait Superres_FarnebackOpticalFlowConst: crate::superres::Superres_DenseOpt
 pub trait Superres_FarnebackOpticalFlow: crate::superres::Superres_DenseOpticalFlowExt + crate::superres::Superres_FarnebackOpticalFlowConst {
 	fn as_raw_mut_Superres_FarnebackOpticalFlow(&mut self) -> *mut c_void;
 
-	/// ## See also
-	/// setPyrScale getPyrScale
 	#[inline]
 	fn set_pyr_scale(&mut self, val: f64) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -629,8 +545,6 @@ pub trait Superres_FarnebackOpticalFlow: crate::superres::Superres_DenseOpticalF
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setLevelsNumber getLevelsNumber
 	#[inline]
 	fn set_levels_number(&mut self, val: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -640,8 +554,6 @@ pub trait Superres_FarnebackOpticalFlow: crate::superres::Superres_DenseOpticalF
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setWindowSize getWindowSize
 	#[inline]
 	fn set_window_size(&mut self, val: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -651,8 +563,6 @@ pub trait Superres_FarnebackOpticalFlow: crate::superres::Superres_DenseOpticalF
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setIterations getIterations
 	#[inline]
 	fn set_iterations(&mut self, val: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -662,8 +572,6 @@ pub trait Superres_FarnebackOpticalFlow: crate::superres::Superres_DenseOpticalF
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setPolyN getPolyN
 	#[inline]
 	fn set_poly_n(&mut self, val: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -673,8 +581,6 @@ pub trait Superres_FarnebackOpticalFlow: crate::superres::Superres_DenseOpticalF
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setPolySigma getPolySigma
 	#[inline]
 	fn set_poly_sigma(&mut self, val: f64) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -684,8 +590,6 @@ pub trait Superres_FarnebackOpticalFlow: crate::superres::Superres_DenseOpticalF
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setFlags getFlags
 	#[inline]
 	fn set_flags(&mut self, val: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -729,8 +633,6 @@ pub trait Superres_FrameSource: crate::superres::Superres_FrameSourceConst {
 pub trait Superres_PyrLKOpticalFlowConst: crate::superres::Superres_DenseOpticalFlowExtConst {
 	fn as_raw_Superres_PyrLKOpticalFlow(&self) -> *const c_void;
 
-	/// ## See also
-	/// setWindowSize
 	#[inline]
 	fn get_window_size(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -740,8 +642,6 @@ pub trait Superres_PyrLKOpticalFlowConst: crate::superres::Superres_DenseOptical
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setMaxLevel
 	#[inline]
 	fn get_max_level(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -751,8 +651,6 @@ pub trait Superres_PyrLKOpticalFlowConst: crate::superres::Superres_DenseOptical
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setIterations
 	#[inline]
 	fn get_iterations(&self) -> Result<i32> {
 		return_send!(via ocvrs_return);
@@ -767,8 +665,6 @@ pub trait Superres_PyrLKOpticalFlowConst: crate::superres::Superres_DenseOptical
 pub trait Superres_PyrLKOpticalFlow: crate::superres::Superres_DenseOpticalFlowExt + crate::superres::Superres_PyrLKOpticalFlowConst {
 	fn as_raw_mut_Superres_PyrLKOpticalFlow(&mut self) -> *mut c_void;
 
-	/// ## See also
-	/// setWindowSize getWindowSize
 	#[inline]
 	fn set_window_size(&mut self, val: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -778,8 +674,6 @@ pub trait Superres_PyrLKOpticalFlow: crate::superres::Superres_DenseOpticalFlowE
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setMaxLevel getMaxLevel
 	#[inline]
 	fn set_max_level(&mut self, val: i32) -> Result<()> {
 		return_send!(via ocvrs_return);
@@ -789,8 +683,6 @@ pub trait Superres_PyrLKOpticalFlow: crate::superres::Superres_DenseOpticalFlowE
 		Ok(ret)
 	}
 	
-	/// ## See also
-	/// setIterations getIterations
 	#[inline]
 	fn set_iterations(&mut self, val: i32) -> Result<()> {
 		return_send!(via ocvrs_return);

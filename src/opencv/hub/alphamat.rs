@@ -21,13 +21,6 @@ pub mod prelude {
 	pub use {  };
 }
 
-/// Compute alpha matte of an object in an image
-/// ## Parameters
-/// * image: Input RGB image
-/// * tmap: Input greyscale trimap image
-/// * result: Output alpha matte image
-/// 
-/// The function infoFlow performs alpha matting on a RGB image using a greyscale trimap image, and outputs a greyscale alpha matte image. The output alpha matte can be used to softly extract the foreground object from a background image. Examples can be found in the samples directory.
 #[inline]
 pub fn info_flow(image: &dyn core::ToInputArray, tmap: &dyn core::ToInputArray, result: &mut dyn core::ToOutputArray) -> Result<()> {
 	input_array_arg!(image);

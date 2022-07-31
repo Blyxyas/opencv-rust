@@ -32,24 +32,6 @@ pub const RECTIFY_PERSPECTIVE: i32 = 1;
 pub const RECTIFY_STEREOGRAPHIC: i32 = 4;
 pub const XYZ: i32 = 2;
 pub const XYZRGB: i32 = 1;
-/// Perform omnidirectional camera calibration, the default depth of outputs is CV_64F.
-/// 
-/// ## Parameters
-/// * objectPoints: Vector of vector of Vec3f object points in world (pattern) coordinate.
-/// It also can be vector of Mat with size 1xN/Nx1 and type CV_32FC3. Data with depth of 64_F is also acceptable.
-/// * imagePoints: Vector of vector of Vec2f corresponding image points of objectPoints. It must be the same
-/// size and the same type with objectPoints.
-/// * size: Image size of calibration images.
-/// * K: Output calibrated camera matrix.
-/// * xi: Output parameter xi for CMei's model
-/// * D: Output distortion parameters ![inline formula](https://latex.codecogs.com/png.latex?%28k%5F1%2C%20k%5F2%2C%20p%5F1%2C%20p%5F2%29)
-/// * rvecs: Output rotations for each calibration images
-/// * tvecs: Output translation for each calibration images
-/// * flags: The flags that control calibrate
-/// * criteria: Termination criteria for optimization
-/// * idx: Indices of images that pass initialization, which are really used in calibration. So the size of rvecs is the
-/// same as idx.total().
-/// 
 /// ## C++ default parameters
 /// * idx: noArray()
 #[inline]
@@ -69,23 +51,6 @@ pub fn calibrate(object_points: &dyn core::ToInputArray, image_points: &dyn core
 	Ok(ret)
 }
 
-/// Computes undistortion and rectification maps for omnidirectional camera image transform by a rotation R.
-/// It output two maps that are used for cv::remap(). If D is empty then zero distortion is used,
-/// if R or P is empty then identity matrices are used.
-/// 
-/// ## Parameters
-/// * K: Camera matrix ![inline formula](https://latex.codecogs.com/png.latex?K%20%3D%20%5Cbegin%7Bbmatrix%7D%20f%5Fx%20%26%20s%20%26%20c%5Fx%5C%5C%200%20%26%20f%5Fy%20%26%20c%5Fy%5C%5C%200%20%26%200%20%26%20%5F1%20%5Cend%7Bbmatrix%7D), with depth CV_32F or CV_64F
-/// * D: Input vector of distortion coefficients ![inline formula](https://latex.codecogs.com/png.latex?%28k%5F1%2C%20k%5F2%2C%20p%5F1%2C%20p%5F2%29), with depth CV_32F or CV_64F
-/// * xi: The parameter xi for CMei's model
-/// * R: Rotation transform between the original and object space : 3x3 1-channel, or vector: 3x1/1x3, with depth CV_32F or CV_64F
-/// * P: New camera matrix (3x3) or new projection matrix (3x4)
-/// * size: Undistorted image size.
-/// * m1type: Type of the first output map that can be CV_32FC1 or CV_16SC2 . See convertMaps()
-/// for details.
-/// * map1: The first output map.
-/// * map2: The second output map.
-/// * flags: Flags indicates the rectification type,  RECTIFY_PERSPECTIVE, RECTIFY_CYLINDRICAL, RECTIFY_LONGLATI and RECTIFY_STEREOGRAPHIC
-/// are supported.
 #[inline]
 pub fn init_undistort_rectify_map(k: &dyn core::ToInputArray, d: &dyn core::ToInputArray, xi: &dyn core::ToInputArray, r: &dyn core::ToInputArray, p: &dyn core::ToInputArray, size: core::Size, m1type: i32, map1: &mut dyn core::ToOutputArray, map2: &mut dyn core::ToOutputArray, flags: i32) -> Result<()> {
 	input_array_arg!(k);
@@ -102,28 +67,6 @@ pub fn init_undistort_rectify_map(k: &dyn core::ToInputArray, d: &dyn core::ToIn
 	Ok(ret)
 }
 
-/// Projects points for omnidirectional camera using CMei's model
-/// 
-/// ## Parameters
-/// * objectPoints: Object points in world coordinate, vector of vector of Vec3f or Mat of
-/// 1xN/Nx1 3-channel of type CV_32F and N is the number of points. 64F is also acceptable.
-/// * imagePoints: Output array of image points, vector of vector of Vec2f or
-/// 1xN/Nx1 2-channel of type CV_32F. 64F is also acceptable.
-/// * rvec: vector of rotation between world coordinate and camera coordinate, i.e., om
-/// * tvec: vector of translation between pattern coordinate and camera coordinate
-/// * K: Camera matrix ![inline formula](https://latex.codecogs.com/png.latex?K%20%3D%20%5Cbegin%7Bbmatrix%7D%20f%5Fx%20%26%20s%20%26%20c%5Fx%5C%5C%200%20%26%20f%5Fy%20%26%20c%5Fy%5C%5C%200%20%26%200%20%26%20%5F1%20%5Cend%7Bbmatrix%7D).
-/// * D: Input vector of distortion coefficients ![inline formula](https://latex.codecogs.com/png.latex?%28k%5F1%2C%20k%5F2%2C%20p%5F1%2C%20p%5F2%29).
-/// * xi: The parameter xi for CMei's model
-/// * jacobian: Optional output 2Nx16 of type CV_64F jacobian matrix, contains the derivatives of
-/// image pixel points wrt parameters including ![inline formula](https://latex.codecogs.com/png.latex?om%2C%20T%2C%20f%5Fx%2C%20f%5Fy%2C%20s%2C%20c%5Fx%2C%20c%5Fy%2C%20xi%2C%20k%5F1%2C%20k%5F2%2C%20p%5F1%2C%20p%5F2).
-/// This matrix will be used in calibration by optimization.
-/// 
-/// The function projects object 3D points of world coordinate to image pixels, parameter by intrinsic
-/// and extrinsic parameters. Also, it optionally compute a by-product: the jacobian matrix containing
-/// contains the derivatives of image pixel points wrt intrinsic and extrinsic parameters.
-/// 
-/// ## Overloaded parameters
-/// 
 /// ## C++ default parameters
 /// * jacobian: noArray()
 #[inline]
@@ -140,26 +83,6 @@ pub fn project_points_1(object_points: &dyn core::ToInputArray, image_points: &m
 	Ok(ret)
 }
 
-/// Projects points for omnidirectional camera using CMei's model
-/// 
-/// ## Parameters
-/// * objectPoints: Object points in world coordinate, vector of vector of Vec3f or Mat of
-/// 1xN/Nx1 3-channel of type CV_32F and N is the number of points. 64F is also acceptable.
-/// * imagePoints: Output array of image points, vector of vector of Vec2f or
-/// 1xN/Nx1 2-channel of type CV_32F. 64F is also acceptable.
-/// * rvec: vector of rotation between world coordinate and camera coordinate, i.e., om
-/// * tvec: vector of translation between pattern coordinate and camera coordinate
-/// * K: Camera matrix ![inline formula](https://latex.codecogs.com/png.latex?K%20%3D%20%5Cbegin%7Bbmatrix%7D%20f%5Fx%20%26%20s%20%26%20c%5Fx%5C%5C%200%20%26%20f%5Fy%20%26%20c%5Fy%5C%5C%200%20%26%200%20%26%20%5F1%20%5Cend%7Bbmatrix%7D).
-/// * D: Input vector of distortion coefficients ![inline formula](https://latex.codecogs.com/png.latex?%28k%5F1%2C%20k%5F2%2C%20p%5F1%2C%20p%5F2%29).
-/// * xi: The parameter xi for CMei's model
-/// * jacobian: Optional output 2Nx16 of type CV_64F jacobian matrix, contains the derivatives of
-/// image pixel points wrt parameters including ![inline formula](https://latex.codecogs.com/png.latex?om%2C%20T%2C%20f%5Fx%2C%20f%5Fy%2C%20s%2C%20c%5Fx%2C%20c%5Fy%2C%20xi%2C%20k%5F1%2C%20k%5F2%2C%20p%5F1%2C%20p%5F2).
-/// This matrix will be used in calibration by optimization.
-/// 
-/// The function projects object 3D points of world coordinate to image pixels, parameter by intrinsic
-/// and extrinsic parameters. Also, it optionally compute a by-product: the jacobian matrix containing
-/// contains the derivatives of image pixel points wrt intrinsic and extrinsic parameters.
-/// 
 /// ## C++ default parameters
 /// * jacobian: noArray()
 #[inline]
@@ -178,34 +101,6 @@ pub fn project_points(object_points: &dyn core::ToInputArray, image_points: &mut
 	Ok(ret)
 }
 
-/// Stereo calibration for omnidirectional camera model. It computes the intrinsic parameters for two
-/// cameras and the extrinsic parameters between two cameras. The default depth of outputs is CV_64F.
-/// 
-/// ## Parameters
-/// * objectPoints: Object points in world (pattern) coordinate. Its type is vector<vector<Vec3f> >.
-/// It also can be vector of Mat with size 1xN/Nx1 and type CV_32FC3. Data with depth of 64_F is also acceptable.
-/// * imagePoints1: The corresponding image points of the first camera, with type vector<vector<Vec2f> >.
-/// It must be the same size and the same type as objectPoints.
-/// * imagePoints2: The corresponding image points of the second camera, with type vector<vector<Vec2f> >.
-/// It must be the same size and the same type as objectPoints.
-/// * imageSize1: Image size of calibration images of the first camera.
-/// * imageSize2: Image size of calibration images of the second camera.
-/// * K1: Output camera matrix for the first camera.
-/// * xi1: Output parameter xi of Mei's model for the first camera
-/// * D1: Output distortion parameters ![inline formula](https://latex.codecogs.com/png.latex?%28k%5F1%2C%20k%5F2%2C%20p%5F1%2C%20p%5F2%29) for the first camera
-/// * K2: Output camera matrix for the first camera.
-/// * xi2: Output parameter xi of CMei's model for the second camera
-/// * D2: Output distortion parameters ![inline formula](https://latex.codecogs.com/png.latex?%28k%5F1%2C%20k%5F2%2C%20p%5F1%2C%20p%5F2%29) for the second camera
-/// * rvec: Output rotation between the first and second camera
-/// * tvec: Output translation between the first and second camera
-/// * rvecsL: Output rotation for each image of the first camera
-/// * tvecsL: Output translation for each image of the first camera
-/// * flags: The flags that control stereoCalibrate
-/// * criteria: Termination criteria for optimization
-/// * idx: Indices of image pairs that pass initialization, which are really used in calibration. So the size of rvecs is the
-/// same as idx.total().
-/// @
-/// 
 /// ## C++ default parameters
 /// * idx: noArray()
 #[inline]
@@ -231,30 +126,6 @@ pub fn stereo_calibrate(object_points: &mut dyn core::ToInputOutputArray, image_
 	Ok(ret)
 }
 
-/// Stereo 3D reconstruction from a pair of images
-/// 
-/// ## Parameters
-/// * image1: The first input image
-/// * image2: The second input image
-/// * K1: Input camera matrix of the first camera
-/// * D1: Input distortion parameters ![inline formula](https://latex.codecogs.com/png.latex?%28k%5F1%2C%20k%5F2%2C%20p%5F1%2C%20p%5F2%29) for the first camera
-/// * xi1: Input parameter xi for the first camera for CMei's model
-/// * K2: Input camera matrix of the second camera
-/// * D2: Input distortion parameters ![inline formula](https://latex.codecogs.com/png.latex?%28k%5F1%2C%20k%5F2%2C%20p%5F1%2C%20p%5F2%29) for the second camera
-/// * xi2: Input parameter xi for the second camera for CMei's model
-/// * R: Rotation between the first and second camera
-/// * T: Translation between the first and second camera
-/// * flag: Flag of rectification type, RECTIFY_PERSPECTIVE or RECTIFY_LONGLATI
-/// * numDisparities: The parameter 'numDisparities' in StereoSGBM, see StereoSGBM for details.
-/// * SADWindowSize: The parameter 'SADWindowSize' in StereoSGBM, see StereoSGBM for details.
-/// * disparity: Disparity map generated by stereo matching
-/// * image1Rec: Rectified image of the first image
-/// * image2Rec: rectified image of the second image
-/// * newSize: Image size of rectified image, see omnidir::undistortImage
-/// * Knew: New camera matrix of rectified image, see omnidir::undistortImage
-/// * pointCloud: Point cloud of 3D reconstruction, with type CV_64FC3
-/// * pointType: Point cloud type, it can be XYZRGB or XYZ
-/// 
 /// ## C++ default parameters
 /// * new_size: Size()
 /// * knew: cv::noArray()
@@ -284,13 +155,6 @@ pub fn stereo_reconstruct(image1: &dyn core::ToInputArray, image2: &dyn core::To
 	Ok(ret)
 }
 
-/// Stereo rectification for omnidirectional camera model. It computes the rectification rotations for two cameras
-/// 
-/// ## Parameters
-/// * R: Rotation between the first and second camera
-/// * T: Translation between the first and second camera
-/// * R1: Output 3x3 rotation matrix for the first camera
-/// * R2: Output 3x3 rotation matrix for the second camera
 #[inline]
 pub fn stereo_rectify(r: &dyn core::ToInputArray, t: &dyn core::ToInputArray, r1: &mut dyn core::ToOutputArray, r2: &mut dyn core::ToOutputArray) -> Result<()> {
 	input_array_arg!(r);
@@ -304,19 +168,6 @@ pub fn stereo_rectify(r: &dyn core::ToInputArray, t: &dyn core::ToInputArray, r1
 	Ok(ret)
 }
 
-/// Undistort omnidirectional images to perspective images
-/// 
-/// ## Parameters
-/// * distorted: The input omnidirectional image.
-/// * undistorted: The output undistorted image.
-/// * K: Camera matrix ![inline formula](https://latex.codecogs.com/png.latex?K%20%3D%20%5Cbegin%7Bbmatrix%7D%20f%5Fx%20%26%20s%20%26%20c%5Fx%5C%5C%200%20%26%20f%5Fy%20%26%20c%5Fy%5C%5C%200%20%26%200%20%26%20%5F1%20%5Cend%7Bbmatrix%7D).
-/// * D: Input vector of distortion coefficients ![inline formula](https://latex.codecogs.com/png.latex?%28k%5F1%2C%20k%5F2%2C%20p%5F1%2C%20p%5F2%29).
-/// * xi: The parameter xi for CMei's model.
-/// * flags: Flags indicates the rectification type,  RECTIFY_PERSPECTIVE, RECTIFY_CYLINDRICAL, RECTIFY_LONGLATI and RECTIFY_STEREOGRAPHIC
-/// * Knew: Camera matrix of the distorted image. If it is not assigned, it is just K.
-/// * new_size: The new image size. By default, it is the size of distorted.
-/// * R: Rotation matrix between the input and output images. By default, it is identity matrix.
-/// 
 /// ## C++ default parameters
 /// * knew: cv::noArray()
 /// * new_size: Size()
@@ -337,18 +188,6 @@ pub fn undistort_image(distorted: &dyn core::ToInputArray, undistorted: &mut dyn
 	Ok(ret)
 }
 
-/// Undistort 2D image points for omnidirectional camera using CMei's model
-/// 
-/// ## Parameters
-/// * distorted: Array of distorted image points, vector of Vec2f
-/// or 1xN/Nx1 2-channel Mat of type CV_32F, 64F depth is also acceptable
-/// * K: Camera matrix ![inline formula](https://latex.codecogs.com/png.latex?K%20%3D%20%5Cbegin%7Bbmatrix%7D%20f%5Fx%20%26%20s%20%26%20c%5Fx%5C%5C%200%20%26%20f%5Fy%20%26%20c%5Fy%5C%5C%200%20%26%200%20%26%20%5F1%20%5Cend%7Bbmatrix%7D).
-/// * D: Distortion coefficients ![inline formula](https://latex.codecogs.com/png.latex?%28k%5F1%2C%20k%5F2%2C%20p%5F1%2C%20p%5F2%29).
-/// * xi: The parameter xi for CMei's model
-/// * R: Rotation trainsform between the original and object space : 3x3 1-channel, or vector: 3x1/1x3
-/// 1-channel or 1x1 3-channel
-/// * undistorted: array of normalized object points, vector of Vec2f/Vec2d or 1xN/Nx1 2-channel Mat with the same
-/// depth of distorted points.
 #[inline]
 pub fn undistort_points(distorted: &dyn core::ToInputArray, undistorted: &mut dyn core::ToOutputArray, k: &dyn core::ToInputArray, d: &dyn core::ToInputArray, xi: &dyn core::ToInputArray, r: &dyn core::ToInputArray) -> Result<()> {
 	input_array_arg!(distorted);
@@ -654,18 +493,6 @@ impl CustomPattern {
 
 boxed_cast_base! { CustomPattern, core::Algorithm, cv_CustomPattern_to_Algorithm }
 
-/// Class for multiple camera calibration that supports pinhole camera and omnidirection camera.
-/// For omnidirectional camera model, please refer to omnidir.hpp in ccalib module.
-/// It first calibrate each camera individually, then a bundle adjustment like optimization is applied to
-/// refine extrinsic parameters. So far, it only support "random" pattern for calibration,
-/// see randomPattern.hpp in ccalib module for details.
-/// Images that are used should be named by "cameraIdx-timestamp.*", several images with the same timestamp
-/// means that they are the same pattern that are photographed. cameraIdx should start from 0.
-/// 
-/// For more details, please refer to paper
-///    B. Li, L. Heng, K. Kevin  and M. Pollefeys, "A Multiple-Camera System
-///    Calibration Toolbox Using A Feature Descriptor-Based Calibration
-///    Pattern", in IROS 2013.
 pub trait MultiCameraCalibrationTraitConst {
 	fn as_raw_MultiCameraCalibration(&self) -> *const c_void;
 
@@ -722,18 +549,6 @@ pub trait MultiCameraCalibrationTrait: crate::ccalib::MultiCameraCalibrationTrai
 	
 }
 
-/// Class for multiple camera calibration that supports pinhole camera and omnidirection camera.
-/// For omnidirectional camera model, please refer to omnidir.hpp in ccalib module.
-/// It first calibrate each camera individually, then a bundle adjustment like optimization is applied to
-/// refine extrinsic parameters. So far, it only support "random" pattern for calibration,
-/// see randomPattern.hpp in ccalib module for details.
-/// Images that are used should be named by "cameraIdx-timestamp.*", several images with the same timestamp
-/// means that they are the same pattern that are photographed. cameraIdx should start from 0.
-/// 
-/// For more details, please refer to paper
-///    B. Li, L. Heng, K. Kevin  and M. Pollefeys, "A Multiple-Camera System
-///    Calibration Toolbox Using A Feature Descriptor-Based Calibration
-///    Pattern", in IROS 2013.
 pub struct MultiCameraCalibration {
 	ptr: *mut c_void
 }
@@ -956,15 +771,6 @@ impl MultiCameraCalibration_vertex {
 	
 }
 
-/// Class for finding features points and corresponding 3D in world coordinate of
-/// a "random" pattern, which can be to be used in calibration. It is useful when pattern is
-/// partly occluded or only a part of pattern can be observed in multiple cameras calibration.
-/// The pattern can be generated by RandomPatternGenerator class described in this file.
-/// 
-/// Please refer to paper
-///    B. Li, L. Heng, K. Kevin  and M. Pollefeys, "A Multiple-Camera System
-///    Calibration Toolbox Using A Feature Descriptor-Based Calibration
-///    Pattern", in IROS 2013.
 pub trait RandomPatternCornerFinderTraitConst {
 	fn as_raw_RandomPatternCornerFinder(&self) -> *const c_void;
 
@@ -1032,15 +838,6 @@ pub trait RandomPatternCornerFinderTrait: crate::ccalib::RandomPatternCornerFind
 	
 }
 
-/// Class for finding features points and corresponding 3D in world coordinate of
-/// a "random" pattern, which can be to be used in calibration. It is useful when pattern is
-/// partly occluded or only a part of pattern can be observed in multiple cameras calibration.
-/// The pattern can be generated by RandomPatternGenerator class described in this file.
-/// 
-/// Please refer to paper
-///    B. Li, L. Heng, K. Kevin  and M. Pollefeys, "A Multiple-Camera System
-///    Calibration Toolbox Using A Feature Descriptor-Based Calibration
-///    Pattern", in IROS 2013.
 pub struct RandomPatternCornerFinder {
 	ptr: *mut c_void
 }
